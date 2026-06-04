@@ -15,13 +15,20 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · sethmakes</title>
+    <!-- Provisional webfont delivery; self-hosting JetBrains Mono is a pending task -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap"
+    />
     <slot name="head" />
   </head>
   <body>
     <header class="site-header">
       <a href="/" class="site-logo">sethmakes</a>
-      <nav>
-        <a href="/candidates">candidates</a>
+      <nav style="display: flex; gap: var(--mk-space-4);">
+        <a href="/directions">directions</a>
       </nav>
       <button class="mk-btn mk-btn--sm" id="mode-toggle" title="Cycle color mode">auto</button>
     </header>

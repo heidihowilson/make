@@ -33,7 +33,7 @@
   body {
     background: var(--mk-color-bg);
     color: var(--mk-color-text);
-    font-family: var(--mk-font-sans);
+    font-family: var(--mk-font-body);
     font-size: var(--mk-text-md);
     font-weight: var(--mk-weight-regular);
     line-height: var(--mk-leading-normal);

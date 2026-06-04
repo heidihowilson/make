@@ -44,20 +44,21 @@
   --mk-gray-1000: oklch(12% 0 0);
 
   /*
-   * Hero accent ramp, parameterized on hue so candidates can be compared
-   * by flipping one variable. PROVISIONAL hue until the visual pick
-   * (docs site /candidates). Coral/orange family; must stay visibly
-   * distinct from warning yellow-amber in both modes.
+   * Hero accent: moss — a muted green (hue 150, low chroma). Chosen from
+   * rendered candidates 2026-06-04. Shares the green family with
+   * status-success; they stay distinguishable because success runs at
+   * roughly double the chroma. Verify that separation in both modes
+   * whenever either changes.
    */
-  --mk-accent-hue: 38;
-  --mk-accent-100: oklch(94% 0.05 var(--mk-accent-hue));
-  --mk-accent-200: oklch(88% 0.09 var(--mk-accent-hue));
-  --mk-accent-300: oklch(80% 0.13 var(--mk-accent-hue));
-  --mk-accent-400: oklch(73% 0.17 var(--mk-accent-hue));
-  --mk-accent-500: oklch(67% 0.19 var(--mk-accent-hue));
-  --mk-accent-600: oklch(60% 0.19 var(--mk-accent-hue));
-  --mk-accent-700: oklch(52% 0.17 var(--mk-accent-hue));
-  --mk-accent-900: oklch(32% 0.08 var(--mk-accent-hue));
+  --mk-moss-100: oklch(94% 0.04 150);
+  --mk-moss-200: oklch(86% 0.08 150);
+  --mk-moss-300: oklch(82% 0.11 150);
+  --mk-moss-400: oklch(75% 0.1 150);
+  --mk-moss-500: oklch(60% 0.09 150);
+  --mk-moss-600: oklch(48% 0.08 150);
+  --mk-moss-700: oklch(42% 0.08 150);
+  --mk-moss-800: oklch(38% 0.07 150);
+  --mk-moss-900: oklch(27% 0.05 150);
 
   /* Functional status hues (fixed; not brand carriers) */
   --mk-green-400: oklch(72% 0.14 155);
@@ -97,11 +98,14 @@
   --mk-space-7: 3rem;
   --mk-space-8: 4rem;
 
-  /* Radius scale — boldly rounded */
-  --mk-radius-sm: 8px;
-  --mk-radius-control: 12px;
-  --mk-radius-surface: 16px;
-  --mk-radius-pill: 999px;
+  /*
+   * Radius scale — terminal-sharp: zero everywhere. The slots remain so
+   * components never hardcode radii; the value is the aesthetic.
+   */
+  --mk-radius-sm: 0px;
+  --mk-radius-control: 0px;
+  --mk-radius-surface: 0px;
+  --mk-radius-pill: 0px;
 
   /* Motion — quietly alive */
   --mk-motion-quick: 150ms;
@@ -114,8 +118,12 @@
   /* Semantic — components reference ONLY these                          */
   /* ------------------------------------------------------------------ */
 
-  /* PROVISIONAL typeface until the visual pick (docs site /candidates) */
-  --mk-font-sans: ui-rounded, "Nunito", system-ui, sans-serif;
+  /*
+   * Typeface: monospace everywhere — JetBrains Mono, falling back through
+   * the system mono stack. Self-hosting the webfont is a pending task;
+   * consumers currently get the system fallbacks unless they load it.
+   */
+  --mk-font-body: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Surfaces: tonal steps, zero borders. Hierarchy = background shifts. */
   --mk-color-bg: light-dark(var(--mk-gray-100), var(--mk-gray-950));
@@ -131,12 +139,12 @@
   --mk-color-text-muted: light-dark(var(--mk-gray-600), var(--mk-gray-400));
   --mk-color-text-faint: light-dark(var(--mk-gray-400), var(--mk-gray-600));
 
-  /* Accent */
-  --mk-color-accent: light-dark(var(--mk-accent-500), var(--mk-accent-400));
-  --mk-color-accent-hover: light-dark(var(--mk-accent-600), var(--mk-accent-300));
-  --mk-color-accent-contrast: light-dark(var(--mk-gray-0), var(--mk-gray-1000));
-  --mk-color-accent-subtle: light-dark(var(--mk-accent-100), var(--mk-accent-900));
-  --mk-color-on-accent-subtle: light-dark(var(--mk-accent-700), var(--mk-accent-300));
+  /* Accent — moss, in the hero role (fills primary actions) */
+  --mk-color-accent: light-dark(var(--mk-moss-600), var(--mk-moss-400));
+  --mk-color-accent-hover: light-dark(var(--mk-moss-700), var(--mk-moss-300));
+  --mk-color-accent-contrast: light-dark(var(--mk-gray-50), var(--mk-gray-1000));
+  --mk-color-accent-subtle: light-dark(var(--mk-moss-100), var(--mk-moss-900));
+  --mk-color-on-accent-subtle: light-dark(var(--mk-moss-800), var(--mk-moss-200));
 
   /* Status */
   --mk-color-success: light-dark(var(--mk-green-500), var(--mk-green-400));

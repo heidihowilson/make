@@ -31,4 +31,4 @@ Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), S
 
 ## Status
 
-The decision tree from the envisioning interview (2026-06-04) is **fully resolved** — see [ARCHITECTURE.md](./ARCHITECTURE.md) and [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The only open items are visual picks (typeface, exact accent hue, scale values) that get resolved by building candidates into the docs site and looking at them.
+The decision tree from the envisioning interview (2026-06-04) is **fully resolved, including the aesthetic** — see [ARCHITECTURE.md](./ARCHITECTURE.md) and [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The aesthetic took two rounds: a questionnaire-derived gestalt was rendered and rejected on sight; the final language ("terminal bones, calm surface" — JetBrains Mono, zero radius, achromatic grays, moss hero accent) was chosen from complete rendered directions on the docs site. Remaining work is execution: self-host the font, contrast audit, then the tv-tracker migration set.

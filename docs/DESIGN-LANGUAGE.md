@@ -4,45 +4,51 @@ The design language is just **"sethmakes"** — no separate name. One fixed aest
 
 ## The aesthetic in one paragraph
 
-Soft, warm, and quietly confident. Pure achromatic grays form tonal surfaces with **zero borders** — hierarchy comes from background shifts, not lines. Shapes are **boldly rounded** (12px+ radii, pill buttons). A single **warm hero accent** (coral/orange family) carries the brand; everything else stays out of the way. One **rounded sans-serif** is used everywhere — the geometry of the type agrees with the geometry of the components. Density sits in the comfortable middle: generous around content, efficient inside components. Motion is quietly alive — polished, never noticed.
+**Terminal bones, calm surface.** Monospace type everywhere, zero corner radius, and flat tonal surfaces — pure achromatic grays with **zero borders**; hierarchy comes from background shifts, not lines. One muted **moss green** hero accent fills primary actions and marks links and focus; functional status colors exist only to mean things. Density sits in the comfortable middle. Motion is quietly alive — polished, never noticed. Minimalist grayscale with a machine voice, not a costume.
+
+## How it was decided
+
+A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt that was **rejected on sight** (too playful, 2010s-Bootstrap). Lesson recorded: **aesthetics are judged as gestalts, not axes** — decide from complete rendered directions (docs site `/directions`), not abstract questions. The Terminal direction won; the accent was tuned from rendered shade/role candidates to **Moss + Hero**.
 
 ## Decisions
 
 | Axis | Decision |
 |---|---|
 | Density | Comfortable middle — generous around content, efficient inside components |
-| Shape | Boldly rounded: 12px+ radii, pill buttons |
+| Shape | **Terminal-sharp: 0px radius everywhere.** Radius tokens remain as slots; the value is the aesthetic |
 | Elevation | Background-shifts only, **zero borders**; shadows reserved for true overlays |
-| Neutrals | Pure achromatic grays (no warm or cool tint) |
-| Accent | One hero accent (warm: coral/orange family) + functional status colors only |
-| Typography | One distinctive **rounded sans**, used for everything (UI, headings, body) |
-| Modes | **Truly dual**: every semantic token is decided as a light/dark pair from day one — neither mode is "derived" |
-| Motion | Quietly alive: 150–250ms eased transitions on hover/focus/open-close, springier on overlays; tokenized as 2–3 durations + easings |
+| Neutrals | Pure achromatic grays (chroma 0) |
+| Accent | **Moss** — muted green, oklch hue 150 at low chroma (~0.08), in the **hero role**: fills primary buttons, marks links/badges/focus/progress |
+| Typography | **Monospace everywhere: JetBrains Mono**, falling back through the system mono stack (`--mk-font-body`) |
+| Modes | **Truly dual**: every semantic color token is a light/dark pair, written as one `light-dark()` declaration |
+| Motion | Quietly alive: 150–320ms eased transitions; tokenized durations + easings |
 
 ## Consequences & constraints (accepted)
 
-- **Filled form controls.** Zero borders means inputs/selects get tonal filled backgrounds (they'd vanish in light mode otherwise). This is a committed style, not an option.
-- **Accent vs warning separation.** The warm hero accent must stay visibly distinct from the functional warning color in both modes: accent leans **coral/orange**, warning leans **yellow-amber**. Verify the pair in both modes whenever either changes.
-- **Contrast care.** Tonal-step hierarchy without borders needs deliberate contrast checking (WCAG) — especially adjacent surfaces in dark mode.
-- **Flatness risk.** Pure grays + no borders can read flat; the accent, the bold rounding, and spacing rhythm carry all the structure. If a screen looks dead, the fix is hierarchy via tonal steps and type weight — never adding borders.
-- **Visual regression runs in both modes** (dual-mode is a testing requirement, not just a design one).
+- **Filled form controls.** Zero borders means inputs/selects get tonal filled backgrounds. Committed style, not an option.
+- **Accent vs success separation.** Moss (hue 150, chroma ~0.08) and status-success (hue 155, chroma ~0.15) share the green family; they stay distinguishable by chroma — success is roughly twice as saturated. Verify the pair in both modes whenever either changes.
+- **Monospace costs width.** Mono runs ~10–15% wider than a UI sans at the same size; copy and labels must stay terse. This is a feature (terseness is the voice), but watch truncation in narrow layouts.
+- **Webfont delivery.** JetBrains Mono must eventually be self-hosted by the docs site and documented for consumers (with the system-mono fallback as the no-font path). Currently loaded from Google Fonts in the docs app only.
+- **Contrast care.** Tonal-step hierarchy without borders needs deliberate WCAG checking — especially adjacent surfaces in dark mode, and moss-on-gray text colors.
+- **Flatness risk.** If a screen looks dead, the fix is hierarchy via tonal steps and type weight — never adding borders or radius.
+- **Visual regression runs in both modes.**
 
 ## Token structure
 
-- Two tiers: **primitives** (gray ramp, accent ramp, type scale, spacing scale, radius scale, durations/easings) → **semantic** (`--mk-color-bg`, `--mk-color-surface-1/2/3`, `--mk-color-accent`, `--mk-color-text`, `--mk-radius-control`, `--mk-motion-quick`…).
+- Two tiers: **primitives** (gray ramp, moss ramp, status hues, type/spacing/radius scales, durations/easings) → **semantic** (`--mk-color-bg`, `--mk-color-surface-1/2/3`, `--mk-color-field`, `--mk-color-accent`, `--mk-color-text`, `--mk-radius-control`, `--mk-motion-quick`…).
 - Components reference **semantic tokens only**.
-- Light/dark are semantic-token remaps (e.g. `[data-theme="dark"]`), never per-component overrides.
-- Surface hierarchy is expressed as numbered tonal steps (`surface-1..3`) since borders don't exist.
+- Light/dark via `color-scheme` + `light-dark()`; `[data-theme]` overrides, system preference by default. Never per-component mode overrides.
+- Surface hierarchy is numbered tonal steps (`surface-1..3`) since borders don't exist.
 
 ## Explicitly rejected
 
-- The current tv-tracker aesthetic (DaisyUI "abyss": dark-only, teal/cyan accent, system fonts) — dies with the DaisyUI migration.
-- Borders as structure, shadows as primary elevation, cool/warm-tinted neutrals, multi-hue accent families, system font stacks, expressive motion-as-brand.
+- **Round 1 gestalt (2026-06-04):** boldly rounded (pills), rounded sans, warm coral hero accent — too playful, 2010s-Bootstrap.
+- The old tv-tracker aesthetic (DaisyUI "abyss": dark-only, teal/cyan, system fonts).
+- Borders as structure; shadows as primary elevation; tinted neutrals; expressive motion-as-brand.
+- Louder greens (phosphor/matrix/acid) and non-green accents (amber, cyan) — rendered and declined in favor of moss.
 
-## Remaining picks (need visual exploration, not discussion)
+## Remaining open
 
-These get resolved by building candidates into the docs site and looking at them:
-
-1. **The typeface** — shortlist of rounded sans candidates (open-license, variable-weight preferred), rendered side-by-side at UI sizes.
-2. **The exact accent** — coral/orange candidates on real components, both modes, checked against warning-amber.
-3. **Scale values** — the concrete gray ramp, spacing scale, radius scale, type scale. Proposed in code, judged on screen.
+- Self-host JetBrains Mono + document consumer font loading.
+- Concrete WCAG contrast audit of the moss/gray pairs in both modes.
+- Type/spacing scale values are provisional-but-working; revisit only if real screens fight them.
