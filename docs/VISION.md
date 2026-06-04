@@ -1,10 +1,10 @@
 # Vision
 
-`make` is a monorepo of shared packages under the `@sethmakes` npm scope — tools Seth uses when making things.
+**sethmakes** is the toolkit: a monorepo (repo name `make`) of shared packages under the `@sethmakes` npm scope — tools Seth uses when making things. Each tool gets a `sethmakes-<tool>` product name; the first is **sethmakes-ui**, the UI library (the `tokens`/`css`/`components` package trio — package names stay terse, the scope brands the toolkit).
 
 ## Why this exists
 
-Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), Svelte, and whatever comes next. The first concrete deliverable is a **UI component library implementing a single custom design language**, consumed consistently across all of them. Framework-neutrality is the founding reason for the project — not a nice-to-have.
+Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), Svelte, and whatever comes next. The first concrete tool is **sethmakes-ui** — a UI component library implementing a single custom design language, consumed consistently across all of them. Framework-neutrality is the founding reason for the project — not a nice-to-have.
 
 ## Core values (in priority order)
 

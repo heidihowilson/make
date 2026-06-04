@@ -4,87 +4,66 @@ import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
 
-const components = [
-  { href: '/components/typography', name: 'typography', desc: 'Monospace scale, prose, headings.' },
-  { href: '/components/buttons', name: 'buttons', desc: 'Tonal, primary, ghost, danger, badges.' },
-  { href: '/components/forms', name: 'forms', desc: 'Filled inputs, selects, choices, switches.' },
-  { href: '/components/surfaces', name: 'surfaces', desc: 'Cards, tables, dividers, disclosure.' },
-  { href: '/components/feedback', name: 'feedback', desc: 'Alerts, badges, progress, spinners.' },
-  { href: '/components/media', name: 'media', desc: 'Thumbnails, figures, skeletons.' },
+const tools = [
+  {
+    name: 'sethmakes-ui',
+    href: '/ui',
+    status: 'live',
+    desc: 'Framework-neutral UI components and design tokens. One design language — terminal bones, calm surface — for every app.',
+  },
+  {
+    name: 'sethmakes-icons',
+    status: 'planned',
+    desc: 'One icon set, wrapped behind our own module so the upstream is swappable without app churn.',
+  },
+  {
+    name: 'sethmakes-layout',
+    status: 'planned',
+    desc: 'Layout primitives and an interaction-hierarchy strategy: spacing patterns, one modal policy, no modals-on-modals.',
+  },
 ];
 ---
 
-<Base title="Home">
+<Base title="Toolbox">
   <header class="hero">
     <h1>sethmakes</h1>
     <p class="hero__lede">
-      Framework-neutral UI packages implementing one design language —
-      <strong>terminal bones, calm surface.</strong>
+      A toolbox of shared packages — <strong>tools for making things.</strong>
+      Built once, used across every project.
     </p>
   </header>
 
-  <section class="mk-card" aria-labelledby="what">
-    <h2 id="what">What it is</h2>
+  <section class="mk-card" aria-labelledby="how">
+    <h2 id="how">How it's built</h2>
     <p>
-      Monospace type everywhere, zero corner radius, flat tonal surfaces with
-      <strong>zero borders</strong> — hierarchy comes from background shifts, not
-      lines. One muted moss-green hero accent fills primary actions and marks
-      links and focus; functional status colors exist only to mean things.
-      Density sits in the comfortable middle, and motion is quietly alive.
-      A machine voice, not a costume.
-    </p>
-    <p>
-      Decided from rendered directions, not questionnaires — the decision
-      trail lives in the repo's design docs.
+      Web platform first, framework never. Everything here works in Remix,
+      Svelte, plain HTML, or whatever comes next — including server-rendered
+      and no-JS contexts. Boring, durable tech; nothing added before the pain
+      that justifies it.
     </p>
   </section>
 
-  <section aria-labelledby="components">
-    <h2 id="components">Components</h2>
-    <ul class="index">
-      {components.map((c) => (
-        <li class="mk-card index__item">
-          <a class="index__link" href={link(c.href)}>{c.name} →</a>
-          <span class="index__desc">{c.desc}</span>
+  <section aria-labelledby="tools">
+    <h2 id="tools">Tools</h2>
+    <ul class="tools">
+      {tools.map((t) => (
+        <li class="mk-card tools__item">
+          <div class="tools__head">
+            {t.href
+              ? <a class="tools__link" href={link(t.href)}>{t.name} →</a>
+              : <span class="tools__link tools__link--planned">{t.name}</span>}
+            <span class:list={['mk-badge', { 'mk-badge--accent': t.status === 'live' }]}>{t.status}</span>
+          </div>
+          <span class="tools__desc">{t.desc}</span>
         </li>
       ))}
     </ul>
   </section>
 
-  <section class="mk-card" aria-labelledby="install">
-    <h2 id="install">Install</h2>
-    <p>Pull tokens + css for the look with zero JS, then import them once.</p>
+  <section class="mk-card" aria-labelledby="get">
+    <h2 id="get">Get it</h2>
+    <p>Everything publishes publicly under the <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a> npm scope.</p>
     <pre><code>pnpm add @sethmakes/tokens @sethmakes/css</code></pre>
-    <pre><code>/* app entry CSS */
-@import "@sethmakes/tokens/index.css";
-@import "@sethmakes/tokens/fonts.css";
-@import "@sethmakes/css/index.css";</code></pre>
-  </section>
-
-  <section class="mk-card" aria-labelledby="sampler">
-    <h2 id="sampler">Sampler</h2>
-    <p>A taste in the current mode. Flip the toggle up top to see both.</p>
-    <div class="row">
-      <button class="mk-btn mk-btn--primary">Mark watched</button>
-      <button class="mk-btn">Default</button>
-      <button class="mk-btn mk-btn--ghost">Ghost</button>
-    </div>
-    <div class="row">
-      <span class="mk-badge mk-badge--accent">accent</span>
-      <span class="mk-badge mk-badge--success">aired</span>
-      <span class="mk-badge mk-badge--warning">delayed</span>
-      <span class="mk-badge mk-badge--danger">cancelled</span>
-      <span class="mk-badge">neutral</span>
-    </div>
-    <div class="mk-field">
-      <label for="sample-q">Search shows</label>
-      <input id="sample-q" class="mk-input" type="search" placeholder="The Bear" />
-    </div>
-    <div class="mk-alert mk-alert--success">
-      <span class="mk-alert__title">Synced</span>
-      <span>Watch history is up to date.</span>
-    </div>
-    <progress class="mk-progress" max="100" value="62"></progress>
   </section>
 
   <style>
@@ -102,13 +81,11 @@ const components = [
       color: var(--mk-color-text);
     }
 
-    section + section,
-    .mk-card + section,
-    section + .mk-card {
+    section + section {
       margin-top: var(--mk-space-6);
     }
 
-    .index {
+    .tools {
       list-style: none;
       margin: 0;
       padding: 0;
@@ -117,37 +94,34 @@ const components = [
       grid-template-columns: 1fr;
     }
 
-    .index__item {
+    .tools__item {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-1);
+      gap: var(--mk-space-2);
     }
 
-    .index__link {
+    .tools__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--mk-space-3);
+    }
+
+    .tools__link {
       font-weight: var(--mk-weight-bold);
     }
 
-    .index__desc {
+    .tools__link--planned {
+      color: var(--mk-color-text-muted);
+    }
+
+    .tools__desc {
       color: var(--mk-color-text-muted);
       font-size: var(--mk-text-sm);
     }
 
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--mk-space-3);
-      align-items: center;
-      margin-block: var(--mk-space-4);
-    }
-
     .mk-card pre {
       overflow-x: auto;
-    }
-
-    @media (min-width: 40rem) {
-      .index {
-        grid-template-columns: 1fr 1fr;
-      }
     }
   </style>
 </Base>

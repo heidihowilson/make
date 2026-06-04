@@ -15,17 +15,14 @@ const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, 
 // Normalize current path (strip base + trailing slash) for active-link compare.
 const current = Astro.url.pathname.replace(base, '/').replace(/\/+$/, '') || '/';
 
+// Toolbox-level nav; tool sections list their own pages. "ui" highlights
+// for every page under /ui/.
 const nav = [
-  { href: '/components/typography', label: 'type' },
-  { href: '/components/buttons', label: 'buttons' },
-  { href: '/components/forms', label: 'forms' },
-  { href: '/components/surfaces', label: 'surfaces' },
-  { href: '/components/feedback', label: 'feedback' },
-  { href: '/components/media', label: 'media' },
-  { href: '/tokens', label: 'tokens' },
+  { href: '/ui', label: 'ui' },
 ];
 
-const isActive = (href: string) => current === href;
+const isActive = (href: string) =>
+  current === href || (href !== '/' && current.startsWith(href + '/'));
 ---
 
 <!doctype html>

@@ -1,6 +1,10 @@
-# @sethmakes
+# sethmakes
 
-A small design language with one fixed aesthetic: **terminal bones, calm surface.** Monospace type everywhere, zero corner radius, flat tonal surfaces with zero borders — hierarchy comes from background shifts, not lines — and one muted moss-green accent for primary actions, links, and focus. It ships as CSS-first primitives (native HTML styled by classes, zero JS) plus a thin layer of Lit custom elements for the few widgets that actually need behavior. SSR-first, framework-agnostic, brand-consistent across every app that uses it.
+A toolbox of shared packages — tools for making things — published under the `@sethmakes` npm scope. Framework-neutral, web-platform-first, brand-consistent across every app.
+
+## sethmakes-ui
+
+The first tool: a small design language with one fixed aesthetic: **terminal bones, calm surface.** Monospace type everywhere, zero corner radius, flat tonal surfaces with zero borders — hierarchy comes from background shifts, not lines — and one muted moss-green accent for primary actions, links, and focus. It ships as CSS-first primitives (native HTML styled by classes, zero JS) plus a thin layer of Lit custom elements for the few widgets that actually need behavior. SSR-first, framework-agnostic, brand-consistent across every app that uses it.
 
 ## Packages
 

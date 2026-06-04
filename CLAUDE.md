@@ -1,6 +1,6 @@
 # make — shared packages monorepo (@sethmakes)
 
-Monorepo of shared packages; the first is a framework-neutral UI library implementing one custom design language. Read `docs/VISION.md`, `docs/ARCHITECTURE.md`, and `docs/DESIGN-LANGUAGE.md` before structural work — they are the source of truth for decisions and open questions.
+Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a `sethmakes-<tool>` product name. The first is **sethmakes-ui**, a framework-neutral UI library (the tokens/css/components trio) implementing one custom design language. Docs site: toolbox landing at `/`, tools get sections (`/ui/*` via the Ui.astro layout). Read `docs/VISION.md`, `docs/ARCHITECTURE.md`, and `docs/DESIGN-LANGUAGE.md` before structural work — they are the source of truth for decisions and open questions.
 
 ## Structure
 
