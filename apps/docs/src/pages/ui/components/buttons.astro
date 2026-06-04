@@ -26,15 +26,38 @@ import Base from '../../../layouts/Ui.astro';
 
   <section class="mk-card">
     <h2>Sizes</h2>
-    <p>Small, default, large — all keep a comfortable touch target.</p>
+    <p>
+      xs through large. xs is for pointer-dense UIs (table rows, list
+      actions) — it sits below the 44px touch floor, so prefer sm on
+      touch-first surfaces or give the row itself the tap target.
+    </p>
     <div class="row" style="align-items: center;">
+      <button class="mk-btn mk-btn--xs">Tiny</button>
       <button class="mk-btn mk-btn--sm">Small</button>
       <button class="mk-btn">Default</button>
       <button class="mk-btn mk-btn--lg">Large</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--sm"&gt;Small&lt;/button&gt;
+    <pre><code>&lt;button class="mk-btn mk-btn--xs"&gt;Tiny&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--sm"&gt;Small&lt;/button&gt;
 &lt;button class="mk-btn"&gt;Default&lt;/button&gt;
 &lt;button class="mk-btn mk-btn--lg"&gt;Large&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Active</h2>
+    <p>
+      An honest selected state for nav tabs, segmented choices, and toggles —
+      accent-subtle, so it reads "chosen" without competing with primary
+      actions. Pair with <code>aria-current</code> or
+      <code>aria-pressed</code>.
+    </p>
+    <div class="row">
+      <button class="mk-btn mk-btn--ghost mk-btn--active" aria-pressed="true">Watching</button>
+      <button class="mk-btn mk-btn--ghost">Completed</button>
+      <button class="mk-btn mk-btn--ghost">Queued</button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--ghost mk-btn--active" aria-pressed="true"&gt;Watching&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--ghost"&gt;Completed&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
@@ -107,8 +130,14 @@ import Base from '../../../layouts/Ui.astro';
       <span class="mk-badge mk-badge--dot mk-badge--danger">ended</span>
       <span class="mk-badge mk-badge--dot">unknown</span>
     </div>
+    <div class="row" style="align-items: center;">
+      <span class="mk-badge mk-badge--sm mk-badge--success">sm</span>
+      <span class="mk-badge mk-badge--success">default</span>
+      <span style="color: var(--mk-color-text-muted); font-size: var(--mk-text-sm);">— sm tightens padding for dense list rows; type stays legible</span>
+    </div>
     <pre><code>&lt;span class="mk-badge mk-badge--success"&gt;watched&lt;/span&gt;
-&lt;span class="mk-badge mk-badge--dot mk-badge--success"&gt;airing&lt;/span&gt;</code></pre>
+&lt;span class="mk-badge mk-badge--dot mk-badge--success"&gt;airing&lt;/span&gt;
+&lt;span class="mk-badge mk-badge--sm mk-badge--success"&gt;dense&lt;/span&gt;</code></pre>
   </section>
 
   <style>

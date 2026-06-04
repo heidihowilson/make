@@ -1,0 +1,15 @@
+@layer mk.utilities {
+  /*
+   * Link reset — for composite links (card-as-link, nav tabs, logos) where
+   * the global accent-and-underline treatment is wrong. Lives in the
+   * utilities layer so it beats mk.base without specificity games.
+   */
+  .mk-link-reset {
+    color: inherit;
+  }
+
+  .mk-link-reset:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}

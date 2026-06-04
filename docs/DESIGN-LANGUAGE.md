@@ -46,6 +46,12 @@ A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt 
 - The old tv-tracker aesthetic (DaisyUI "abyss": dark-only, teal/cyan, system fonts).
 - Borders as structure; shadows as primary elevation; tinted neutrals; expressive motion-as-brand.
 - Louder greens (phosphor/matrix/acid) and non-green accents (amber, cyan) — rendered and declined in favor of moss.
+- **Outline buttons** (issue #13, consumer #1 request): an outline is a border, and zero-borders is the language's spine. The tonal default button IS the official secondary action.
+
+## Sanctioned exceptions
+
+- **Chrome translucency**: `.mk-appbar`'s translucent surface + backdrop blur is the one allowed translucency — app chrome floats over scrolling content; everything else is opaque tonal.
+- **Elevation is tokenized**: `--mk-layer-chrome/-overlay/-toast`. Nothing types a raw z-index; what may stack on what is policy, not improvisation.
 
 ## Remaining open
 

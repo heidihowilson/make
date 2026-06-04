@@ -59,6 +59,41 @@ const components = [
 @import "@sethmakes/tokens/index.css";
 @import "@sethmakes/tokens/fonts.css";
 @import "@sethmakes/css/index.css";</code></pre>
+    <p class="install-note">
+      <strong>Fonts note:</strong> fonts.css references its woff2 files with
+      relative URLs. Vite rebases these automatically; Tailwind's standalone
+      CLI does not — copy <code>node_modules/@sethmakes/tokens/fonts/</code>
+      into your public assets at build time if fonts 404.
+    </p>
+
+    <h3 id="tailwind">With Tailwind v4</h3>
+    <p>
+      sethmakes-ui and Tailwind coexist by design — Tailwind handles layout,
+      sethmakes handles components. Two rules: import sethmakes
+      <em>first</em>, and skip Tailwind's preflight (it lands after
+      <code>mk.base</code> in the cascade and overwrites heading and link
+      styles). sethmakes' reset zeroes <code>body</code> only, so bring a
+      small margin reset of your own:
+    </p>
+    <pre><code>/* app entry CSS — order matters */
+@import "@sethmakes/tokens/index.css";
+@import "@sethmakes/tokens/fonts.css";
+@import "@sethmakes/css/index.css";
+
+/* Tailwind v4 without preflight: import the layers you use */
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+/* minimal margin reset (preflight normally does this) */
+@layer base &#123;
+  h1, h2, h3, h4, p, ul, ol &#123; margin: 0; &#125;
+&#125;</code></pre>
+    <p class="install-note">
+      Tailwind utilities layer after <code>mk.components</code>, so
+      <code>p-3</code> tightening an <code>mk-card</code> or
+      <code>text-sm</code> resizing a heading just works — no specificity
+      fights.
+    </p>
   </section>
 
   <section class="mk-card" aria-labelledby="sampler">
@@ -138,6 +173,11 @@ const components = [
       gap: var(--mk-space-3);
       align-items: center;
       margin-block: var(--mk-space-4);
+    }
+
+    .install-note {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
     }
 
     .mk-card pre {

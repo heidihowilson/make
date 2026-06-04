@@ -55,11 +55,36 @@
     background: color-mix(in oklch, var(--mk-color-danger), var(--mk-color-text) 12%);
   }
 
+  /*
+   * Active/selected — an honest state for nav tabs, segmented choices, and
+   * toggles, instead of faking it with tonal-vs-ghost contrast. Accent-subtle
+   * so it reads "chosen" without competing with primary actions.
+   */
+  .mk-btn--active {
+    background: var(--mk-color-accent-subtle);
+    color: var(--mk-color-on-accent-subtle);
+  }
+
+  .mk-btn--active:hover {
+    background: color-mix(in oklch, var(--mk-color-accent-subtle), var(--mk-color-on-accent-subtle) 8%);
+  }
+
   /* Sizes */
   .mk-btn--sm {
     font-size: var(--mk-text-xs);
     padding: 0.45em 1.1em;
     min-height: 36px;
+  }
+
+  /*
+   * xs — pointer-dense UIs (table rows, list actions). Deliberately below
+   * the 44px touch floor: on touch-first surfaces prefer --sm, or give the
+   * row itself the tap target (as .mk-choice does).
+   */
+  .mk-btn--xs {
+    font-size: var(--mk-text-xs);
+    padding: 0.3em 0.9em;
+    min-height: 28px;
   }
 
   .mk-btn--lg {

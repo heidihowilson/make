@@ -32,6 +32,14 @@
     color: var(--mk-color-danger);
   }
 
+  /*
+   * sm — dense list rows. Same type size (xs is already the floor of the
+   * scale); only the padding tightens, so dense badges stay legible.
+   */
+  .mk-badge--sm {
+    padding: 0.1em 0.6em;
+  }
+
   /* Status dot — leading indicator in currentColor */
   .mk-badge--dot::before {
     content: "";
