@@ -18,6 +18,7 @@ Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a 
 - **SSR is a feature:** custom elements must work with Declarative Shadow DOM (`@lit-labs/ssr`); CSS-layer markup must render correctly with zero JS.
 - All CSS lives in cascade layers (`@layer mk.reset, mk.base, mk.components, mk.utilities`).
 - Prefix everything `mk`: `--mk-*` tokens, `.mk-*` classes, `<mk-*>` elements.
+- **Rationale comments ship in the published CSS.** Explain the *why* (zero-border consequences, contrast decisions, "circle is geometry, not softness"), not the what. Never strip them for size — consumer #1 restyled an entire app without opening the docs site because the package was the documentation. Protect that.
 
 ## Workflow & releases
 
