@@ -18,6 +18,19 @@ The design-system trio versions in lockstep. `tokens` and `css` publish publicly
 
 `apps/docs` is the Astro site — public docs, dev playground, and SSR test fixture in one. Unpublished.
 
+## Consuming
+
+Import order matters — `css` defines no tokens:
+
+```css
+@import "@sethmakes/tokens/index.css";
+@import "@sethmakes/tokens/fonts.css";
+@import "@sethmakes/css/index.css";
+```
+
+- **With Tailwind v4:** import sethmakes first and skip preflight (it lands after `mk.base` and overwrites heading/link styles); bring a small p/heading margin reset of your own. Full recipe on the docs site's install section.
+- **Fonts:** `fonts.css` uses relative `url(./fonts/…)`. Vite rebases these; Tailwind's standalone CLI does not — copy the `fonts/` dir to public assets at build time if fonts 404.
+
 ## Dev
 
 ```sh

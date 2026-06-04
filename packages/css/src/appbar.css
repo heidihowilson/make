@@ -1,0 +1,34 @@
+@layer mk.components {
+  /*
+   * App bar — sticky app chrome. The translucent surface + backdrop blur is
+   * the one sanctioned translucency in the language: chrome floats over
+   * scrolling content, everything else is opaque tonal. Sits on the chrome
+   * elevation layer (below overlays and toasts, by policy). Safe-area
+   * padded for notched devices.
+   */
+  .mk-appbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--mk-layer-chrome);
+    display: flex;
+    align-items: center;
+    gap: var(--mk-space-4);
+    padding-block: var(--mk-space-3);
+    padding-inline: max(var(--mk-space-4), env(safe-area-inset-left))
+      max(var(--mk-space-4), env(safe-area-inset-right));
+    background: color-mix(in oklch, var(--mk-color-surface-1) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /*
+   * Bottom variant — mobile tab-bar chrome. Same surface, pinned to the
+   * bottom edge, padded past the home indicator.
+   */
+  .mk-appbar--bottom {
+    top: auto;
+    bottom: 0;
+    padding-block: var(--mk-space-2)
+      max(var(--mk-space-2), env(safe-area-inset-bottom));
+  }
+}

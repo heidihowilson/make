@@ -107,6 +107,16 @@
   --mk-radius-surface: 0px;
   --mk-radius-pill: 0px;
 
+  /*
+   * Elevation — named z-index layers so nothing ever types z-index: 9999.
+   * Chrome (app bars, sticky nav) < overlay (dialogs, their backdrops) <
+   * toast (transient, above everything). From the interaction-hierarchy
+   * decision: stacking is policy, not per-component improvisation.
+   */
+  --mk-layer-chrome: 100;
+  --mk-layer-overlay: 200;
+  --mk-layer-toast: 300;
+
   /* Motion — quietly alive */
   --mk-motion-quick: 150ms;
   --mk-motion-standard: 220ms;

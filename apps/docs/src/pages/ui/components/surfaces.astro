@@ -120,7 +120,52 @@ import Base from '../../../layouts/Ui.astro';
 &lt;/details&gt;</code></pre>
   </section>
 
+  <section class="mk-card">
+    <h2>App bar</h2>
+    <p>
+      Sticky app chrome — translucent surface + backdrop blur, the one
+      sanctioned translucency in the language. Sits on the
+      <code>--mk-layer-chrome</code> elevation token (below overlays and
+      toasts, by policy). Safe-area padded. <code>--bottom</code> pins it as
+      mobile tab-bar chrome. Demoed here inside a scrollable box; in an app
+      it sticks to the viewport.
+    </p>
+    <div class="appbar-demo">
+      <header class="mk-appbar">
+        <strong>tv-tracker</strong>
+        <nav style="display: flex; gap: var(--mk-space-4); margin-left: auto;">
+          <a class="mk-link-reset" href="#appbar-demo">shows</a>
+          <a class="mk-link-reset" href="#appbar-demo">upcoming</a>
+        </nav>
+      </header>
+      <p>Scroll me — the bar stays put while content slides under the blur.</p>
+      <p>Note the nav links use <code>mk-link-reset</code>: composite links
+      (nav tabs, card-as-link, logos) opt out of the global accent-and-underline
+      treatment.</p>
+      <p>More filler so there is something to scroll.</p>
+      <p>Even more filler.</p>
+      <p>Last one.</p>
+    </div>
+    <pre><code>&lt;header class="mk-appbar"&gt;
+  &lt;strong&gt;tv-tracker&lt;/strong&gt;
+  &lt;nav&gt;&lt;a class="mk-link-reset" href="/shows"&gt;shows&lt;/a&gt;…&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;nav class="mk-appbar mk-appbar--bottom"&gt;…&lt;/nav&gt;</code></pre>
+  </section>
+
   <style>
+    .appbar-demo {
+      height: 11rem;
+      overflow-y: auto;
+      background: var(--mk-color-bg);
+      margin-bottom: var(--mk-space-4);
+    }
+
+    .appbar-demo > p {
+      padding-inline: var(--mk-space-4);
+    }
+
     section.mk-card + section.mk-card {
       margin-top: var(--mk-space-5);
     }

@@ -12,6 +12,8 @@
     overflow: hidden;
     background: var(--mk-color-surface-2);
     border-radius: var(--mk-radius-surface);
+    /* Size container so the fallback initial can scale to the box */
+    container-type: inline-size;
   }
 
   .mk-thumb--square {
@@ -42,7 +44,12 @@
     place-content: center;
     background: var(--mk-color-surface-3);
     color: var(--mk-color-text-muted);
-    font-size: var(--mk-text-3xl);
+    /*
+     * Scales with the box (the thumb is a size container): a 36px list
+     * thumb gets small type, a full poster gets display size. Clamped to
+     * the type scale at both ends.
+     */
+    font-size: clamp(var(--mk-text-sm), 40cqw, var(--mk-text-3xl));
     font-weight: var(--mk-weight-bold);
     line-height: var(--mk-leading-tight);
     text-transform: uppercase;
