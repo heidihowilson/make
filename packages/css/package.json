@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Class-based styles for native HTML in the sethmakes design language.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heidihowilson/make.git",
+    "directory": "packages/css"
+  },
   "type": "module",
   "exports": {
     ".": "./index.css",

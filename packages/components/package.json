@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Lit custom elements for the sethmakes design language. Intentionally empty until a real consuming project needs a component.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heidihowilson/make.git",
+    "directory": "packages/components"
+  },
   "type": "module",
   "main": "./src/index.ts",
   "private": true,
