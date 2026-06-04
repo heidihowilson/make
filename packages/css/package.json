@@ -1,0 +1,22 @@
+{
+  "name": "@sethmakes/css",
+  "version": "0.0.0",
+  "description": "Class-based styles for native HTML in the sethmakes design language.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.css",
+    "./index.css": "./index.css"
+  },
+  "files": [
+    "index.css",
+    "src"
+  ],
+  "dependencies": {
+    "@sethmakes/tokens": "workspace:*"
+  },
+  "keywords": [
+    "css",
+    "design-system"
+  ]
+}

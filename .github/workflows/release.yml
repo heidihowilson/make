@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+# Publishing uses npm Trusted Publishing (OIDC) — NO npm token or secret.
+# One-time setup on npmjs.com (per package, after first manual publish, or
+# at org level): Package -> Settings -> Trusted Publisher ->
+#   GitHub Actions / repo heidihowilson/make / workflow release.yml.
+# The id-token permission below lets the workflow prove its identity; npm
+# mints short-lived credentials per run and attaches provenance
+# attestations automatically. Packages publish PUBLICLY under @sethmakes/*
+# — the changeset config sets "access": "public".
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write # create the version PR + tags
+  pull-requests: write # open/update the version PR
+  id-token: write # OIDC trusted publishing + provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # action-setup reads the packageManager field in package.json (pnpm@10.x).
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing requires npm >= 11.5.1; Node 22 ships npm 10.
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest && npm --version
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # On a PR-less push: opens/updates a "Version Packages" PR.
+      # When that PR is merged to main: runs `pnpm release` (changeset publish).
+      - name: Create release PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm version
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

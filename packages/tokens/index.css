@@ -1,0 +1,159 @@
+/*
+ * @sethmakes/tokens
+ *
+ * Two tiers: primitives → semantic. Components reference semantic tokens only.
+ * Every semantic color is defined as a light/dark PAIR via light-dark() —
+ * the "truly dual" rule from docs/DESIGN-LANGUAGE.md, enforced by syntax.
+ *
+ * Custom properties are intentionally unlayered: they're data, not style
+ * rules, and never participate in cascade conflicts.
+ */
+
+:root {
+  color-scheme: light dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* Primitives                                                          */
+  /* ------------------------------------------------------------------ */
+
+  /* Pure achromatic gray ramp (chroma 0, perceptual lightness steps) */
+  --mk-gray-0: oklch(100% 0 0);
+  --mk-gray-50: oklch(98.5% 0 0);
+  --mk-gray-100: oklch(97% 0 0);
+  --mk-gray-150: oklch(94.5% 0 0);
+  --mk-gray-200: oklch(91% 0 0);
+  --mk-gray-300: oklch(85% 0 0);
+  --mk-gray-400: oklch(73% 0 0);
+  --mk-gray-500: oklch(60% 0 0);
+  --mk-gray-600: oklch(49% 0 0);
+  --mk-gray-700: oklch(40% 0 0);
+  --mk-gray-800: oklch(30% 0 0);
+  --mk-gray-850: oklch(25% 0 0);
+  --mk-gray-900: oklch(21% 0 0);
+  --mk-gray-950: oklch(16% 0 0);
+  --mk-gray-1000: oklch(12% 0 0);
+
+  /*
+   * Hero accent: moss — a muted green (hue 150, low chroma). Chosen from
+   * rendered candidates 2026-06-04. Shares the green family with
+   * status-success; they stay distinguishable because success runs at
+   * roughly double the chroma. Verify that separation in both modes
+   * whenever either changes.
+   */
+  --mk-moss-100: oklch(94% 0.04 150);
+  --mk-moss-200: oklch(86% 0.08 150);
+  --mk-moss-300: oklch(82% 0.11 150);
+  --mk-moss-400: oklch(75% 0.1 150);
+  --mk-moss-500: oklch(60% 0.09 150);
+  --mk-moss-600: oklch(48% 0.08 150);
+  --mk-moss-700: oklch(42% 0.08 150);
+  --mk-moss-800: oklch(38% 0.07 150);
+  --mk-moss-900: oklch(27% 0.05 150);
+
+  /* Functional status hues (fixed; not brand carriers) */
+  --mk-green-400: oklch(72% 0.14 155);
+  --mk-green-500: oklch(50% 0.15 155); /* darkened from 64% for 4.5:1 on light bg/subtle (CONTRAST.md) */
+  --mk-green-900: oklch(30% 0.07 155);
+  --mk-green-100: oklch(94% 0.06 155);
+  --mk-amber-400: oklch(82% 0.14 85);
+  --mk-amber-500: oklch(52% 0.15 85); /* darkened from 78% for 4.5:1 on light bg/subtle (CONTRAST.md) */
+  --mk-amber-900: oklch(32% 0.07 85);
+  --mk-amber-100: oklch(95% 0.07 85);
+  --mk-red-400: oklch(66% 0.2 25);
+  --mk-red-500: oklch(52% 0.22 25); /* darkened from 58% for 4.5:1 on light bg/subtle (CONTRAST.md) */
+  --mk-red-900: oklch(27% 0.09 25); /* deepened from 30% so red-400 meets 4.5:1 on dark danger-subtle (CONTRAST.md) */
+  --mk-red-100: oklch(94% 0.04 25);
+
+  /* Type scale */
+  --mk-text-xs: 0.75rem;
+  --mk-text-sm: 0.875rem;
+  --mk-text-md: 1rem;
+  --mk-text-lg: 1.125rem;
+  --mk-text-xl: 1.375rem;
+  --mk-text-2xl: 1.75rem;
+  --mk-text-3xl: 2.25rem;
+  --mk-leading-tight: 1.25;
+  --mk-leading-normal: 1.55;
+  --mk-weight-regular: 400;
+  --mk-weight-medium: 600;
+  --mk-weight-bold: 700;
+
+  /* Spacing scale */
+  --mk-space-1: 0.25rem;
+  --mk-space-2: 0.5rem;
+  --mk-space-3: 0.75rem;
+  --mk-space-4: 1rem;
+  --mk-space-5: 1.5rem;
+  --mk-space-6: 2rem;
+  --mk-space-7: 3rem;
+  --mk-space-8: 4rem;
+
+  /*
+   * Radius scale — terminal-sharp: zero everywhere. The slots remain so
+   * components never hardcode radii; the value is the aesthetic.
+   */
+  --mk-radius-sm: 0px;
+  --mk-radius-control: 0px;
+  --mk-radius-surface: 0px;
+  --mk-radius-pill: 0px;
+
+  /* Motion — quietly alive */
+  --mk-motion-quick: 150ms;
+  --mk-motion-standard: 220ms;
+  --mk-motion-slow: 320ms;
+  --mk-ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --mk-ease-spring: cubic-bezier(0.3, 1.4, 0.4, 1);
+
+  /* ------------------------------------------------------------------ */
+  /* Semantic — components reference ONLY these                          */
+  /* ------------------------------------------------------------------ */
+
+  /*
+   * Typeface: monospace everywhere — JetBrains Mono, falling back through
+   * the system mono stack. Self-hosting the webfont is a pending task;
+   * consumers currently get the system fallbacks unless they load it.
+   */
+  --mk-font-body: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Surfaces: tonal steps, zero borders. Hierarchy = background shifts. */
+  --mk-color-bg: light-dark(var(--mk-gray-100), var(--mk-gray-950));
+  --mk-color-surface-1: light-dark(var(--mk-gray-0), var(--mk-gray-900));
+  --mk-color-surface-2: light-dark(var(--mk-gray-150), var(--mk-gray-850));
+  --mk-color-surface-3: light-dark(var(--mk-gray-200), var(--mk-gray-800));
+
+  /* Filled form controls (zero-border consequence) */
+  --mk-color-field: light-dark(var(--mk-gray-150), var(--mk-gray-850));
+
+  /* Text */
+  --mk-color-text: light-dark(var(--mk-gray-900), var(--mk-gray-100));
+  --mk-color-text-muted: light-dark(var(--mk-gray-600), var(--mk-gray-400));
+  --mk-color-text-faint: light-dark(var(--mk-gray-400), var(--mk-gray-600));
+
+  /* Accent — moss, in the hero role (fills primary actions) */
+  --mk-color-accent: light-dark(var(--mk-moss-600), var(--mk-moss-400));
+  --mk-color-accent-hover: light-dark(var(--mk-moss-700), var(--mk-moss-300));
+  --mk-color-accent-contrast: light-dark(var(--mk-gray-50), var(--mk-gray-1000));
+  --mk-color-accent-subtle: light-dark(var(--mk-moss-100), var(--mk-moss-900));
+  --mk-color-on-accent-subtle: light-dark(var(--mk-moss-800), var(--mk-moss-200));
+
+  /* Status */
+  --mk-color-success: light-dark(var(--mk-green-500), var(--mk-green-400));
+  --mk-color-success-subtle: light-dark(var(--mk-green-100), var(--mk-green-900));
+  --mk-color-warning: light-dark(var(--mk-amber-500), var(--mk-amber-400));
+  --mk-color-warning-subtle: light-dark(var(--mk-amber-100), var(--mk-amber-900));
+  --mk-color-danger: light-dark(var(--mk-red-500), var(--mk-red-400));
+  --mk-color-danger-subtle: light-dark(var(--mk-red-100), var(--mk-red-900));
+
+  /* Focus */
+  --mk-color-focus: var(--mk-color-accent);
+}

@@ -1,0 +1,64 @@
+@layer mk.components {
+  /* Disclosure — native details/summary, styled tonal */
+  .mk-disclosure {
+    background: var(--mk-color-surface-1);
+    border-radius: var(--mk-radius-surface);
+  }
+
+  .mk-disclosure > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--mk-space-3);
+    min-height: 44px;
+    padding: var(--mk-space-3) var(--mk-space-4);
+    color: var(--mk-color-text);
+    font-weight: var(--mk-weight-medium);
+    cursor: pointer;
+    list-style: none;
+    transition: background var(--mk-motion-quick) var(--mk-ease-out);
+  }
+
+  /* Strip the native marker in every engine */
+  .mk-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mk-disclosure > summary:hover {
+    background: var(--mk-color-surface-2);
+  }
+
+  /*
+   * Custom marker — a chevron that rotates open. Drawn with a currentColor
+   * background SVG (no border-*, matching the select caret technique) so the
+   * zero-border rule holds uniformly for decorative glyphs.
+   */
+  .mk-disclosure > summary::before {
+    content: "";
+    flex: none;
+    width: 0.7em;
+    height: 0.7em;
+    color: var(--mk-color-text-muted);
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-disclosure > summary::before {
+      transition: transform var(--mk-motion-standard) var(--mk-ease-out);
+    }
+  }
+
+  .mk-disclosure[open] > summary::before {
+    transform: rotate(90deg);
+  }
+
+  /* Content body — tonal recess under the summary */
+  .mk-disclosure__body {
+    padding: var(--mk-space-2) var(--mk-space-4) var(--mk-space-4);
+    color: var(--mk-color-text-muted);
+    font-size: var(--mk-text-sm);
+    line-height: var(--mk-leading-normal);
+  }
+}

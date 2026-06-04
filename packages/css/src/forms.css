@@ -1,0 +1,279 @@
+@layer mk.components {
+  /* Form controls — filled (zero-border consequence) */
+  .mk-input,
+  .mk-select,
+  .mk-textarea {
+    border: 0;
+    border-radius: var(--mk-radius-control);
+    background: var(--mk-color-field);
+    color: var(--mk-color-text);
+    font: inherit;
+    font-size: max(16px, 1em); /* prevent iOS zoom */
+    padding: 0.6em 0.9em;
+    min-height: 44px;
+    width: 100%;
+    transition: background var(--mk-motion-quick) var(--mk-ease-out);
+  }
+
+  .mk-input::placeholder,
+  .mk-textarea::placeholder {
+    color: var(--mk-color-text-faint);
+  }
+
+  .mk-input:hover,
+  .mk-select:hover,
+  .mk-textarea:hover {
+    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 4%);
+  }
+
+  /*
+   * Select — drop the native chrome and paint a caret with a background
+   * data-URI. The glyph is stroked in currentColor so it tracks the text
+   * color across light/dark with no extra tokens. Extra inline-end padding
+   * keeps long option text clear of the caret.
+   */
+  .mk-select {
+    appearance: none;
+    padding-inline-end: var(--mk-space-7);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--mk-space-4) center;
+    background-size: 1.1em;
+  }
+
+  /* Textarea — taller default, vertical resize only */
+  .mk-textarea {
+    min-height: 7rem;
+    resize: vertical;
+    line-height: var(--mk-leading-normal);
+  }
+
+  /* Field scaffolding */
+  .mk-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mk-space-1);
+  }
+
+  .mk-field > label {
+    font-size: var(--mk-text-sm);
+    font-weight: var(--mk-weight-medium);
+  }
+
+  .mk-field__help {
+    font-size: var(--mk-text-xs);
+    color: var(--mk-color-text-muted);
+  }
+
+  /* Error message — danger-tinted, sits below the control */
+  .mk-field__error {
+    font-size: var(--mk-text-xs);
+    color: var(--mk-color-danger);
+  }
+
+  /*
+   * Error state — no border (there are none anywhere); the control gets a
+   * danger-tinted fill instead, mixed off the field token so it stays a
+   * surface, not a loud alert.
+   */
+  .mk-field--error .mk-input,
+  .mk-field--error .mk-select,
+  .mk-field--error .mk-textarea {
+    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-danger) 18%);
+  }
+
+  .mk-field--error .mk-input:hover,
+  .mk-field--error .mk-select:hover,
+  .mk-field--error .mk-textarea:hover {
+    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-danger) 26%);
+  }
+
+  /*
+   * Fieldset — native chrome reset; the legend reads like a field label.
+   * Groups related choices (radio sets, switch stacks).
+   */
+  .mk-fieldset {
+    border: 0; /* native-chrome reset, not a design border */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mk-space-1);
+  }
+
+  .mk-fieldset > legend {
+    padding: 0;
+    margin-bottom: var(--mk-space-2);
+    font-size: var(--mk-text-sm);
+    font-weight: var(--mk-weight-medium);
+  }
+
+  /*
+   * Choice row — a 44px touch target wrapping a 24px control + label.
+   * Used for checkboxes and radios; the whole row is comfortably tappable.
+   */
+  .mk-choice {
+    display: flex;
+    align-items: center;
+    gap: var(--mk-space-3);
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  .mk-choice > span {
+    font-size: var(--mk-text-md);
+  }
+
+  /*
+   * Checkbox & radio — strip native chrome, paint a 24px filled tonal box.
+   * Checkbox stays sharp (zero radius); radio is a true circle because a
+   * circle is geometry, not softness.
+   *
+   * Affordance ring: field-vs-surface-1 is only ~1.1:1, so an unchecked box
+   * is nearly invisible on a card. We add an inset ring (not a border — the
+   * zero-border rule forbids border-*) in text-muted, which clears 3:1
+   * against every surface (WCAG 1.4.11 non-text contrast). The checked state
+   * drops the ring since the accent fill is its own affordance.
+   */
+  .mk-checkbox,
+  .mk-radio {
+    appearance: none;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    background: var(--mk-color-field);
+    color: var(--mk-color-accent-contrast);
+    box-shadow: inset 0 0 0 2px var(--mk-color-text-muted);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition:
+      background var(--mk-motion-quick) var(--mk-ease-out),
+      box-shadow var(--mk-motion-quick) var(--mk-ease-out);
+  }
+
+  .mk-checkbox {
+    border-radius: var(--mk-radius-control);
+  }
+
+  .mk-radio {
+    border-radius: 50%;
+  }
+
+  .mk-checkbox:hover,
+  .mk-radio:hover {
+    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 8%);
+  }
+
+  /* Checked — accent fill with a glyph drawn via ::before; the fill is its
+     own affordance, so the inset ring is dropped. */
+  .mk-checkbox:checked,
+  .mk-radio:checked {
+    background: var(--mk-color-accent);
+    box-shadow: none;
+  }
+
+  .mk-checkbox:checked:hover,
+  .mk-radio:checked:hover {
+    background: var(--mk-color-accent-hover);
+  }
+
+  /*
+   * Checkmark — a square-cut tick. Drawn as a currentColor block clipped to
+   * a check polygon (no border-* — the zero-border rule applies to glyphs
+   * too; this mirrors the select caret using a non-border technique).
+   */
+  .mk-checkbox::before {
+    content: "";
+    width: 0.8em;
+    height: 0.8em;
+    background: currentColor;
+    clip-path: polygon(
+      14% 44%, 0% 60%, 40% 100%, 100% 18%, 84% 4%, 38% 70%
+    );
+    transform: scale(0);
+    transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
+  }
+
+  .mk-checkbox:checked::before {
+    transform: scale(1);
+  }
+
+  /* Radio dot — a solid inner disc */
+  .mk-radio::before {
+    content: "";
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: currentColor;
+    transform: scale(0);
+    transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
+  }
+
+  .mk-radio:checked::before {
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk-checkbox::before,
+    .mk-radio::before {
+      transition: none;
+    }
+  }
+
+  /*
+   * Switch — a checkbox restyled as a track + sliding thumb. Square thumb
+   * (terminal bones: no soft pills), accent track when on, motion-tokened
+   * slide. Lives in a .mk-choice row like the other choices.
+   */
+  .mk-switch {
+    appearance: none;
+    flex: none;
+    width: 44px;
+    height: 24px;
+    margin: 0;
+    padding: 3px;
+    background: var(--mk-color-surface-3);
+    border-radius: var(--mk-radius-pill);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background var(--mk-motion-standard) var(--mk-ease-out);
+  }
+
+  .mk-switch::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    background: var(--mk-color-text-muted);
+    border-radius: var(--mk-radius-sm);
+    transition:
+      transform var(--mk-motion-standard) var(--mk-ease-out),
+      background var(--mk-motion-standard) var(--mk-ease-out);
+  }
+
+  .mk-switch:hover {
+    background: color-mix(in oklch, var(--mk-color-surface-3), var(--mk-color-text) 8%);
+  }
+
+  .mk-switch:checked {
+    background: var(--mk-color-accent);
+  }
+
+  .mk-switch:checked:hover {
+    background: var(--mk-color-accent-hover);
+  }
+
+  .mk-switch:checked::before {
+    background: var(--mk-color-accent-contrast);
+    transform: translateX(20px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk-switch,
+    .mk-switch::before {
+      transition: none;
+    }
+  }
+}

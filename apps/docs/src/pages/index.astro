@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
+
+const tools = [
+  {
+    name: 'sethmakes-ui',
+    href: '/ui',
+    status: 'live',
+    desc: 'Framework-neutral UI components and design tokens. One design language — terminal bones, calm surface — for every app.',
+  },
+  {
+    name: 'sethmakes-icons',
+    status: 'planned',
+    desc: 'One icon set, wrapped behind our own module so the upstream is swappable without app churn.',
+  },
+  {
+    name: 'sethmakes-layout',
+    status: 'planned',
+    desc: 'Layout primitives and an interaction-hierarchy strategy: spacing patterns, one modal policy, no modals-on-modals.',
+  },
+];
+---
+
+<Base title="Toolbox">
+  <header class="hero">
+    <h1>sethmakes</h1>
+    <p class="hero__lede">
+      A toolbox of shared packages — <strong>tools for making things.</strong>
+      Built once, used across every project.
+    </p>
+  </header>
+
+  <section class="mk-card" aria-labelledby="how">
+    <h2 id="how">How it's built</h2>
+    <p>
+      Web platform first, framework never. Everything here works in Remix,
+      Svelte, plain HTML, or whatever comes next — including server-rendered
+      and no-JS contexts. Boring, durable tech; nothing added before the pain
+      that justifies it.
+    </p>
+  </section>
+
+  <section aria-labelledby="tools">
+    <h2 id="tools">Tools</h2>
+    <ul class="tools">
+      {tools.map((t) => (
+        <li class="mk-card tools__item">
+          <div class="tools__head">
+            {t.href
+              ? <a class="tools__link" href={link(t.href)}>{t.name} →</a>
+              : <span class="tools__link tools__link--planned">{t.name}</span>}
+            <span class:list={['mk-badge', { 'mk-badge--accent': t.status === 'live' }]}>{t.status}</span>
+          </div>
+          <span class="tools__desc">{t.desc}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="get">
+    <h2 id="get">Get it</h2>
+    <p>Everything publishes publicly under the <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a> npm scope.</p>
+    <pre><code>pnpm add @sethmakes/tokens @sethmakes/css</code></pre>
+  </section>
+
+  <style>
+    .hero {
+      padding-block: var(--mk-space-5) var(--mk-space-6);
+    }
+
+    .hero__lede {
+      font-size: var(--mk-text-lg);
+      color: var(--mk-color-text-muted);
+      max-width: 44ch;
+    }
+
+    .hero__lede strong {
+      color: var(--mk-color-text);
+    }
+
+    section + section {
+      margin-top: var(--mk-space-6);
+    }
+
+    .tools {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--mk-space-3);
+      grid-template-columns: 1fr;
+    }
+
+    .tools__item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+    }
+
+    .tools__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--mk-space-3);
+    }
+
+    .tools__link {
+      font-weight: var(--mk-weight-bold);
+    }
+
+    .tools__link--planned {
+      color: var(--mk-color-text-muted);
+    }
+
+    .tools__desc {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    .mk-card pre {
+      overflow-x: auto;
+    }
+  </style>
+</Base>

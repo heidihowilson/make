@@ -1,0 +1,22 @@
+{
+  "name": "@sethmakes/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens for the sethmakes design language — CSS custom properties, dual light/dark.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.css",
+    "./index.css": "./index.css",
+    "./fonts.css": "./fonts.css"
+  },
+  "files": [
+    "index.css",
+    "fonts.css",
+    "fonts/"
+  ],
+  "keywords": [
+    "design-tokens",
+    "css",
+    "design-system"
+  ]
+}

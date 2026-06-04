@@ -1,0 +1,208 @@
+---
+import Base from '../../../layouts/Ui.astro';
+---
+
+<Base title="Media">
+  <h1>Media</h1>
+  <p>
+    Aspect-ratio thumbs that crop to fill, a server-rendered initials fallback
+    for the no-image path, tonal skeletons, and captioned figures. Zero radius,
+    zero borders — the box is a tonal slot.
+  </p>
+
+  <section class="mk-card">
+    <h2>Thumb ratios</h2>
+    <p>
+      A <code>.mk-thumb</code> sets the aspect ratio and crops its
+      <code>&lt;img&gt;</code> with <code>object-fit: cover</code>. Default is a
+      poster (2/3); <code>--square</code> is 1/1 and <code>--video</code> is
+      16/9.
+    </p>
+    <div class="row">
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">S</div>
+        </div>
+        <p class="cap">poster · 2/3</p>
+      </div>
+      <div class="ratio-cell">
+        <div class="mk-thumb mk-thumb--square">
+          <div class="mk-thumb__fallback">T</div>
+        </div>
+        <p class="cap">square · 1/1</p>
+      </div>
+      <div class="ratio-cell">
+        <div class="mk-thumb mk-thumb--video">
+          <div class="mk-thumb__fallback">P</div>
+        </div>
+        <p class="cap">video · 16/9</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-thumb"&gt;
+  &lt;img src="/poster.jpg" alt="Severance" /&gt;
+&lt;/div&gt;
+
+&lt;div class="mk-thumb mk-thumb--square"&gt;…&lt;/div&gt;
+&lt;div class="mk-thumb mk-thumb--video"&gt;…&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Initials fallback</h2>
+    <p>
+      The no-image path. tv-tracker renders <code>.mk-thumb__fallback</code> on
+      the server when a poster is missing — it fills the box with a deeper tonal
+      surface and a single large mono initial. No image request, no layout
+      shift.
+    </p>
+    <div class="row">
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">S</div>
+        </div>
+        <p class="cap">Severance</p>
+      </div>
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">A</div>
+        </div>
+        <p class="cap">Andor</p>
+      </div>
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">T</div>
+        </div>
+        <p class="cap">The Bear</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-thumb"&gt;
+  &lt;div class="mk-thumb__fallback"&gt;S&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Skeleton</h2>
+    <p>
+      A tonal shimmer for loading state — gradient sweep between surface-2 and
+      surface-3, guarded by <code>prefers-reduced-motion</code> (static
+      surface-2 when reduced). Drop one inside a thumb, or use
+      <code>--text</code> for line shims.
+    </p>
+    <div class="row">
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-skeleton"></div>
+        </div>
+      </div>
+      <div class="lines">
+        <div class="mk-skeleton mk-skeleton--text" style="width: 70%"></div>
+        <div class="mk-skeleton mk-skeleton--text" style="width: 45%"></div>
+        <div class="mk-skeleton mk-skeleton--text" style="width: 90%"></div>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-thumb"&gt;
+  &lt;div class="mk-skeleton"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="mk-skeleton mk-skeleton--text" style="width: 70%"&gt;&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Figure with caption</h2>
+    <p>
+      Wrap media in <code>.mk-figure</code> for a muted, small caption beneath.
+      No chrome — only the caption is styled.
+    </p>
+    <div class="row">
+      <figure class="mk-figure" style="max-width: 9rem">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">S</div>
+        </div>
+        <figcaption>Severance — s2e1, aired Jan 2026.</figcaption>
+      </figure>
+    </div>
+    <pre><code>&lt;figure class="mk-figure"&gt;
+  &lt;div class="mk-thumb"&gt;
+    &lt;img src="/poster.jpg" alt="Severance" /&gt;
+  &lt;/div&gt;
+  &lt;figcaption&gt;Severance — s2e1, aired Jan 2026.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Poster grid</h2>
+    <p>
+      Grids are the app's problem, not the library's — there is no
+      <code>.mk-grid</code>. Lay thumbs out with your own CSS grid; the page-local
+      style below is the whole recipe.
+    </p>
+    <div class="poster-grid">
+      <div class="mk-thumb"><div class="mk-thumb__fallback">S</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">A</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">T</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">F</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">D</div></div>
+      <div class="mk-thumb"><div class="mk-skeleton"></div></div>
+    </div>
+    <pre><code>&lt;ul class="poster-grid"&gt;
+  &lt;li&gt;&lt;div class="mk-thumb"&gt;…&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+/* app CSS — not shipped by the library */
+.poster-grid &#123;
+  display: grid;
+  gap: var(--mk-space-3);
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+&#125;</code></pre>
+  </section>
+
+  <style>
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-5);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--mk-space-4);
+    }
+
+    .ratio-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+      width: 8rem;
+    }
+
+    .ratio-cell .cap,
+    .cap {
+      margin: 0;
+      font-size: var(--mk-text-xs);
+      color: var(--mk-color-text-muted);
+    }
+
+    .lines {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+      flex: 1;
+      min-width: 12rem;
+    }
+
+    /* Poster grid is page-local on purpose — the library ships no grid. */
+    .poster-grid {
+      display: grid;
+      gap: var(--mk-space-3);
+      grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    }
+
+    pre {
+      margin-top: var(--mk-space-4);
+      padding: var(--mk-space-3) var(--mk-space-4);
+      background: var(--mk-color-surface-2);
+      color: var(--mk-color-text);
+      font-size: var(--mk-text-xs);
+      overflow-x: auto;
+    }
+  </style>
+</Base>

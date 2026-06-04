@@ -1,0 +1,77 @@
+@layer mk.components {
+  /* Progress — tonal track, accent fill */
+  .mk-progress {
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    border: 0;
+    border-radius: var(--mk-radius-pill);
+    background: var(--mk-color-surface-3);
+    overflow: hidden;
+  }
+
+  .mk-progress::-webkit-progress-bar {
+    background: var(--mk-color-surface-3);
+    border-radius: var(--mk-radius-pill);
+  }
+
+  .mk-progress::-webkit-progress-value {
+    background: var(--mk-color-accent);
+    border-radius: var(--mk-radius-pill);
+    transition: width var(--mk-motion-standard) var(--mk-ease-out);
+  }
+
+  .mk-progress::-moz-progress-bar {
+    background: var(--mk-color-accent);
+    border-radius: var(--mk-radius-pill);
+  }
+
+  /* Thinner variant */
+  .mk-progress--sm {
+    height: 0.25rem;
+  }
+
+  /*
+   * Indeterminate — a <progress> with no value attribute. Browsers zero out
+   * the value bar, so we paint a sliding accent segment on the track itself
+   * and let it travel. Reduced motion falls back to a static partial fill so
+   * the bar still signals "working" without movement.
+   */
+  .mk-progress:indeterminate {
+    background:
+      linear-gradient(
+        to right,
+        var(--mk-color-accent) 0%,
+        var(--mk-color-accent) 40%,
+        transparent 40%
+      )
+      var(--mk-color-surface-3);
+    background-repeat: no-repeat;
+    background-size: 40% 100%;
+    background-position: 0% 0%;
+  }
+
+  .mk-progress:indeterminate::-webkit-progress-bar {
+    background: transparent;
+  }
+
+  .mk-progress:indeterminate::-moz-progress-bar {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-progress:indeterminate {
+      /* slow token x4 keeps the loop tokenized (~1280ms ≈ the original 1.4s). */
+      animation: mk-progress-slide calc(var(--mk-motion-slow) * 4) var(--mk-ease-out) infinite;
+    }
+  }
+
+  @keyframes mk-progress-slide {
+    from {
+      background-position: -40% 0%;
+    }
+    to {
+      background-position: 140% 0%;
+    }
+  }
+}

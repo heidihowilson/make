@@ -1,0 +1,133 @@
+---
+import Base from '../../../layouts/Ui.astro';
+---
+
+<Base title="Feedback">
+  <h1>Feedback</h1>
+  <p>
+    Status, loading and empty states — all flat and tonal. Alerts tint, the
+    spinner steps like a machine, progress fills with accent, and an empty
+    block stays quiet until there's something to show.
+  </p>
+
+  <section class="mk-card">
+    <h2>Alert</h2>
+    <p>
+      A subtle filled block with optional bold title. Info uses the moss
+      accent; success, warning and danger use the status hues.
+    </p>
+    <div class="demo-col">
+      <div class="mk-alert mk-alert--info">
+        <span class="mk-alert__title">Heads up</span>
+        <span>Two shows on your list air new episodes tonight.</span>
+      </div>
+      <div class="mk-alert mk-alert--success">
+        <span class="mk-alert__title">Saved</span>
+        <span>Severance marked as watched through s2e4.</span>
+      </div>
+      <div class="mk-alert mk-alert--warning">
+        <span class="mk-alert__title">Stale data</span>
+        <span>Episode list last synced 8 days ago.</span>
+      </div>
+      <div class="mk-alert mk-alert--danger">
+        <span class="mk-alert__title">Sync failed</span>
+        <span>Couldn't reach the network. Retry shortly.</span>
+      </div>
+      <div class="mk-alert mk-alert--info">
+        No title — a single muted line works too.
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-alert mk-alert--warning"&gt;
+  &lt;span class="mk-alert__title"&gt;Stale data&lt;/span&gt;
+  &lt;span&gt;Episode list last synced 8 days ago.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Spinner</h2>
+    <p>
+      CSS-only, stepped square sweep. Two sizes; freezes to a static block
+      under reduced motion.
+    </p>
+    <div class="demo-row demo-row--center">
+      <span class="mk-spinner mk-spinner--sm" role="status" aria-label="Loading"></span>
+      <span class="mk-spinner mk-spinner--md" role="status" aria-label="Loading"></span>
+    </div>
+    <pre><code>&lt;span class="mk-spinner mk-spinner--md" role="status" aria-label="Loading"&gt;&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Progress</h2>
+    <p>
+      Native <code>&lt;progress&gt;</code> — tonal track, accent fill. A thinner
+      <code>--sm</code> variant, and an indeterminate state when the value is
+      unknown (omit <code>value</code>).
+    </p>
+    <div class="demo-col">
+      <progress class="mk-progress" value="0.7" max="1">70%</progress>
+      <progress class="mk-progress mk-progress--sm" value="0.35" max="1">35%</progress>
+      <progress class="mk-progress" aria-label="Syncing episodes"></progress>
+    </div>
+    <pre><code>&lt;progress class="mk-progress" value="0.7" max="1"&gt;70%&lt;/progress&gt;
+&lt;progress class="mk-progress mk-progress--sm" value="0.35" max="1"&gt;35%&lt;/progress&gt;
+&lt;progress class="mk-progress" aria-label="Syncing episodes"&gt;&lt;/progress&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Empty state</h2>
+    <p>
+      A centered tonal block for "nothing here yet" — muted message, optional
+      title, and room for a single call to action.
+    </p>
+    <div class="demo-col">
+      <div class="mk-empty">
+        <span class="mk-empty__title">No shows tracked</span>
+        <p class="mk-empty__message">
+          Add a series to start tracking episodes and watch status.
+        </p>
+        <div class="mk-empty__action">
+          <button class="mk-btn mk-btn--primary" type="button">Add a show</button>
+        </div>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-empty"&gt;
+  &lt;span class="mk-empty__title"&gt;No shows tracked&lt;/span&gt;
+  &lt;p class="mk-empty__message"&gt;Add a series to start tracking.&lt;/p&gt;
+  &lt;div class="mk-empty__action"&gt;
+    &lt;button class="mk-btn mk-btn--primary"&gt;Add a show&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <style>
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-5);
+    }
+
+    .demo-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-3);
+      max-width: 30rem;
+    }
+
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-5);
+    }
+
+    .demo-row--center {
+      align-items: center;
+    }
+
+    pre {
+      margin-top: var(--mk-space-4);
+      padding: var(--mk-space-3) var(--mk-space-4);
+      background: var(--mk-color-surface-2);
+      color: var(--mk-color-text);
+      font-size: var(--mk-text-xs);
+      overflow-x: auto;
+    }
+  </style>
+</Base>

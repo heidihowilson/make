@@ -1,0 +1,12 @@
+{
+  "name": "@sethmakes/components",
+  "version": "0.0.0",
+  "description": "Lit custom elements for the sethmakes design language. Intentionally empty until a real consuming project needs a component.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "private": true,
+  "dependencies": {
+    "@sethmakes/tokens": "workspace:*"
+  }
+}

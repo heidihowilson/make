@@ -1,0 +1,68 @@
+@layer mk.base {
+  body {
+    background: var(--mk-color-bg);
+    color: var(--mk-color-text);
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-text-md);
+    font-weight: var(--mk-weight-regular);
+    line-height: var(--mk-leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: var(--mk-weight-bold);
+    line-height: var(--mk-leading-tight);
+    margin-block: 0 var(--mk-space-3);
+  }
+
+  h1 {
+    font-size: var(--mk-text-3xl);
+  }
+
+  h2 {
+    font-size: var(--mk-text-2xl);
+  }
+
+  h3 {
+    font-size: var(--mk-text-xl);
+  }
+
+  h4 {
+    font-size: var(--mk-text-lg);
+  }
+
+  a {
+    color: var(--mk-color-accent);
+    text-decoration: none;
+    transition: color var(--mk-motion-quick) var(--mk-ease-out);
+  }
+
+  a:hover {
+    color: var(--mk-color-accent-hover);
+    text-decoration: underline;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--mk-color-focus);
+    outline-offset: 2px;
+  }
+
+  /*
+   * Global reduced-motion guard. Motion is "quietly alive" by default, but
+   * honor the user's OS-level request to cut it: collapse every transition
+   * and animation site-wide rather than relying on each component to remember.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

@@ -1,0 +1,130 @@
+---
+import Base from '../../../layouts/Ui.astro';
+---
+
+<Base title="Typography">
+  <h1>Typography &amp; prose</h1>
+  <p>
+    Monospace everywhere, hierarchy from size and weight — no borders, no
+    radius. The type scale carries headings to body; <code>.mk-prose</code>
+    handles article-style long-form content.
+  </p>
+
+  <section class="mk-card">
+    <h2>Type scale</h2>
+    <p>Headings and body text, top to bottom. Set in <code>--mk-font-body</code>.</p>
+
+    <div class="specimen">
+      <div class="specimen__row">
+        <span class="specimen__label">h1 / 3xl</span>
+        <h1 style="margin: 0;">Watchlist</h1>
+      </div>
+      <div class="specimen__row">
+        <span class="specimen__label">h2 / 2xl</span>
+        <h2 style="margin: 0;">Currently airing</h2>
+      </div>
+      <div class="specimen__row">
+        <span class="specimen__label">h3 / xl</span>
+        <h3 style="margin: 0;">Season 2</h3>
+      </div>
+      <div class="specimen__row">
+        <span class="specimen__label">h4 / lg</span>
+        <h4 style="margin: 0;">Episode notes</h4>
+      </div>
+      <div class="specimen__row">
+        <span class="specimen__label">body / md</span>
+        <p style="margin: 0;">The quick brown fox jumps over the lazy dog — 0123456789.</p>
+      </div>
+      <div class="specimen__row">
+        <span class="specimen__label">small / sm</span>
+        <small>Last watched 3 days ago.</small>
+      </div>
+    </div>
+
+    <pre><code>&lt;h1&gt;Watchlist&lt;/h1&gt;
+&lt;h2&gt;Currently airing&lt;/h2&gt;
+&lt;p&gt;Body copy in the mono stack.&lt;/p&gt;
+&lt;small&gt;Caption text.&lt;/small&gt;</code></pre>
+  </section>
+
+  <section class="mk-card" style="margin-block-start: var(--mk-space-5);">
+    <h2>Prose</h2>
+    <p>
+      Wrap article content in <code>.mk-prose</code> for paragraph rhythm,
+      lists, code, blockquotes, and inline elements — all tonal, all
+      border-free.
+    </p>
+
+    <div class="mk-prose">
+      <p>
+        <strong>Severance</strong> follows a team whose work selves and home
+        selves are surgically split. You can mark episodes watched, rate them,
+        and leave a <em>note</em> per episode.
+      </p>
+
+      <h3>Watch states</h3>
+      <p>An episode moves through a small set of states:</p>
+      <ul>
+        <li>unwatched — the default</li>
+        <li>watched — counts toward season progress</li>
+        <li>
+          skipped — excluded from progress
+          <ul>
+            <li>recaps and specials skip by default</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Marking via the API</h3>
+      <p>
+        Toggle a state with <code>PATCH /episodes/:id</code>. The response
+        echoes the updated record:
+      </p>
+      <pre><code>PATCH /episodes/8f21e
+&#123; "state": "watched", "rating": 5 &#125;
+=&gt; 200 &#123; "id": "8f21e", "state": "watched", "rating": 5 &#125;</code></pre>
+
+      <blockquote>
+        <p>
+          Progress is computed, never stored — skipped episodes simply drop out
+          of the denominator.
+        </p>
+      </blockquote>
+
+      <p>
+        Prefer the keyboard? Press <kbd>W</kbd> to mark watched, or
+        <kbd>Shift</kbd> + <kbd>S</kbd> to skip.
+      </p>
+
+      <small>Counts refresh on the next sync.</small>
+    </div>
+
+    <pre><code>&lt;article class="mk-prose"&gt;
+  &lt;p&gt;Body copy with &lt;code&gt;inline code&lt;/code&gt;.&lt;/p&gt;
+  &lt;blockquote&gt;&lt;p&gt;A pull quote.&lt;/p&gt;&lt;/blockquote&gt;
+  &lt;p&gt;Press &lt;kbd&gt;W&lt;/kbd&gt; to mark watched.&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+  </section>
+
+  <style>
+    .specimen {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-4);
+    }
+
+    .specimen__row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--mk-space-2) var(--mk-space-4);
+    }
+
+    .specimen__label {
+      flex: 0 0 auto;
+      min-width: 7rem;
+      font-size: var(--mk-text-xs);
+      color: var(--mk-color-text-muted);
+    }
+  </style>
+</Base>

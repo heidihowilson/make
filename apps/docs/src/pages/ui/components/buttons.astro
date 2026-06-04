@@ -1,0 +1,134 @@
+---
+import Base from '../../../layouts/Ui.astro';
+---
+
+<Base title="Buttons">
+  <h1>Buttons &amp; badges</h1>
+  <p>
+    Native <code>&lt;button&gt;</code> styled by class — tonal by default, moss
+    fill for primary, status fills for danger. Badges are tonal status pills.
+  </p>
+
+  <section class="mk-card">
+    <h2>Variants</h2>
+    <p>Tonal default, moss primary, transparent ghost, destructive danger.</p>
+    <div class="row">
+      <button class="mk-btn mk-btn--primary">Mark watched</button>
+      <button class="mk-btn">Default</button>
+      <button class="mk-btn mk-btn--ghost">Ghost</button>
+      <button class="mk-btn mk-btn--danger">Remove show</button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary"&gt;Mark watched&lt;/button&gt;
+&lt;button class="mk-btn"&gt;Default&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--ghost"&gt;Ghost&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--danger"&gt;Remove show&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Sizes</h2>
+    <p>Small, default, large — all keep a comfortable touch target.</p>
+    <div class="row" style="align-items: center;">
+      <button class="mk-btn mk-btn--sm">Small</button>
+      <button class="mk-btn">Default</button>
+      <button class="mk-btn mk-btn--lg">Large</button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--sm"&gt;Small&lt;/button&gt;
+&lt;button class="mk-btn"&gt;Default&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--lg"&gt;Large&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Disabled</h2>
+    <p>Dimmed, no hover, default cursor — every variant.</p>
+    <div class="row">
+      <button class="mk-btn mk-btn--primary" disabled>Primary</button>
+      <button class="mk-btn" disabled>Default</button>
+      <button class="mk-btn mk-btn--ghost" disabled>Ghost</button>
+      <button class="mk-btn mk-btn--danger" disabled>Danger</button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary" disabled&gt;Primary&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Block</h2>
+    <p>Full-width — useful in narrow forms and mobile sheets.</p>
+    <div style="display: flex; flex-direction: column; gap: var(--mk-space-3); max-width: 22rem;">
+      <button class="mk-btn mk-btn--primary mk-btn--block">Next episode</button>
+      <button class="mk-btn mk-btn--block">Skip</button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary mk-btn--block"&gt;Next episode&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Icon</h2>
+    <p>Square 44×44 target for a single glyph or svg. Always label it.</p>
+    <div class="row">
+      <button class="mk-btn mk-btn--icon" aria-label="Play episode">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
+      <button class="mk-btn mk-btn--primary mk-btn--icon" aria-label="Add to watchlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      </button>
+      <button class="mk-btn mk-btn--danger mk-btn--icon" aria-label="Delete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+          <path d="M6 7h12M9 7V5h6v2M8 7l1 12h6l1-12" />
+        </svg>
+      </button>
+      <button class="mk-btn mk-btn--icon" aria-label="Play episode" disabled>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
+    </div>
+    <pre><code>&lt;button class="mk-btn mk-btn--icon" aria-label="Play episode"&gt;
+  &lt;svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"&gt;
+    &lt;path d="M8 5v14l11-7z" /&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Badges</h2>
+    <p>Tonal status pills; add <code>--dot</code> for a leading status dot.</p>
+    <div class="row">
+      <span class="mk-badge">neutral</span>
+      <span class="mk-badge mk-badge--accent">featured</span>
+      <span class="mk-badge mk-badge--success">watched</span>
+      <span class="mk-badge mk-badge--warning">behind</span>
+      <span class="mk-badge mk-badge--danger">cancelled</span>
+    </div>
+    <div class="row">
+      <span class="mk-badge mk-badge--dot mk-badge--success">airing</span>
+      <span class="mk-badge mk-badge--dot mk-badge--warning">on break</span>
+      <span class="mk-badge mk-badge--dot mk-badge--danger">ended</span>
+      <span class="mk-badge mk-badge--dot">unknown</span>
+    </div>
+    <pre><code>&lt;span class="mk-badge mk-badge--success"&gt;watched&lt;/span&gt;
+&lt;span class="mk-badge mk-badge--dot mk-badge--success"&gt;airing&lt;/span&gt;</code></pre>
+  </section>
+
+  <style>
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-3);
+    }
+
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-5);
+    }
+
+    pre {
+      margin-top: var(--mk-space-4);
+      padding: var(--mk-space-3) var(--mk-space-4);
+      background: var(--mk-color-surface-2);
+      color: var(--mk-color-text);
+      font-size: var(--mk-text-xs);
+      overflow-x: auto;
+    }
+  </style>
+</Base>

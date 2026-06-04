@@ -1,0 +1,113 @@
+@layer mk.components {
+  /*
+   * Media thumb — an aspect-ratio box that crops its image to fill. Zero
+   * radius (terminal bones). Default ratio is a poster (2/3); square and
+   * video variants swap the ratio. The box itself carries a tonal surface
+   * so it reads as a slot before any image (or fallback) lands.
+   */
+  .mk-thumb {
+    display: block;
+    position: relative;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: var(--mk-color-surface-2);
+    border-radius: var(--mk-radius-surface);
+  }
+
+  .mk-thumb--square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .mk-thumb--video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .mk-thumb > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /*
+   * Server-rendered no-image path. tv-tracker emits this on the server when
+   * a poster is missing: it fills the box with a deeper tonal surface and
+   * centers a single large mono initial in muted text. No border, no glyph
+   * font — just type weight doing the work.
+   */
+  .mk-thumb__fallback {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    background: var(--mk-color-surface-3);
+    color: var(--mk-color-text-muted);
+    font-size: var(--mk-text-3xl);
+    font-weight: var(--mk-weight-bold);
+    line-height: var(--mk-leading-tight);
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  /*
+   * Skeleton — a tonal shimmer placeholder. Animates a gradient sweep
+   * between surface-2 and surface-3; under reduced-motion (and as the
+   * no-animation fallback) it sits as a static surface-2 block. Fills a
+   * thumb when nested, or stands alone as a text-line shim.
+   */
+  .mk-skeleton {
+    background: var(--mk-color-surface-2);
+  }
+
+  .mk-thumb > .mk-skeleton {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Text-line skeleton — a single muted bar at line height. */
+  .mk-skeleton--text {
+    height: 1em;
+    line-height: var(--mk-leading-normal);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-skeleton {
+      background: linear-gradient(
+        100deg,
+        var(--mk-color-surface-2) 30%,
+        var(--mk-color-surface-3) 50%,
+        var(--mk-color-surface-2) 70%
+      );
+      background-size: 200% 100%;
+      /* slow token x5 keeps the loop tokenized but readable as a sweep */
+      animation: mk-skeleton-shimmer calc(var(--mk-motion-slow) * 5) var(--mk-ease-out) infinite;
+    }
+  }
+
+  @keyframes mk-skeleton-shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  /*
+   * Figure + caption — wraps a thumb (or any media) with a muted, small
+   * caption beneath. The figure carries no chrome; the caption is the only
+   * styled part.
+   */
+  .mk-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mk-space-2);
+  }
+
+  .mk-figure > figcaption {
+    font-size: var(--mk-text-sm);
+    line-height: var(--mk-leading-normal);
+    color: var(--mk-color-text-muted);
+  }
+}

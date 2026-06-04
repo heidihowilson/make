@@ -1,0 +1,44 @@
+@layer mk.components {
+  /* Badge — tonal */
+  .mk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--mk-space-2);
+    border-radius: var(--mk-radius-pill);
+    background: var(--mk-color-surface-3);
+    color: var(--mk-color-text-muted);
+    font-size: var(--mk-text-xs);
+    font-weight: var(--mk-weight-medium);
+    padding: 0.25em 0.9em;
+  }
+
+  .mk-badge--accent {
+    background: var(--mk-color-accent-subtle);
+    color: var(--mk-color-on-accent-subtle);
+  }
+
+  .mk-badge--success {
+    background: var(--mk-color-success-subtle);
+    color: var(--mk-color-success);
+  }
+
+  .mk-badge--warning {
+    background: var(--mk-color-warning-subtle);
+    color: var(--mk-color-warning);
+  }
+
+  .mk-badge--danger {
+    background: var(--mk-color-danger-subtle);
+    color: var(--mk-color-danger);
+  }
+
+  /* Status dot — leading indicator in currentColor */
+  .mk-badge--dot::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: var(--mk-radius-pill);
+    background: currentColor;
+    flex: none;
+  }
+}

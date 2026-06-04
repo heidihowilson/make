@@ -1,0 +1,192 @@
+---
+import '@sethmakes/tokens/index.css';
+import '@sethmakes/tokens/fonts.css';
+import '@sethmakes/css/index.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
+
+// Normalize current path (strip base + trailing slash) for active-link compare.
+const current = Astro.url.pathname.replace(base, '/').replace(/\/+$/, '') || '/';
+
+// Toolbox-level nav; tool sections list their own pages. "ui" highlights
+// for every page under /ui/.
+const nav = [
+  { href: '/ui', label: 'ui' },
+];
+
+const isActive = (href: string) =>
+  current === href || (href !== '/' && current.startsWith(href + '/'));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · sethmakes</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header">
+      <a href={link('/')} class="site-logo" aria-current={current === '/' ? 'page' : undefined}>sethmakes</a>
+      <nav class="site-nav" aria-label="Primary">
+        {nav.map((item) => (
+          <a
+            href={link(item.href)}
+            class:list={['site-nav__link', { 'site-nav__link--active': isActive(item.href) }]}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >{item.label}</a>
+        ))}
+      </nav>
+      <button class="mk-btn mk-btn--sm" id="mode-toggle" title="Cycle color mode">auto</button>
+    </header>
+
+    <main id="main-content" class="site-main" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <span>sethmakes — terminal bones, calm surface.</span>
+      <nav class="site-footer__links" aria-label="Footer">
+        <a href="https://github.com/sethmakes/make">GitHub</a>
+        <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a>
+      </nav>
+    </footer>
+
+    <style>
+      /* Skip link — first focusable element; off-screen until focused. */
+      .skip-link {
+        position: absolute;
+        left: var(--mk-space-3);
+        top: var(--mk-space-3);
+        z-index: 10;
+        padding: var(--mk-space-2) var(--mk-space-4);
+        background: var(--mk-color-accent);
+        color: var(--mk-color-accent-contrast);
+        font-size: var(--mk-text-sm);
+        font-weight: var(--mk-weight-medium);
+        transform: translateY(-150%);
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .skip-link {
+          transition: transform var(--mk-motion-quick) var(--mk-ease-out);
+        }
+      }
+
+      .site-header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--mk-space-3) var(--mk-space-5);
+        padding: var(--mk-space-3) var(--mk-space-4);
+        background: var(--mk-color-surface-1);
+      }
+
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--mk-space-3) var(--mk-space-4);
+        font-size: var(--mk-text-sm);
+      }
+
+      .site-logo {
+        font-weight: var(--mk-weight-bold);
+        color: var(--mk-color-text);
+        margin-right: auto;
+      }
+
+      /* Nav links are muted until current; active is moss + bold. */
+      .site-nav__link {
+        color: var(--mk-color-text-muted);
+      }
+
+      .site-nav__link:hover {
+        color: var(--mk-color-text);
+      }
+
+      .site-nav__link--active {
+        color: var(--mk-color-accent);
+        font-weight: var(--mk-weight-bold);
+      }
+
+      .site-nav__link--active:hover {
+        color: var(--mk-color-accent);
+      }
+
+      .site-main {
+        max-width: 56rem;
+        margin-inline: auto;
+        padding: var(--mk-space-6) var(--mk-space-4);
+      }
+
+      .site-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--mk-space-2) var(--mk-space-5);
+        max-width: 56rem;
+        margin-inline: auto;
+        padding: var(--mk-space-5) var(--mk-space-4) var(--mk-space-7);
+        color: var(--mk-color-text-faint);
+        font-size: var(--mk-text-xs);
+      }
+
+      .site-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--mk-space-4);
+      }
+
+      .site-footer__links a {
+        color: var(--mk-color-text-muted);
+      }
+
+      @media (min-width: 40rem) {
+        .site-header {
+          padding-inline: var(--mk-space-6);
+        }
+
+        .site-main {
+          padding-inline: var(--mk-space-6);
+        }
+
+        .site-footer {
+          padding-inline: var(--mk-space-6);
+        }
+      }
+    </style>
+
+    <script is:inline>
+      (() => {
+        const modes = ['auto', 'light', 'dark'];
+        const btn = document.getElementById('mode-toggle');
+        const saved = localStorage.getItem('mk-mode') || 'auto';
+        const apply = (mode) => {
+          if (mode === 'auto') delete document.documentElement.dataset.theme;
+          else document.documentElement.dataset.theme = mode;
+          btn.textContent = mode;
+          localStorage.setItem('mk-mode', mode);
+        };
+        apply(saved);
+        btn.addEventListener('click', () => {
+          const next = modes[(modes.indexOf(btn.textContent) + 1) % modes.length];
+          apply(next);
+        });
+      })();
+    </script>
+  </body>
+</html>
