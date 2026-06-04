@@ -33,7 +33,7 @@ Changesets, automated by GitHub Actions:
 
 1. Every behavior-changing PR adds a changeset (`pnpm changeset`).
 2. On merge to `main`, the release workflow opens or updates a **Version Packages** PR aggregating pending changesets.
-3. Merging that PR runs `changeset publish`, releasing the public packages (`tokens` and `css`) to npm. `components` is private and is skipped until it ships. Requires the `NPM_TOKEN` secret.
+3. Merging that PR runs `changeset publish`, releasing the public packages (`tokens` and `css`) to npm. `components` is private and is skipped until it ships. Publishing uses **npm Trusted Publishing (OIDC)** — no token secret; the workflow is registered as a trusted publisher on npmjs.com and provenance attestations are attached automatically.
 
 Pre-1.0: stay at `0.x` (minor = breaking) until a third real project adopts the library. Consumers pin exact versions; the changelog is the migration doc.
 
