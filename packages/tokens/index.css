@@ -1,0 +1,151 @@
+/*
+ * @sethmakes/tokens
+ *
+ * Two tiers: primitives → semantic. Components reference semantic tokens only.
+ * Every semantic color is defined as a light/dark PAIR via light-dark() —
+ * the "truly dual" rule from docs/DESIGN-LANGUAGE.md, enforced by syntax.
+ *
+ * Custom properties are intentionally unlayered: they're data, not style
+ * rules, and never participate in cascade conflicts.
+ */
+
+:root {
+  color-scheme: light dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* Primitives                                                          */
+  /* ------------------------------------------------------------------ */
+
+  /* Pure achromatic gray ramp (chroma 0, perceptual lightness steps) */
+  --mk-gray-0: oklch(100% 0 0);
+  --mk-gray-50: oklch(98.5% 0 0);
+  --mk-gray-100: oklch(97% 0 0);
+  --mk-gray-150: oklch(94.5% 0 0);
+  --mk-gray-200: oklch(91% 0 0);
+  --mk-gray-300: oklch(85% 0 0);
+  --mk-gray-400: oklch(73% 0 0);
+  --mk-gray-500: oklch(60% 0 0);
+  --mk-gray-600: oklch(49% 0 0);
+  --mk-gray-700: oklch(40% 0 0);
+  --mk-gray-800: oklch(30% 0 0);
+  --mk-gray-850: oklch(25% 0 0);
+  --mk-gray-900: oklch(21% 0 0);
+  --mk-gray-950: oklch(16% 0 0);
+  --mk-gray-1000: oklch(12% 0 0);
+
+  /*
+   * Hero accent ramp, parameterized on hue so candidates can be compared
+   * by flipping one variable. PROVISIONAL hue until the visual pick
+   * (docs site /candidates). Coral/orange family; must stay visibly
+   * distinct from warning yellow-amber in both modes.
+   */
+  --mk-accent-hue: 38;
+  --mk-accent-100: oklch(94% 0.05 var(--mk-accent-hue));
+  --mk-accent-200: oklch(88% 0.09 var(--mk-accent-hue));
+  --mk-accent-300: oklch(80% 0.13 var(--mk-accent-hue));
+  --mk-accent-400: oklch(73% 0.17 var(--mk-accent-hue));
+  --mk-accent-500: oklch(67% 0.19 var(--mk-accent-hue));
+  --mk-accent-600: oklch(60% 0.19 var(--mk-accent-hue));
+  --mk-accent-700: oklch(52% 0.17 var(--mk-accent-hue));
+  --mk-accent-900: oklch(32% 0.08 var(--mk-accent-hue));
+
+  /* Functional status hues (fixed; not brand carriers) */
+  --mk-green-400: oklch(72% 0.14 155);
+  --mk-green-500: oklch(64% 0.15 155);
+  --mk-green-900: oklch(30% 0.07 155);
+  --mk-green-100: oklch(94% 0.06 155);
+  --mk-amber-400: oklch(82% 0.14 85);
+  --mk-amber-500: oklch(78% 0.15 85);
+  --mk-amber-900: oklch(32% 0.07 85);
+  --mk-amber-100: oklch(95% 0.07 85);
+  --mk-red-400: oklch(66% 0.2 25);
+  --mk-red-500: oklch(58% 0.22 25);
+  --mk-red-900: oklch(30% 0.09 25);
+  --mk-red-100: oklch(94% 0.04 25);
+
+  /* Type scale */
+  --mk-text-xs: 0.75rem;
+  --mk-text-sm: 0.875rem;
+  --mk-text-md: 1rem;
+  --mk-text-lg: 1.125rem;
+  --mk-text-xl: 1.375rem;
+  --mk-text-2xl: 1.75rem;
+  --mk-text-3xl: 2.25rem;
+  --mk-leading-tight: 1.25;
+  --mk-leading-normal: 1.55;
+  --mk-weight-regular: 400;
+  --mk-weight-medium: 600;
+  --mk-weight-bold: 700;
+
+  /* Spacing scale */
+  --mk-space-1: 0.25rem;
+  --mk-space-2: 0.5rem;
+  --mk-space-3: 0.75rem;
+  --mk-space-4: 1rem;
+  --mk-space-5: 1.5rem;
+  --mk-space-6: 2rem;
+  --mk-space-7: 3rem;
+  --mk-space-8: 4rem;
+
+  /* Radius scale — boldly rounded */
+  --mk-radius-sm: 8px;
+  --mk-radius-control: 12px;
+  --mk-radius-surface: 16px;
+  --mk-radius-pill: 999px;
+
+  /* Motion — quietly alive */
+  --mk-motion-quick: 150ms;
+  --mk-motion-standard: 220ms;
+  --mk-motion-slow: 320ms;
+  --mk-ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --mk-ease-spring: cubic-bezier(0.3, 1.4, 0.4, 1);
+
+  /* ------------------------------------------------------------------ */
+  /* Semantic — components reference ONLY these                          */
+  /* ------------------------------------------------------------------ */
+
+  /* PROVISIONAL typeface until the visual pick (docs site /candidates) */
+  --mk-font-sans: ui-rounded, "Nunito", system-ui, sans-serif;
+
+  /* Surfaces: tonal steps, zero borders. Hierarchy = background shifts. */
+  --mk-color-bg: light-dark(var(--mk-gray-100), var(--mk-gray-950));
+  --mk-color-surface-1: light-dark(var(--mk-gray-0), var(--mk-gray-900));
+  --mk-color-surface-2: light-dark(var(--mk-gray-150), var(--mk-gray-850));
+  --mk-color-surface-3: light-dark(var(--mk-gray-200), var(--mk-gray-800));
+
+  /* Filled form controls (zero-border consequence) */
+  --mk-color-field: light-dark(var(--mk-gray-150), var(--mk-gray-850));
+
+  /* Text */
+  --mk-color-text: light-dark(var(--mk-gray-900), var(--mk-gray-100));
+  --mk-color-text-muted: light-dark(var(--mk-gray-600), var(--mk-gray-400));
+  --mk-color-text-faint: light-dark(var(--mk-gray-400), var(--mk-gray-600));
+
+  /* Accent */
+  --mk-color-accent: light-dark(var(--mk-accent-500), var(--mk-accent-400));
+  --mk-color-accent-hover: light-dark(var(--mk-accent-600), var(--mk-accent-300));
+  --mk-color-accent-contrast: light-dark(var(--mk-gray-0), var(--mk-gray-1000));
+  --mk-color-accent-subtle: light-dark(var(--mk-accent-100), var(--mk-accent-900));
+  --mk-color-on-accent-subtle: light-dark(var(--mk-accent-700), var(--mk-accent-300));
+
+  /* Status */
+  --mk-color-success: light-dark(var(--mk-green-500), var(--mk-green-400));
+  --mk-color-success-subtle: light-dark(var(--mk-green-100), var(--mk-green-900));
+  --mk-color-warning: light-dark(var(--mk-amber-500), var(--mk-amber-400));
+  --mk-color-warning-subtle: light-dark(var(--mk-amber-100), var(--mk-amber-900));
+  --mk-color-danger: light-dark(var(--mk-red-500), var(--mk-red-400));
+  --mk-color-danger-subtle: light-dark(var(--mk-red-100), var(--mk-red-900));
+
+  /* Focus */
+  --mk-color-focus: var(--mk-color-accent);
+}

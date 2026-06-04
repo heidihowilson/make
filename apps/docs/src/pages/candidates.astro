@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+
+const fonts = [
+  { name: 'Nunito', stack: `'Nunito', sans-serif` },
+  { name: 'Baloo 2', stack: `'Baloo 2', sans-serif` },
+  { name: 'Quicksand', stack: `'Quicksand', sans-serif` },
+  { name: 'Fredoka', stack: `'Fredoka', sans-serif` },
+  { name: 'Plus Jakarta Sans', stack: `'Plus Jakarta Sans', sans-serif` },
+];
+
+const hues = [
+  { name: 'Coral', hue: 25 },
+  { name: 'Persimmon', hue: 38 },
+  { name: 'Tangerine', hue: 48 },
+  { name: 'Marigold', hue: 58 },
+];
+---
+
+<Base title="Candidates">
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap"
+    />
+  </Fragment>
+
+  <h1>Candidates</h1>
+  <p>
+    The three remaining visual picks, judged on real components. Flip the
+    color-mode toggle (top right) — every candidate must win in <em>both</em>
+    modes.
+  </p>
+
+  <section class="mk-card picker">
+    <div class="picker__group">
+      <h4>Typeface (rounded sans)</h4>
+      {fonts.map((f, i) => (
+        <label style={`font-family: ${f.stack}`}>
+          <input type="radio" name="font" value={f.stack} checked={i === 0} />
+          {f.name}
+        </label>
+      ))}
+    </div>
+    <div class="picker__group">
+      <h4>Hero accent (oklch hue)</h4>
+      {hues.map((h) => (
+        <label>
+          <input type="radio" name="hue" value={h.hue} checked={h.hue === 38} />
+          <span class="swatch" style={`background: oklch(67% 0.19 ${h.hue})`}></span>
+          {h.name} ({h.hue})
+        </label>
+      ))}
+    </div>
+  </section>
+
+  <section class="mk-card" style="margin-top: var(--mk-space-5);">
+    <h2>Specimen</h2>
+    <p>
+      The quick brown fox jumps over the lazy dog — 0123456789.
+      <span class="mk-badge mk-badge--accent">accent</span>
+      <span class="mk-badge mk-badge--warning">warning</span>
+      ← these two must never be confusable.
+    </p>
+
+    <h3>Components</h3>
+    <p style="display: flex; gap: var(--mk-space-3); flex-wrap: wrap; align-items: center;">
+      <button class="mk-btn mk-btn--primary">Add show</button>
+      <button class="mk-btn">Mark watched</button>
+      <button class="mk-btn mk-btn--ghost">Cancel</button>
+      <a href="#specimen">A text link</a>
+    </p>
+
+    <div class="mk-field" style="max-width: 24rem;">
+      <label for="demo-input">Show title</label>
+      <input id="demo-input" class="mk-input" placeholder="Search for a show…" />
+      <span class="mk-field__help">Filled fields — zero borders, tonal background.</span>
+    </div>
+
+    <p style="margin-top: var(--mk-space-4);">
+      <progress class="mk-progress" max="100" value="62"></progress>
+    </p>
+
+    <div class="mk-card" style="background: var(--mk-color-surface-2); margin-top: var(--mk-space-4);">
+      <h4>Nested surface</h4>
+      <p style="color: var(--mk-color-text-muted);">
+        surface-2 on surface-1 on bg — hierarchy without a single border.
+      </p>
+    </div>
+  </section>
+
+  <style>
+    .picker {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--mk-space-5);
+    }
+
+    .picker__group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+    }
+
+    .picker__group label {
+      display: flex;
+      align-items: center;
+      gap: var(--mk-space-2);
+      cursor: pointer;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 1.1em;
+      height: 1.1em;
+      border-radius: var(--mk-radius-pill);
+    }
+  </style>
+
+  <script is:inline>
+    document.querySelectorAll('input[name="font"]').forEach((el) =>
+      el.addEventListener('change', () => {
+        document.documentElement.style.setProperty('--mk-font-sans', el.value);
+      })
+    );
+    document.querySelectorAll('input[name="hue"]').forEach((el) =>
+      el.addEventListener('change', () => {
+        document.documentElement.style.setProperty('--mk-accent-hue', el.value);
+      })
+    );
+  </script>
+</Base>

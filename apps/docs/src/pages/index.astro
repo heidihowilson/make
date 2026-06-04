@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Home">
+  <h1>sethmakes design system</h1>
+  <p>
+    Framework-neutral UI packages implementing one design language: soft tonal
+    surfaces, zero borders, pure achromatic grays, boldly rounded shapes, one
+    warm hero accent, quietly alive motion.
+  </p>
+  <p>
+    Three open visual picks remain — typeface, exact accent hue, scale values.
+    <a href="/candidates">Judge the candidates →</a>
+  </p>
+
+  <div class="mk-card" style="margin-top: var(--mk-space-6);">
+    <h3>Quick taste</h3>
+    <p style="display: flex; gap: var(--mk-space-3); flex-wrap: wrap;">
+      <button class="mk-btn mk-btn--primary">Primary</button>
+      <button class="mk-btn">Default</button>
+      <button class="mk-btn mk-btn--ghost">Ghost</button>
+    </p>
+    <p style="display: flex; gap: var(--mk-space-2); flex-wrap: wrap;">
+      <span class="mk-badge mk-badge--accent">accent</span>
+      <span class="mk-badge mk-badge--success">success</span>
+      <span class="mk-badge mk-badge--warning">warning</span>
+      <span class="mk-badge mk-badge--danger">danger</span>
+      <span class="mk-badge">neutral</span>
+    </p>
+    <progress class="mk-progress" max="100" value="62"></progress>
+  </div>
+</Base>
