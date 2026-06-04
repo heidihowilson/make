@@ -1,8 +1,13 @@
 {
   "name": "@sethmakes/tokens",
   "version": "0.1.0",
-  "description": "Design tokens for the sethmakes design language — CSS custom properties, dual light/dark.",
+  "description": "Design tokens for the sethmakes design language \u2014 CSS custom properties, dual light/dark.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heidihowilson/make.git",
+    "directory": "packages/tokens"
+  },
   "type": "module",
   "exports": {
     ".": "./index.css",
