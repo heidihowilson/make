@@ -8,7 +8,7 @@ The design language is just **"sethmakes"** — no separate name. One fixed aest
 
 ## How it was decided
 
-A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt that was **rejected on sight** (too playful, 2010s-Bootstrap). Lesson recorded: **aesthetics are judged as gestalts, not axes** — decide from complete rendered directions (docs site `/directions`), not abstract questions. The Terminal direction won; the accent was tuned from rendered shade/role candidates to **Moss + Hero**.
+A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt that was **rejected on sight** (too playful, 2010s-Bootstrap). Lesson recorded: **aesthetics are judged as gestalts, not axes** — decide from complete rendered directions (a live explorer page, since retired — resurrect the pattern from git history at `apps/docs/src/pages/directions.astro` if a future re-theming needs it), not abstract questions. The Terminal direction won; the accent was tuned from rendered shade/role candidates to **Moss + Hero**.
 
 ## Decisions
 
