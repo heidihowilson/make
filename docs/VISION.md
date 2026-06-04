@@ -29,6 +29,11 @@ Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), S
 - App-semantic mappings stay in apps: the library ships badge *variants*; tv-tracker maps watch-status→variant. The library never knows what "watching" means.
 - The grid/list layouts remain the app's problem — the library styles the card, not the grid.
 
+## Roadmap — agreed future work (2026-06-04)
+
+1. **Icons: `@sethmakes/icons`.** Standardize on one open icon set and wrap it in our own module — consumers import our names, never the upstream's, so the set can be swapped or curated without app churn. Needs: pick the set (terminal aesthetic suggests something stroke-based and geometric, e.g. Lucide), decide delivery (inline SVG snippets / sprite / CSS mask).
+2. **Layout primitives + interaction hierarchy.** A shared answer for cross-app UI/UX consistency: layout primitives (stack/cluster/container-style spacing patterns) and a *coherent interaction strategy* — z-index/elevation scale, one modal/overlay policy that prevents modals-on-modals, toast placement, focus management. Note the tension with "layout is the app's problem" (v1 scope): the line moves from *no layout* to *primitives yes, page composition no*. Re-scope deliberately when this starts.
+
 ## Status
 
 The decision tree from the envisioning interview (2026-06-04) is **fully resolved, including the aesthetic** — see [ARCHITECTURE.md](./ARCHITECTURE.md) and [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The aesthetic took two rounds: a questionnaire-derived gestalt was rendered and rejected on sight; the final language ("terminal bones, calm surface" — JetBrains Mono, zero radius, achromatic grays, moss hero accent) was chosen from complete rendered directions on the docs site. Remaining work is execution: self-host the font, contrast audit, then the tv-tracker migration set.

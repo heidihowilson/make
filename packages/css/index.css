@@ -5,239 +5,30 @@
  * only (see @sethmakes/tokens). All rules live in cascade layers so
  * consumer styles win without specificity wars.
  *
- * v0 scope: enough components to judge typeface/accent candidates on real
- * UI. Grows toward the full tv-tracker migration set.
+ * One file per component under src/; this index is the public entry.
+ *
+ * CONSUMPTION CONTRACT: this package defines no tokens — import
+ * @sethmakes/tokens (and optionally its fonts.css) BEFORE this file, or
+ * every var(--mk-*) resolves to nothing. Kept separate on purpose so
+ * tokens-only consumption stays possible.
  */
 
+/* mk.utilities is declared-but-empty: reserved so adding utilities later
+   can't reorder the cascade. */
 @layer mk.reset, mk.base, mk.components, mk.utilities;
 
-@layer mk.reset {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-  }
-
-  img,
-  svg {
-    display: block;
-    max-width: 100%;
-  }
-}
-
-@layer mk.base {
-  body {
-    background: var(--mk-color-bg);
-    color: var(--mk-color-text);
-    font-family: var(--mk-font-body);
-    font-size: var(--mk-text-md);
-    font-weight: var(--mk-weight-regular);
-    line-height: var(--mk-leading-normal);
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4 {
-    font-weight: var(--mk-weight-bold);
-    line-height: var(--mk-leading-tight);
-    margin-block: 0 var(--mk-space-3);
-  }
-
-  h1 {
-    font-size: var(--mk-text-3xl);
-  }
-
-  h2 {
-    font-size: var(--mk-text-2xl);
-  }
-
-  h3 {
-    font-size: var(--mk-text-xl);
-  }
-
-  h4 {
-    font-size: var(--mk-text-lg);
-  }
-
-  a {
-    color: var(--mk-color-accent);
-    text-decoration: none;
-    transition: color var(--mk-motion-quick) var(--mk-ease-out);
-  }
-
-  a:hover {
-    color: var(--mk-color-accent-hover);
-    text-decoration: underline;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--mk-color-focus);
-    outline-offset: 2px;
-  }
-}
-
-@layer mk.components {
-  /* Button — pill, tonal by default, accent-filled for primary */
-  .mk-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--mk-space-2);
-    border: 0;
-    border-radius: var(--mk-radius-pill);
-    background: var(--mk-color-surface-3);
-    color: var(--mk-color-text);
-    font: inherit;
-    font-size: var(--mk-text-sm);
-    font-weight: var(--mk-weight-medium);
-    padding: 0.6em 1.3em;
-    cursor: pointer;
-    transition:
-      background var(--mk-motion-quick) var(--mk-ease-out),
-      transform var(--mk-motion-quick) var(--mk-ease-spring);
-  }
-
-  .mk-btn:hover {
-    background: color-mix(in oklch, var(--mk-color-surface-3), var(--mk-color-text) 8%);
-  }
-
-  .mk-btn:active {
-    transform: scale(0.97);
-  }
-
-  .mk-btn--primary {
-    background: var(--mk-color-accent);
-    color: var(--mk-color-accent-contrast);
-  }
-
-  .mk-btn--primary:hover {
-    background: var(--mk-color-accent-hover);
-  }
-
-  .mk-btn--ghost {
-    background: transparent;
-  }
-
-  .mk-btn--ghost:hover {
-    background: var(--mk-color-surface-2);
-  }
-
-  .mk-btn--sm {
-    font-size: var(--mk-text-xs);
-    padding: 0.45em 1.1em;
-  }
-
-  /* Form controls — filled (zero-border consequence) */
-  .mk-input,
-  .mk-select,
-  .mk-textarea {
-    border: 0;
-    border-radius: var(--mk-radius-control);
-    background: var(--mk-color-field);
-    color: var(--mk-color-text);
-    font: inherit;
-    padding: 0.6em 0.9em;
-    width: 100%;
-    transition: background var(--mk-motion-quick) var(--mk-ease-out);
-  }
-
-  .mk-input::placeholder,
-  .mk-textarea::placeholder {
-    color: var(--mk-color-text-faint);
-  }
-
-  .mk-input:hover,
-  .mk-select:hover,
-  .mk-textarea:hover {
-    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 4%);
-  }
-
-  /* Field scaffolding */
-  .mk-field {
-    display: flex;
-    flex-direction: column;
-    gap: var(--mk-space-1);
-  }
-
-  .mk-field > label {
-    font-size: var(--mk-text-sm);
-    font-weight: var(--mk-weight-medium);
-  }
-
-  .mk-field__help {
-    font-size: var(--mk-text-xs);
-    color: var(--mk-color-text-muted);
-  }
-
-  /* Badge — tonal */
-  .mk-badge {
-    display: inline-flex;
-    align-items: center;
-    border-radius: var(--mk-radius-pill);
-    background: var(--mk-color-surface-3);
-    color: var(--mk-color-text-muted);
-    font-size: var(--mk-text-xs);
-    font-weight: var(--mk-weight-medium);
-    padding: 0.25em 0.9em;
-  }
-
-  .mk-badge--accent {
-    background: var(--mk-color-accent-subtle);
-    color: var(--mk-color-on-accent-subtle);
-  }
-
-  .mk-badge--success {
-    background: var(--mk-color-success-subtle);
-    color: var(--mk-color-success);
-  }
-
-  .mk-badge--warning {
-    background: var(--mk-color-warning-subtle);
-    color: var(--mk-color-warning);
-  }
-
-  .mk-badge--danger {
-    background: var(--mk-color-danger-subtle);
-    color: var(--mk-color-danger);
-  }
-
-  /* Card — raised tonal surface */
-  .mk-card {
-    background: var(--mk-color-surface-1);
-    border-radius: var(--mk-radius-surface);
-    padding: var(--mk-space-5);
-  }
-
-  /* Progress — tonal track, accent fill */
-  .mk-progress {
-    appearance: none;
-    width: 100%;
-    height: 0.5rem;
-    border: 0;
-    border-radius: var(--mk-radius-pill);
-    background: var(--mk-color-surface-3);
-    overflow: hidden;
-  }
-
-  .mk-progress::-webkit-progress-bar {
-    background: var(--mk-color-surface-3);
-    border-radius: var(--mk-radius-pill);
-  }
-
-  .mk-progress::-webkit-progress-value {
-    background: var(--mk-color-accent);
-    border-radius: var(--mk-radius-pill);
-    transition: width var(--mk-motion-standard) var(--mk-ease-out);
-  }
-
-  .mk-progress::-moz-progress-bar {
-    background: var(--mk-color-accent);
-    border-radius: var(--mk-radius-pill);
-  }
-}
+@import "./src/reset.css";
+@import "./src/base.css";
+@import "./src/prose.css";
+@import "./src/button.css";
+@import "./src/badge.css";
+@import "./src/forms.css";
+@import "./src/card.css";
+@import "./src/table.css";
+@import "./src/divider.css";
+@import "./src/disclosure.css";
+@import "./src/alert.css";
+@import "./src/spinner.css";
+@import "./src/progress.css";
+@import "./src/media.css";
+@import "./src/empty.css";

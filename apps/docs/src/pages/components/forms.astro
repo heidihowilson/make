@@ -1,0 +1,258 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Forms">
+  <h1>Forms</h1>
+  <p>
+    Native inputs styled by class — filled tonal backgrounds, zero borders.
+    Selects, textareas, checkboxes, radios and switches all restyle the real
+    control so native forms keep working. Errors tint, never outline.
+  </p>
+
+  <section class="mk-card">
+    <h2>Text input</h2>
+    <p>Label, control, optional help — wrapped in a <code>.mk-field</code>.</p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-title">Show title</label>
+        <input class="mk-input" id="d-title" type="text" placeholder="Severance" />
+        <p class="mk-field__help">The name as it appears on the network.</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-field"&gt;
+  &lt;label for="title"&gt;Show title&lt;/label&gt;
+  &lt;input class="mk-input" id="title" type="text" placeholder="Severance" /&gt;
+  &lt;p class="mk-field__help"&gt;The name as it appears on the network.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Select</h2>
+    <p>Native <code>&lt;select&gt;</code> with a custom caret; chrome stripped.</p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-status">Watch status</label>
+        <select class="mk-select" id="d-status">
+          <option>Watching</option>
+          <option>Completed</option>
+          <option>On hold</option>
+          <option>Dropped</option>
+        </select>
+      </div>
+    </div>
+    <pre><code>&lt;select class="mk-select" id="status"&gt;
+  &lt;option&gt;Watching&lt;/option&gt;
+  &lt;option&gt;Completed&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Textarea</h2>
+    <p>Taller default, resizes vertically only.</p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-notes">Notes</label>
+        <textarea class="mk-textarea" id="d-notes" placeholder="Watched with the group; rewatch s1 first."></textarea>
+      </div>
+    </div>
+    <pre><code>&lt;textarea class="mk-textarea" id="notes"&gt;&lt;/textarea&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Checkbox</h2>
+    <p>24px box in a 44px touch row; sharp corners, accent when checked.</p>
+    <div class="field-demo">
+      <label class="mk-choice">
+        <input class="mk-checkbox" type="checkbox" checked />
+        <span>Notify on new episodes</span>
+      </label>
+      <label class="mk-choice">
+        <input class="mk-checkbox" type="checkbox" />
+        <span>Include specials</span>
+      </label>
+    </div>
+    <pre><code>&lt;label class="mk-choice"&gt;
+  &lt;input class="mk-checkbox" type="checkbox" /&gt;
+  &lt;span&gt;Notify on new episodes&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Radio group</h2>
+    <p>Round by geometry, not softness; grouped in a fieldset with a legend.</p>
+    <div class="field-demo">
+      <fieldset class="mk-fieldset">
+        <legend>Default sort</legend>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="d-sort" checked />
+          <span>Recently aired</span>
+        </label>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="d-sort" />
+          <span>Alphabetical</span>
+        </label>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="d-sort" />
+          <span>Unwatched first</span>
+        </label>
+      </fieldset>
+    </div>
+    <pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Default sort&lt;/legend&gt;
+  &lt;label class="mk-choice"&gt;
+    &lt;input class="mk-radio" type="radio" name="sort" /&gt;
+    &lt;span&gt;Recently aired&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Switch</h2>
+    <p>Checkbox-based track and square thumb; accent track when on.</p>
+    <div class="field-demo">
+      <label class="mk-choice">
+        <input class="mk-switch" type="checkbox" checked />
+        <span>Auto-mark watched</span>
+      </label>
+      <label class="mk-choice">
+        <input class="mk-switch" type="checkbox" />
+        <span>Hide spoilers</span>
+      </label>
+    </div>
+    <pre><code>&lt;label class="mk-choice"&gt;
+  &lt;input class="mk-switch" type="checkbox" /&gt;
+  &lt;span&gt;Auto-mark watched&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Error state</h2>
+    <p>
+      The control fill tints danger and help text turns danger — no border.
+      Wire <code>aria-invalid</code> and <code>aria-describedby</code> to the
+      error message.
+    </p>
+    <div class="field-demo">
+      <div class="mk-field mk-field--error">
+        <label for="d-year">First aired</label>
+        <input
+          class="mk-input"
+          id="d-year"
+          type="text"
+          value="20222"
+          aria-invalid="true"
+          aria-describedby="d-year-err"
+        />
+        <p class="mk-field__error" id="d-year-err">Enter a four-digit year.</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-field mk-field--error"&gt;
+  &lt;label for="year"&gt;First aired&lt;/label&gt;
+  &lt;input class="mk-input" id="year" aria-invalid="true"
+         aria-describedby="year-err" /&gt;
+  &lt;p class="mk-field__error" id="year-err"&gt;Enter a four-digit year.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Complete form</h2>
+    <p>Everything together — labels, help, a grouped error, and actions.</p>
+    <form class="form-demo" novalidate>
+      <div class="mk-field">
+        <label for="f-title">Show title</label>
+        <input class="mk-input" id="f-title" type="text" value="Severance" />
+      </div>
+
+      <div class="mk-field">
+        <label for="f-status">Watch status</label>
+        <select class="mk-select" id="f-status">
+          <option>Watching</option>
+          <option>Completed</option>
+          <option>On hold</option>
+          <option>Dropped</option>
+        </select>
+      </div>
+
+      <div class="mk-field mk-field--error">
+        <label for="f-ep">Last episode watched</label>
+        <input
+          class="mk-input"
+          id="f-ep"
+          type="text"
+          value="s2e0"
+          aria-invalid="true"
+          aria-describedby="f-ep-help f-ep-err"
+        />
+        <p class="mk-field__help" id="f-ep-help">Format: s1e4.</p>
+        <p class="mk-field__error" id="f-ep-err">That episode doesn't exist.</p>
+      </div>
+
+      <div class="mk-field">
+        <label for="f-notes">Notes</label>
+        <textarea class="mk-textarea" id="f-notes" placeholder="Optional"></textarea>
+      </div>
+
+      <fieldset class="mk-fieldset">
+        <legend>Notifications</legend>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="f-notify" checked />
+          <span>New episodes only</span>
+        </label>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="f-notify" />
+          <span>Everything</span>
+        </label>
+        <label class="mk-choice">
+          <input class="mk-radio" type="radio" name="f-notify" />
+          <span>Off</span>
+        </label>
+      </fieldset>
+
+      <label class="mk-choice">
+        <input class="mk-switch" type="checkbox" checked />
+        <span>Auto-mark watched</span>
+      </label>
+
+      <div class="form-actions">
+        <button class="mk-btn mk-btn--primary" type="submit">Save show</button>
+        <button class="mk-btn mk-btn--ghost" type="button">Cancel</button>
+      </div>
+    </form>
+  </section>
+
+  <style>
+    .field-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-3);
+      max-width: 24rem;
+    }
+
+    .form-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-5);
+      max-width: 24rem;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-3);
+    }
+
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-5);
+    }
+
+    pre {
+      margin-top: var(--mk-space-4);
+      padding: var(--mk-space-3) var(--mk-space-4);
+      background: var(--mk-color-surface-2);
+      color: var(--mk-color-text);
+      font-size: var(--mk-text-xs);
+      overflow-x: auto;
+    }
+  </style>
+</Base>

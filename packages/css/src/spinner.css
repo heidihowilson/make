@@ -1,0 +1,45 @@
+@layer mk.components {
+  /*
+   * Spinner — CSS-only, terminal aesthetic. A square block sweeps a conic
+   * accent wedge in discrete steps() jumps rather than a smooth circle, so
+   * it reads like a stepping machine indicator, not a polished loader.
+   * Zero radius, zero border. The accent wedge rides on a faint track built
+   * from the same accent at low mix.
+   *
+   * Static fallback under reduced motion: a half-filled, non-spinning block
+   * still reads as "busy" without animating.
+   */
+  .mk-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--mk-radius-control);
+    background: conic-gradient(
+      var(--mk-color-accent) 0deg 90deg,
+      color-mix(in oklch, var(--mk-color-accent), transparent 80%) 90deg 360deg
+    );
+  }
+
+  .mk-spinner--sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .mk-spinner--md {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-spinner {
+      /* slow token x3 keeps the loop tokenized (~960ms ≈ the original 1s). */
+      animation: mk-spinner-step calc(var(--mk-motion-slow) * 3) steps(8, end) infinite;
+    }
+  }
+
+  @keyframes mk-spinner-step {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}

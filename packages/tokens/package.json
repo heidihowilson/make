@@ -6,10 +6,13 @@
   "type": "module",
   "exports": {
     ".": "./index.css",
-    "./index.css": "./index.css"
+    "./index.css": "./index.css",
+    "./fonts.css": "./fonts.css"
   },
   "files": [
-    "index.css"
+    "index.css",
+    "fonts.css",
+    "fonts/"
   ],
   "keywords": [
     "design-tokens",

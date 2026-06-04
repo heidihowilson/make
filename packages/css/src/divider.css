@@ -1,0 +1,29 @@
+@layer mk.components {
+  /* Divider — a 1px tonal line drawn as a background shift, not a border */
+  .mk-divider {
+    height: 1px;
+    border: 0;
+    margin: var(--mk-space-5) 0;
+    background: var(--mk-color-surface-3);
+  }
+
+  /* Labelled variant — centered text flanked by tonal rules */
+  .mk-divider--label {
+    height: auto;
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: var(--mk-space-3);
+    color: var(--mk-color-text-muted);
+    font-size: var(--mk-text-xs);
+    font-weight: var(--mk-weight-medium);
+  }
+
+  .mk-divider--label::before,
+  .mk-divider--label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--mk-color-surface-3);
+  }
+}

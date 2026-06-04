@@ -1,34 +1,153 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
+
+const components = [
+  { href: '/components/typography', name: 'typography', desc: 'Monospace scale, prose, headings.' },
+  { href: '/components/buttons', name: 'buttons', desc: 'Tonal, primary, ghost, danger, badges.' },
+  { href: '/components/forms', name: 'forms', desc: 'Filled inputs, selects, choices, switches.' },
+  { href: '/components/surfaces', name: 'surfaces', desc: 'Cards, tables, dividers, disclosure.' },
+  { href: '/components/feedback', name: 'feedback', desc: 'Alerts, badges, progress, spinners.' },
+  { href: '/components/media', name: 'media', desc: 'Thumbnails, figures, skeletons.' },
+];
 ---
 
 <Base title="Home">
-  <h1>sethmakes design system</h1>
-  <p>
-    Framework-neutral UI packages implementing one design language: terminal
-    bones, calm surface. Monospace everywhere, zero radius, flat tonal
-    surfaces with zero borders, pure achromatic grays, one moss-green hero
-    accent, quietly alive motion.
-  </p>
-  <p>
-    Chosen from rendered directions, not questionnaires.
-    <a href="/directions">See the directions explorer →</a>
-  </p>
+  <header class="hero">
+    <h1>sethmakes</h1>
+    <p class="hero__lede">
+      Framework-neutral UI packages implementing one design language —
+      <strong>terminal bones, calm surface.</strong>
+    </p>
+  </header>
 
-  <div class="mk-card" style="margin-top: var(--mk-space-6);">
-    <h3>Quick taste</h3>
-    <p style="display: flex; gap: var(--mk-space-3); flex-wrap: wrap;">
-      <button class="mk-btn mk-btn--primary">Primary</button>
+  <section class="mk-card" aria-labelledby="what">
+    <h2 id="what">What it is</h2>
+    <p>
+      Monospace type everywhere, zero corner radius, flat tonal surfaces with
+      <strong>zero borders</strong> — hierarchy comes from background shifts, not
+      lines. One muted moss-green hero accent fills primary actions and marks
+      links and focus; functional status colors exist only to mean things.
+      Density sits in the comfortable middle, and motion is quietly alive.
+      A machine voice, not a costume.
+    </p>
+    <p>
+      Decided from rendered directions, not questionnaires.
+      <a href={link('/directions')}>See the directions explorer →</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="components">
+    <h2 id="components">Components</h2>
+    <ul class="index">
+      {components.map((c) => (
+        <li class="mk-card index__item">
+          <a class="index__link" href={link(c.href)}>{c.name} →</a>
+          <span class="index__desc">{c.desc}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="install">
+    <h2 id="install">Install</h2>
+    <p>Pull tokens + css for the look with zero JS, then import them once.</p>
+    <pre><code>pnpm add @sethmakes/tokens @sethmakes/css</code></pre>
+    <pre><code>/* app entry CSS */
+@import "@sethmakes/tokens/index.css";
+@import "@sethmakes/tokens/fonts.css";
+@import "@sethmakes/css/index.css";</code></pre>
+  </section>
+
+  <section class="mk-card" aria-labelledby="sampler">
+    <h2 id="sampler">Sampler</h2>
+    <p>A taste in the current mode. Flip the toggle up top to see both.</p>
+    <div class="row">
+      <button class="mk-btn mk-btn--primary">Mark watched</button>
       <button class="mk-btn">Default</button>
       <button class="mk-btn mk-btn--ghost">Ghost</button>
-    </p>
-    <p style="display: flex; gap: var(--mk-space-2); flex-wrap: wrap;">
+    </div>
+    <div class="row">
       <span class="mk-badge mk-badge--accent">accent</span>
-      <span class="mk-badge mk-badge--success">success</span>
-      <span class="mk-badge mk-badge--warning">warning</span>
-      <span class="mk-badge mk-badge--danger">danger</span>
+      <span class="mk-badge mk-badge--success">aired</span>
+      <span class="mk-badge mk-badge--warning">delayed</span>
+      <span class="mk-badge mk-badge--danger">cancelled</span>
       <span class="mk-badge">neutral</span>
-    </p>
+    </div>
+    <div class="mk-field">
+      <label for="sample-q">Search shows</label>
+      <input id="sample-q" class="mk-input" type="search" placeholder="The Bear" />
+    </div>
+    <div class="mk-alert mk-alert--success">
+      <span class="mk-alert__title">Synced</span>
+      <span>Watch history is up to date.</span>
+    </div>
     <progress class="mk-progress" max="100" value="62"></progress>
-  </div>
+  </section>
+
+  <style>
+    .hero {
+      padding-block: var(--mk-space-5) var(--mk-space-6);
+    }
+
+    .hero__lede {
+      font-size: var(--mk-text-lg);
+      color: var(--mk-color-text-muted);
+      max-width: 44ch;
+    }
+
+    .hero__lede strong {
+      color: var(--mk-color-text);
+    }
+
+    section + section,
+    .mk-card + section,
+    section + .mk-card {
+      margin-top: var(--mk-space-6);
+    }
+
+    .index {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--mk-space-3);
+      grid-template-columns: 1fr;
+    }
+
+    .index__item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-1);
+    }
+
+    .index__link {
+      font-weight: var(--mk-weight-bold);
+    }
+
+    .index__desc {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-3);
+      align-items: center;
+      margin-block: var(--mk-space-4);
+    }
+
+    .mk-card pre {
+      overflow-x: auto;
+    }
+
+    @media (min-width: 40rem) {
+      .index {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
 </Base>

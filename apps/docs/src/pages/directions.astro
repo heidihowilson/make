@@ -27,8 +27,8 @@ import Base from '../layouts/Base.astro';
   <p class="direction-blurb" id="direction-blurb"></p>
 
   <section class="mk-card tuner">
-    <div class="tuner__group">
-      <h4>Accent shade</h4>
+    <fieldset class="tuner__group">
+      <legend>Accent shade</legend>
       <label><input type="radio" name="shade" value="phosphor" checked /><span class="swatch sw-phosphor"></span>Phosphor (150)</label>
       <label><input type="radio" name="shade" value="moss" /><span class="swatch sw-moss"></span>Moss — muted (150)</label>
       <label><input type="radio" name="shade" value="matrix" /><span class="swatch sw-matrix"></span>Matrix — vivid (145)</label>
@@ -40,9 +40,9 @@ import Base from '../layouts/Base.astro';
       <label><input type="radio" name="shade" value="acid" /><span class="swatch sw-acid"></span>Acid (125)</label>
       <label><input type="radio" name="shade" value="amber" /><span class="swatch sw-amber"></span>Amber (80)</label>
       <label><input type="radio" name="shade" value="cyan" /><span class="swatch sw-cyan"></span>Cyan (200)</label>
-    </div>
-    <div class="tuner__group">
-      <h4>Accent role</h4>
+    </fieldset>
+    <fieldset class="tuner__group">
+      <legend>Accent role</legend>
       <label>
         <input type="radio" name="role" value="hero" checked />
         Hero — accent fills primary buttons
@@ -51,7 +51,7 @@ import Base from '../layouts/Base.astro';
         <input type="radio" name="role" value="punctuation" />
         Punctuation — primary buttons are inverted ink; accent only marks (links, badges, focus, progress)
       </label>
-    </div>
+    </fieldset>
   </section>
 
   <section class="mk-card" style="margin-top: var(--mk-space-5);">
@@ -104,14 +104,31 @@ import Base from '../layouts/Base.astro';
 
     .tuner {
       display: grid;
-      grid-template-columns: 1fr 1.4fr;
+      grid-template-columns: 1fr;
       gap: var(--mk-space-5);
     }
 
+    @media (min-width: 40rem) {
+      .tuner {
+        grid-template-columns: 1fr 1.4fr;
+      }
+    }
+
+    /* fieldset reset — zero borders/chrome; legend styled like a label */
     .tuner__group {
+      border: 0;
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       gap: var(--mk-space-2);
+    }
+
+    .tuner__group > legend {
+      padding: 0;
+      margin-bottom: var(--mk-space-2);
+      font-size: var(--mk-text-lg);
+      font-weight: var(--mk-weight-bold);
     }
 
     .tuner__group label {

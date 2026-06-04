@@ -4,7 +4,7 @@ Monorepo of shared packages; the first is a framework-neutral UI library impleme
 
 ## Structure
 
-- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (light/dark), Tailwind v4 `@theme` bridge. No JS.
+- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (light/dark) plus self-hosted fonts. No JS. (A Tailwind v4 `@theme` bridge is planned but not yet shipped.)
 - `packages/css` → `@sethmakes/css` — class-based styles for native HTML. No JS.
 - `packages/components` → `@sethmakes/components` — Lit + TypeScript custom elements. Starts empty; components are added only when a real consuming project needs them.
 - `apps/docs` — Astro docs site: public docs + dev playground + SSR test fixture. Deploys to GitHub Pages.
@@ -23,7 +23,7 @@ Monorepo of shared packages; the first is a framework-neutral UI library impleme
 
 - pnpm workspaces. No additional build orchestration (Turbo etc.) without demonstrated need.
 - **Lockstep versioning for the tokens/css/components trio** via a Changesets fixed group; future unrelated packages version independently. Any behavior-changing PR must include a changeset.
-- Tests: @web/test-runner (behavior), Playwright (visual regression), `@lit-labs/ssr` smoke suite (SSR output) in CI.
+- CI today runs only `pnpm docs:build` (a build smoke check) — see `.github/workflows/ci.yml`. **Planned** test stack (not yet wired up): @web/test-runner (behavior), Playwright (visual regression), `@lit-labs/ssr` smoke suite (SSR output).
 - Packages publish publicly to npm via GitHub Actions on release-PR merge.
 - Pre-1.0: `0.x` semver, minor = breaking. Don't propose 1.0 until three real projects consume the library.
-- TypeScript throughout `packages/components`; emit a custom-elements manifest.
+- TypeScript throughout `packages/components`; emit a custom-elements manifest (planned — `components` is currently empty, so neither exists yet).

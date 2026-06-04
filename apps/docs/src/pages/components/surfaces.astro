@@ -1,0 +1,137 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Surfaces">
+  <h1>Surfaces</h1>
+  <p>
+    Containers and structure built from tonal background shifts — cards, tables,
+    dividers, and disclosures. No borders, no radius; hierarchy is steps in gray.
+  </p>
+
+  <section class="mk-card">
+    <h2>Card</h2>
+    <p>
+      Raised tonal surface. Nest a <code>--sunken</code> card to recede a step;
+      use <code>--flush</code> for edge-to-edge media.
+    </p>
+    <div class="mk-card mk-card--sunken">
+      <strong>Continue watching</strong>
+      <p style="margin: var(--mk-space-2) 0 0; color: var(--mk-color-text-muted);">
+        A sunken card sits at surface-2, one tonal step below its parent.
+      </p>
+    </div>
+    <div class="mk-card mk-card--flush" style="margin-top: var(--mk-space-4); max-width: 18rem;">
+      <div style="aspect-ratio: 16 / 9; background: var(--mk-color-surface-3); display: flex; align-items: center; justify-content: center; color: var(--mk-color-text-faint); font-size: var(--mk-text-xs);">poster</div>
+      <div style="padding: var(--mk-space-4);">
+        <strong>Severance</strong>
+        <p style="margin: var(--mk-space-1) 0 0; color: var(--mk-color-text-muted); font-size: var(--mk-text-sm);">Season 2 · drama</p>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-card"&gt;
+  &lt;div class="mk-card mk-card--sunken"&gt;Nested&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mk-card mk-card--flush"&gt;&lt;img …&gt;&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Table</h2>
+    <p>
+      Full-width and mono-friendly. Tonal header, hover rows, right-aligned
+      numeric cells. Wrap it to scroll on narrow screens.
+    </p>
+    <div class="mk-table-wrap">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col" class="mk-table__num">Season</th>
+            <th scope="col" class="mk-table__num">Watched</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Severance</td>
+            <td class="mk-table__num">2</td>
+            <td class="mk-table__num">7</td>
+          </tr>
+          <tr>
+            <td>The Bear</td>
+            <td class="mk-table__num">3</td>
+            <td class="mk-table__num">10</td>
+          </tr>
+          <tr>
+            <td>Andor</td>
+            <td class="mk-table__num">1</td>
+            <td class="mk-table__num">12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pre><code>&lt;div class="mk-table-wrap"&gt;
+  &lt;table class="mk-table"&gt;
+    &lt;thead&gt;&lt;tr&gt;
+      &lt;th scope="col"&gt;Title&lt;/th&gt;
+      &lt;th scope="col" class="mk-table__num"&gt;Watched&lt;/th&gt;
+    &lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;&lt;tr&gt;
+      &lt;td&gt;Severance&lt;/td&gt;
+      &lt;td class="mk-table__num"&gt;7&lt;/td&gt;
+    &lt;/tr&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Divider</h2>
+    <p>A 1px tonal line, drawn as a background shift. Optional centered label.</p>
+    <p style="margin: 0; color: var(--mk-color-text-muted);">Recently watched</p>
+    <hr class="mk-divider" />
+    <p style="margin: 0; color: var(--mk-color-text-muted);">Up next</p>
+    <div class="mk-divider mk-divider--label"><span>archived</span></div>
+    <p style="margin: 0; color: var(--mk-color-text-muted);">Cancelled shows</p>
+    <pre><code>&lt;hr class="mk-divider" /&gt;
+&lt;div class="mk-divider mk-divider--label"&gt;&lt;span&gt;archived&lt;/span&gt;&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>Disclosure</h2>
+    <p>
+      Native <code>&lt;details&gt;</code> with a styled summary, a rotating caret,
+      and a tonal content body.
+    </p>
+    <details class="mk-disclosure">
+      <summary>Episode notes</summary>
+      <div class="mk-disclosure__body">
+        Mark Scout returns to the severed floor. The MDR team uncovers a fourth
+        macrodata file and the overtime contingency is finally explained.
+      </div>
+    </details>
+    <details class="mk-disclosure" open style="margin-top: var(--mk-space-3);">
+      <summary>Spoilers (open by default)</summary>
+      <div class="mk-disclosure__body">
+        Add the <code>open</code> attribute to expand on load. The caret rotates
+        down; motion is disabled under reduced-motion.
+      </div>
+    </details>
+    <pre><code>&lt;details class="mk-disclosure"&gt;
+  &lt;summary&gt;Episode notes&lt;/summary&gt;
+  &lt;div class="mk-disclosure__body"&gt;…&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+  </section>
+
+  <style>
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-5);
+    }
+
+    pre {
+      margin-top: var(--mk-space-4);
+      padding: var(--mk-space-3) var(--mk-space-4);
+      background: var(--mk-color-surface-2);
+      color: var(--mk-color-text);
+      font-size: var(--mk-text-xs);
+      overflow-x: auto;
+    }
+  </style>
+</Base>

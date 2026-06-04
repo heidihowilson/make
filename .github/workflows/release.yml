@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+# Requires the NPM_TOKEN secret to be configured in the repo settings
+# (Settings -> Secrets and variables -> Actions). Packages publish PUBLICLY
+# to npm under @sethmakes/* — the changeset config sets "access": "public".
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write # create the version PR + tags
+  pull-requests: write # open/update the version PR
+  id-token: write # npm provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # action-setup reads the packageManager field in package.json (pnpm@10.x).
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # On a PR-less push: opens/updates a "Version Packages" PR.
+      # When that PR is merged to main: runs `pnpm release` (changeset publish).
+      - name: Create release PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm version
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

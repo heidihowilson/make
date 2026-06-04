@@ -1,0 +1,19 @@
+@layer mk.components {
+  /* Card — raised tonal surface */
+  .mk-card {
+    background: var(--mk-color-surface-1);
+    border-radius: var(--mk-radius-surface);
+    padding: var(--mk-space-5);
+  }
+
+  /* Sunken — recedes to surface-2 for nesting inside a card */
+  .mk-card--sunken {
+    background: var(--mk-color-surface-2);
+  }
+
+  /* Flush — no padding, for media that bleeds to the edge */
+  .mk-card--flush {
+    padding: 0;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,43 @@
+# @sethmakes
+
+A small design language with one fixed aesthetic: **terminal bones, calm surface.** Monospace type everywhere, zero corner radius, flat tonal surfaces with zero borders — hierarchy comes from background shifts, not lines — and one muted moss-green accent for primary actions, links, and focus. It ships as CSS-first primitives (native HTML styled by classes, zero JS) plus a thin layer of Lit custom elements for the few widgets that actually need behavior. SSR-first, framework-agnostic, brand-consistent across every app that uses it.
+
+## Packages
+
+The design-system trio versions in lockstep. `tokens` and `css` publish publicly to npm under `@sethmakes/*`; `components` is reserved and still private (marked `"private": true`) until it has a component to ship.
+
+| Package | Contents | JS? | Published? |
+|---|---|---|---|
+| [`@sethmakes/tokens`](packages/tokens) | CSS custom properties — light/dark themes | No | Yes |
+| [`@sethmakes/css`](packages/css) | Class-based styles for native HTML (depends on tokens) | No | Yes |
+| [`@sethmakes/components`](packages/components) | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes | No — private, reserved until it ships |
+
+`apps/docs` is the Astro site — public docs, dev playground, and SSR test fixture in one. Unpublished.
+
+## Dev
+
+```sh
+pnpm install        # install workspace deps (pnpm 10, frozen in CI)
+pnpm docs:dev       # run the docs/playground locally
+pnpm docs:build     # static build (also the CI smoke check)
+pnpm changeset      # record a changeset for a behavior-changing PR
+```
+
+## Release flow
+
+Changesets, automated by GitHub Actions:
+
+1. Every behavior-changing PR adds a changeset (`pnpm changeset`).
+2. On merge to `main`, the release workflow opens or updates a **Version Packages** PR aggregating pending changesets.
+3. Merging that PR runs `changeset publish`, releasing the public packages (`tokens` and `css`) to npm. `components` is private and is skipped until it ships. Requires the `NPM_TOKEN` secret.
+
+Pre-1.0: stay at `0.x` (minor = breaking) until a third real project adopts the library. Consumers pin exact versions; the changelog is the migration doc.
+
+## Decisions
+
+The why behind all of this lives in [`docs/`](docs):
+
+- [`VISION.md`](docs/VISION.md) — what this is for
+- [`DESIGN-LANGUAGE.md`](docs/DESIGN-LANGUAGE.md) — the aesthetic and its tokens
+- [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — CSS-first/Lit hybrid, packages, releases
+- [`CONTRAST.md`](docs/CONTRAST.md) — color/contrast reasoning

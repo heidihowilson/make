@@ -1,0 +1,37 @@
+@layer mk.components {
+  /*
+   * Empty state — a centered tonal block for "nothing here yet". Surface-2
+   * sets it apart from the page without a border; muted text keeps it quiet,
+   * and the optional action sits below with comfortable spacing.
+   */
+  .mk-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--mk-space-3);
+    border-radius: var(--mk-radius-surface);
+    padding: var(--mk-space-7) var(--mk-space-5);
+    background: var(--mk-color-surface-2);
+    color: var(--mk-color-text-muted);
+    text-align: center;
+  }
+
+  /* Optional bold lead line above the muted message */
+  .mk-empty__title {
+    color: var(--mk-color-text);
+    font-weight: var(--mk-weight-bold);
+    font-size: var(--mk-text-lg);
+    line-height: var(--mk-leading-tight);
+  }
+
+  .mk-empty__message {
+    font-size: var(--mk-text-sm);
+    line-height: var(--mk-leading-normal);
+    max-width: 32ch;
+  }
+
+  /* Action slot — extra breathing room above the CTA */
+  .mk-empty__action {
+    margin-top: var(--mk-space-2);
+  }
+}

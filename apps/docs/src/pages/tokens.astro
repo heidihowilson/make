@@ -1,0 +1,293 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Primitive ramps — rendered here precisely because this page documents the
+// primitive tier. Consuming components must never touch these; this reference
+// is the one allowed exception. (Noted to the orchestrator.)
+const grayRamp = [
+  '0', '50', '100', '150', '200', '300', '400', '500',
+  '600', '700', '800', '850', '900', '950', '1000',
+];
+const mossRamp = ['100', '200', '300', '400', '500', '600', '700', '800', '900'];
+
+const surfaces = [
+  { var: '--mk-color-bg', label: 'bg' },
+  { var: '--mk-color-surface-1', label: 'surface-1' },
+  { var: '--mk-color-surface-2', label: 'surface-2' },
+  { var: '--mk-color-surface-3', label: 'surface-3' },
+  { var: '--mk-color-field', label: 'field' },
+];
+const texts = [
+  { var: '--mk-color-text', label: 'text' },
+  { var: '--mk-color-text-muted', label: 'text-muted' },
+  { var: '--mk-color-text-faint', label: 'text-faint' },
+];
+const accents = [
+  { var: '--mk-color-accent', label: 'accent' },
+  { var: '--mk-color-accent-hover', label: 'accent-hover' },
+  { var: '--mk-color-accent-contrast', label: 'accent-contrast' },
+  { var: '--mk-color-accent-subtle', label: 'accent-subtle' },
+  { var: '--mk-color-on-accent-subtle', label: 'on-accent-subtle' },
+];
+const statuses = [
+  { var: '--mk-color-success', label: 'success' },
+  { var: '--mk-color-success-subtle', label: 'success-subtle' },
+  { var: '--mk-color-warning', label: 'warning' },
+  { var: '--mk-color-warning-subtle', label: 'warning-subtle' },
+  { var: '--mk-color-danger', label: 'danger' },
+  { var: '--mk-color-danger-subtle', label: 'danger-subtle' },
+];
+
+const typeScale = [
+  { var: '--mk-text-3xl', label: '3xl' },
+  { var: '--mk-text-2xl', label: '2xl' },
+  { var: '--mk-text-xl', label: 'xl' },
+  { var: '--mk-text-lg', label: 'lg' },
+  { var: '--mk-text-md', label: 'md' },
+  { var: '--mk-text-sm', label: 'sm' },
+  { var: '--mk-text-xs', label: 'xs' },
+];
+
+const spaceScale = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+const radii = [
+  { var: '--mk-radius-sm', label: 'radius-sm' },
+  { var: '--mk-radius-control', label: 'radius-control' },
+  { var: '--mk-radius-surface', label: 'radius-surface' },
+  { var: '--mk-radius-pill', label: 'radius-pill' },
+];
+
+const durations = [
+  { var: '--mk-motion-quick', label: 'motion-quick' },
+  { var: '--mk-motion-standard', label: 'motion-standard' },
+  { var: '--mk-motion-slow', label: 'motion-slow' },
+];
+const eases = [
+  { var: '--mk-ease-out', label: 'ease-out' },
+  { var: '--mk-ease-spring', label: 'ease-spring' },
+];
+---
+
+<Base title="Tokens">
+  <h1>Tokens</h1>
+  <p>
+    Two tiers — primitives feed semantic tokens; components reference semantic
+    only. Every semantic color is a light/dark pair. Swatches below show the
+    <strong>current mode</strong>: flip the toggle up top to watch them swap.
+  </p>
+
+  <section class="mk-card" aria-labelledby="gray">
+    <h2 id="gray">Gray ramp</h2>
+    <p>Pure achromatic, chroma 0. The primitive neutral scale.</p>
+    <ul class="ramp">
+      {grayRamp.map((step) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(--mk-gray-${step});`}></span>
+          <code class="ramp__name">--mk-gray-{step}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="moss">
+    <h2 id="moss">Moss ramp</h2>
+    <p>The hero accent family — muted green, hue 150, low chroma.</p>
+    <ul class="ramp">
+      {mossRamp.map((step) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(--mk-moss-${step});`}></span>
+          <code class="ramp__name">--mk-moss-{step}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="semantic">
+    <h2 id="semantic">Semantic colors</h2>
+    <p>What components actually reference. Rendered in the current mode.</p>
+
+    <h3>Surfaces</h3>
+    <ul class="ramp">
+      {surfaces.map((t) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
+          <code class="ramp__name">{t.var}</code>
+        </li>
+      ))}
+    </ul>
+
+    <h3>Text</h3>
+    <ul class="ramp">
+      {texts.map((t) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
+          <code class="ramp__name">{t.var}</code>
+        </li>
+      ))}
+    </ul>
+
+    <h3>Accent</h3>
+    <ul class="ramp">
+      {accents.map((t) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
+          <code class="ramp__name">{t.var}</code>
+        </li>
+      ))}
+    </ul>
+
+    <h3>Status</h3>
+    <ul class="ramp">
+      {statuses.map((t) => (
+        <li class="ramp__row">
+          <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
+          <code class="ramp__name">{t.var}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="type">
+    <h2 id="type">Type scale</h2>
+    <p>Monospace specimen at each step.</p>
+    <ul class="specimen">
+      {typeScale.map((t) => (
+        <li class="specimen__row">
+          <span class="specimen__text" style={`font-size: var(${t.var});`}>Aa watched</span>
+          <code class="specimen__name">{t.var}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="space">
+    <h2 id="space">Spacing scale</h2>
+    <p>Bars sized to each step.</p>
+    <ul class="bars">
+      {spaceScale.map((step) => (
+        <li class="bars__row">
+          <span class="bars__bar" style={`inline-size: var(--mk-space-${step});`}></span>
+          <code class="bars__name">--mk-space-{step}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="radius">
+    <h2 id="radius">Radius</h2>
+    <p>Terminal-sharp: every slot resolves to zero. The slots stay so nothing hardcodes a corner.</p>
+    <ul class="rows">
+      {radii.map((t) => (
+        <li class="rows__row">
+          <code class="rows__name">{t.var}</code>
+          <span class="rows__demo" style={`border-radius: var(${t.var});`}></span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="motion">
+    <h2 id="motion">Motion</h2>
+    <p>Durations and easings. Hover a swatch to feel the curve.</p>
+    <ul class="rows">
+      {durations.map((t) => (
+        <li class="rows__row">
+          <code class="rows__name">{t.var}</code>
+          <span class="rows__demo rows__demo--motion" style={`transition-duration: var(${t.var});`}></span>
+        </li>
+      ))}
+      {eases.map((t) => (
+        <li class="rows__row">
+          <code class="rows__name">{t.var}</code>
+          <span class="rows__demo rows__demo--motion" style={`transition-timing-function: var(${t.var});`}></span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <style>
+    section + section {
+      margin-top: var(--mk-space-6);
+    }
+
+    .mk-card h3 {
+      margin-top: var(--mk-space-5);
+    }
+
+    .ramp,
+    .specimen,
+    .bars,
+    .rows {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+    }
+
+    .ramp__row,
+    .bars__row,
+    .rows__row {
+      display: flex;
+      align-items: center;
+      gap: var(--mk-space-3);
+    }
+
+    /* Swatch sits on surface-2 so contrast-token swatches stay visible. */
+    .ramp__swatch {
+      inline-size: 3rem;
+      block-size: 2rem;
+      flex: none;
+      background-clip: padding-box;
+    }
+
+    .ramp__name,
+    .bars__name,
+    .rows__name,
+    .specimen__name {
+      font-size: var(--mk-text-xs);
+      color: var(--mk-color-text-muted);
+    }
+
+    .rows__name {
+      inline-size: 11rem;
+      flex: none;
+    }
+
+    .specimen__row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--mk-space-2) var(--mk-space-4);
+    }
+
+    .specimen__text {
+      line-height: var(--mk-leading-tight);
+    }
+
+    .bars__bar {
+      block-size: 1rem;
+      flex: none;
+      background: var(--mk-color-accent);
+    }
+
+    .rows__demo {
+      inline-size: 2.5rem;
+      block-size: 2.5rem;
+      flex: none;
+      background: var(--mk-color-surface-3);
+    }
+
+    .rows__demo--motion {
+      background: var(--mk-color-accent);
+      transition-property: transform;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .rows__row:hover .rows__demo--motion {
+        transform: translateX(var(--mk-space-5));
+      }
+    }
+  </style>
+</Base>

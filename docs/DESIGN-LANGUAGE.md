@@ -49,6 +49,9 @@ A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt 
 
 ## Remaining open
 
-- Self-host JetBrains Mono + document consumer font loading.
-- Concrete WCAG contrast audit of the moss/gray pairs in both modes.
 - Type/spacing scale values are provisional-but-working; revisit only if real screens fight them.
+
+## Resolved since (2026-06-04 buildout)
+
+- **JetBrains Mono self-hosted** in `@sethmakes/tokens` (`fonts.css` + woff2, latin subset, 400/600/700; 600 = SemiBold deliberately, matching `--mk-weight-medium`). Consumers import `@sethmakes/tokens/fonts.css` or live on the system-mono fallback.
+- **WCAG contrast audited** in both modes — see [CONTRAST.md](./CONTRAST.md) and `scripts/contrast-audit.mjs`. Status hues were darkened on the light side to clear 4.5:1; an inset affordance ring (box-shadow, not border) was added to unchecked checkboxes/radios for 1.4.11 non-text contrast.
