@@ -88,6 +88,17 @@
   --mk-weight-medium: 600;
   --mk-weight-bold: 700;
 
+  /*
+   * Icon sizes — sized to sit beside mono text. Each step pairs with a
+   * type-scale step (sm/md/lg) so a glyph reads as the same optical weight
+   * as the text it labels: md (1.25rem) is the default, slightly larger
+   * than text-md's 1rem so the icon doesn't look starved next to mono
+   * letterforms. sm/lg track text-sm/text-lg the same way.
+   */
+  --mk-icon-sm: 1rem;
+  --mk-icon-md: 1.25rem;
+  --mk-icon-lg: 1.5rem;
+
   /* Spacing scale */
   --mk-space-1: 0.25rem;
   --mk-space-2: 0.5rem;

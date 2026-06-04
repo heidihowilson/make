@@ -1,0 +1,232 @@
+---
+import Base from '../../layouts/Icons.astro';
+
+// Brand aliases: the ~28 semantic names from the settled strategy. Each maps a
+// stable mk-- name to "the glyph we mean" — re-skinnable centrally without the
+// consumer touching call sites. Listed name -> meaning so the table reads as a
+// vocabulary, not an icon dump.
+const aliases = [
+  { name: 'mk--watch', meaning: 'mark something watched / seen' },
+  { name: 'mk--play', meaning: 'start playback' },
+  { name: 'mk--pause', meaning: 'pause playback' },
+  { name: 'mk--check', meaning: 'confirm, done, success tick' },
+  { name: 'mk--close', meaning: 'dismiss, cancel, clear' },
+  { name: 'mk--add', meaning: 'create, new, plus' },
+  { name: 'mk--remove', meaning: 'subtract, minus from a set' },
+  { name: 'mk--trash', meaning: 'delete permanently' },
+  { name: 'mk--edit', meaning: 'modify, rename' },
+  { name: 'mk--search', meaning: 'find, query' },
+  { name: 'mk--settings', meaning: 'preferences, configuration' },
+  { name: 'mk--menu', meaning: 'open a menu / drawer' },
+  { name: 'mk--chevrons', meaning: 'directional disclosure (up/down/left/right)' },
+  { name: 'mk--arrows', meaning: 'navigation / movement' },
+  { name: 'mk--external', meaning: 'opens off-site, new tab' },
+  { name: 'mk--calendar', meaning: 'dates, scheduling' },
+  { name: 'mk--clock', meaning: 'time, duration, recency' },
+  { name: 'mk--star', meaning: 'favorite, rating' },
+  { name: 'mk--heart', meaning: 'like, save to loved' },
+  { name: 'mk--info', meaning: 'neutral informational note' },
+  { name: 'mk--warning', meaning: 'caution, needs attention' },
+  { name: 'mk--error', meaning: 'failure, blocked' },
+  { name: 'mk--success', meaning: 'positive confirmation' },
+  { name: 'mk--user', meaning: 'account, person, profile' },
+  { name: 'mk--home', meaning: 'home, root, dashboard' },
+  { name: 'mk--refresh', meaning: 'reload, sync again' },
+  { name: 'mk--filter', meaning: 'narrow a list' },
+  { name: 'mk--loading', meaning: 'in-progress spinner glyph' },
+];
+
+// Tailwind v4 recipe — kept in frontmatter because the `{ ... }` plugin block
+// would otherwise be parsed as a JSX expression in Astro markup. This MUST match
+// packages/icons/README.md exactly. The plugin resolves @iconify-json/<prefix>
+// sets from the consumer's project root, so Lucide + Phosphor must be the
+// consumer's OWN deps (the Install step adds them directly — transitive deps of
+// @sethmakes/icons are not hoisted there under pnpm or npm). The custom `mk` set
+// is shipped as @sethmakes/icons (not @iconify-json/mk), so it is registered
+// explicitly via the plugin's `icon-sets` option using
+// from-json(<prefix>, <path-to-dist/mk.json>).
+const tailwindRecipe = `@import "tailwindcss";
+
+@plugin "@iconify/tailwind4" {
+  prefix: icon;
+  scale: 1;
+  /* Lucide + Phosphor auto-discover from their @iconify-json packages.
+     The custom "mk" set is NOT @iconify-json/mk, so register it explicitly: */
+  icon-sets: from-json(mk, "node_modules/@sethmakes/icons/dist/mk.json");
+}`;
+---
+
+<Base title="icons">
+  <header class="hero">
+    <h1>sethmakes-icons</h1>
+    <p class="hero__lede">
+      Icon <strong>selection happens at your build</strong>, never behind a
+      toolkit release.
+    </p>
+  </header>
+
+  <section class="mk-card" aria-labelledby="what">
+    <h2 id="what">What it is</h2>
+    <p>
+      A thin wrapper over the <strong>Iconify</strong> ecosystem. Completeness
+      over curation: the full universe of icons is available at your build, and
+      only the glyphs you actually reference ship as CSS. A side project never
+      waits on a toolkit publish to use an icon. Sets are pinned —
+      <strong>Lucide is primary</strong>, with <strong>Phosphor for the gaps</strong>
+      Lucide does not cover — so everyone draws from the same two libraries at
+      the same versions.
+    </p>
+    <p>
+      On top of that sits the one piece of real brand surface:
+      <strong>brand aliases</strong>. <code>mk--watch</code> means "the glyph we
+      use for watched", not "this specific Lucide icon" — an Iconify-format set
+      with the <code>mk</code> prefix, re-skinnable centrally so swapping the
+      drawing behind a name never touches a single call site. The package is
+      otherwise quiet: pinned set decisions, naming and sizing conventions, the
+      aliases, and a codegen fallback for non-Tailwind consumers. It republishes
+      rarely — usually only when a bespoke glyph is added.
+    </p>
+  </section>
+
+  <section class="mk-card" aria-labelledby="install">
+    <h2 id="install">Install</h2>
+    <p>
+      Pin the package plus the icon sets it draws from. Versions are pinned on
+      purpose — the same Lucide and Phosphor everywhere.
+    </p>
+    <pre><code>pnpm add @sethmakes/icons @iconify-json/lucide @iconify-json/ph</code></pre>
+
+    <h3 id="tailwind">With Tailwind v4</h3>
+    <p>
+      Tailwind v4 is CSS-first. The <code>@iconify/tailwind4</code> plugin turns
+      <code>icon-[lucide--check]</code> into mask-based CSS for
+      <em>only the icons you use</em> — full sets available, nothing shipped
+      speculatively. The plugin resolves Lucide and Phosphor by prefix from their
+      <code>@iconify-json/*</code> packages in your project root, which is why
+      you install them directly (above) — transitive deps are not discoverable
+      there. The custom <code>mk</code> set is
+      <em>not</em> an <code>@iconify-json/mk</code> package, so it is not
+      auto-discovered — register it explicitly with the plugin's
+      <code>icon-sets</code> option, pointing <code>from-json</code> at this
+      package's <code>dist/mk.json</code>:
+    </p>
+    <pre><code>{tailwindRecipe}</code></pre>
+    <p class="install-note">
+      Usage is a class, not an import: <code>&lt;span class="icon-[lucide--check]"&gt;&lt;/span&gt;</code>
+      for a raw set glyph, <code>icon-[mk--watch]</code> for a brand alias.
+      Reach for the alias whenever the icon carries app meaning — that's the
+      indirection that lets a re-skin land centrally. The <code>from-json</code>
+      path resolves from your project root; if your setup resolves packages
+      differently, use an absolute path (the file is also exported as
+      <code>@sethmakes/icons/mk.json</code>).
+    </p>
+  </section>
+
+  <section class="mk-card" aria-labelledby="cli">
+    <h2 id="cli">CLI fallback (non-Tailwind)</h2>
+    <p>
+      No Tailwind? The package ships a <code>sethmakes-icons</code> CLI that
+      resolves the names you list into a stylesheet of mask-based CSS classes —
+      same sets, same aliases, no build-time plugin. Pipe it to stdout, or write
+      a file you import and commit.
+    </p>
+    <pre><code># to stdout
+npx sethmakes-icons lucide--check lucide--search mk--watch
+
+# to a file you import
+npx sethmakes-icons mk--watch mk--play --out src/styles/icons.css</code></pre>
+    <p class="install-note">
+      Each icon emits one class — <code>lucide--check</code> →
+      <code>.mk-icon-lucide-check</code>, <code>mk--watch</code> →
+      <code>.mk-icon-watch</code> (aliases drop the redundant prefix). Resolves
+      brand aliases through the same <code>mk</code> set as the Tailwind path, so
+      <code>mk--watch</code> means the same glyph in both — a re-skin stays a
+      one-place change. Re-run after pinning new set versions.
+    </p>
+  </section>
+
+  <section class="mk-card" aria-labelledby="aliases">
+    <h2 id="aliases">Brand aliases</h2>
+    <p>
+      The semantic vocabulary. Call the meaning, not the drawing — these names
+      stay stable while the glyph behind them can be retuned centrally.
+    </p>
+    <div class="mk-table-wrap">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Means</th>
+          </tr>
+        </thead>
+        <tbody>
+          {aliases.map((a) => (
+            <tr>
+              <td><code>{a.name}</code></td>
+              <td>{a.meaning}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mk-card" aria-labelledby="sizing">
+    <h2 id="sizing">Sizing</h2>
+    <p>
+      Icons align to mono text, so sizing is tokenized to the type scale rather
+      than freehand pixels. The <code>--mk-icon-*</code> tokens set a small,
+      shared range; the <code>.mk-icon</code> helper applies the medium default
+      and keeps the glyph centered on the text baseline.
+    </p>
+    <pre><code>/* size tokens — align to the mono text scale */
+--mk-icon-sm: 1rem;     /* inline with small text */
+--mk-icon-md: 1.25rem;  /* default, inline with body */
+--mk-icon-lg: 1.5rem;   /* standalone affordances */</code></pre>
+    <pre><code>&lt;!-- helper sets the default box + baseline alignment --&gt;
+&lt;span class="mk-icon icon-[mk--watch]"&gt;&lt;/span&gt;
+
+&lt;!-- step up for a standalone button affordance --&gt;
+&lt;span class="mk-icon mk-icon--lg icon-[lucide--search]"&gt;&lt;/span&gt;</code></pre>
+    <p class="install-note">
+      The <code>.mk-icon</code> helper sets an explicit
+      <code>width</code>/<code>height</code> from the <code>--mk-icon-*</code>
+      tokens, so step the size with the <code>.mk-icon--sm</code> /
+      <code>.mk-icon--lg</code> modifiers — not inline <code>font-size</code>,
+      which the explicit box overrides. (The bare CLI classes, used
+      <em>without</em> the helper, are <code>1em</code> and do inherit the text
+      size.)
+    </p>
+  </section>
+
+  <style>
+    .hero {
+      padding-block: var(--mk-space-5) var(--mk-space-6);
+    }
+
+    .hero__lede {
+      font-size: var(--mk-text-lg);
+      color: var(--mk-color-text-muted);
+      max-width: 44ch;
+    }
+
+    .hero__lede strong {
+      color: var(--mk-color-text);
+    }
+
+    section + section,
+    .mk-card + section,
+    section + .mk-card {
+      margin-top: var(--mk-space-6);
+    }
+
+    .install-note {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    .mk-card pre {
+      overflow-x: auto;
+    }
+  </style>
+</Base>

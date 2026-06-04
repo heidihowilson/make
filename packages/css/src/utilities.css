@@ -12,4 +12,38 @@
     color: inherit;
     text-decoration: none;
   }
+
+  /*
+   * Icon sizing + alignment helper. Mask-style icons (the Iconify
+   * @iconify/tailwind4 model — icon-[lucide--check] emits a mask + bg) are
+   * rendered on a bare element with no intrinsic box. This gives that
+   * element a box and drops it onto the mono baseline. It styles ANY
+   * element carrying a mask class, so we make zero assumptions about
+   * markup — compose it: <span class="mk-icon icon-[lucide--check]">.
+   */
+  .mk-icon {
+    display: inline-block;
+    width: var(--mk-icon-md);
+    height: var(--mk-icon-md);
+    /*
+     * Optical baseline correction. An icon box is square and sits on the
+     * baseline by default, so its visual center floats above mono text's
+     * x-height/cap-height midline. Nudging up by ~0.18em re-centers the
+     * glyph against the surrounding mono line — tuned for the 1.25em-ish
+     * box these tokens produce, not a magic number for its own sake.
+     */
+    vertical-align: -0.18em;
+    /* Never let a flex/grid parent stretch or shrink the icon. */
+    flex: none;
+  }
+
+  .mk-icon--sm {
+    width: var(--mk-icon-sm);
+    height: var(--mk-icon-sm);
+  }
+
+  .mk-icon--lg {
+    width: var(--mk-icon-lg);
+    height: var(--mk-icon-lg);
+  }
 }
