@@ -1,42 +1,21 @@
 ---
 import Base from '../../layouts/Icons.astro';
 
-// Brand aliases: the ~28 semantic names from the settled strategy. Each maps a
-// stable mk-- name to "the glyph we mean" — re-skinnable centrally without the
-// consumer touching call sites. Listed name -> meaning so the table reads as a
-// vocabulary, not an icon dump.
-const aliases = [
-  { name: 'mk--watch', meaning: 'mark something watched / seen' },
-  { name: 'mk--play', meaning: 'start playback' },
-  { name: 'mk--pause', meaning: 'pause playback' },
-  { name: 'mk--check', meaning: 'confirm, done, success tick' },
-  { name: 'mk--close', meaning: 'dismiss, cancel, clear' },
-  { name: 'mk--add', meaning: 'create, new, plus' },
-  { name: 'mk--remove', meaning: 'subtract, minus from a set' },
-  { name: 'mk--trash', meaning: 'delete permanently' },
-  { name: 'mk--edit', meaning: 'modify, rename' },
-  { name: 'mk--search', meaning: 'find, query' },
-  { name: 'mk--settings', meaning: 'preferences, configuration' },
-  { name: 'mk--menu', meaning: 'open a menu / drawer' },
-  { name: 'mk--chevrons', meaning: 'directional disclosure (up/down/left/right)' },
-  { name: 'mk--arrows', meaning: 'navigation / movement' },
-  { name: 'mk--external', meaning: 'opens off-site, new tab' },
-  { name: 'mk--calendar', meaning: 'dates, scheduling' },
-  { name: 'mk--clock', meaning: 'time, duration, recency' },
-  { name: 'mk--star', meaning: 'favorite, rating' },
-  { name: 'mk--heart', meaning: 'like, save to loved' },
-  { name: 'mk--info', meaning: 'neutral informational note' },
-  { name: 'mk--warning', meaning: 'caution, needs attention' },
-  { name: 'mk--error', meaning: 'failure, blocked' },
-  { name: 'mk--success', meaning: 'positive confirmation' },
-  { name: 'mk--user', meaning: 'account, person, profile' },
-  { name: 'mk--home', meaning: 'home, root, dashboard' },
-  { name: 'mk--refresh', meaning: 'reload, sync again' },
-  { name: 'mk--filter', meaning: 'narrow a list' },
-  { name: 'mk--loading', meaning: 'in-progress spinner glyph' },
-  { name: 'mk--cart', meaning: 'shopping / groceries list' },
-  { name: 'mk--lightbulb', meaning: 'idea, suggestion, what to make' },
-];
+// Brand aliases — derived at BUILD TIME from the same source of truth the
+// package build and the browse tool use (buildMk reads
+// packages/icons/src/aliases.json and resolves glyphs through the pinned
+// sets). The table renders the actual glyph plus the shipped why-this-glyph
+// rationale, so it can never drift from reality the way a hand-maintained
+// list did (it had invented mk--chevrons/mk--arrows entries).
+import { buildMk } from '../../lib/icon-browse-data.mjs';
+
+const mk = buildMk();
+const aliases = Object.entries(mk.icons).map(([key, entry]: [string, any]) => ({
+  name: `mk--${key}`,
+  source: entry.src,
+  why: entry.why,
+  svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${entry.v}" width="1em" height="1em" aria-hidden="true">${entry.b}</svg>`,
+}));
 
 // Tailwind v4 recipe — kept in frontmatter because the `{ ... }` plugin block
 // would otherwise be parsed as a JSX expression in Astro markup. This MUST match
@@ -157,15 +136,19 @@ npx sethmakes-icons mk--watch mk--play --out src/styles/icons.css</code></pre>
       <table class="mk-table">
         <thead>
           <tr>
+            <th scope="col">Glyph</th>
             <th scope="col">Name</th>
-            <th scope="col">Means</th>
+            <th scope="col">Source</th>
+            <th scope="col">Why this glyph</th>
           </tr>
         </thead>
         <tbody>
           {aliases.map((a) => (
             <tr>
+              <td><span class="alias-glyph" set:html={a.svg} /></td>
               <td><code>{a.name}</code></td>
-              <td>{a.meaning}</td>
+              <td><code class="alias-source">{a.source}</code></td>
+              <td class="alias-why">{a.why}</td>
             </tr>
           ))}
         </tbody>
@@ -225,6 +208,26 @@ npx sethmakes-icons mk--watch mk--play --out src/styles/icons.css</code></pre>
     .install-note {
       color: var(--mk-color-text-muted);
       font-size: var(--mk-text-sm);
+    }
+
+    /* Alias table glyphs — iconToSVG emits 1em boxes; size via font-size. */
+    .alias-glyph {
+      display: inline-block;
+      font-size: var(--mk-icon-lg);
+      line-height: 0;
+      color: var(--mk-color-text);
+    }
+
+    .alias-source {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-xs);
+      white-space: nowrap;
+    }
+
+    .alias-why {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+      min-width: 16rem;
     }
 
     .mk-card pre {
