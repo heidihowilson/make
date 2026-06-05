@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/components",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Lit custom elements for the sethmakes design language. Intentionally empty until a real consuming project needs a component.",
   "license": "MIT",
   "repository": {
