@@ -1,0 +1,53 @@
+/*
+ * @sethmakes/tokens — Tailwind v4 bridge.
+ *
+ * Maps the semantic tokens into Tailwind's @theme so Tailwind utilities are
+ * driven by the design system: bg-surface-1, text-accent, text-muted,
+ * bg-warning-subtle, font-body, etc. One source of truth — the utilities
+ * resolve through the mk custom properties, so light/dark stays a token
+ * swap and a future re-theme reskins Tailwind output too.
+ *
+ * Born from real demand: the first two consumers (tv-tracker, eat) each
+ * hand-rolled this exact mapping. Import it AFTER the token sheet:
+ *
+ *   @import "@sethmakes/tokens/index.css";
+ *   @import "@sethmakes/tokens/tailwind.css";
+ *
+ * Names drop the mk-color prefix because Tailwind's namespace provides the
+ * context: --color-accent -> text-accent / bg-accent.
+ */
+
+@theme {
+  /* Surfaces */
+  --color-bg: var(--mk-color-bg);
+  --color-surface-1: var(--mk-color-surface-1);
+  --color-surface-2: var(--mk-color-surface-2);
+  --color-surface-3: var(--mk-color-surface-3);
+  --color-field: var(--mk-color-field);
+
+  /* Text */
+  --color-text: var(--mk-color-text);
+  --color-muted: var(--mk-color-text-muted);
+  --color-faint: var(--mk-color-text-faint);
+
+  /* Accent */
+  --color-accent: var(--mk-color-accent);
+  --color-accent-hover: var(--mk-color-accent-hover);
+  --color-accent-contrast: var(--mk-color-accent-contrast);
+  --color-accent-subtle: var(--mk-color-accent-subtle);
+  --color-on-accent-subtle: var(--mk-color-on-accent-subtle);
+
+  /* Status */
+  --color-success: var(--mk-color-success);
+  --color-success-subtle: var(--mk-color-success-subtle);
+  --color-warning: var(--mk-color-warning);
+  --color-warning-subtle: var(--mk-color-warning-subtle);
+  --color-danger: var(--mk-color-danger);
+  --color-danger-subtle: var(--mk-color-danger-subtle);
+
+  /* Focus */
+  --color-focus: var(--mk-color-focus);
+
+  /* Type — font-body utility renders the system mono stack */
+  --font-body: var(--mk-font-body);
+}

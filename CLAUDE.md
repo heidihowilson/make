@@ -4,7 +4,7 @@ Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a 
 
 ## Structure
 
-- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (light/dark) plus self-hosted fonts. No JS. (A Tailwind v4 `@theme` bridge is planned but not yet shipped.)
+- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (light/dark) plus self-hosted fonts. No JS. (Includes the Tailwind v4 `@theme` bridge — `@sethmakes/tokens/tailwind.css` — shipped after both early consumers hand-rolled it.)
 - `packages/css` → `@sethmakes/css` — class-based styles for native HTML. No JS.
 - `packages/components` → `@sethmakes/components` — Lit + TypeScript custom elements. Starts empty; components are added only when a real consuming project needs them.
 - `apps/docs` — Astro docs site: public docs + dev playground + SSR test fixture. Deploys to GitHub Pages.

@@ -12,11 +12,13 @@
   "exports": {
     ".": "./index.css",
     "./index.css": "./index.css",
-    "./fonts.css": "./fonts.css"
+    "./fonts.css": "./fonts.css",
+    "./tailwind.css": "./tailwind.css"
   },
   "files": [
     "index.css",
     "fonts.css",
+    "tailwind.css",
     "fonts/"
   ],
   "keywords": [

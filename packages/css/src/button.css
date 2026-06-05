@@ -56,6 +56,21 @@
   }
 
   /*
+   * Warning — caution-filled (proceed-anyway, irreversible-but-not-
+   * destructive). Mirrors the danger fill; both consumers asked for it
+   * (DaisyUI btn-warning had no mapping and was improvised as tonal +
+   * warning text). Same contrast pairing as danger per CONTRAST.md.
+   */
+  .mk-btn--warning {
+    background: var(--mk-color-warning);
+    color: var(--mk-color-accent-contrast);
+  }
+
+  .mk-btn--warning:hover {
+    background: color-mix(in oklch, var(--mk-color-warning), var(--mk-color-text) 12%);
+  }
+
+  /*
    * Active/selected — an honest state for nav tabs, segmented choices, and
    * toggles, instead of faking it with tonal-vs-ghost contrast. Accent-subtle
    * so it reads "chosen" without competing with primary actions.

@@ -35,7 +35,7 @@ Compose these on native elements. Variants are `--` suffixed; structure parts ar
 
 | Area | Classes |
 |---|---|
-| Buttons | `.mk-btn` + `--primary` / `--ghost` / `--danger` / `--active` / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
+| Buttons | `.mk-btn` + `--primary` / `--ghost` / `--danger` / `--warning` / `--active` / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
 | Badges | `.mk-badge` + `--accent` / `--success` / `--warning` / `--danger` / `--sm` / `--dot` |
 | Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox`, `.mk-radio` |
 | Surfaces | `.mk-card` (`--sunken` / `--flush`), `.mk-table` (`.mk-table-wrap`, `__num`), `.mk-divider` (`--label`), `.mk-disclosure` (`__body`) |
@@ -50,6 +50,11 @@ The full live catalog with rendered examples is the docs site (`/ui/components/*
 ## Recipes
 
 ### Mobile bottom tab bar
+
+On short pages a bottom bar only pins to the viewport edge if the page fills
+it — make the document a column that can push it down:
+`body { min-height: 100svh; display: flex; flex-direction: column; }` with the
+bar last (or `margin-top: auto`). Both real consumers needed this.
 
 The library ships the chrome (`.mk-appbar--bottom`: fixed-to-bottom translucent
 surface, safe-area padded — the one sanctioned translucency). The **per-tab layout**

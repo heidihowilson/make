@@ -82,8 +82,23 @@ woff2 files with **relative** URLs (`url("./fonts/…")`).
 Skip `fonts.css` entirely to live on the system-mono fallback baked into
 `--mk-font-body` (`ui-monospace, "SF Mono", Menlo, Consolas, monospace`).
 
+## Tailwind v4 bridge
+
+`tailwind.css` maps the semantic tokens into Tailwind's `@theme`, so utilities
+are token-driven: `bg-surface-1`, `text-accent`, `text-muted`,
+`bg-warning-subtle`, `font-body`. Import it after the token sheet:
+
+```css
+@import "@sethmakes/tokens/index.css";
+@import "@sethmakes/tokens/tailwind.css";
+```
+
+Shipped because the first two consumers each hand-rolled the same mapping —
+one source of truth beats three copies.
+
 ## Versioning
 
-Versions in **lockstep** with `@sethmakes/css` and `@sethmakes/components` (a
-Changesets fixed group). A token rename or value change is a trio bump. Pre-1.0:
+Versions in **lockstep** with `@sethmakes/css`, `@sethmakes/components`, and
+`@sethmakes/icons` (a Changesets fixed group). A token rename or value change is a
+family bump. Pre-1.0:
 `0.x`, minor = breaking.
