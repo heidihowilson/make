@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/css",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Class-based styles for native HTML in the sethmakes design language.",
   "license": "MIT",
   "repository": {

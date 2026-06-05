@@ -1,5 +1,12 @@
 # @sethmakes/components
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [2d0c979]
+  - @sethmakes/tokens@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
