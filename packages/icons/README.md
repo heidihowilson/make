@@ -187,6 +187,7 @@ prefix-`mk` Iconify set, validates it against the Iconify schema, and writes
 
 ## Versioning
 
-This package versions **independently** — it is _not_ in the tokens/css/components
-lockstep group. Adding an alias or bumping a source set is a `@sethmakes/icons` change
-only. Pre-1.0: `0.x`, minor = breaking.
+This package versions in **lockstep** with the design-system family
+(tokens/css/components/icons, a Changesets fixed group) — the brand icon
+vocabulary is part of the design language, so it shares the system version.
+Pre-1.0: `0.x`, minor = breaking.
