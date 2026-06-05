@@ -58,7 +58,7 @@ A consumer wanting only the look pulls tokens + css and ships zero JS.
 
 ## Versioning & releases
 
-- **Lockstep versioning for the design-system trio** (tokens/css/components) via a Changesets fixed group — "the design system is at 0.4.0." Future unrelated packages (e.g. a utils package) version **independently**; lockstep is per package family, not repo-wide.
+- **Lockstep versioning for the design-system family** (tokens/css/components/icons) via a Changesets fixed group — "the design system is at 0.4.0." Icons joined the group 2026-06-05: the brand icon vocabulary is part of the design language, and Seth prefers one number for the whole system over avoiding occasional empty bumps. Future unrelated packages (e.g. a utils package) version **independently**; lockstep is per package family, not repo-wide.
 - **Changesets**: every behavior-changing PR adds a changeset; release PR aggregates; merge → GitHub Actions publishes to npm.
 - **Public packages** — free CDN via unpkg/jsdelivr, zero auth friction in consumers.
 - **Pre-1.0 policy:** stay at `0.x` (minor = breaking) until the **third** real project adopts the library. No premature 1.0.

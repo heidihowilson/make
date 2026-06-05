@@ -2,10 +2,19 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [["@sethmakes/tokens", "@sethmakes/css", "@sethmakes/components"]],
+  "fixed": [
+    [
+      "@sethmakes/tokens",
+      "@sethmakes/css",
+      "@sethmakes/components",
+      "@sethmakes/icons"
+    ]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["docs"]
+  "ignore": [
+    "docs"
+  ]
 }

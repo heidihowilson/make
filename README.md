@@ -8,14 +8,14 @@ The first tool: a small design language with one fixed aesthetic: **terminal bon
 
 ## Packages
 
-The design-system trio (`tokens`, `css`, `components`) versions in lockstep. `tokens` and `css` publish publicly to npm under `@sethmakes/*`; `components` is reserved and still private (marked `"private": true`) until it has a component to ship. `@sethmakes/icons` is **not** in that lockstep group — it versions independently (see its [README](packages/icons/README.md#versioning)).
+The design-system packages (`tokens`, `css`, `components`, `icons`) version in **lockstep** — the brand icon vocabulary is part of the design language, so it rides the system version. `tokens`, `css`, and `icons` publish publicly to npm under `@sethmakes/*`; `components` is reserved and still private (marked `"private": true`) until it has a component to ship.
 
 | Package | Contents | JS? | Published? |
 |---|---|---|---|
 | [`@sethmakes/tokens`](packages/tokens) | CSS custom properties — light/dark themes | No | Yes |
 | [`@sethmakes/css`](packages/css) | Class-based styles for native HTML (depends on tokens) | No | Yes |
 | [`@sethmakes/components`](packages/components) | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes | No — private, reserved until it ships |
-| [`@sethmakes/icons`](packages/icons) | Brand aliases + custom Iconify set (`mk` prefix) | No (build/CLI only) | Yes — versions independently |
+| [`@sethmakes/icons`](packages/icons) | Brand aliases + custom Iconify set (`mk` prefix) | No (build/CLI only) | Yes |
 
 `apps/docs` is the Astro site — public docs, dev playground, and SSR test fixture in one. Unpublished.
 
