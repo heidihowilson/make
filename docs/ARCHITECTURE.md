@@ -25,7 +25,7 @@ SSR matters — consumers are SSR-first frameworks (Remix v2/v3, SvelteKit).
 | Editor support | **custom-elements manifest** | Autocomplete in any consuming framework |
 | Styling | **Hand-written modern CSS** with cascade layers (`@layer mk.reset, mk.base, mk.components, mk.utilities`) | Zero toolchain coupling; trivially overridable without specificity wars |
 | Tokens | **CSS custom properties**, two tiers: primitives → semantic | Industry standard; portable everywhere |
-| Tailwind bridge | Optional `tokens.tailwind.css` using Tailwind v4 `@theme` | Tailwind consumers get utilities driven by our tokens; one source of truth |
+| Tailwind bridge | `@sethmakes/tokens/tailwind.css` — Tailwind v4 `@theme` mapping (shipped 2026-06-05 after tv-tracker and eat both hand-rolled it) | Tailwind consumers get `bg-surface-1`, `text-accent`, `font-body` etc. driven by our tokens; one source of truth |
 
 **Token rule:** components only ever reference **semantic** tokens (`--mk-color-bg`, not a raw hex or primitive). This is what makes dark mode a token swap instead of a rewrite.
 
