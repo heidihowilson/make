@@ -1,0 +1,160 @@
+---
+import Base from '../../layouts/Ui.astro';
+
+// The one-page class inventory. Born from consumer #2's meta-feedback: "the
+// library keeps turning out to already have the thing; discoverability is
+// the gap, not coverage." If a class isn't on this page, it doesn't exist.
+const groups = [
+  {
+    area: 'Buttons',
+    base: '.mk-btn',
+    items: [
+      ['--primary', 'moss fill — the one hero action'],
+      ['--ghost', 'transparent until hover'],
+      ['--danger', 'destructive fill'],
+      ['--warning', 'caution fill (proceed-anyway)'],
+      ['--active', 'selected state for tabs/segments — pair with aria-pressed'],
+      ['--sm / --xs / --lg', 'sizes; xs is sub-44px, pointer-dense UIs only'],
+      ['--block', 'full width'],
+      ['--icon', 'square 44px, single glyph — always aria-label'],
+    ],
+  },
+  {
+    area: 'Badges',
+    base: '.mk-badge',
+    items: [
+      ['--accent / --success / --warning / --danger', 'status tints; tonal default is the quiet badge'],
+      ['--sm', 'dense rows — tighter padding, same type size'],
+      ['--dot', 'leading status dot in currentColor'],
+    ],
+  },
+  {
+    area: 'Forms',
+    base: '.mk-field',
+    items: [
+      ['.mk-field > label / __help / __error / --error', 'scaffolding; error tints the control fill (no borders)'],
+      ['.mk-input / .mk-select / .mk-textarea', 'filled controls, 44px, 16px min font'],
+      ['.mk-fieldset', 'native-chrome reset, legend as label'],
+      ['.mk-choice', '44px tap row wrapping a 24px control'],
+      ['.mk-checkbox / .mk-radio / .mk-switch', 'choices'],
+      [':checked / [aria-checked="true"] / --checked', 'three ways to be checked — input, widget role, or server-rendered static'],
+    ],
+  },
+  {
+    area: 'Surfaces',
+    base: '.mk-card',
+    items: [
+      ['--sunken', 'surface-2, for nesting'],
+      ['--flush', 'no padding, media bleeds to the edge'],
+      ['.mk-table + .mk-table-wrap / __num', 'borderless data grid + mobile scroll wrapper'],
+      ['.mk-divider / --label', 'tonal line, optional centered label'],
+      ['.mk-disclosure / __body', 'styled details/summary'],
+    ],
+  },
+  {
+    area: 'Chrome',
+    base: '.mk-appbar',
+    items: [
+      ['--bottom', 'mobile tab-bar chrome, safe-area padded'],
+      ['.mk-shell / __main', "the appbar's document contract — full-height column so a bottom bar pins"],
+    ],
+  },
+  {
+    area: 'Feedback',
+    base: '.mk-alert',
+    items: [
+      ['__title, --info / --success / --warning / --danger', 'tonal message blocks'],
+      ['.mk-spinner / --sm / --md', 'stepped square spinner, reduced-motion safe'],
+      ['.mk-progress / --sm', 'accent fill; no value attr = indeterminate'],
+      ['.mk-empty / __title / __message / __action', 'centered tonal empty state'],
+    ],
+  },
+  {
+    area: 'Media',
+    base: '.mk-thumb',
+    items: [
+      ['--square / --video', 'aspect variants (default poster 2/3)'],
+      ['__fallback', 'server-rendered initial, scales to its box'],
+      ['.mk-skeleton / --text', 'tonal shimmer placeholder'],
+      ['.mk-figure', 'media + muted caption'],
+    ],
+  },
+  {
+    area: 'Prose',
+    base: '.mk-prose',
+    items: [['(wrapper)', 'article content: paragraph rhythm, lists, code, blockquote, kbd']],
+  },
+  {
+    area: 'Utilities',
+    base: '.mk-icon',
+    items: [
+      ['--sm / --lg', 'icon box + mono baseline alignment; compose with icon-[mk--…]'],
+      ['.mk-link-reset', 'composite links (nav, card-as-link, logo) opt out of accent styling'],
+    ],
+  },
+];
+---
+
+<Base title="Cheatsheet">
+  <h1>Cheatsheet</h1>
+  <p>
+    The complete class inventory on one page — if it isn't here, it doesn't
+    exist. Each component page has rendered examples; this is for finding the
+    thing you suspect already exists (it usually does).
+  </p>
+
+  {groups.map((g) => (
+    <section class="mk-card sheet">
+      <h2>{g.area}</h2>
+      <p class="sheet__base"><code>{g.base}</code></p>
+      <dl class="sheet__list">
+        {g.items.map(([cls, what]) => (
+          <div class="sheet__row">
+            <dt><code>{cls}</code></dt>
+            <dd>{what}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  ))}
+
+  <style>
+    .sheet {
+      margin-top: var(--mk-space-4);
+    }
+
+    .sheet__base {
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    .sheet__list {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-2);
+    }
+
+    .sheet__row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--mk-space-1) var(--mk-space-4);
+    }
+
+    .sheet__row dt code {
+      font-size: var(--mk-text-xs);
+    }
+
+    .sheet__row dd {
+      margin: 0;
+      color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    @media (min-width: 40rem) {
+      .sheet__row {
+        grid-template-columns: 20rem 1fr;
+      }
+    }
+  </style>
+</Base>

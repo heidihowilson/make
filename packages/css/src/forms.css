@@ -166,16 +166,33 @@
     background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 8%);
   }
 
-  /* Checked — accent fill with a glyph drawn via ::before; the fill is its
-     own affordance, so the inset ring is dropped. */
+  /*
+   * Checked — accent fill with a glyph drawn via ::before; the fill is its
+   * own affordance, so the inset ring is dropped.
+   *
+   * Three ways to be checked, because this is a progressive-enhancement
+   * library: :checked for real inputs; [aria-checked="true"] for widget
+   * roles (a form-POST <button role="checkbox"> — the styling hook IS the
+   * accessibility attribute); and the --checked modifier for static
+   * server-rendered elements with no interactive role. Consumer #2 (eat)
+   * hand-painted this exact recipe on a <span> before these existed.
+   */
   .mk-checkbox:checked,
-  .mk-radio:checked {
+  .mk-checkbox[aria-checked="true"],
+  .mk-checkbox--checked,
+  .mk-radio:checked,
+  .mk-radio[aria-checked="true"],
+  .mk-radio--checked {
     background: var(--mk-color-accent);
     box-shadow: none;
   }
 
   .mk-checkbox:checked:hover,
-  .mk-radio:checked:hover {
+  .mk-checkbox[aria-checked="true"]:hover,
+  .mk-checkbox--checked:hover,
+  .mk-radio:checked:hover,
+  .mk-radio[aria-checked="true"]:hover,
+  .mk-radio--checked:hover {
     background: var(--mk-color-accent-hover);
   }
 
@@ -196,7 +213,9 @@
     transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
   }
 
-  .mk-checkbox:checked::before {
+  .mk-checkbox:checked::before,
+  .mk-checkbox[aria-checked="true"]::before,
+  .mk-checkbox--checked::before {
     transform: scale(1);
   }
 
@@ -211,7 +230,9 @@
     transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
   }
 
-  .mk-radio:checked::before {
+  .mk-radio:checked::before,
+  .mk-radio[aria-checked="true"]::before,
+  .mk-radio--checked::before {
     transform: scale(1);
   }
 
@@ -257,15 +278,21 @@
     background: color-mix(in oklch, var(--mk-color-surface-3), var(--mk-color-text) 8%);
   }
 
-  .mk-switch:checked {
+  .mk-switch:checked,
+  .mk-switch[aria-checked="true"],
+  .mk-switch--checked {
     background: var(--mk-color-accent);
   }
 
-  .mk-switch:checked:hover {
+  .mk-switch:checked:hover,
+  .mk-switch[aria-checked="true"]:hover,
+  .mk-switch--checked:hover {
     background: var(--mk-color-accent-hover);
   }
 
-  .mk-switch:checked::before {
+  .mk-switch:checked::before,
+  .mk-switch[aria-checked="true"]::before,
+  .mk-switch--checked::before {
     background: var(--mk-color-accent-contrast);
     transform: translateX(20px);
   }

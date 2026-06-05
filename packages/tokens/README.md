@@ -68,9 +68,9 @@ woff2 files with **relative** URLs (`url("./fonts/…")`).
   into your served assets at build time:
 
   ```jsonc
-  // package.json
+  // package.json — mk-fonts ships with this package (bin)
   "scripts": {
-    "fonts": "cp -r node_modules/@sethmakes/tokens/fonts public/fonts",
+    "fonts": "mk-fonts public/fonts",
     "build:css": "npm run fonts && tailwindcss -i styles/app.css -o public/app.css"
   }
   ```

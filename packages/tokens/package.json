@@ -15,11 +15,15 @@
     "./fonts.css": "./fonts.css",
     "./tailwind.css": "./tailwind.css"
   },
+  "bin": {
+    "mk-fonts": "./bin/mk-fonts.mjs"
+  },
   "files": [
     "index.css",
     "fonts.css",
     "tailwind.css",
-    "fonts/"
+    "fonts/",
+    "bin/"
   ],
   "keywords": [
     "design-tokens",
