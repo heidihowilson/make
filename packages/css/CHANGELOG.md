@@ -1,5 +1,13 @@
 # @sethmakes/css
 
+## 0.1.6
+
+### Patch Changes
+
+- 0662482: Overlay trio: .mk-toast (fixed bottom-center transient, one at a time, status variants), .mk-tabs (segmented row, selection via aria-selected/aria-current/--active), .mk-dialog (native dialog styling + --mk-color-scrim backdrop token). All three promoted from hand-rolled consumer/docs implementations; CSS-only, apps bring the one-line JS.
+- Updated dependencies [0662482]
+  - @sethmakes/tokens@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
