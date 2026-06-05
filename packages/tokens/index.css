@@ -177,4 +177,11 @@
 
   /* Focus */
   --mk-color-focus: var(--mk-color-accent);
+
+  /*
+   * Scrim — the dialog backdrop, the one sanctioned content-dimming.
+   * Light mode needs a heavier hand (a pale page barely darkens);
+   * dark mode goes deeper but stays translucent so context survives.
+   */
+  --mk-color-scrim: light-dark(oklch(20% 0 0 / 0.45), oklch(5% 0 0 / 0.6));
 }

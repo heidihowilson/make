@@ -26,9 +26,12 @@
 @import "./src/table.css";
 @import "./src/divider.css";
 @import "./src/disclosure.css";
+@import "./src/tabs.css";
+@import "./src/dialog.css";
 @import "./src/alert.css";
 @import "./src/spinner.css";
 @import "./src/progress.css";
+@import "./src/toast.css";
 @import "./src/media.css";
 @import "./src/empty.css";
 @import "./src/utilities.css";

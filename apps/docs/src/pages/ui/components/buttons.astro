@@ -63,6 +63,26 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
+    <h2>Tabs</h2>
+    <p>
+      A segmented row where exactly one choice is current — set switchers,
+      view filters, theme pickers. Selection answers to
+      <code>aria-selected</code>, <code>aria-current</code>, or
+      <code>--active</code>: the styling hook is the semantics. Promoted after
+      two consumers and our own icon browser built it from loose buttons.
+    </p>
+    <div class="mk-tabs" role="tablist" aria-label="Tool Time crew">
+      <button class="mk-tabs__tab" role="tab" aria-selected="true">Tim</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false">Al</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false">Heidi</button>
+    </div>
+    <pre><code>&lt;div class="mk-tabs" role="tablist" aria-label="Tool Time crew"&gt;
+  &lt;button class="mk-tabs__tab" role="tab" aria-selected="true"&gt;Tim&lt;/button&gt;
+  &lt;button class="mk-tabs__tab" role="tab" aria-selected="false"&gt;Al&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
     <h2>Disabled</h2>
     <p>Dimmed, no hover, default cursor — every variant.</p>
     <div class="row">

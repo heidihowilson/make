@@ -99,9 +99,97 @@ import Base from '../../../layouts/Ui.astro';
 &lt;/div&gt;</code></pre>
   </section>
 
+  <section class="mk-card">
+    <h2>Toast</h2>
+    <p>
+      Transient confirmation, by policy: fixed bottom-center, the toast layer,
+      <strong>one at a time</strong> — a new message replaces the old. CSS-only;
+      the app brings the timer and pairs the visual with a hidden
+      <code>role="status"</code> live region. Promoted from this site's own
+      hand-rolled copy toast.
+    </p>
+    <div class="row">
+      <button class="mk-btn" type="button" data-toast="">Show toast</button>
+      <button class="mk-btn" type="button" data-toast="success">Success toast</button>
+      <button class="mk-btn" type="button" data-toast="danger">Danger toast</button>
+    </div>
+    <pre><code>&lt;div class="mk-toast" hidden role="status"&gt;Wall rebuilt — Wilson approved&lt;/div&gt;
+
+// app JS: show, wait, hide
+toast.textContent = msg; toast.hidden = false;
+setTimeout(() =&gt; (toast.hidden = true), 1800);</code></pre>
+    <div class="mk-toast" id="demo-toast" role="status" hidden></div>
+  </section>
+
+  <section class="mk-card">
+    <h2>Dialog</h2>
+    <p>
+      Styling for the native <code>&lt;dialog&gt;</code> — the one sanctioned
+      modal: opened with <code>showModal()</code>, one at a time, never
+      spawning another. The platform does focus trapping and Esc; the scrim
+      token does the dimming. No shadow — flat language holds even in the top
+      layer.
+    </p>
+    <div class="row">
+      <button class="mk-btn mk-btn--danger" type="button" id="demo-dialog-open">Remove Tool Time…</button>
+    </div>
+    <dialog class="mk-dialog" id="demo-dialog">
+      <h3 class="mk-dialog__title">Remove Tool Time?</h3>
+      <p>
+        Tim, Al, and 204 episodes of flannel leave the watchlist. Wilson's
+        advice over the fence: irreversible decisions deserve a beat.
+      </p>
+      <form method="dialog" class="mk-dialog__actions">
+        <button class="mk-btn" value="cancel">Keep it</button>
+        <button class="mk-btn mk-btn--danger" value="confirm">Remove</button>
+      </form>
+    </dialog>
+    <pre><code>&lt;dialog class="mk-dialog"&gt;
+  &lt;h3 class="mk-dialog__title"&gt;Remove Tool Time?&lt;/h3&gt;
+  &lt;p&gt;…&lt;/p&gt;
+  &lt;form method="dialog" class="mk-dialog__actions"&gt;
+    &lt;button class="mk-btn" value="cancel"&gt;Keep it&lt;/button&gt;
+    &lt;button class="mk-btn mk-btn--danger" value="confirm"&gt;Remove&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+
+dialogEl.showModal(); // the app's one line</code></pre>
+  </section>
+
+  <script is:inline>
+    // Toast demo — show/replace/hide; one toast, per policy.
+    (() => {
+      const toast = document.getElementById('demo-toast');
+      let t;
+      const MESSAGES = {
+        '': 'Wall rebuilt — Wilson approved',
+        success: 'More power: Binford 6100 saved',
+        danger: 'That was load-bearing, Tim',
+      };
+      document.querySelectorAll('[data-toast]').forEach((btn) =>
+        btn.addEventListener('click', () => {
+          toast.className = 'mk-toast' + (btn.dataset.toast ? ` mk-toast--${btn.dataset.toast}` : '');
+          toast.textContent = MESSAGES[btn.dataset.toast];
+          toast.hidden = false;
+          clearTimeout(t);
+          t = setTimeout(() => (toast.hidden = true), 1800);
+        })
+      );
+      // Dialog demo.
+      const dlg = document.getElementById('demo-dialog');
+      document.getElementById('demo-dialog-open').addEventListener('click', () => dlg.showModal());
+    })();
+  </script>
+
   <style>
     section.mk-card + section.mk-card {
       margin-top: var(--mk-space-5);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-3);
     }
 
     .demo-col {

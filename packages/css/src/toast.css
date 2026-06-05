@@ -1,0 +1,66 @@
+@layer mk.components {
+  /*
+   * Toast — transient confirmation. Per the interaction-hierarchy policy:
+   * fixed placement (bottom-center; no per-app drift), the toast layer
+   * (above chrome and overlays), ONE at a time — a new message replaces
+   * the old, toasts never stack. No shadow: flat language; the surface
+   * step + placement do the separating.
+   *
+   * CSS-only by design: the app brings the timer (show, wait, hide) and
+   * pairs the visual with a visually-hidden role="status" live region —
+   * announce in text, decorate in pixels. Promoted from the docs site's
+   * own hand-rolled copy-confirmation toast.
+   *
+   *   <div class="mk-toast" hidden>Saved</div>
+   */
+  .mk-toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(var(--mk-space-5), env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: var(--mk-layer-toast);
+    background: var(--mk-color-surface-3);
+    color: var(--mk-color-text);
+    font-size: var(--mk-text-sm);
+    padding: var(--mk-space-3) var(--mk-space-4);
+    border-radius: var(--mk-radius-surface);
+    max-width: calc(100vw - var(--mk-space-6));
+  }
+
+  /* Status variants — subtle wash + on-color text, same as alerts. */
+  .mk-toast--success {
+    background: var(--mk-color-success-subtle);
+    color: var(--mk-color-success);
+  }
+
+  .mk-toast--warning {
+    background: var(--mk-color-warning-subtle);
+    color: var(--mk-color-warning);
+  }
+
+  .mk-toast--danger {
+    background: var(--mk-color-danger-subtle);
+    color: var(--mk-color-danger);
+  }
+
+  /* Quiet entrance — rises a step and fades in; gone means gone (no exit
+     animation: a toast that lingers on its way out reads as a second
+     message). Guarded, with the static state as the reduce fallback. */
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-toast:not([hidden]) {
+      animation: mk-toast-in var(--mk-motion-standard) var(--mk-ease-out);
+    }
+  }
+
+  @keyframes mk-toast-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, var(--mk-space-3));
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+}
