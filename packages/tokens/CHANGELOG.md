@@ -1,5 +1,11 @@
 # @sethmakes/tokens
 
+## 0.1.3
+
+### Patch Changes
+
+- 36cf4be: Icons joins the design-system lockstep group — the brand icon vocabulary is part of the design language, so all packages now share one system version. This release exists to align the numbers.
+
 ## 0.1.2
 
 ### Patch Changes

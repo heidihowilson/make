@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/tokens",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Design tokens for the sethmakes design language — CSS custom properties, dual light/dark.",
   "license": "MIT",
   "repository": {
