@@ -1,5 +1,13 @@
 # @sethmakes/css
 
+## 0.1.4
+
+### Patch Changes
+
+- 3c81439: Second-consumer feedback (eat migration): ship the Tailwind v4 @theme bridge (@sethmakes/tokens/tailwind.css — both consumers had hand-rolled it), add .mk-btn--warning (caution-filled, mirrors danger), document the short-page bottom-appbar layout requirement.
+- Updated dependencies [3c81439]
+  - @sethmakes/tokens@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/icons",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Brand aliases, sizing conventions, and a custom Iconify set (prefix `mk`) for the sethmakes design language. Selection happens at YOUR build via Iconify — this package is thin.",
   "license": "MIT",
   "repository": {
