@@ -173,8 +173,10 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
       gap: var(--mk-space-2);
-      padding: var(--mk-space-3) var(--mk-space-2);
+      /* Even padding all around — names clamp instead of crowding the edges. */
+      padding: var(--mk-space-3);
       min-height: 44px;
       text-align: center;
       transition: background var(--mk-motion-quick) var(--mk-ease-out);
@@ -198,13 +200,23 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       height: 1em;
     }
 
-    /* Name beneath, mono xs, muted, truncated mid-word so long names fit. */
+    /*
+     * Name beneath, mono xs, muted. Clamped to exactly two lines AND
+     * reserving two lines, so every cell is the same height whether its
+     * name is "x" or "calendar-arrow-down" — uneven cells read as missing
+     * padding. Full name lives in the title attribute.
+     */
     .browse__name {
       font-size: var(--mk-text-xs);
       color: var(--mk-color-text-muted);
       max-width: 100%;
       overflow-wrap: anywhere;
       line-height: var(--mk-leading-tight);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: calc(2 * var(--mk-leading-tight) * 1em);
     }
 
     /* Brief moss flash on the cell that was just copied. */
