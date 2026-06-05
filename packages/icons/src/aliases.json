@@ -32,6 +32,8 @@
     "home": { "source": "lucide--house", "why": "the house is the universal 'back to start/dashboard' anchor in app chrome" },
     "refresh": { "source": "lucide--refresh-cw", "why": "circular arrows = reload/sync; clockwise to read as 'again', not 'undo'" },
     "filter": { "source": "lucide--funnel", "why": "the funnel is the established 'narrow this list' control for tracker grids" },
-    "loading": { "source": "lucide--loader-circle", "why": "a partial ring is the spin target; the .mk-icon spinner rotates this under a reduced-motion guard" }
+    "loading": { "source": "lucide--loader-circle", "why": "a partial ring is the spin target; the .mk-icon spinner rotates this under a reduced-motion guard" },
+    "cart": { "source": "lucide--shopping-cart", "why": "the cart = a groceries/shopping list — the one domain glyph a planner-and-list app leans on; trolley reads as 'to buy' across every locale, distinct from 'add' (plus) which is the act of putting an item IN it" },
+    "lightbulb": { "source": "lucide--lightbulb", "why": "the bulb = an idea/suggestion/'what to make' prompt — the iconic tab for a meal-ideas surface; a domain meaning Lucide draws plainly, reserved for inspiration, never for tips/info (that's the i-in-circle)" }
   }
 }

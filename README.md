@@ -29,8 +29,54 @@ Import order matters — `css` defines no tokens:
 @import "@sethmakes/css/index.css";
 ```
 
-- **With Tailwind v4:** import sethmakes first and skip preflight (it lands after `mk.base` and overwrites heading/link styles); bring a small p/heading margin reset of your own. Full recipe on the docs site's install section.
+- **With Tailwind v4 (Vite):** import sethmakes first and skip preflight (it lands after `mk.base` and overwrites heading/link styles); bring a small p/heading margin reset of your own. Full recipe on the docs site's install section.
 - **Fonts:** `fonts.css` uses relative `url(./fonts/…)`. Vite rebases these; Tailwind's standalone CLI does not — copy the `fonts/` dir to public assets at build time if fonts 404.
+
+### Tailwind standalone CLI + DaisyUI → sethmakes
+
+If your app compiles CSS with `@tailwindcss/cli` (no Vite/PostCSS) and currently
+themes via DaisyUI — the **eat** migration shape — there are four extra beats. The
+full step-by-step with the DaisyUI token remap table lives on the docs install
+section; the shape:
+
+1. **Import order, sethmakes first.** Tokens → fonts → css, *then* Tailwind's
+   `theme` + `utilities` as layers **after** `mk.components`, so `p-3` / `text-sm`
+   win without specificity fights:
+
+   ```css
+   @import "@sethmakes/tokens/index.css";
+   @import "@sethmakes/tokens/fonts.css";
+   @import "@sethmakes/css/index.css";
+
+   @import "tailwindcss/theme" layer(theme);
+   @import "tailwindcss/utilities" layer(utilities);
+
+   @source "./app/**/*.{ts,tsx}";   /* keep your @source globs */
+
+   @layer base { h1,h2,h3,h4,p,ul,ol { margin: 0; } } /* the only preflight bit you re-add */
+   ```
+
+2. **Skip Tailwind preflight.** Importing only `theme` + `utilities` (not the full
+   `tailwindcss` bundle) drops preflight — which would otherwise overwrite
+   `mk.base` headings/links. Re-add just the margin reset above.
+
+3. **Drop DaisyUI.** Remove `@plugin "daisyui"` and the `data-theme="nord"` pin.
+   sethmakes drives color via `color-scheme` + `light-dark()` (system preference) —
+   you **gain dark mode for free**, or pin `[data-theme="light"]` to stay single-mode.
+   Remap daisy tokens: `base-100`→`bg`, `base-200`→`surface-1`,
+   `base-300`→`surface-2/3`, `base-content`→`text` (`/50`→`text-muted`,
+   `/40`→`text-faint`), `primary`→`accent`, `primary-content`→`accent-contrast`,
+   `warning`/`error`→`warning`/`danger`. There is **no `info` color** — use a tonal
+   surface or `.mk-alert--info`.
+
+4. **Copy the fonts.** The standalone CLI does not rebase `fonts.css`'s relative
+   `url(./fonts/…)`, so add a build step copying
+   `node_modules/@sethmakes/tokens/fonts/` into your served assets, or fonts 404.
+
+**Playwright note:** the restyle changes **classes, not roles/labels/routes**.
+Class-coupled selectors (`.card` → `.mk-card`, `li.card` → `li.mk-card`) must be
+updated; everything semantic — `getByRole`, `getByPlaceholder`, `getByText`,
+`form[action=…]`, button labels, native `confirm()` dialogs — survives untouched.
 
 ## Dev
 

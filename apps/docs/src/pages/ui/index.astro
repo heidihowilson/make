@@ -96,6 +96,136 @@ const components = [
       <code>text-sm</code> resizing a heading just works — no specificity
       fights.
     </p>
+
+    <h3 id="standalone-cli">With Tailwind's standalone CLI</h3>
+    <p>
+      Apps that compile with <code>@tailwindcss/cli</code> (no Vite, no
+      PostCSS) follow the same layering, plus <strong>one gotcha</strong>: the
+      standalone CLI does not rebase relative <code>url()</code>s, so
+      <code>fonts.css</code> ships <code>./fonts/…</code> verbatim and the
+      woff2 files 404. Copy them into your served assets at build time:
+    </p>
+    <pre><code>// package.json
+"scripts": &#123;
+  "fonts": "cp -r node_modules/@sethmakes/tokens/fonts public/fonts",
+  "build:css": "npm run fonts &amp;&amp; tailwindcss -i styles/app.css -o public/app.css"
+&#125;</code></pre>
+    <pre><code>/* styles/app.css — sethmakes first, Tailwind layers after */
+@import "@sethmakes/tokens/index.css";
+@import "@sethmakes/tokens/fonts.css";
+@import "@sethmakes/css/index.css";
+
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+
+@source "./app/**/*.&#123;ts,tsx&#125;";   /* keep your content globs */
+
+/* the only preflight rule worth re-adding */
+@layer base &#123; h1, h2, h3, h4, p, ul, ol &#123; margin: 0; &#125; &#125;</code></pre>
+    <p class="install-note">
+      Serve the compiled CSS from web root so its <code>./fonts/</code>
+      resolves to the copied <code>/fonts/</code>. Remix v3 + this CLI is the
+      reference setup.
+    </p>
+  </section>
+
+  <section class="mk-card" aria-labelledby="migrate-daisy">
+    <h2 id="migrate-daisy">Migrating off DaisyUI</h2>
+    <p>
+      Coming from a DaisyUI app pinned to one theme (the
+      <code>data-theme="nord"</code> shape)? Remove <code>@plugin
+      "daisyui"</code> and the theme pin. sethmakes drives every color through
+      <code>color-scheme</code> + <code>light-dark()</code> on the system
+      preference, so you <strong>gain dark mode for free</strong> — or pin
+      <code>&lt;html data-theme="light"&gt;</code> to stay single-mode.
+    </p>
+    <p>Remap the daisy tokens you were using:</p>
+    <ul class="remap">
+      <li><code>base-100</code> → <code>--mk-color-bg</code></li>
+      <li><code>base-200</code> → <code>--mk-color-surface-1</code></li>
+      <li><code>base-300</code> → <code>--mk-color-surface-2</code> / <code>-3</code></li>
+      <li><code>base-content</code> → <code>--mk-color-text</code></li>
+      <li><code>base-content/50</code> → <code>--mk-color-text-muted</code></li>
+      <li><code>base-content/40</code> → <code>--mk-color-text-faint</code></li>
+      <li><code>primary</code> → <code>--mk-color-accent</code></li>
+      <li><code>primary-content</code> → <code>--mk-color-accent-contrast</code></li>
+      <li><code>warning</code> → <code>--mk-color-warning</code></li>
+      <li><code>error</code> → <code>--mk-color-danger</code></li>
+      <li><code>info</code> → no color token — use a tonal surface or <code>.mk-alert--info</code></li>
+    </ul>
+    <p class="install-note">
+      There is deliberately no blue "info" hue: moss is the only non-status
+      accent.
+    </p>
+
+    <h3 id="migrate-e2e">Playwright selectors</h3>
+    <p>
+      The restyle changes <strong>classes, not roles, labels, or routes</strong>.
+      Two kinds of selector to know about:
+    </p>
+    <ul class="remap">
+      <li><strong>Update these</strong> — class-coupled: <code>.card</code> → <code>.mk-card</code>, <code>li.card</code> → <code>li.mk-card</code>.</li>
+      <li><strong>These survive untouched</strong> — <code>getByRole</code>, <code>getByPlaceholder</code>, <code>getByText</code>, <code>form[action=…]</code>, button labels, and native <code>confirm()</code> dialog auto-accept. The library changes how things look, not what they are.</li>
+    </ul>
+    <p class="install-note">
+      Prefer role/label/placeholder selectors going forward — they don't break
+      on the next restyle.
+    </p>
+  </section>
+
+  <section class="mk-card" aria-labelledby="recipes">
+    <h2 id="recipes">Recipes</h2>
+
+    <h3 id="recipe-bottom-nav">Mobile bottom tab bar</h3>
+    <p>
+      The library ships the chrome — <code>.mk-appbar--bottom</code> is a
+      fixed-to-bottom translucent surface, safe-area padded (the one sanctioned
+      translucency). The per-tab layout (icon over a tiny label, a fixed tab
+      height) is app layout, so Tailwind owns it. Mark the active tab with the
+      accent color token; render adult-only or conditional tabs server-side.
+    </p>
+    <pre><code>&lt;nav class="mk-appbar mk-appbar--bottom" aria-label="Primary"&gt;
+  &lt;a href="/" class="mk-link-reset flex flex-col items-center gap-1
+                     min-h-[56px] justify-center
+                     text-[color:var(--mk-color-accent)]"&gt;
+    &lt;span class="mk-icon icon-[mk--home]"&gt;&lt;/span&gt;
+    &lt;span class="text-[11px]"&gt;Home&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a href="/week" class="mk-link-reset flex flex-col items-center gap-1
+                         min-h-[56px] justify-center"&gt;
+    &lt;span class="mk-icon icon-[mk--calendar]"&gt;&lt;/span&gt;
+    &lt;span class="text-[11px]"&gt;Week&lt;/span&gt;
+  &lt;/a&gt;
+  &#123;/* conditional tab — render only when allowed */&#125;
+&lt;/nav&gt;</code></pre>
+    <p class="install-note">
+      <code>.mk-link-reset</code> strips the moss link color/underline so the
+      tab paints its own state; the active color reads
+      <code>var(--mk-color-accent)</code> directly so it tracks light/dark.
+    </p>
+
+    <h3 id="recipe-loading">Loading &amp; async states</h3>
+    <p>
+      Fully server-rendered apps need none of these — but when you add client
+      interactivity the vocabulary is already here:
+      <code>.mk-spinner</code> (<code>--sm</code> / <code>--md</code>),
+      <code>.mk-progress</code> (drop <code>value</code> for an indeterminate
+      bar), and <code>.mk-skeleton</code> / <code>.mk-skeleton--text</code>.
+      All reduced-motion guarded. See the
+      <a href={link('/ui/components/feedback')}>feedback</a> and
+      <a href={link('/ui/components/media')}>media</a> pages.
+    </p>
+
+    <h3 id="recipe-native-inputs">Native inputs, no theming needed</h3>
+    <p>
+      A number stepper (<code>&lt;input type="number" min="0" max="7"&gt;</code>)
+      and a datalist typeahead (<code>&lt;input list&gt;</code> +
+      <code>&lt;datalist&gt;</code>) are just <code>.mk-input</code>. Their
+      dropdown and spinner are browser chrome — un-styleable cross-browser by
+      spec — so there's no <code>.mk-stepper</code> or <code>.mk-combobox</code>,
+      and you don't need one. A styled combobox would be a future
+      <code>@sethmakes/components</code> element.
+    </p>
   </section>
 
   <section class="mk-card" aria-labelledby="sampler">
@@ -179,6 +309,14 @@ const components = [
 
     .install-note {
       color: var(--mk-color-text-muted);
+      font-size: var(--mk-text-sm);
+    }
+
+    .remap {
+      margin-block: var(--mk-space-3);
+      padding-left: var(--mk-space-5);
+      display: grid;
+      gap: var(--mk-space-2);
       font-size: var(--mk-text-sm);
     }
 
