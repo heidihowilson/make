@@ -11,7 +11,9 @@ import Base from '../../layouts/Icons.astro';
 
 // BASE_URL-aware so it works under the GitHub Pages subpath. The client reads
 // this off a data attribute rather than hardcoding "/".
-const base = import.meta.env.BASE_URL;
+// Normalize: Astro's BASE_URL has no trailing slash when base is '/make',
+// and base+path without a separator produced /makeicons/... 404s in prod.
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/g, '/');
 ---
 

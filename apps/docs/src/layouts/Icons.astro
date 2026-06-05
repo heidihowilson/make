@@ -7,7 +7,9 @@ interface Props {
 
 const { title } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
+// Normalize: Astro's BASE_URL has no trailing slash when base is '/make',
+// and base+path without a separator produced /makeicons/... 404s in prod.
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
 const current = Astro.url.pathname.replace(base, '/').replace(/\/+$/, '') || '/';
 
