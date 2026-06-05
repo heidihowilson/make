@@ -33,13 +33,21 @@ sethmakes after any reset, or skip the reset and bring a tiny margin reset of yo
 Compose these on native elements. Variants are `--` suffixed; structure parts are
 `__` suffixed (BEM-ish).
 
+This is the complete inventory — if a class isn't here, it doesn't exist.
+Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
+`--checked` modifier (progressive-enhancement consumers render state server-side).
+
 | Area | Classes |
 |---|---|
 | Buttons | `.mk-btn` + `--primary` / `--ghost` / `--danger` / `--warning` / `--active` / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
 | Badges | `.mk-badge` + `--accent` / `--success` / `--warning` / `--danger` / `--sm` / `--dot` |
-| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox`, `.mk-radio` |
+| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox`, `.mk-radio`, `.mk-switch` (all three choices: `--checked` / `[aria-checked]`) |
 | Surfaces | `.mk-card` (`--sunken` / `--flush`), `.mk-table` (`.mk-table-wrap`, `__num`), `.mk-divider` (`--label`), `.mk-disclosure` (`__body`) |
-| Chrome | `.mk-appbar` (`--bottom`) |
+| Chrome | `.mk-appbar` (`--bottom`), `.mk-shell` (`__main`) — the shell is the appbar's document contract |
+| Feedback | `.mk-alert` (`__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (`--sm` / `--md`), `.mk-progress` (`--sm`, `:indeterminate`), `.mk-empty` (`__title` / `__message` / `__action`) |
+| Media | `.mk-thumb` (`--square` / `--video`, `__fallback`), `.mk-skeleton` (`--text`), `.mk-figure` |
+| Prose | `.mk-prose` (article content: lists, code, blockquote, kbd) |
+| Utilities | `.mk-icon` (`--sm` / `--lg`), `.mk-link-reset` |
 | Feedback | `.mk-alert` (`__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (`--sm` / `--md`), `.mk-progress` (`--sm`, `:indeterminate`) |
 | Media | `.mk-thumb` (`--square` / `--video`, `__fallback`), `.mk-figure`, `.mk-skeleton` (`--text`) |
 | Empty state | `.mk-empty` (`__title` / `__message` / `__action`) |
@@ -49,12 +57,45 @@ The full live catalog with rendered examples is the docs site (`/ui/components/*
 
 ## Recipes
 
+### Theme switcher (System / Light / Dark)
+
+The pieces already exist: the tokens follow the OS via `color-scheme` +
+`light-dark()`, `[data-theme="light|dark"]` on `<html>` overrides, and
+`.mk-btn--active` is the segmented-choice state (that is its documented job —
+don't fake it with primary-vs-ghost). The app brings ~6 lines of JS:
+
+```html
+<div role="group" aria-label="Theme">
+  <button class="mk-btn mk-btn--ghost mk-btn--active" data-mode="auto" aria-pressed="true">system</button>
+  <button class="mk-btn mk-btn--ghost" data-mode="light">light</button>
+  <button class="mk-btn mk-btn--ghost" data-mode="dark">dark</button>
+</div>
+<script>
+  for (const b of document.querySelectorAll('[data-mode]'))
+    b.addEventListener('click', () => {
+      const m = b.dataset.mode;
+      m === 'auto' ? delete document.documentElement.dataset.theme
+                   : (document.documentElement.dataset.theme = m);
+      localStorage.setItem('mode', m); // restore on load, before first paint
+      // move .mk-btn--active + aria-pressed to b
+    });
+</script>
+```
+
 ### Mobile bottom tab bar
 
-On short pages a bottom bar only pins to the viewport edge if the page fills
-it — make the document a column that can push it down:
-`body { min-height: 100svh; display: flex; flex-direction: column; }` with the
-bar last (or `margin-top: auto`). Both real consumers needed this.
+The bars are sticky, not fixed — `.mk-shell` on the document wrapper (with
+`.mk-shell__main` on the growing main) is the contract that makes a bottom bar
+pin on short pages. Both real consumers discovered this the hard way before the
+shell shipped.
+
+```html
+<body class="mk-shell">
+  <header class="mk-appbar">…</header>
+  <main class="mk-shell__main">…</main>
+  <nav class="mk-appbar mk-appbar--bottom">…</nav>
+</body>
+```
 
 The library ships the chrome (`.mk-appbar--bottom`: fixed-to-bottom translucent
 surface, safe-area padded — the one sanctioned translucency). The **per-tab layout**

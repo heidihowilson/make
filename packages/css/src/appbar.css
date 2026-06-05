@@ -31,4 +31,28 @@
     padding-block: var(--mk-space-2)
       max(var(--mk-space-2), env(safe-area-inset-bottom));
   }
+
+  /*
+   * App shell — the document contract the chrome depends on. The bars are
+   * sticky, not fixed, so a bottom bar only pins to the viewport edge when
+   * the page can push it there: a full-height column with a growing main.
+   * Both early consumers discovered this the hard way; the shell IS the
+   * contract, shipped as code. (Not a layout primitive — those stay the
+   * app's job. This exists solely so mk-appbar--bottom works.)
+   *
+   *   <body class="mk-shell">
+   *     <header class="mk-appbar">…</header>
+   *     <main class="mk-shell__main">…</main>
+   *     <nav class="mk-appbar mk-appbar--bottom">…</nav>
+   *   </body>
+   */
+  .mk-shell {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mk-shell__main {
+    flex: 1 0 auto;
+  }
 }
