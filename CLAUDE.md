@@ -24,7 +24,7 @@ Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a 
 
 - pnpm workspaces. No additional build orchestration (Turbo etc.) without demonstrated need.
 - **Lockstep versioning for the design-system family (tokens/css/components/icons)** via a Changesets fixed group — the icon vocabulary is part of the design language (decided 2026-06-05, reversing the initial independent-icons stance); future unrelated packages version independently. Any behavior-changing PR must include a changeset.
-- CI today runs only `pnpm docs:build` (a build smoke check) — see `.github/workflows/ci.yml`. **Planned** test stack (not yet wired up): @web/test-runner (behavior), Playwright (visual regression), `@lit-labs/ssr` smoke suite (SSR output).
+- CI: `pnpm docs:build` (build smoke) + **Playwright visual regression** (`tests/visual.spec.ts` — every docs page, light+dark, phone+desktop; baselines committed, regenerate with `npx playwright test --update-snapshots` on linux). A token/CSS change that shifts pixels must update baselines deliberately. Still planned: @web/test-runner (behavior), `@lit-labs/ssr` smoke suite (when components exist).
 - Packages publish publicly to npm via GitHub Actions on release-PR merge.
 - Pre-1.0: `0.x` semver, minor = breaking. Don't propose 1.0 until three real projects consume the library.
 - TypeScript throughout `packages/components`; emit a custom-elements manifest (planned — `components` is currently empty, so neither exists yet).
