@@ -1,0 +1,88 @@
+@layer mk.components {
+  /*
+   * Dialog — styling for the native <dialog>, the interaction policy's one
+   * sanctioned modal: one at a time, opened with showModal(), never
+   * spawning another (it morphs or it queues). The platform provides
+   * focus trapping, Esc, inertness and the top layer; the app provides
+   * the open/close calls; this file provides only the look.
+   *
+   * Note on layering: the native top layer supersedes z-index entirely —
+   * --mk-layer-overlay documents the policy tier but is not needed here;
+   * it exists for any future non-top-layer overlay.
+   *
+   *   <dialog class="mk-dialog">
+   *     <h2 class="mk-dialog__title">Remove show?</h2>
+   *     <p>…</p>
+   *     <form method="dialog" class="mk-dialog__actions">
+   *       <button class="mk-btn">Cancel</button>
+   *       <button class="mk-btn mk-btn--danger" value="confirm">Remove</button>
+   *     </form>
+   *   </dialog>
+   */
+  .mk-dialog {
+    border: 0; /* native-chrome reset, not a design border */
+    padding: var(--mk-space-5);
+    background: var(--mk-color-surface-1);
+    color: var(--mk-color-text);
+    border-radius: var(--mk-radius-surface);
+    width: min(92vw, 32rem);
+    /* No shadow: the scrim does the separating — flat language holds even
+       in the top layer. */
+  }
+
+  .mk-dialog::backdrop {
+    /* Scrim — the one place content is dimmed. Token-driven so both modes
+       tune independently (light mode needs a heavier hand: a pale page
+       barely darkens). */
+    background: var(--mk-color-scrim);
+  }
+
+  .mk-dialog__title {
+    font-size: var(--mk-text-lg);
+    font-weight: var(--mk-weight-bold);
+    line-height: var(--mk-leading-tight);
+    margin-block: 0 var(--mk-space-3);
+  }
+
+  /* Action row — method="dialog" form; primary action sits at the end. */
+  .mk-dialog__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--mk-space-3);
+    margin-top: var(--mk-space-5);
+  }
+
+  /* Quiet entrance for dialog + scrim — guarded; static under reduce. */
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-dialog[open] {
+      animation: mk-dialog-in var(--mk-motion-standard) var(--mk-ease-out);
+    }
+
+    .mk-dialog[open]::backdrop {
+      animation: mk-scrim-in var(--mk-motion-standard) var(--mk-ease-out);
+    }
+  }
+
+  @keyframes mk-dialog-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--mk-space-2));
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes mk-scrim-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}

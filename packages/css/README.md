@@ -44,6 +44,7 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 | Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox`, `.mk-radio`, `.mk-switch` (all three choices: `--checked` / `[aria-checked]`) |
 | Surfaces | `.mk-card` (`--sunken` / `--flush`), `.mk-table` (`.mk-table-wrap`, `__num`), `.mk-divider` (`--label`), `.mk-disclosure` (`__body`) |
 | Chrome | `.mk-appbar` (`--bottom`), `.mk-shell` (`__main`) — the shell is the appbar's document contract |
+| Overlays | `.mk-dialog` (native `<dialog>`: `__title`, `__actions`, scrim via `::backdrop`), `.mk-toast` (`--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (`__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
 | Feedback | `.mk-alert` (`__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (`--sm` / `--md`), `.mk-progress` (`--sm`, `:indeterminate`), `.mk-empty` (`__title` / `__message` / `__action`) |
 | Media | `.mk-thumb` (`--square` / `--video`, `__fallback`), `.mk-skeleton` (`--text`), `.mk-figure` |
 | Prose | `.mk-prose` (article content: lists, code, blockquote, kbd) |

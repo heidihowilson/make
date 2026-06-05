@@ -60,6 +60,15 @@ const groups = [
     ],
   },
   {
+    area: 'Overlays',
+    base: '.mk-dialog',
+    items: [
+      ['__title / __actions, ::backdrop scrim', 'native <dialog> — the one sanctioned modal; app calls showModal()'],
+      ['.mk-toast / --success / --warning / --danger', 'fixed bottom-center transient; one at a time, app brings the timer'],
+      ['.mk-tabs / __tab', 'segmented row; selected via aria-selected / aria-current / --active'],
+    ],
+  },
+  {
     area: 'Feedback',
     base: '.mk-alert',
     items: [

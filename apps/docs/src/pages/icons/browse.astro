@@ -33,10 +33,10 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
   >
     <!-- Set tabs. Buttons in a tablist; mk is the default (smallest, brand-most-
          relevant, instant). currentColor + tonal active state, zero borders. -->
-    <div class="browse__tabs" role="tablist" aria-label="Icon set">
-      <button class="browse__tab browse__tab--active" role="tab" aria-selected="true" data-set="mk" id="tab-mk" aria-controls="results">mk</button>
-      <button class="browse__tab" role="tab" aria-selected="false" data-set="lucide" id="tab-lucide" aria-controls="results">lucide</button>
-      <button class="browse__tab" role="tab" aria-selected="false" data-set="ph" id="tab-ph" aria-controls="results">phosphor</button>
+    <div class="mk-tabs" role="tablist" aria-label="Icon set">
+      <button class="mk-tabs__tab" role="tab" aria-selected="true" data-set="mk" id="tab-mk" aria-controls="results">mk</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="lucide" id="tab-lucide" aria-controls="results">lucide</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="ph" id="tab-ph" aria-controls="results">phosphor</button>
     </div>
 
     <!-- Search. Labeled (label is visually compact but present), autofocus is
@@ -79,7 +79,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
 
   <!-- Visual copy confirmation toast. aria-hidden — the live region above carries
        the accessible announcement. -->
-  <div class="browse__toast" id="toast" aria-hidden="true" hidden></div>
+  <div class="mk-toast" id="toast" aria-hidden="true" hidden></div>
 
   <style>
     .hero {
@@ -96,42 +96,14 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       color: var(--mk-color-text);
     }
 
-    /* Tabs — a tonal strip; the active tab is full-strength text on surface-3,
-       the rest muted. No borders, no radius (terminal bones). 44px tall. */
-    .browse__tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--mk-space-1);
+    /* Tabs + toast come from the library now (.mk-tabs / .mk-toast) —
+       this page hand-rolled both before they were promoted. */
+    .mk-tabs {
       margin-bottom: var(--mk-space-4);
     }
 
-    .browse__tab {
-      appearance: none;
-      border: 0;
-      border-radius: 0;
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text-muted);
-      font: inherit;
-      font-size: var(--mk-text-sm);
-      min-height: 44px;
-      padding-inline: var(--mk-space-4);
-      cursor: pointer;
-      transition: background var(--mk-motion-quick) var(--mk-ease-out),
-        color var(--mk-motion-quick) var(--mk-ease-out);
-    }
-
-    .browse__tab:hover {
-      color: var(--mk-color-text);
-    }
-
-    .browse__tab--active {
-      background: var(--mk-color-surface-3);
-      color: var(--mk-color-text);
-      font-weight: var(--mk-weight-bold);
-    }
-
     /* Visible focus ring everywhere — moss, offset, no border anywhere else. */
-    .browse__tab:focus-visible,
+    .mk-tabs__tab:focus-visible,
     .browse__cell:focus-visible,
     #show-more:focus-visible {
       outline: 2px solid var(--mk-color-accent);
@@ -251,38 +223,14 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       border: 0;
     }
 
-    /* Visual copy toast — fixed, tonal, fades. aria-hidden; SR uses the region. */
-    .browse__toast {
-      position: fixed;
-      left: 50%;
-      bottom: var(--mk-space-5);
-      transform: translateX(-50%);
-      z-index: var(--mk-layer-toast, 100);
-      background: var(--mk-color-surface-3);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-sm);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      /* No shadow: flat language; the toast separates via surface step + the toast layer. */
-      max-width: calc(100vw - var(--mk-space-6));
-    }
-
-    .browse__toast code {
+    .mk-toast code {
       color: var(--mk-color-accent);
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      .browse__toast {
-        animation: browse-toast-in var(--mk-motion-standard) var(--mk-ease-out);
-      }
-
       .browse__cell--copied {
         transition: background var(--mk-motion-quick) var(--mk-ease-out);
       }
-    }
-
-    @keyframes browse-toast-in {
-      from { opacity: 0; transform: translate(-50%, var(--mk-space-3)); }
-      to { opacity: 1; transform: translate(-50%, 0); }
     }
 
     /* Roomier cells once there's width to spare. min-width queries only. */
@@ -311,7 +259,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       const srStatus = document.getElementById('copy-status') as HTMLElement;
       const toast = document.getElementById('toast') as HTMLElement;
       const tabs = Array.from(
-        root.querySelectorAll<HTMLButtonElement>('.browse__tab'),
+        root.querySelectorAll<HTMLButtonElement>('.mk-tabs__tab'),
       );
 
       const PAGE = 120; // visible-result cap; "show more" adds another page
@@ -462,9 +410,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
         tab.addEventListener('click', () => {
           if (tab.dataset.set === activeSet) return;
           tabs.forEach((t) => {
-            const on = t === tab;
-            t.classList.toggle('browse__tab--active', on);
-            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
           });
           activeSet = tab.dataset.set || 'mk';
           loadSet(activeSet);

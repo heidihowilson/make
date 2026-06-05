@@ -1,0 +1,53 @@
+@layer mk.components {
+  /*
+   * Tabs / segmented control — a row of choices where exactly one is
+   * current. Formalizes the pattern two consumers and our own docs built
+   * from loose buttons (browse's set tabs, eat's theme picker).
+   *
+   * Selection answers to [aria-selected="true"] (role=tablist),
+   * [aria-current] (link groups), or the --active modifier — the styling
+   * hooks are the semantics, same contract as the choice controls.
+   *
+   *   <div class="mk-tabs" role="tablist" aria-label="…">
+   *     <button class="mk-tabs__tab" role="tab" aria-selected="true">mk</button>
+   *     <button class="mk-tabs__tab" role="tab" aria-selected="false">lucide</button>
+   *   </div>
+   */
+  .mk-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mk-space-1);
+  }
+
+  .mk-tabs__tab {
+    appearance: none;
+    border: 0;
+    border-radius: var(--mk-radius-control);
+    background: var(--mk-color-surface-2);
+    color: var(--mk-color-text-muted);
+    font: inherit;
+    font-size: var(--mk-text-sm);
+    min-height: 44px;
+    padding-inline: var(--mk-space-4);
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none; /* tabs can be <a>; never prose-link styled */
+    transition:
+      background var(--mk-motion-quick) var(--mk-ease-out),
+      color var(--mk-motion-quick) var(--mk-ease-out);
+  }
+
+  .mk-tabs__tab:hover {
+    color: var(--mk-color-text);
+  }
+
+  /* Selected — accent-subtle, matching .mk-btn--active's segmented voice. */
+  .mk-tabs__tab[aria-selected="true"],
+  .mk-tabs__tab[aria-current],
+  .mk-tabs__tab--active {
+    background: var(--mk-color-accent-subtle);
+    color: var(--mk-color-on-accent-subtle);
+    font-weight: var(--mk-weight-bold);
+  }
+}
