@@ -1,32 +1,31 @@
 @layer mk.components {
   /*
-   * Prose — article-style long-form content. Scoped to .mk-prose so it never
-   * leaks into app chrome. Hierarchy comes from rhythm, weight, and tonal
-   * fields — zero borders, zero radius (terminal bones).
+   * Prose — long-form printed matter. Sorts Mill Goudy at a 70ch measure,
+   * the same column a compositor would set. Scoped to .mk-prose so it
+   * never leaks into app furniture.
    */
   .mk-prose {
     color: var(--mk-color-text);
-    max-width: 70ch;
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-body);
+    line-height: var(--mk-leading-prose);
+    max-width: var(--mk-measure-prose);
   }
 
   /* Vertical rhythm: every flow child gets top spacing, first child none. */
   .mk-prose > * {
-    margin-block: var(--mk-space-4) 0;
+    margin-block: var(--mk-space-md) 0;
   }
 
   .mk-prose > :first-child {
     margin-block-start: 0;
   }
 
-  .mk-prose p {
-    line-height: var(--mk-leading-normal);
-  }
-
   /* Headings sit closer to the content they introduce, looser above. */
   .mk-prose h2,
   .mk-prose h3,
   .mk-prose h4 {
-    margin-block: var(--mk-space-6) var(--mk-space-2);
+    margin-block: var(--mk-space-2xl) var(--mk-space-xs);
   }
 
   .mk-prose h2:first-child,
@@ -35,88 +34,126 @@
     margin-block-start: 0;
   }
 
+  /* A department heading in flow earns its 2px underline. */
+  .mk-prose h2 {
+    border-bottom: var(--mk-rule-thick);
+    padding-bottom: 6px;
+  }
+
   /* Lists */
   .mk-prose ul,
   .mk-prose ol {
-    padding-inline-start: var(--mk-space-5);
+    padding-inline-start: var(--mk-space-inset);
+    font-size: var(--mk-size-list);
+    line-height: var(--mk-leading-list);
   }
 
   .mk-prose li {
-    margin-block: var(--mk-space-2) 0;
+    margin-block: var(--mk-space-xxs) 0;
   }
 
   .mk-prose li::marker {
     color: var(--mk-color-text-muted);
   }
 
-  /* Nested lists tighten up. */
   .mk-prose li > ul,
   .mk-prose li > ol {
-    margin-block-start: var(--mk-space-2);
+    margin-block-start: var(--mk-space-xxs);
   }
 
-  /* Inline code — tonal field chip, no border. */
+  /*
+   * Inline code — the typewriter voice on a plate chip with a hairline.
+   * Slightly small against prose so the two faces sit on one baseline.
+   */
   .mk-prose code {
-    background: var(--mk-color-field);
-    color: var(--mk-color-text);
-    font-family: var(--mk-font-body);
-    font-size: 0.9em;
-    padding: 0.1em 0.4em;
+    background: var(--mk-color-plate);
+    border: var(--mk-rule-hair);
+    color: var(--mk-color-heading);
+    font-family: var(--mk-font-typewriter);
+    font-size: 0.86em;
+    letter-spacing: 0.02em;
+    padding: 1px 6px 0;
   }
 
-  /* Pre / fenced blocks — tonal field, horizontal scroll, no wrap. */
+  /*
+   * Pre / fenced blocks — a plate slab with a hairline box and a 2px ink
+   * rule down the left: a column of set type, not a terminal window.
+   */
   .mk-prose pre {
-    background: var(--mk-color-field);
-    color: var(--mk-color-text);
-    border-radius: var(--mk-radius-surface);
-    padding: var(--mk-space-4);
+    background: var(--mk-color-plate);
+    border: var(--mk-rule-hair);
+    border-left: var(--mk-rule-thick);
+    color: var(--mk-color-heading);
+    padding: 12px 14px;
     overflow-x: auto;
-    line-height: var(--mk-leading-normal);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    line-height: 1.6;
     -webkit-overflow-scrolling: touch;
   }
 
   /* Code inside pre resets the inline-chip treatment. */
   .mk-prose pre code {
     background: none;
+    border: 0;
     padding: 0;
-    font-size: var(--mk-text-sm);
+    font-size: inherit;
   }
 
-  /* Blockquote — tonal field shift, no border-left. Indent via padding. */
+  /*
+   * Blockquote — the pull quote: ruled top and bottom with hairlines,
+   * italic body ink, centered. The voice lives in its asides.
+   */
   .mk-prose blockquote {
     margin-inline: 0;
-    padding: var(--mk-space-3) var(--mk-space-4);
-    background: var(--mk-color-surface-2);
-    color: var(--mk-color-text-muted);
+    padding: var(--mk-space-sm) var(--mk-space-xxs);
+    border-top: var(--mk-rule-hair);
+    border-bottom: var(--mk-rule-hair);
+    background: none;
+    color: var(--mk-color-text-secondary);
+    font-style: italic;
+    font-size: var(--mk-size-quote);
+    text-align: center;
   }
 
   .mk-prose blockquote > :first-child {
     margin-block-start: 0;
   }
 
-  /* kbd — raised tonal chip suggesting a physical key. */
+  /* kbd — a struck key in miniature: ink rule, press shadow, typewriter. */
   .mk-prose kbd {
     display: inline-block;
-    background: var(--mk-color-surface-3);
-    color: var(--mk-color-text);
-    font-family: var(--mk-font-body);
-    font-size: 0.85em;
-    font-weight: var(--mk-weight-medium);
+    background: var(--mk-color-inset);
+    border: 1px solid var(--mk-color-rule);
+    box-shadow: var(--mk-shadow-press);
+    color: var(--mk-color-heading);
+    font-family: var(--mk-font-typewriter);
+    font-size: 0.8em;
     line-height: 1;
-    padding: 0.25em 0.5em;
-    border-radius: var(--mk-radius-control);
+    padding: 0.25em 0.5em 0.15em;
   }
 
-  /* Small / caption text. */
+  /* Small / caption text — the typewriter aside. */
   .mk-prose small {
-    font-size: var(--mk-text-sm);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: 0.06em;
     color: var(--mk-color-text-muted);
   }
 
-  /* Emphasis */
+  /*
+   * Emphasis: Sorts Mill Goudy has no bold worth setting — strong renders
+   * as the heading ink, which reads a full step darker on newsprint.
+   */
   .mk-prose strong {
-    font-weight: var(--mk-weight-bold);
+    font-weight: 400;
+    color: var(--mk-color-heading);
   }
 
-  /* Links inherit base anchor styling; underline on hover only. */
+  /* The responsive floor: prose drops one step at 740px, never below 17px. */
+  @media (max-width: 740px) {
+    .mk-prose {
+      font-size: var(--mk-size-body-sm);
+    }
+  }
 }

@@ -5,218 +5,261 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Forms">
   <h1>Forms</h1>
   <p>
-    Native inputs styled by class — filled tonal backgrounds, zero borders.
-    Selects, textareas, checkboxes, radios and switches all restyle the real
-    control so native forms keep working. Errors tint, never outline.
+    Filled newsprint slots with a printed rule: a 1px tan hairline box whose
+    bottom rule is 2px ink — the line you type on. Labels speak in the
+    typewriter voice, placeholders in Goudy italic. Checkboxes stamp an ink
+    X, the radio is the one round control, and the switch is a stage lever.
   </p>
 
   <section class="mk-card">
-    <h2>Text input</h2>
-    <p>Label, control, optional help — wrapped in a <code>.mk-field</code>.</p>
+    <h2>TEXT INPUT</h2>
+    <p>Typewriter label above the slot, optional help beneath — all inside a <code>.mk-field</code>.</p>
     <div class="field-demo">
       <div class="mk-field">
-        <label for="d-title">Show title</label>
-        <input class="mk-input" id="d-title" type="text" placeholder="Severance" />
-        <p class="mk-field__help">The name as it appears on the network.</p>
+        <label for="d-act">Name of the act</label>
+        <input class="mk-input" id="d-act" type="text" placeholder="e.g. The Amazing Flannel Brothers" />
+        <p class="mk-field__help">As it will be printed on the bill.</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-field"&gt;
-  &lt;label for="title"&gt;Show title&lt;/label&gt;
-  &lt;input class="mk-input" id="title" type="text" placeholder="Severance" /&gt;
-  &lt;p class="mk-field__help"&gt;The name as it appears on the network.&lt;/p&gt;
+  &lt;label for="act"&gt;Name of the act&lt;/label&gt;
+  &lt;input class="mk-input" id="act" type="text"
+         placeholder="e.g. The Amazing Flannel Brothers" /&gt;
+  &lt;p class="mk-field__help"&gt;As it will be printed on the bill.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Select</h2>
-    <p>Native <code>&lt;select&gt;</code> with a custom caret; chrome stripped.</p>
+    <h2>SELECT</h2>
+    <p>
+      Native <code>&lt;select&gt;</code> with the chrome stripped; the caret
+      is a small solid triangle drawn in CSS — a printed control, not an
+      icon.
+    </p>
     <div class="field-demo">
       <div class="mk-field">
-        <label for="d-status">Watch status</label>
-        <select class="mk-select" id="d-status">
-          <option>Watching</option>
-          <option>Completed</option>
-          <option>On hold</option>
-          <option>Dropped</option>
+        <label for="d-billing">Billing</label>
+        <select class="mk-select" id="d-billing">
+          <option>Top of the bill</option>
+          <option>Second billing</option>
+          <option>The chorus</option>
+          <option>After the intermission</option>
         </select>
       </div>
     </div>
-    <pre><code>&lt;select class="mk-select" id="status"&gt;
-  &lt;option&gt;Watching&lt;/option&gt;
-  &lt;option&gt;Completed&lt;/option&gt;
+    <pre><code>&lt;select class="mk-select" id="billing"&gt;
+  &lt;option&gt;Top of the bill&lt;/option&gt;
+  &lt;option&gt;Second billing&lt;/option&gt;
 &lt;/select&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Textarea</h2>
-    <p>Taller default, resizes vertically only.</p>
+    <h2>TEXTAREA</h2>
+    <p>A taller slot; resizes vertically only.</p>
     <div class="field-demo">
       <div class="mk-field">
-        <label for="d-notes">Notes</label>
-        <textarea class="mk-textarea" id="d-notes" placeholder="Watched with the group; rewatch s1 first."></textarea>
+        <label for="d-notes">Notes for the stage manager</label>
+        <textarea class="mk-textarea" id="d-notes" placeholder="The pyrotechnics require a permit and a calmer host."></textarea>
       </div>
     </div>
     <pre><code>&lt;textarea class="mk-textarea" id="notes"&gt;&lt;/textarea&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Checkbox</h2>
-    <p>24px box in a 44px touch row; sharp corners, accent when checked.</p>
+    <h2>CHECKBOX</h2>
+    <p>
+      A square 2px rule that takes a stamped ink X — it appears whole, like a
+      rubber stamp. The <code>.mk-choice</code> row is the 44px tap target.
+    </p>
     <div class="field-demo">
       <label class="mk-choice">
         <input class="mk-checkbox" type="checkbox" checked />
-        <span>Notify on new episodes</span>
+        <span>Reserve a box for the Taylors</span>
       </label>
       <label class="mk-choice">
         <input class="mk-checkbox" type="checkbox" />
-        <span>Include specials</span>
+        <span>Print in the Sunday edition</span>
       </label>
     </div>
     <pre><code>&lt;label class="mk-choice"&gt;
   &lt;input class="mk-checkbox" type="checkbox" /&gt;
-  &lt;span&gt;Notify on new episodes&lt;/span&gt;
+  &lt;span&gt;Reserve a box for the Taylors&lt;/span&gt;
 &lt;/label&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Radio group</h2>
-    <p>Round by geometry, not softness; grouped in a fieldset with a legend.</p>
+    <h2>RADIO GROUP</h2>
+    <p>
+      The one round control — a circle is geometry, not softness. Grouped in
+      a <code>.mk-fieldset</code> whose legend speaks in the form-kicker
+      voice.
+    </p>
     <div class="field-demo">
       <fieldset class="mk-fieldset">
-        <legend>Default sort</legend>
+        <legend>Performance</legend>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="d-sort" checked />
-          <span>Recently aired</span>
+          <input class="mk-radio" type="radio" name="d-perf" checked />
+          <span>Evening</span>
         </label>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="d-sort" />
-          <span>Alphabetical</span>
+          <input class="mk-radio" type="radio" name="d-perf" />
+          <span>Matinee</span>
         </label>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="d-sort" />
-          <span>Unwatched first</span>
+          <input class="mk-radio" type="radio" name="d-perf" />
+          <span>Twice daily</span>
         </label>
       </fieldset>
     </div>
-    <pre><code>&lt;fieldset&gt;
-  &lt;legend&gt;Default sort&lt;/legend&gt;
+    <pre><code>&lt;fieldset class="mk-fieldset"&gt;
+  &lt;legend&gt;Performance&lt;/legend&gt;
   &lt;label class="mk-choice"&gt;
-    &lt;input class="mk-radio" type="radio" name="sort" /&gt;
-    &lt;span&gt;Recently aired&lt;/span&gt;
+    &lt;input class="mk-radio" type="radio" name="perf" /&gt;
+    &lt;span&gt;Evening&lt;/span&gt;
   &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Switch</h2>
-    <p>Checkbox-based track and square thumb; accent track when on.</p>
+    <h2>SWITCH</h2>
+    <p>
+      A hard-edged stage lever: the ink block jumps to the far end in two
+      stepped frames, and the rail goes ochre when ON — a sanctioned accent
+      spot, because the ON state is information.
+    </p>
     <div class="field-demo">
       <label class="mk-choice">
         <input class="mk-switch" type="checkbox" checked />
-        <span>Auto-mark watched</span>
+        <span>Footlights</span>
       </label>
       <label class="mk-choice">
         <input class="mk-switch" type="checkbox" />
-        <span>Hide spoilers</span>
+        <span>Follow spot</span>
       </label>
     </div>
     <pre><code>&lt;label class="mk-choice"&gt;
   &lt;input class="mk-switch" type="checkbox" /&gt;
-  &lt;span&gt;Auto-mark watched&lt;/span&gt;
+  &lt;span&gt;Footlights&lt;/span&gt;
 &lt;/label&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Error state</h2>
+    <h2>ERROR STATE</h2>
     <p>
-      The control fill tints danger and help text turns danger — no border.
-      Wire <code>aria-invalid</code> and <code>aria-describedby</code> to the
-      error message.
+      The rule turns ochre all the way around and the message speaks in
+      character. The error doubles as this view&rsquo;s accent ration — a
+      form with an error has no other ochre spot. Wire
+      <code>aria-invalid</code> and <code>aria-describedby</code>.
     </p>
     <div class="field-demo">
       <div class="mk-field mk-field--error">
-        <label for="d-year">First aired</label>
+        <label for="d-venue">Venue</label>
         <input
           class="mk-input"
-          id="d-year"
+          id="d-venue"
           type="text"
-          value="20222"
+          value="The Hardware Theatre, Detroit"
           aria-invalid="true"
-          aria-describedby="d-year-err"
+          aria-describedby="d-venue-err"
         />
-        <p class="mk-field__error" id="d-year-err">Enter a four-digit year.</p>
+        <p class="mk-field__error" id="d-venue-err">That address is not on the bill.</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-field mk-field--error"&gt;
-  &lt;label for="year"&gt;First aired&lt;/label&gt;
-  &lt;input class="mk-input" id="year" aria-invalid="true"
-         aria-describedby="year-err" /&gt;
-  &lt;p class="mk-field__error" id="year-err"&gt;Enter a four-digit year.&lt;/p&gt;
+  &lt;label for="venue"&gt;Venue&lt;/label&gt;
+  &lt;input class="mk-input" id="venue" aria-invalid="true"
+         aria-describedby="venue-err" /&gt;
+  &lt;p class="mk-field__error" id="venue-err"&gt;That address is not on the bill.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Complete form</h2>
-    <p>Everything together — labels, help, a grouped error, and actions.</p>
+    <h2>NOTHING WILL BE PRINTED HERE</h2>
+    <p>
+      Disabled slots go dashed on the bottom rule and the fill empties —
+      the dashed line is the house vocabulary for absence, never an opacity
+      wash.
+    </p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-closed">Box office</label>
+        <input class="mk-input" id="d-closed" type="text" value="Closed for the season" disabled />
+      </div>
+      <label class="mk-choice">
+        <input class="mk-checkbox" type="checkbox" disabled />
+        <span style="color: var(--mk-color-disabled-text);">Standing room</span>
+      </label>
+      <label class="mk-choice">
+        <input class="mk-switch" type="checkbox" disabled />
+        <span style="color: var(--mk-color-disabled-text);">House lights</span>
+      </label>
+    </div>
+    <pre><code>&lt;input class="mk-input" value="Closed for the season" disabled /&gt;
+&lt;input class="mk-checkbox" type="checkbox" disabled /&gt;
+&lt;input class="mk-switch" type="checkbox" disabled /&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE BOOKING FORM</h2>
+    <p>Everything together — labels, help, one error in character, and the action row.</p>
     <form class="form-demo" novalidate>
       <div class="mk-field">
-        <label for="f-title">Show title</label>
-        <input class="mk-input" id="f-title" type="text" value="Severance" />
+        <label for="f-act">Name of the act</label>
+        <input class="mk-input" id="f-act" type="text" value="Tim Taylor · More Power" />
       </div>
 
       <div class="mk-field">
-        <label for="f-status">Watch status</label>
-        <select class="mk-select" id="f-status">
-          <option>Watching</option>
-          <option>Completed</option>
-          <option>On hold</option>
-          <option>Dropped</option>
+        <label for="f-billing">Billing</label>
+        <select class="mk-select" id="f-billing">
+          <option>Top of the bill</option>
+          <option>Second billing</option>
+          <option>The chorus</option>
         </select>
       </div>
 
       <div class="mk-field mk-field--error">
-        <label for="f-ep">Last episode watched</label>
+        <label for="f-runtime">Running time</label>
         <input
           class="mk-input"
-          id="f-ep"
+          id="f-runtime"
           type="text"
-          value="s2e0"
+          value="ninety-one minutes"
           aria-invalid="true"
-          aria-describedby="f-ep-help f-ep-err"
+          aria-describedby="f-runtime-help f-runtime-err"
         />
-        <p class="mk-field__help" id="f-ep-help">Format: s1e4.</p>
-        <p class="mk-field__error" id="f-ep-err">That episode doesn't exist.</p>
+        <p class="mk-field__help" id="f-runtime-help">In minutes, as a figure.</p>
+        <p class="mk-field__error" id="f-runtime-err">The orchestra cannot count words.</p>
       </div>
 
       <div class="mk-field">
-        <label for="f-notes">Notes</label>
+        <label for="f-notes">Notes for the stage manager</label>
         <textarea class="mk-textarea" id="f-notes" placeholder="Optional"></textarea>
       </div>
 
       <fieldset class="mk-fieldset">
-        <legend>Notifications</legend>
+        <legend>Performance</legend>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="f-notify" checked />
-          <span>New episodes only</span>
+          <input class="mk-radio" type="radio" name="f-perf" checked />
+          <span>Evening</span>
         </label>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="f-notify" />
-          <span>Everything</span>
+          <input class="mk-radio" type="radio" name="f-perf" />
+          <span>Matinee</span>
         </label>
         <label class="mk-choice">
-          <input class="mk-radio" type="radio" name="f-notify" />
-          <span>Off</span>
+          <input class="mk-radio" type="radio" name="f-perf" />
+          <span>Twice daily</span>
         </label>
       </fieldset>
 
       <label class="mk-choice">
-        <input class="mk-switch" type="checkbox" checked />
-        <span>Auto-mark watched</span>
+        <input class="mk-checkbox" type="checkbox" checked />
+        <span>Reserve a box for the Taylors</span>
       </label>
 
       <div class="form-actions">
-        <button class="mk-btn mk-btn--primary" type="submit">Save show</button>
-        <button class="mk-btn mk-btn--ghost" type="button">Cancel</button>
+        <button class="mk-btn mk-btn--primary" type="submit">Book the act</button>
+        <button class="mk-btn mk-btn--ghost" type="button">Hold the page</button>
       </div>
     </form>
   </section>
@@ -225,34 +268,54 @@ import Base from '../../../layouts/Ui.astro';
     .field-demo {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
       max-width: 24rem;
     }
 
     .form-demo {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-5);
+      gap: var(--mk-space-lg);
       max-width: 24rem;
     }
 
     .form-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
     }
 
     section.mk-card + section.mk-card {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-2xl);
     }
 
     pre {
-      margin-top: var(--mk-space-4);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-xs);
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
       overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>

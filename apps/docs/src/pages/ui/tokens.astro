@@ -1,110 +1,194 @@
 ---
 import Base from '../../layouts/Ui.astro';
 
-// Primitive ramps — rendered here precisely because this page documents the
-// primitive tier. Consuming components must never touch these; this reference
-// is the one allowed exception. (Noted to the orchestrator.)
-const grayRamp = [
-  '0', '50', '100', '150', '200', '300', '400', '500',
-  '600', '700', '800', '850', '900', '950', '1000',
+// Primitives — rendered here precisely because this page documents the
+// primitive tier. Consuming components must never touch these; this
+// reference is the one allowed exception.
+const palette = [
+  { var: '--mk-ink', hex: '#2a241b', note: 'the printing ink' },
+  { var: '--mk-paper', hex: '#e6d9ba', note: 'the sheet' },
+  { var: '--mk-paper-2', hex: '#ede2c4', note: 'panel fill' },
+  { var: '--mk-paper-3', hex: '#d8c9a4', note: 'pressed fill' },
+  { var: '--mk-tan', hex: '#b3a37e', note: 'the hairline' },
+  { var: '--mk-brown', hex: '#5b4a33', note: 'secondary ink' },
+  { var: '--mk-faded', hex: '#8f8066', note: 'sun-faded ink' },
+  { var: '--mk-ochre', hex: '#c47a2e', note: 'the ONE accent — rationed' },
+  { var: '--mk-stage-floor', hex: '#26211a', note: 'the stage behind the sheet' },
+  { var: '--mk-body-ink', hex: '#3a3128', note: 'prose ink' },
+  { var: '--mk-link-ink', hex: '#8a5a1f', note: 'link ink' },
 ];
-const mossRamp = ['100', '200', '300', '400', '500', '600', '700', '800', '900'];
+
+const faces = [
+  {
+    var: '--mk-font-display',
+    face: 'Rye',
+    job: 'mastheads, character names — never body, never a button',
+    sample: 'Gholson’s Follies',
+    style: 'font-family: var(--mk-font-display); font-size: var(--mk-size-dept);',
+  },
+  {
+    var: '--mk-font-marquee',
+    face: 'Limelight',
+    job: 'department headings, panel titles — caps written in the markup',
+    sample: 'THE DEPARTMENTS',
+    style: 'font-family: var(--mk-font-marquee); font-size: var(--mk-size-dept-sm); letter-spacing: var(--mk-track-dept);',
+  },
+  {
+    var: '--mk-font-typewriter',
+    face: 'Special Elite',
+    job: 'datelines, nav, labels, code — the utility voice',
+    sample: 'APPEARING NIGHTLY · PRICE: FREE',
+    style: 'font-family: var(--mk-font-typewriter); font-size: var(--mk-size-mono); letter-spacing: var(--mk-track-mono);',
+  },
+  {
+    var: '--mk-font-body',
+    face: 'Sorts Mill Goudy',
+    job: 'all prose; italic for taglines, roles, quotes',
+    sample: 'A troupe of tools, appearing nightly.',
+    style: 'font-family: var(--mk-font-body); font-size: var(--mk-size-body);',
+  },
+];
 
 const surfaces = [
-  { var: '--mk-color-bg', label: 'bg' },
-  { var: '--mk-color-surface-1', label: 'surface-1' },
-  { var: '--mk-color-surface-2', label: 'surface-2' },
-  { var: '--mk-color-surface-3', label: 'surface-3' },
-  { var: '--mk-color-field', label: 'field' },
+  { var: '--mk-color-stage', note: 'the page behind the sheet' },
+  { var: '--mk-color-sheet', note: 'the printed sheet itself' },
+  { var: '--mk-color-inset', note: 'panels, plates, form fills' },
+  { var: '--mk-color-plate', note: 'pressed/active fills' },
+  { var: '--mk-color-ink-surface', note: 'inverted blocks: bulletin, tooltip' },
 ];
 const texts = [
-  { var: '--mk-color-text', label: 'text' },
-  { var: '--mk-color-text-muted', label: 'text-muted' },
-  { var: '--mk-color-text-faint', label: 'text-faint' },
+  { var: '--mk-color-heading', note: 'headings' },
+  { var: '--mk-color-text', note: 'prose' },
+  { var: '--mk-color-text-secondary', note: 'taglines, datelines' },
+  { var: '--mk-color-text-muted', note: 'faded ink' },
+  { var: '--mk-color-text-on-ink', note: 'text on inverted blocks' },
 ];
 const accents = [
-  { var: '--mk-color-accent', label: 'accent' },
-  { var: '--mk-color-accent-hover', label: 'accent-hover' },
-  { var: '--mk-color-accent-contrast', label: 'accent-contrast' },
-  { var: '--mk-color-accent-subtle', label: 'accent-subtle' },
-  { var: '--mk-color-on-accent-subtle', label: 'on-accent-subtle' },
+  { var: '--mk-color-accent', note: 'ochre — one spot per view' },
+  { var: '--mk-color-link', note: 'link ink' },
+  { var: '--mk-color-link-hover', note: 'ink goes ochre — instantly' },
+  { var: '--mk-color-focus', note: '2px outline, offset 3px' },
 ];
 const statuses = [
-  { var: '--mk-color-success', label: 'success' },
-  { var: '--mk-color-success-subtle', label: 'success-subtle' },
-  { var: '--mk-color-warning', label: 'warning' },
-  { var: '--mk-color-warning-subtle', label: 'warning-subtle' },
-  { var: '--mk-color-danger', label: 'danger' },
-  { var: '--mk-color-danger-subtle', label: 'danger-subtle' },
+  { var: '--mk-color-success', note: 'printed ink — a thing done needs no colour' },
+  { var: '--mk-color-warning', note: 'the house ochre' },
+  { var: '--mk-color-danger', note: 'letterpress red — the hue kept for STOP' },
 ];
 
 const typeScale = [
-  { var: '--mk-text-3xl', label: '3xl' },
-  { var: '--mk-text-2xl', label: '2xl' },
-  { var: '--mk-text-xl', label: 'xl' },
-  { var: '--mk-text-lg', label: 'lg' },
-  { var: '--mk-text-md', label: 'md' },
-  { var: '--mk-text-sm', label: 'sm' },
-  { var: '--mk-text-xs', label: 'xs' },
+  { var: '--mk-size-title', note: 'Rye mastheads' },
+  { var: '--mk-size-name', note: 'Rye character names' },
+  { var: '--mk-size-dept', note: 'Limelight department headings' },
+  { var: '--mk-size-dept-sm', note: 'small departments' },
+  { var: '--mk-size-player', note: 'Limelight player names' },
+  { var: '--mk-size-body-lg', note: 'lead prose' },
+  { var: '--mk-size-body', note: 'prose' },
+  { var: '--mk-size-body-sm', note: 'the responsive floor' },
+  { var: '--mk-size-list', note: 'list text' },
+  { var: '--mk-size-quote', note: 'pull-quotes' },
+  { var: '--mk-size-tagline', note: 'italic taglines' },
+  { var: '--mk-size-mono', note: 'typewriter utility' },
+  { var: '--mk-size-mono-sm', note: 'small typewriter' },
+  { var: '--mk-size-mono-xs', note: 'the fine print' },
 ];
 
-const spaceScale = ['1', '2', '3', '4', '5', '6', '7', '8'];
+const tracks = [
+  { var: '--mk-track-dept', note: 'department headings' },
+  { var: '--mk-track-mono', note: 'a dateline' },
+  { var: '--mk-track-nav-sm', note: 'small nav' },
+  { var: '--mk-track-back', note: 'the back link' },
+  { var: '--mk-track-nav', note: 'primary nav' },
+  { var: '--mk-track-bill-no', note: 'bill numbers' },
+  { var: '--mk-track-bulletin', note: 'the bulletin' },
+  { var: '--mk-track-kicker', note: 'a proscenium announcement' },
+];
+
+const spaceScale = [
+  'hair', 'xxs', 'xs', 'sm', 'md', 'inset', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl',
+];
+
+const rules = [
+  { var: '--mk-rule-double', note: '4px double — major section break' },
+  { var: '--mk-rule-double-thin', note: '3px double — footer break' },
+  { var: '--mk-rule-thick', note: '2px solid — department underline, every box' },
+  { var: '--mk-rule-hair', note: '1px tan — minor division' },
+  { var: '--mk-rule-dash', note: '1px dashed — nothing is printed here yet' },
+  { var: '--mk-rule-accent', note: '2px ochre — spends the ration' },
+];
 
 const radii = [
-  { var: '--mk-radius-sm', label: 'radius-sm' },
-  { var: '--mk-radius-control', label: 'radius-control' },
-  { var: '--mk-radius-surface', label: 'radius-surface' },
-  { var: '--mk-radius-pill', label: 'radius-pill' },
+  { var: '--mk-radius-control', note: '0 — square keys' },
+  { var: '--mk-radius-surface', note: '0 — square panels' },
+  { var: '--mk-radius-medallion', note: '50% — the circle is geometry, not softness' },
 ];
 
-const durations = [
-  { var: '--mk-motion-quick', label: 'motion-quick' },
-  { var: '--mk-motion-standard', label: 'motion-standard' },
-  { var: '--mk-motion-slow', label: 'motion-slow' },
+const shadows = [
+  { var: '--mk-shadow-sheet', note: 'the deep drop — lifts the sheet off the stage, once per page' },
+  { var: '--mk-shadow-block', note: 'the hard 4px letterpress offset — framed art, forms, buttons' },
+  { var: '--mk-shadow-block-accent', note: 'letterpress offset in ochre' },
+  { var: '--mk-shadow-press', note: 'the pressed variant — a key held down' },
 ];
-const eases = [
-  { var: '--mk-ease-out', label: 'ease-out' },
-  { var: '--mk-ease-spring', label: 'ease-spring' },
+
+const motions = [
+  { var: '--mk-frame', value: '83ms', note: 'one drawing at 12fps' },
+  { var: '--mk-dur-beat', value: '250ms', note: '3 frames — small entrances' },
+  { var: '--mk-dur-enter', value: '420ms', note: '5 frames — sheet/art entrances' },
+  { var: '--mk-dur-reveal', value: '660ms', note: '8 frames — iris, curtain' },
+  { var: '--mk-steps-3', value: 'steps(3, end)', note: 'stepped timing' },
+  { var: '--mk-steps-5', value: 'steps(5, end)', note: 'stepped timing' },
+  { var: '--mk-steps-8', value: 'steps(8, end)', note: 'stepped timing' },
+  { var: '--mk-dur-key', value: '90ms', note: 'the struck typewriter key' },
+  { var: '--mk-ease-key', value: 'cubic-bezier(0.2, 0.7, 0.3, 1)', note: 'the one smooth easing — mechanical, not animated' },
 ];
 ---
 
 <Base title="Tokens">
   <h1>Tokens</h1>
-  <p>
-    Two tiers — primitives feed semantic tokens; components reference semantic
-    only. Every semantic color is a light/dark pair. Swatches below show the
-    <strong>current mode</strong>: flip the toggle up top to watch them swap.
+  <p class="prose">
+    Two tiers — primitives feed semantic tokens; components reference
+    semantic only. <strong>Single mode by design:</strong> the sheet-on-stage
+    is the mode, and there is no dark variant of a printed page. What you see
+    below is what every viewer sees.
   </p>
 
-  <section class="mk-card" aria-labelledby="gray">
-    <h2 id="gray">Gray ramp</h2>
-    <p>Pure achromatic, chroma 0. The primitive neutral scale.</p>
+  <section class="mk-card" aria-labelledby="palette">
+    <h2 id="palette">THE PALETTE</h2>
+    <p class="prose">
+      Sepia duotone — warm ink on aged newsprint, on a dark stage. Ochre is
+      the only warm accent in the world, and it is rationed to one spot per
+      view.
+    </p>
     <ul class="ramp">
-      {grayRamp.map((step) => (
+      {palette.map((t) => (
         <li class="ramp__row">
-          <span class="ramp__swatch" style={`background: var(--mk-gray-${step});`}></span>
-          <code class="ramp__name">--mk-gray-{step}</code>
+          <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
+          <code class="ramp__name">{t.var}</code>
+          <span class="ramp__note">{t.hex} · {t.note}</span>
         </li>
       ))}
     </ul>
   </section>
 
-  <section class="mk-card" aria-labelledby="moss">
-    <h2 id="moss">Moss ramp</h2>
-    <p>The hero accent family — muted green, hue 150, low chroma.</p>
-    <ul class="ramp">
-      {mossRamp.map((step) => (
-        <li class="ramp__row">
-          <span class="ramp__swatch" style={`background: var(--mk-moss-${step});`}></span>
-          <code class="ramp__name">--mk-moss-{step}</code>
+  <section class="mk-card" aria-labelledby="faces">
+    <h2 id="faces">THE FOUR FACES</h2>
+    <p class="prose">
+      Each face has one job. Loudness is dialled with face, size and
+      tracking, never weight — everything ships at 400.
+    </p>
+    <ul class="faces">
+      {faces.map((f) => (
+        <li class="faces__row">
+          <span class="faces__sample" style={f.style}>{f.sample}</span>
+          <code class="faces__name">{f.var}</code>
+          <span class="faces__note">{f.face} — {f.job}</span>
         </li>
       ))}
     </ul>
   </section>
 
   <section class="mk-card" aria-labelledby="semantic">
-    <h2 id="semantic">Semantic colors</h2>
-    <p>What components actually reference. Rendered in the current mode.</p>
+    <h2 id="semantic">SEMANTIC COLORS</h2>
+    <p class="prose">What components actually reference.</p>
 
     <h3>Surfaces</h3>
     <ul class="ramp">
@@ -112,6 +196,7 @@ const eases = [
         <li class="ramp__row">
           <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
           <code class="ramp__name">{t.var}</code>
+          <span class="ramp__note">{t.note}</span>
         </li>
       ))}
     </ul>
@@ -122,16 +207,18 @@ const eases = [
         <li class="ramp__row">
           <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
           <code class="ramp__name">{t.var}</code>
+          <span class="ramp__note">{t.note}</span>
         </li>
       ))}
     </ul>
 
-    <h3>Accent</h3>
+    <h3>Accent &amp; links</h3>
     <ul class="ramp">
       {accents.map((t) => (
         <li class="ramp__row">
           <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
           <code class="ramp__name">{t.var}</code>
+          <span class="ramp__note">{t.note}</span>
         </li>
       ))}
     </ul>
@@ -142,27 +229,49 @@ const eases = [
         <li class="ramp__row">
           <span class="ramp__swatch" style={`background: var(${t.var});`}></span>
           <code class="ramp__name">{t.var}</code>
+          <span class="ramp__note">{t.note}</span>
         </li>
       ))}
     </ul>
   </section>
 
   <section class="mk-card" aria-labelledby="type">
-    <h2 id="type">Type scale</h2>
-    <p>Monospace specimen at each step.</p>
+    <h2 id="type">TYPE SCALE</h2>
+    <p class="prose">A specimen at each step; the note names the face it serves.</p>
     <ul class="specimen">
       {typeScale.map((t) => (
         <li class="specimen__row">
-          <span class="specimen__text" style={`font-size: var(${t.var});`}>Aa watched</span>
+          <span class="specimen__text" style={`font-size: var(${t.var});`}>Aa on the bill</span>
           <code class="specimen__name">{t.var}</code>
+          <span class="specimen__note">{t.note}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="tracking">
+    <h2 id="tracking">TRACKING</h2>
+    <p class="prose">
+      The typewriter&rsquo;s loudness dial: .08em is a department heading,
+      .4em is a proscenium announcement.
+    </p>
+    <ul class="specimen">
+      {tracks.map((t) => (
+        <li class="specimen__row">
+          <span class="specimen__track" style={`letter-spacing: var(${t.var});`}>APPEARING NIGHTLY</span>
+          <code class="specimen__name">{t.var}</code>
+          <span class="specimen__note">{t.note}</span>
         </li>
       ))}
     </ul>
   </section>
 
   <section class="mk-card" aria-labelledby="space">
-    <h2 id="space">Spacing scale</h2>
-    <p>Bars sized to each step.</p>
+    <h2 id="space">SPACING RHYTHM</h2>
+    <p class="prose">
+      The source works in a 2/6/10/14/16/18/20/26/32/36/44/48 rhythm, not a
+      4/8 grid — the print rhythm is the rhythm. Do not snap it.
+    </p>
     <ul class="bars">
       {spaceScale.map((step) => (
         <li class="bars__row">
@@ -173,121 +282,218 @@ const eases = [
     </ul>
   </section>
 
+  <section class="mk-card" aria-labelledby="rules">
+    <h2 id="rules">RULES</h2>
+    <p class="prose">
+      Rules do the dividing — hierarchy is printed, not floated. Grab a
+      whole rule, not a width, and pick it for the meaning, not the look.
+    </p>
+    <ul class="rules">
+      {rules.map((t) => (
+        <li class="rules__row">
+          <span class="rules__line" style={`border-top: var(${t.var});`}></span>
+          <code class="rules__name">{t.var}</code>
+          <span class="rules__note">{t.note}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
   <section class="mk-card" aria-labelledby="radius">
-    <h2 id="radius">Radius</h2>
-    <p>Terminal-sharp: every slot resolves to zero. The slots stay so nothing hardcodes a corner.</p>
+    <h2 id="radius">RADIUS</h2>
+    <p class="prose">
+      Zero. The only round things in the system are the portrait medallion
+      and the radio control. The slots stay so nothing hardcodes a corner.
+    </p>
     <ul class="rows">
       {radii.map((t) => (
         <li class="rows__row">
           <code class="rows__name">{t.var}</code>
           <span class="rows__demo" style={`border-radius: var(${t.var});`}></span>
+          <span class="rows__note">{t.note}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="shadows">
+    <h2 id="shadows">SHADOWS</h2>
+    <p class="prose">
+      Exactly two, plus a pressed variant. No blur on blocks, no ambient
+      shadows, no elevation scale.
+    </p>
+    <ul class="rows rows--roomy">
+      {shadows.map((t) => (
+        <li class="rows__row">
+          <code class="rows__name">{t.var}</code>
+          <span class="rows__demo rows__demo--paper" style={`box-shadow: var(${t.var});`}></span>
+          <span class="rows__note">{t.note}</span>
         </li>
       ))}
     </ul>
   </section>
 
   <section class="mk-card" aria-labelledby="motion">
-    <h2 id="motion">Motion</h2>
-    <p>Durations and easings. Hover a swatch to feel the curve.</p>
-    <ul class="rows">
-      {durations.map((t) => (
-        <li class="rows__row">
-          <code class="rows__name">{t.var}</code>
-          <span class="rows__demo rows__demo--motion" style={`transition-duration: var(${t.var});`}></span>
-        </li>
-      ))}
-      {eases.map((t) => (
-        <li class="rows__row">
-          <code class="rows__name">{t.var}</code>
-          <span class="rows__demo rows__demo--motion" style={`transition-timing-function: var(${t.var});`}></span>
-        </li>
-      ))}
-    </ul>
+    <h2 id="motion">MOTION</h2>
+    <p class="prose">
+      Shot on twos — stepped at 12 drawings a second, never smoothly eased.
+      Motion is an event (an overlay entering, a telegram arriving), never a
+      state; nothing animates on scroll or hover, so nothing here moves.
+    </p>
+    <div class="mk-table-wrap">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th>TOKEN</th>
+            <th>VALUE</th>
+            <th>MEANING</th>
+          </tr>
+        </thead>
+        <tbody>
+          {motions.map((t) => (
+            <tr>
+              <td><code>{t.var}</code></td>
+              <td><code>{t.value}</code></td>
+              <td>{t.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <style>
     section + section {
-      margin-top: var(--mk-space-6);
+      margin-top: var(--mk-space-2xl);
+    }
+
+    .prose {
+      max-width: var(--mk-measure-prose);
     }
 
     .mk-card h3 {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-xl);
     }
 
     .ramp,
     .specimen,
+    .faces,
     .bars,
+    .rules,
     .rows {
       list-style: none;
-      margin: 0;
+      margin: var(--mk-space-sm) 0 0;
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xs);
     }
 
     .ramp__row,
     .bars__row,
+    .rules__row,
     .rows__row {
       display: flex;
       align-items: center;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
+      flex-wrap: wrap;
     }
 
-    /* Swatch sits on surface-2 so contrast-token swatches stay visible. */
+    /* Swatches take the 2px ink rule — a boxed specimen, letterpress style. */
     .ramp__swatch {
       inline-size: 3rem;
       block-size: 2rem;
       flex: none;
-      background-clip: padding-box;
+      border: var(--mk-rule-thick);
     }
 
     .ramp__name,
     .bars__name,
+    .rules__name,
     .rows__name,
-    .specimen__name {
-      font-size: var(--mk-text-xs);
+    .specimen__name,
+    .faces__name {
+      font-size: var(--mk-size-mono-xs);
+      color: var(--mk-color-text-secondary);
+    }
+
+    .ramp__note,
+    .rules__note,
+    .rows__note,
+    .specimen__note,
+    .faces__note {
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-body-sm);
       color: var(--mk-color-text-muted);
     }
 
     .rows__name {
-      inline-size: 11rem;
+      inline-size: 13rem;
       flex: none;
+    }
+
+    .faces__row {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-hair);
+      padding-block: var(--mk-space-xs);
+    }
+
+    .faces__row + .faces__row {
+      border-top: var(--mk-rule-hair);
+    }
+
+    .faces__sample {
+      color: var(--mk-color-heading);
+      line-height: var(--mk-leading-tight);
     }
 
     .specimen__row {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: var(--mk-space-2) var(--mk-space-4);
+      gap: var(--mk-space-xxs) var(--mk-space-md);
     }
 
     .specimen__text {
       line-height: var(--mk-leading-tight);
     }
 
+    .specimen__track {
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      color: var(--mk-color-heading);
+      white-space: nowrap;
+    }
+
     .bars__bar {
       block-size: 1rem;
       flex: none;
-      background: var(--mk-color-accent);
+      background: var(--mk-color-heading);
+    }
+
+    .rules__line {
+      inline-size: 6rem;
+      flex: none;
     }
 
     .rows__demo {
       inline-size: 2.5rem;
       block-size: 2.5rem;
       flex: none;
-      background: var(--mk-color-surface-3);
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-thick);
     }
 
-    .rows__demo--motion {
-      background: var(--mk-color-accent);
-      transition-property: transform;
+    /* Shadow demos sit on paper with room for the drop. */
+    .rows--roomy {
+      gap: var(--mk-space-lg);
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-      .rows__row:hover .rows__demo--motion {
-        transform: translateX(var(--mk-space-5));
-      }
+    .rows__demo--paper {
+      background: var(--mk-color-sheet);
+      margin: var(--mk-space-xxs);
     }
   </style>
 </Base>

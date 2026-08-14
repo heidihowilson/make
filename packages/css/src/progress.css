@@ -1,54 +1,52 @@
 @layer mk.components {
-  /* Progress — tonal track, accent fill */
+  /*
+   * Progress — the ledger fill bar: a 2px-ruled trough on the inset fill,
+   * filled with solid ink. The fill advances in stepped beats, not a
+   * smooth slide — shot on twos like everything else. (House device: the
+   * disk is at ninety-one percent, and nobody is taking this seriously.)
+   */
   .mk-progress {
     appearance: none;
     width: 100%;
-    height: 0.5rem;
-    border: 0;
-    border-radius: var(--mk-radius-pill);
-    background: var(--mk-color-surface-3);
+    height: 16px;
+    border: var(--mk-rule-thick);
+    border-radius: var(--mk-radius-control);
+    background: var(--mk-color-inset);
     overflow: hidden;
   }
 
   .mk-progress::-webkit-progress-bar {
-    background: var(--mk-color-surface-3);
-    border-radius: var(--mk-radius-pill);
+    background: var(--mk-color-inset);
   }
 
   .mk-progress::-webkit-progress-value {
-    background: var(--mk-color-accent);
-    border-radius: var(--mk-radius-pill);
-    transition: width var(--mk-motion-standard) var(--mk-ease-out);
+    background: var(--mk-color-ink-surface);
+    transition: width var(--mk-dur-beat) var(--mk-steps-3);
   }
 
   .mk-progress::-moz-progress-bar {
-    background: var(--mk-color-accent);
-    border-radius: var(--mk-radius-pill);
+    background: var(--mk-color-ink-surface);
   }
 
-  /* Thinner variant */
+  /* Thinner variant — a hairline trough for quiet meters. */
   .mk-progress--sm {
-    height: 0.25rem;
+    height: 8px;
+    border-width: 1px;
   }
 
   /*
-   * Indeterminate — a <progress> with no value attribute. Browsers zero out
-   * the value bar, so we paint a sliding accent segment on the track itself
-   * and let it travel. Reduced motion falls back to a static partial fill so
-   * the bar still signals "working" without movement.
+   * Indeterminate — a <progress> with no value attribute. The trough
+   * fills with a diagonal ink hatch that marches in four-step jumps:
+   * work is happening, amount unknown. Reduced motion holds the hatch
+   * still — it still reads as "working".
    */
   .mk-progress:indeterminate {
-    background:
-      linear-gradient(
-        to right,
-        var(--mk-color-accent) 0%,
-        var(--mk-color-accent) 40%,
-        transparent 40%
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--mk-color-ink-surface) 0 10px,
+        transparent 10px 20px
       )
-      var(--mk-color-surface-3);
-    background-repeat: no-repeat;
-    background-size: 40% 100%;
-    background-position: 0% 0%;
+      var(--mk-color-inset);
   }
 
   .mk-progress:indeterminate::-webkit-progress-bar {
@@ -61,17 +59,17 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .mk-progress:indeterminate {
-      /* slow token x4 keeps the loop tokenized (~1280ms ≈ the original 1.4s). */
-      animation: mk-progress-slide calc(var(--mk-motion-slow) * 4) var(--mk-ease-out) infinite;
+      animation: mk-progress-march 900ms steps(4, end) infinite;
     }
   }
 
-  @keyframes mk-progress-slide {
+  @keyframes mk-progress-march {
     from {
-      background-position: -40% 0%;
+      background-position: 0 0;
     }
+
     to {
-      background-position: 140% 0%;
+      background-position: 28px 0;
     }
   }
 }

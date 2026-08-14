@@ -6,120 +6,163 @@ import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
 
+// The bill — every act currently booked. Numbered like a programme.
 const tools = [
   {
+    no: 'NO. 1',
     name: 'sethmakes-ui',
     href: '/ui',
-    status: 'live',
-    desc: 'Framework-neutral UI components and design tokens. One design language — terminal bones, calm surface — for every app.',
+    status: 'NOW SHOWING',
+    role: 'framework-neutral components & design tokens',
+    desc: 'One design language — sepia ink on aged newsprint — printed the same way in every production.',
   },
   {
+    no: 'NO. 2',
     name: 'sethmakes-icons',
     href: '/icons',
-    status: 'live',
-    desc: 'Thin Iconify wrapper — Lucide primary, Phosphor for gaps. Icon selection happens at your build, never behind a toolkit release.',
+    status: 'NOW SHOWING',
+    role: 'a thin Iconify wrapper',
+    desc: 'Icon selection happens at your build, never behind a toolkit release.',
   },
 ];
 ---
 
 <Base title="Toolbox">
   <header class="hero">
-    <h1>sethmakes</h1>
+    <p class="mk-kicker">FROM THE MANAGEMENT</p>
+    <h1>The Programme</h1>
     <p class="hero__lede">
-      A toolbox of shared packages — <strong>tools for making things.</strong>
-      Built once, used across every project.
+      One toolkit and its troupe of packages — built once, billed nightly,
+      and appearing in every production thereafter.
     </p>
   </header>
 
-  <section class="mk-card" aria-labelledby="how">
-    <h2 id="how">How it's built</h2>
-    <p>
-      Web platform first, framework never. Everything here works in Remix,
-      Svelte, plain HTML, or whatever comes next — including server-rendered
-      and no-JS contexts. Boring, durable tech; nothing added before the pain
-      that justifies it.
+  <hr class="mk-divider mk-divider--double" />
+
+  <section aria-labelledby="how">
+    <h2 id="how">How the House Is Built</h2>
+    <p class="prose">
+      Web platform first, framework never. Every act performs in Remix,
+      Svelte, plain HTML, or whatever the next season brings — including
+      server-rendered houses and houses with no JavaScript at all. Boring,
+      durable stagecraft; nothing joins the bill before the pain that
+      justifies it.
     </p>
   </section>
 
   <section aria-labelledby="tools">
-    <h2 id="tools">Tools</h2>
+    <h2 id="tools">On the Bill</h2>
     <ul class="tools">
       {tools.map((t) => (
         <li class="mk-card tools__item">
-          <div class="tools__head">
-            {t.href
-              ? <a class="tools__link" href={link(t.href)}>{t.name} →</a>
-              : <span class="tools__link tools__link--planned">{t.name}</span>}
-            <span class:list={['mk-badge', { 'mk-badge--accent': t.status === 'live' }]}>{t.status}</span>
-          </div>
-          <span class="tools__desc">{t.desc}</span>
+          <p class="tools__no">{t.no} · {t.status}</p>
+          <a class="mk-link-reset tools__link" href={link(t.href)}>{t.name} →</a>
+          <p class="tools__role">{t.role}</p>
+          <p class="tools__desc">{t.desc}</p>
         </li>
       ))}
+      <li class="mk-empty tools__slot">
+        <span class="mk-empty__title">NO. 3</span>
+        <span class="mk-empty__message">COMING SOON — THE REST OF THE BILL IS STILL BEING SET</span>
+      </li>
     </ul>
   </section>
 
-  <section class="mk-card" aria-labelledby="get">
-    <h2 id="get">Get it</h2>
-    <p>Everything publishes publicly under the <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a> npm scope.</p>
+  <section aria-labelledby="get">
+    <h2 id="get">Tickets</h2>
+    <p class="prose">
+      Every package publishes publicly under the
+      <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a> npm scope.
+      Admission is free.
+    </p>
     <pre><code>pnpm add @sethmakes/tokens @sethmakes/css</code></pre>
   </section>
 
   <style>
     .hero {
-      padding-block: var(--mk-space-5) var(--mk-space-6);
+      text-align: center;
+      padding-block: var(--mk-space-lg) var(--mk-space-xs);
     }
 
     .hero__lede {
-      font-size: var(--mk-text-lg);
-      color: var(--mk-color-text-muted);
-      max-width: 44ch;
-    }
-
-    .hero__lede strong {
-      color: var(--mk-color-text);
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-quote);
+      color: var(--mk-color-text-secondary);
+      max-width: 48ch;
+      margin-inline: auto;
     }
 
     section + section {
-      margin-top: var(--mk-space-6);
+      margin-top: var(--mk-space-3xl);
+    }
+
+    .prose {
+      max-width: var(--mk-measure-prose);
     }
 
     .tools {
       list-style: none;
-      margin: 0;
+      margin: var(--mk-space-lg) 0 0;
       padding: 0;
       display: grid;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-lg);
       grid-template-columns: 1fr;
     }
 
     .tools__item {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xxs);
     }
 
-    .tools__head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--mk-space-3);
+    /* The bill number — a typewriter slug over the act's name. */
+    .tools__no {
+      margin: 0;
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      letter-spacing: var(--mk-track-bill-no);
+      color: var(--mk-color-text-muted);
     }
 
     .tools__link {
-      font-weight: var(--mk-weight-bold);
+      font-family: var(--mk-font-marquee);
+      font-size: var(--mk-size-dept);
+      color: var(--mk-color-heading);
+      line-height: var(--mk-leading-tight);
     }
 
-    .tools__link--planned {
-      color: var(--mk-color-text-muted);
+    .tools__link:hover {
+      color: var(--mk-color-link-hover);
+    }
+
+    /* The role line — lowercase italic, as printed under a player's name. */
+    .tools__role {
+      margin: 0;
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-tagline);
+      color: var(--mk-color-text-secondary);
     }
 
     .tools__desc {
-      color: var(--mk-color-text-muted);
-      font-size: var(--mk-text-sm);
+      margin: 0;
+      font-size: var(--mk-size-body-sm);
+      color: var(--mk-color-text);
     }
 
-    .mk-card pre {
+    pre {
       overflow-x: auto;
+    }
+
+    @media (min-width: 740px) {
+      .tools {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .tools__slot {
+        grid-column: 1 / -1;
+      }
     }
   </style>
 </Base>

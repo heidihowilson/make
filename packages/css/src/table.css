@@ -1,40 +1,67 @@
 @layer mk.components {
-  /* Table — full width, mono-friendly, tonal header, no borders */
+  /*
+   * Table — the LEDGER. Cadbury balances it as the room burns: typewriter
+   * caps column heads over a 2px ink rule, Goudy figures on hairline rows,
+   * a 3px double rule closing the account in tfoot. Wrap it in
+   * .mk-table-wrap so the ledger scrolls sideways inside its own rules —
+   * the sheet itself never scrolls horizontally.
+   */
   .mk-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: var(--mk-text-sm);
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-list);
     color: var(--mk-color-text);
   }
 
   .mk-table th,
   .mk-table td {
-    padding: var(--mk-space-3) var(--mk-space-4);
+    padding: 9px 16px;
     text-align: left;
     vertical-align: top;
   }
 
-  /* Header row — tonal background shift, muted bold label text */
+  /* Header row — typewriter caps over the 2px ink rule. */
   .mk-table thead th {
-    background: var(--mk-color-surface-2);
-    color: var(--mk-color-text-muted);
-    font-weight: var(--mk-weight-medium);
+    font-family: var(--mk-font-typewriter);
+    font-weight: 400;
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
+    border-bottom: var(--mk-rule-thick);
     white-space: nowrap;
   }
 
-  /* Hover tonal row feedback (no zebra) */
-  .mk-table tbody tr {
-    transition: background var(--mk-motion-quick) var(--mk-ease-out);
+  /* Body rows — hairline dividers; the last row leaves the book open. */
+  .mk-table tbody td {
+    border-bottom: var(--mk-rule-hair);
   }
 
-  .mk-table tbody tr:hover {
-    background: var(--mk-color-surface-2);
+  .mk-table tbody tr:last-child td {
+    border-bottom: 0;
   }
 
-  /* Numeric cells — right-aligned, tabular */
+  /* Hover — the row plate darkens, instantly. No zebra striping. */
+  .mk-table tbody tr:hover td {
+    background: var(--mk-color-plate);
+  }
+
+  /* Totals — the 3px double rule that closes an account. */
+  .mk-table tfoot td {
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-mono);
+    color: var(--mk-color-heading);
+    border-top: var(--mk-rule-double-thin);
+  }
+
+  /* Numeric cells — right-aligned typewriter figures. */
   .mk-table__num {
     text-align: right;
-    font-variant-numeric: tabular-nums;
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: 0.04em;
   }
 
   /* Mobile scroll container — horizontal overflow without breaking layout */

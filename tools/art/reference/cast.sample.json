@@ -1,0 +1,75 @@
+{
+  "source": "https://github.com/sethgho/the-cast",
+  "style": "vaudeville-1933",
+  "base_url": "https://cast.sethgholson.com",
+  "_note": "Local sample of the live registry at https://cast.sethgholson.com/cast.json — same shape, derived from cast/<id>/character.yaml in sethgho/the-cast@master (read 2026-08-03). Use for offline mocks; the live URL is the source of truth.",
+  "cast": [
+    {
+      "id": "seth",
+      "name": "Seth",
+      "role": "The operator, and the only human on the payroll. Two decades of software — mobile, full-stack, leading teams — now treading water in the great agentic flood. Optimistic, mid-deploy, perpetually one small change away from disaster.",
+      "tokens": "a lanky cartoon man with long wavy shoulder-length brown hair and a full bushy handlebar moustache, wearing a v-neck t-shirt in extremely dark spruce green — so dark it reads nearly charcoal, the green only barely perceptible — with grey trousers and black-and-white sneakers",
+      "props": [
+        "a can of Diet Coke"
+      ],
+      "accent": null,
+      "notes": "No hoodie — that was the old design. In the sepia-duotone house style the shirt's green reads as near-black tone; the green only matters in colour renders.",
+      "sheet_url": "https://cast.sethgholson.com/seth/sheet.png",
+      "portrait_url": "https://cast.sethgholson.com/seth/portrait.png",
+      "thumb_url": "https://cast.sethgholson.com/seth/thumb.png",
+      "local_portrait": "assets/cast/seth/portrait.png",
+      "local_thumb": "assets/cast/seth/thumb.png"
+    },
+    {
+      "id": "wilson",
+      "name": "Wilson",
+      "role": "The neighbour. Sysadmin, personal assistant and vibe coder to the management — keeper of the household machines. Steady, dry, has seen this exact failure before and says so gently, once it has finished happening.",
+      "tokens": "a living picket fence: one wide wooden fence panel of vertical slats with pointed tops IS his entire body, with two segmented riveted metal arms attached at its side edges, two short stubby metal legs with rolled cuffs and heavy black boots beneath its bottom rail, and a battered wide-brimmed floppy canvas bucket hat resting on the picket points — in the deep flat shadow between hat brim and pickets float two simple friendly cartoon eyes, white ovals with round dark pupils",
+      "props": [
+        "a miniature rack of tiny humming servers, carried lantern-style by a chain"
+      ],
+      "accent": null,
+      "notes": "NEVER describe Wilson with the word \"robot\" — it primes a humanoid armature. He has no head, neck, torso or waist: the panel is the body.",
+      "sheet_url": "https://cast.sethgholson.com/wilson/sheet.png",
+      "portrait_url": "https://cast.sethgholson.com/wilson/portrait.png",
+      "thumb_url": "https://cast.sethgholson.com/wilson/thumb.png",
+      "local_portrait": "assets/cast/wilson/portrait.png",
+      "local_thumb": "assets/cast/wilson/thumb.png"
+    },
+    {
+      "id": "cadbury",
+      "name": "Cadbury",
+      "role": "The butler-turned-bookkeeper, and the adult in the room. Business manager, accountant, and household disciplinarian on the subject of money. Unflappable. Balances the ledger as things collapse.",
+      "tokens": "a thin, impeccably composed butler in a black tailcoat, waistcoat and bow tie, with slicked-back black hair and a neat pencil moustache, a white folded towel draped over one forearm — his right eye is a brass clockwork monocle: a mechanical camera-iris lens in an ornate rim, its fine chain running down to his waistcoat pocket",
+      "props": [
+        "a leather-bound double-entry ledger",
+        "a fountain pen",
+        "a brass mechanical adding machine spooling paper tape"
+      ],
+      "accent": null,
+      "notes": "The monocle eye is PART OF HIM, not eyewear he holds — always his RIGHT eye, always chained to the waistcoat pocket. A faint warm brass tint on the monocle and adding machine is accepted; do not spread it further.",
+      "sheet_url": "https://cast.sethgholson.com/cadbury/sheet.png",
+      "portrait_url": "https://cast.sethgholson.com/cadbury/portrait.png",
+      "thumb_url": "https://cast.sethgholson.com/cadbury/thumb.png",
+      "local_portrait": "assets/cast/cadbury/portrait.png",
+      "local_thumb": "assets/cast/cadbury/thumb.png"
+    },
+    {
+      "id": "ake",
+      "name": "Ake",
+      "role": "The sysop, and the management's man for the crypto trade (the firm is never named). Derp incarnate — over-caffeinated, alarmed by everything, and usually right.",
+      "tokens": "a plump goldfish inside a spherical glass fishbowl mounted on a small wheeled wooden dolly, with huge googly eyes, a drooping walrus moustache and prominent front teeth, wearing a small dark cap reading \"FEW\" perched on top of the bowl",
+      "props": [
+        "a small dark cap lettered \"FEW\"",
+        "the wheeled wooden dolly the bowl rides on"
+      ],
+      "accent": "The only warm colour in an otherwise sepia-duotone world — a muted ochre orange. Do not spread this to other characters; that single spot of colour is the strip's signature.",
+      "notes": "The cap reads \"FEW\" — as in \"few understand.\" The walrus moustache and buck teeth are his defining features and the FIRST thing a text-only prompt loses. Always render Ake with reference conditioning.",
+      "sheet_url": "https://cast.sethgholson.com/ake/sheet.png",
+      "portrait_url": "https://cast.sethgholson.com/ake/portrait.png",
+      "thumb_url": "https://cast.sethgholson.com/ake/thumb.png",
+      "local_portrait": "assets/cast/ake/portrait.png",
+      "local_thumb": "assets/cast/ake/thumb.png"
+    }
+  ]
+}

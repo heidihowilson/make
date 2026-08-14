@@ -1,24 +1,27 @@
 /*
- * @sethmakes/tokens
+ * @sethmakes/tokens — the Vaudeville design language (Gholson's Follies).
  *
- * Two tiers: primitives → semantic. Components reference semantic tokens only.
- * Every semantic color is defined as a light/dark PAIR via light-dark() —
- * the "truly dual" rule from docs/DESIGN-LANGUAGE.md, enforced by syntax.
+ * The metaphor is print, not screen: every surface is a sheet of aged
+ * newsprint lying on a dark stage floor. Sepia duotone throughout; ochre is
+ * the ONLY warm accent and it is rationed — one spot per view. If a
+ * treatment could not be done by a 1933 letterpress shop plus one warm ink,
+ * it does not belong.
+ *
+ * Two tiers: primitives → semantic. Components reference semantic tokens
+ * only. SINGLE MODE by design — the sheet-on-stage IS the mode; there is no
+ * dark variant of a printed page. (This deliberately retired the old
+ * light-dark() machinery.)
+ *
+ * Base values are copied literally from the source site
+ * (cast.sethgholson.com, sethgho/the-cast site/styles.css). Nothing was
+ * rounded to a 4/8-px grid — the print rhythm is the rhythm.
  *
  * Custom properties are intentionally unlayered: they're data, not style
  * rules, and never participate in cascade conflicts.
  */
 
 :root {
-  color-scheme: light dark;
-}
-
-[data-theme="light"] {
   color-scheme: light;
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
 }
 
 :root {
@@ -26,162 +29,210 @@
   /* Primitives                                                          */
   /* ------------------------------------------------------------------ */
 
-  /* Pure achromatic gray ramp (chroma 0, perceptual lightness steps) */
-  --mk-gray-0: oklch(100% 0 0);
-  --mk-gray-50: oklch(98.5% 0 0);
-  --mk-gray-100: oklch(97% 0 0);
-  --mk-gray-150: oklch(94.5% 0 0);
-  --mk-gray-200: oklch(91% 0 0);
-  --mk-gray-300: oklch(85% 0 0);
-  --mk-gray-400: oklch(73% 0 0);
-  --mk-gray-500: oklch(60% 0 0);
-  --mk-gray-600: oklch(49% 0 0);
-  --mk-gray-700: oklch(40% 0 0);
-  --mk-gray-800: oklch(30% 0 0);
-  --mk-gray-850: oklch(25% 0 0);
-  --mk-gray-900: oklch(21% 0 0);
-  --mk-gray-950: oklch(16% 0 0);
-  --mk-gray-1000: oklch(12% 0 0);
+  /* Sepia duotone palette — warm ink on aged newsprint, on a dark stage. */
+  --mk-ink: #2a241b;
+  --mk-paper: #e6d9ba;
+  --mk-paper-2: #ede2c4;
+  --mk-paper-3: #d8c9a4;
+  --mk-tan: #b3a37e;
+  --mk-brown: #5b4a33;
+  --mk-faded: #8f8066;
+  --mk-stage-floor: #26211a;
+  --mk-body-ink: #3a3128;
 
   /*
-   * Hero accent: moss — a muted green (hue 150, low chroma). Chosen from
-   * rendered candidates 2026-06-04. Shares the green family with
-   * status-success; they stay distinguishable because success runs at
-   * roughly double the chroma. Verify that separation in both modes
-   * whenever either changes.
+   * Ochre — Ake's colour, the only warm accent in the world. Ration it:
+   * one spot per view (a medallion ring, a focus outline, a kicker, the ON
+   * state of a switch). Two accents in one view cancel each other out.
    */
-  --mk-moss-100: oklch(94% 0.04 150);
-  --mk-moss-200: oklch(86% 0.08 150);
-  --mk-moss-300: oklch(82% 0.11 150);
-  --mk-moss-400: oklch(75% 0.1 150);
-  --mk-moss-500: oklch(60% 0.09 150);
-  --mk-moss-600: oklch(48% 0.08 150);
-  --mk-moss-700: oklch(42% 0.08 150);
-  --mk-moss-800: oklch(38% 0.07 150);
-  --mk-moss-900: oklch(27% 0.05 150);
-
-  /* Functional status hues (fixed; not brand carriers) */
-  --mk-green-400: oklch(72% 0.14 155);
-  --mk-green-500: oklch(50% 0.15 155); /* darkened from 64% for 4.5:1 on light bg/subtle (CONTRAST.md) */
-  --mk-green-900: oklch(30% 0.07 155);
-  --mk-green-100: oklch(94% 0.06 155);
-  --mk-amber-400: oklch(82% 0.14 85);
-  --mk-amber-500: oklch(52% 0.15 85); /* darkened from 78% for 4.5:1 on light bg/subtle (CONTRAST.md) */
-  --mk-amber-900: oklch(32% 0.07 85);
-  --mk-amber-100: oklch(95% 0.07 85);
-  --mk-red-400: oklch(66% 0.2 25);
-  --mk-red-500: oklch(52% 0.22 25); /* darkened from 58% for 4.5:1 on light bg/subtle (CONTRAST.md) */
-  --mk-red-900: oklch(27% 0.09 25); /* deepened from 30% so red-400 meets 4.5:1 on dark danger-subtle (CONTRAST.md) */
-  --mk-red-100: oklch(94% 0.04 25);
-
-  /* Type scale */
-  --mk-text-xs: 0.75rem;
-  --mk-text-sm: 0.875rem;
-  --mk-text-md: 1rem;
-  --mk-text-lg: 1.125rem;
-  --mk-text-xl: 1.375rem;
-  --mk-text-2xl: 1.75rem;
-  --mk-text-3xl: 2.25rem;
-  --mk-leading-tight: 1.25;
-  --mk-leading-normal: 1.55;
-  --mk-weight-regular: 400;
-  --mk-weight-medium: 600;
-  --mk-weight-bold: 700;
+  --mk-ochre: #c47a2e;
+  --mk-link-ink: #8a5a1f;
 
   /*
-   * Icon sizes — sized to sit beside mono text. Each step pairs with a
-   * type-scale step (sm/md/lg) so a glyph reads as the same optical weight
-   * as the text it labels: md (1.25rem) is the default, slightly larger
-   * than text-md's 1rem so the icon doesn't look starved next to mono
-   * letterforms. sm/lg track text-sm/text-lg the same way.
+   * Type scale — four faces, each with one job. Loudness is dialled with
+   * face, size and TRACKING, never weight: everything ships at 400.
+   */
+  --mk-size-title: clamp(44px, 6.5vw, 78px); /* Rye mastheads */
+  --mk-size-name: clamp(56px, 9vw, 96px); /* Rye character names */
+  --mk-size-dept: 23px; /* Limelight department headings */
+  --mk-size-dept-sm: 17px;
+  --mk-size-player: 19px; /* Limelight player names */
+  --mk-size-body-lg: 19px; /* Sorts Mill Goudy prose */
+  --mk-size-body: 18px;
+  --mk-size-body-sm: 17px; /* the responsive floor — prose never drops below */
+  --mk-size-list: 16px;
+  --mk-size-quote: 20px;
+  --mk-size-tagline: 17px;
+  --mk-size-mono: 13px; /* Special Elite typewriter utility */
+  --mk-size-mono-sm: 12px;
+  --mk-size-mono-xs: 11px;
+
+  --mk-leading-prose: 1.65;
+  --mk-leading-bio: 1.7;
+  --mk-leading-list: 1.6;
+  --mk-leading-tight: 1.1;
+
+  /*
+   * Tracking is the typewriter's loudness dial: .1em is a dateline,
+   * .4em is a proscenium announcement.
+   */
+  --mk-track-dept: 0.08em;
+  --mk-track-mono: 0.1em;
+  --mk-track-nav-sm: 0.12em;
+  --mk-track-back: 0.18em;
+  --mk-track-nav: 0.22em;
+  --mk-track-bill-no: 0.3em;
+  --mk-track-bulletin: 0.32em;
+  --mk-track-kicker: 0.4em;
+
+  /*
+   * Icon sizes — kept as slots. NOTE the house doctrine: there is no
+   * line-icon set in this language. Unicode glyphs (← → ·), CSS-drawn
+   * controls and framed art do the work; these slots size whatever glyph
+   * stands in an icon position.
    */
   --mk-icon-sm: 1rem;
   --mk-icon-md: 1.25rem;
   --mk-icon-lg: 1.5rem;
 
-  /* Spacing scale */
-  --mk-space-1: 0.25rem;
-  --mk-space-2: 0.5rem;
-  --mk-space-3: 0.75rem;
-  --mk-space-4: 1rem;
-  --mk-space-5: 1.5rem;
-  --mk-space-6: 2rem;
-  --mk-space-7: 3rem;
-  --mk-space-8: 4rem;
+  /*
+   * Spacing — the source works in a 2/6/10/14/16/18/20/26/32/36/48 rhythm,
+   * not a 4/8 grid. These are the literal paddings and gaps from the
+   * printed page; do not snap them.
+   */
+  --mk-space-hair: 2px;
+  --mk-space-xxs: 6px;
+  --mk-space-xs: 10px;
+  --mk-space-sm: 14px;
+  --mk-space-md: 16px;
+  --mk-space-inset: 18px;
+  --mk-space-lg: 20px;
+  --mk-space-xl: 26px;
+  --mk-space-2xl: 32px;
+  --mk-space-3xl: 36px;
+  --mk-space-4xl: 44px;
+  --mk-space-5xl: 48px;
+
+  /* Composite paddings and measures of the printed sheet */
+  --mk-sheet-pad: 36px 48px 44px;
+  --mk-sheet-pad-mid: 30px 32px 38px; /* ≤1000px "relax" */
+  --mk-sheet-pad-phone: 18px 16px 28px; /* ≤740px "reflow" */
+  --mk-page-pad: 40px 20px 80px;
+  --mk-frame-pad: 6px; /* the newsprint mat inside an art frame */
+  --mk-panel-pad: 16px 18px;
+  --mk-sheet-max: 1280px;
+  --mk-measure-prose: 70ch;
 
   /*
-   * Radius scale — terminal-sharp: zero everywhere. The slots remain so
-   * components never hardcode radii; the value is the aesthetic.
+   * Radius: zero. The only round things in the system are the portrait
+   * medallion and the radio control — the circle is geometry, not
+   * softness. The slots remain so components never hardcode radii.
    */
-  --mk-radius-sm: 0px;
-  --mk-radius-control: 0px;
-  --mk-radius-surface: 0px;
-  --mk-radius-pill: 0px;
+  --mk-radius-control: 0;
+  --mk-radius-surface: 0;
+  --mk-radius-medallion: 50%;
 
   /*
    * Elevation — named z-index layers so nothing ever types z-index: 9999.
-   * Chrome (app bars, sticky nav) < overlay (dialogs, their backdrops) <
-   * toast (transient, above everything). From the interaction-hierarchy
-   * decision: stacking is policy, not per-component improvisation.
+   * Chrome < overlay < toast. Stacking is policy, not improvisation.
    */
   --mk-layer-chrome: 100;
   --mk-layer-overlay: 200;
   --mk-layer-toast: 300;
 
-  /* Motion — quietly alive */
-  --mk-motion-quick: 150ms;
-  --mk-motion-standard: 220ms;
-  --mk-motion-slow: 320ms;
-  --mk-ease-out: cubic-bezier(0.2, 0, 0, 1);
-  --mk-ease-spring: cubic-bezier(0.3, 1.4, 0.4, 1);
+  /*
+   * Motion — "shot on twos". A 1933 cartoon runs at 12 drawings a second,
+   * so house motion is STEPPED (steps(), one frame ≈ 83ms), never smoothly
+   * eased. Motion is an event (an overlay entering, a telegram arriving),
+   * never a state; nothing animates on scroll or hover. The one smooth
+   * easing is the 90ms struck-key press — mechanical, not animated.
+   */
+  --mk-frame: 83ms; /* one drawing at 12fps */
+  --mk-dur-beat: 250ms; /* 3 frames — small entrances */
+  --mk-dur-enter: 420ms; /* 5 frames — sheet/art entrances */
+  --mk-dur-reveal: 660ms; /* 8 frames — iris, curtain */
+  --mk-steps-3: steps(3, end);
+  --mk-steps-5: steps(5, end);
+  --mk-steps-8: steps(8, end);
+  --mk-dur-key: 90ms; /* the struck typewriter key */
+  --mk-ease-key: cubic-bezier(0.2, 0.7, 0.3, 1);
 
   /* ------------------------------------------------------------------ */
   /* Semantic — components reference ONLY these                          */
   /* ------------------------------------------------------------------ */
 
-  /*
-   * Typeface: monospace everywhere — JetBrains Mono, falling back through
-   * the system mono stack. Self-hosting the webfont is a pending task;
-   * consumers currently get the system fallbacks unless they load it.
-   */
-  --mk-font-body: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Faces */
+  --mk-font-display: 'Rye', serif; /* mastheads, names. Never body, never a button. */
+  --mk-font-marquee: 'Limelight', serif; /* department headings, panel titles — caps written in the markup */
+  --mk-font-typewriter: 'Special Elite', 'Courier New', monospace; /* datelines, nav, labels, code */
+  --mk-font-body: 'Sorts Mill Goudy', Georgia, serif; /* all prose; italic = taglines, roles, quotes */
 
-  /* Surfaces: tonal steps, zero borders. Hierarchy = background shifts. */
-  --mk-color-bg: light-dark(var(--mk-gray-100), var(--mk-gray-950));
-  --mk-color-surface-1: light-dark(var(--mk-gray-0), var(--mk-gray-900));
-  --mk-color-surface-2: light-dark(var(--mk-gray-150), var(--mk-gray-850));
-  --mk-color-surface-3: light-dark(var(--mk-gray-200), var(--mk-gray-800));
-
-  /* Filled form controls (zero-border consequence) */
-  --mk-color-field: light-dark(var(--mk-gray-150), var(--mk-gray-850));
+  /* Surfaces — the sheet on the stage floor */
+  --mk-color-stage: var(--mk-stage-floor); /* the page behind the sheet */
+  --mk-color-sheet: var(--mk-paper); /* the printed sheet itself */
+  --mk-color-inset: var(--mk-paper-2); /* panels, plates, form fills */
+  --mk-color-plate: var(--mk-paper-3); /* pressed/active fills */
+  --mk-color-ink-surface: var(--mk-ink); /* inverted blocks: bulletin, tooltip */
 
   /* Text */
-  --mk-color-text: light-dark(var(--mk-gray-900), var(--mk-gray-100));
-  --mk-color-text-muted: light-dark(var(--mk-gray-600), var(--mk-gray-400));
-  --mk-color-text-faint: light-dark(var(--mk-gray-400), var(--mk-gray-600));
+  --mk-color-heading: var(--mk-ink);
+  --mk-color-text: var(--mk-body-ink);
+  --mk-color-text-secondary: var(--mk-brown);
+  --mk-color-text-muted: var(--mk-faded);
+  --mk-color-text-on-ink: var(--mk-paper);
 
-  /* Accent — moss, in the hero role (fills primary actions) */
-  --mk-color-accent: light-dark(var(--mk-moss-600), var(--mk-moss-400));
-  --mk-color-accent-hover: light-dark(var(--mk-moss-700), var(--mk-moss-300));
-  --mk-color-accent-contrast: light-dark(var(--mk-gray-50), var(--mk-gray-1000));
-  --mk-color-accent-subtle: light-dark(var(--mk-moss-100), var(--mk-moss-900));
-  --mk-color-on-accent-subtle: light-dark(var(--mk-moss-800), var(--mk-moss-200));
+  /* Lines — rules do the dividing; hierarchy is printed, not floated */
+  --mk-color-rule: var(--mk-ink);
+  --mk-color-rule-hair: var(--mk-tan);
+  --mk-color-rule-ghost: var(--mk-faded);
 
-  /* Status */
-  --mk-color-success: light-dark(var(--mk-green-500), var(--mk-green-400));
-  --mk-color-success-subtle: light-dark(var(--mk-green-100), var(--mk-green-900));
-  --mk-color-warning: light-dark(var(--mk-amber-500), var(--mk-amber-400));
-  --mk-color-warning-subtle: light-dark(var(--mk-amber-100), var(--mk-amber-900));
-  --mk-color-danger: light-dark(var(--mk-red-500), var(--mk-red-400));
-  --mk-color-danger-subtle: light-dark(var(--mk-red-100), var(--mk-red-900));
+  /* Accent & links */
+  --mk-color-accent: var(--mk-ochre);
+  --mk-color-link: var(--mk-link-ink);
+  --mk-color-link-hover: var(--mk-ochre); /* ink goes ochre — instantly; ink either is or isn't */
 
-  /* Focus */
-  --mk-color-focus: var(--mk-color-accent);
+  /* State */
+  --mk-color-disabled-text: var(--mk-faded);
+  --mk-color-disabled-line: var(--mk-tan);
+  --mk-color-focus: var(--mk-ochre); /* 2px ochre outline, offset 3px */
 
   /*
-   * Scrim — the dialog backdrop, the one sanctioned content-dimming.
-   * Light mode needs a heavier hand (a pale page barely darkens);
-   * dark mode goes deeper but stays translucent so context survives.
+   * Status — even functional colour stays in the period vocabulary.
+   * Success is printed ink (a thing done needs no colour), warning is the
+   * house ochre, danger is a deep letterpress red — the one hue a 1933
+   * print shop kept for STOP.
    */
-  --mk-color-scrim: light-dark(oklch(20% 0 0 / 0.45), oklch(5% 0 0 / 0.6));
+  --mk-color-danger: #7a2f1d;
+  --mk-color-warning: var(--mk-ochre);
+  --mk-color-success: var(--mk-ink);
+
+  /*
+   * Rules — composite line values; grab a whole rule, not a width.
+   * 4px double = major section break · 3px double = footer break ·
+   * 2px solid = department underline and every box · 1px tan = minor
+   * division · 1px dashed = "nothing is printed here yet".
+   */
+  --mk-rule-double: 4px double var(--mk-color-rule);
+  --mk-rule-double-thin: 3px double var(--mk-color-rule);
+  --mk-rule-thick: 2px solid var(--mk-color-rule);
+  --mk-rule-hair: 1px solid var(--mk-color-rule-hair);
+  --mk-rule-dash: 1px dashed var(--mk-color-rule-ghost);
+  --mk-rule-accent: 2px solid var(--mk-color-accent);
+
+  /*
+   * Shadows — exactly two, plus a pressed variant. The deep drop lifts the
+   * sheet off the stage floor (once per page); the hard 4px offset is the
+   * letterpress block on framed art, forms and buttons. No blur on blocks,
+   * no ambient shadows, no elevation scale.
+   */
+  --mk-shadow-sheet: 0 24px 70px rgba(0, 0, 0, 0.55);
+  --mk-shadow-block: 4px 4px 0 rgba(42, 36, 27, 0.2);
+  --mk-shadow-block-accent: 4px 4px 0 rgba(196, 122, 46, 0.3);
+  --mk-shadow-press: 2px 2px 0 rgba(42, 36, 27, 0.2);
+
+  /*
+   * Scrim — the dimmed stage behind a playbill dialog. Deep and warm,
+   * never a cool grey wash.
+   */
+  --mk-color-scrim: rgba(20, 17, 12, 0.6);
 }

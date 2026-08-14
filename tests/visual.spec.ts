@@ -20,10 +20,10 @@ const PAGES = [
 ];
 
 /*
- * The mono webfont must be fully applied before pixels are compared —
- * fonts.ready alone can resolve before lazily-triggered weights finish,
- * and the fallback stack's different metrics shift long pages by a line.
- * Force-load every weight we ship, then let layout settle.
+ * The webfonts must be fully applied before pixels are compared —
+ * fonts.ready alone can resolve before lazily-triggered faces finish,
+ * and the fallback stacks' different metrics shift long pages by a line.
+ * Force-load every face we ship, then let layout settle.
  */
 async function settled(page: import('@playwright/test').Page) {
   await page.waitForLoadState('networkidle');
@@ -36,9 +36,11 @@ async function settled(page: import('@playwright/test').Page) {
   await page.addStyleTag({ content: 'html { scrollbar-width: none; }' });
   await page.evaluate(async () => {
     await Promise.all([
-      document.fonts.load('400 1rem "JetBrains Mono"'),
-      document.fonts.load('600 1rem "JetBrains Mono"'),
-      document.fonts.load('700 1rem "JetBrains Mono"'),
+      document.fonts.load('400 1rem "Rye"'),
+      document.fonts.load('400 1rem "Limelight"'),
+      document.fonts.load('400 1rem "Special Elite"'),
+      document.fonts.load('400 1rem "Sorts Mill Goudy"'),
+      document.fonts.load('italic 400 1rem "Sorts Mill Goudy"'),
     ]);
     await document.fonts.ready;
   });

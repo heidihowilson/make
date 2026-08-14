@@ -6,99 +6,121 @@ import Base from '../../layouts/Ui.astro';
 // the gap, not coverage." If a class isn't on this page, it doesn't exist.
 const groups = [
   {
-    area: 'Buttons',
-    base: '.mk-btn',
+    area: 'PAGE',
+    base: '.mk-stage + .mk-sheet',
     items: [
-      ['--primary', 'moss fill — the one hero action'],
-      ['--ghost', 'transparent until hover'],
-      ['--danger', 'destructive fill'],
-      ['--warning', 'caution fill (proceed-anyway)'],
-      ['--active', 'selected state for tabs/segments — pair with aria-pressed'],
-      ['--sm / --xs / --lg', 'sizes; xs is sub-44px, pointer-dense UIs only'],
-      ['--block', 'full width'],
-      ['--icon', 'square 44px, single glyph — always aria-label'],
+      ['.mk-stage > .mk-sheet', 'the sheet on the stage floor — once per page, lifted by the one deep shadow'],
+      ['.mk-kicker', 'the typewriter announcement voice — ALL CAPS in the markup'],
     ],
   },
   {
-    area: 'Badges',
+    area: 'BUTTONS',
+    base: '.mk-btn',
+    items: [
+      ['--primary', 'solid ink — the one hero action'],
+      ['--ghost', 'a nav link in key form'],
+      ['--danger', 'letterpress red — destructive'],
+      ['--warning', 'the ochre plate — spends the view’s accent ration'],
+      ['--active', 'held down — pair with aria-pressed'],
+      ['--sm / --xs / --lg', 'sizes; xs is sub-44px, pointer-dense UIs only'],
+      ['--block', 'full width'],
+      ['--icon', 'square, single glyph — always aria-label; disabled copy is “SOLD OUT”'],
+    ],
+  },
+  {
+    area: 'BADGES',
     base: '.mk-badge',
     items: [
-      ['--accent / --success / --warning / --danger', 'status tints; tonal default is the quiet badge'],
+      ['--accent / --warning / --danger', 'status stubs; --accent and --warning spend the ochre ration'],
+      ['--success', 'solid ink — a thing done needs no colour'],
       ['--sm', 'dense rows — tighter padding, same type size'],
       ['--dot', 'leading status dot in currentColor'],
     ],
   },
   {
-    area: 'Forms',
+    area: 'FORMS',
     base: '.mk-field',
     items: [
-      ['.mk-field > label / __help / __error / --error', 'scaffolding; error tints the control fill (no borders)'],
-      ['.mk-input / .mk-select / .mk-textarea', 'filled controls, 44px, 16px min font'],
+      ['.mk-field > label / __help / __error / --error', 'scaffolding; labels are typewriter caps'],
+      ['.mk-input / .mk-select / .mk-textarea', 'ruled controls on the inset fill'],
       ['.mk-fieldset', 'native-chrome reset, legend as label'],
-      ['.mk-choice', '44px tap row wrapping a 24px control'],
-      ['.mk-checkbox / .mk-radio / .mk-switch', 'choices'],
+      ['.mk-choice', 'tap row wrapping a control'],
+      ['.mk-checkbox / .mk-radio / .mk-switch', 'the stamped X, the one round control, the stage lever'],
       [':checked / [aria-checked="true"] / --checked', 'three ways to be checked — input, widget role, or server-rendered static'],
     ],
   },
   {
-    area: 'Surfaces',
+    area: 'SURFACES',
     base: '.mk-card',
     items: [
-      ['--sunken', 'surface-2, for nesting'],
-      ['--flush', 'no padding, media bleeds to the edge'],
-      ['.mk-table + .mk-table-wrap / __num', 'borderless data grid + mobile scroll wrapper'],
-      ['.mk-divider / --label', 'tonal line, optional centered label'],
-      ['.mk-disclosure / __body', 'styled details/summary'],
+      ['(base)', 'a PANEL — 2px ink rule around an inset newsprint fill'],
+      ['--sunken', 'the quiet panel — 1px tan hairline, transparent fill'],
+      ['--flush', 'no padding; framed art meets the rule edge-to-edge'],
+      ['.mk-table + .mk-table-wrap / __num', 'the ledger + mobile scroll wrapper'],
+      ['.mk-divider', 'printed rules: --double (4px, major break) / --double-thin (3px, footer) / --thick (2px, department) / --dash (not printed yet) / --accent / --label (typewriter slug on hairlines); default is the 1px tan minor division'],
+      ['.mk-disclosure / __body', 'programme notes — styled details/summary'],
     ],
   },
   {
-    area: 'Chrome',
+    area: 'CHROME',
     base: '.mk-appbar',
     items: [
-      ['--bottom', 'mobile tab-bar chrome, safe-area padded'],
-      ['.mk-shell / __main', "the appbar's document contract — full-height column so a bottom bar pins"],
+      ['(base)', 'the ruled nav rail — NOT sticky; nothing in the language is fixed'],
+      ['--bottom', 'bottom-edge rail, safe-area padded'],
+      ['.mk-shell / __main', 'the appbar’s document contract — full-height column so a bottom rail pins'],
     ],
   },
   {
-    area: 'Overlays',
+    area: 'OVERLAYS',
     base: '.mk-dialog',
     items: [
-      ['__title / __actions, ::backdrop scrim', 'native <dialog> — the one sanctioned modal; app calls showModal()'],
-      ['.mk-toast / --success / --warning / --danger', 'fixed bottom-center transient; one at a time, app brings the timer'],
-      ['.mk-tabs / __tab', 'segmented row; selected via aria-selected / aria-current / --active'],
+      ['__title / __actions, ::backdrop scrim', 'native <dialog> as a playbill; the warm scrim dims the stage; app calls showModal()'],
+      ['.mk-toast / --success / --warning / --danger', 'a telegram slip at the footlights — fixed bottom-center, one at a time, app brings the timer'],
+      ['.mk-tabs / __tab', 'departments on a rule; selected via aria-selected / aria-current / --active'],
     ],
   },
   {
-    area: 'Feedback',
+    area: 'FEEDBACK',
     base: '.mk-alert',
     items: [
-      ['__title, --info / --success / --warning / --danger', 'tonal message blocks'],
-      ['.mk-spinner / --sm / --md', 'stepped square spinner, reduced-motion safe'],
-      ['.mk-progress / --sm', 'accent fill; no value attr = indeterminate'],
-      ['.mk-empty / __title / __message / __action', 'centered tonal empty state'],
+      ['__title, --info / --success / --warning / --danger', 'a notice from the management'],
+      ['.mk-spinner', 'typewriter typing dots — there are no spinners, only “. . .” struck one at a time'],
+      ['.mk-progress / --sm', 'ink fill in a ruled trough; no value attr = the marching-hatch indeterminate'],
+      ['.mk-empty / __title / __message / __action', 'the dashed tile — “nothing is printed here yet”; speak in character: “No. 2 — coming soon”'],
     ],
   },
   {
-    area: 'Media',
+    area: 'MEDIA',
     base: '.mk-thumb',
     items: [
       ['--square / --video', 'aspect variants (default poster 2/3)'],
       ['__fallback', 'server-rendered initial, scales to its box'],
-      ['.mk-skeleton / --text', 'tonal shimmer placeholder'],
-      ['.mk-figure', 'media + muted caption'],
+      ['.mk-skeleton / --text', 'dashed “not printed yet” slots — no shimmer'],
+      ['.mk-figure', 'framed media + muted caption'],
     ],
   },
   {
-    area: 'Prose',
+    area: 'PROSE',
     base: '.mk-prose',
-    items: [['(wrapper)', 'article content: paragraph rhythm, lists, code, blockquote, kbd']],
+    items: [['(wrapper)', 'Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd']],
   },
   {
-    area: 'Utilities',
+    area: 'MOTION',
+    base: '.mk-iris-in',
+    items: [
+      ['.mk-iris-in / .mk-curtain-in', 'the silent-film reveals — one art reveal per page'],
+      ['.mk-settle-in / .mk-drop-in / .mk-stamp-in', 'entrances that land hard and hold the frame'],
+      ['.mk-typeline', 'text struck onto the page'],
+      ['.mk-flicker', 'the one idle loop — the marquee flicker, once per page'],
+      ['.mk-bill-order', 'stagger parent — children enter in billing order'],
+    ],
+  },
+  {
+    area: 'UTILITIES',
     base: '.mk-icon',
     items: [
-      ['--sm / --lg', 'icon box + mono baseline alignment; compose with icon-[mk--…]'],
-      ['.mk-link-reset', 'composite links (nav, card-as-link, logo) opt out of accent styling'],
+      ['--sm / --lg', 'sizes the glyph in an icon position — there is no line-icon set; Unicode glyphs (← → ·) do the work'],
+      ['.mk-link-reset', 'composite links (nav, card-as-link, logo) opt out of the link ink'],
     ],
   },
 ];
@@ -106,11 +128,28 @@ const groups = [
 
 <Base title="Cheatsheet">
   <h1>Cheatsheet</h1>
-  <p>
-    The complete class inventory on one page — if it isn't here, it doesn't
-    exist. Each component page has rendered examples; this is for finding the
-    thing you suspect already exists (it usually does).
+  <p class="prose">
+    The complete class inventory on one page — if it isn&rsquo;t here, it
+    doesn&rsquo;t exist. Each department page has rendered examples; this is
+    for finding the thing you suspect already exists (it usually does).
+    One reminder before you copy anything: <strong>single mode.</strong>
+    There is no dark mode, no theme switcher, no
+    <code>[data-theme]</code> — the sheet-on-stage is the mode.
   </p>
+
+  <section class="mk-card sheet">
+    <h2>THE PAGE</h2>
+    <p class="sheet__base">every view is a sheet of newsprint on the stage floor</p>
+    <pre><code>&lt;body&gt;
+  &lt;div class="mk-stage"&gt;
+    &lt;div class="mk-sheet"&gt;
+      &lt;h1&gt;Gholson&amp;rsquo;s Follies&lt;/h1&gt;
+      &lt;hr class="mk-divider mk-divider--double" /&gt;
+      …
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+  </section>
 
   {groups.map((g) => (
     <section class="mk-card sheet">
@@ -128,41 +167,57 @@ const groups = [
   ))}
 
   <style>
+    .prose {
+      max-width: var(--mk-measure-prose);
+    }
+
     .sheet {
-      margin-top: var(--mk-space-4);
+      margin-top: var(--mk-space-md);
     }
 
     .sheet__base {
-      color: var(--mk-color-text-muted);
-      font-size: var(--mk-text-sm);
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      color: var(--mk-color-text-secondary);
+      font-size: var(--mk-size-body-sm);
     }
 
     .sheet__list {
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xs);
     }
 
     .sheet__row {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--mk-space-1) var(--mk-space-4);
+      gap: var(--mk-space-hair) var(--mk-space-md);
     }
 
     .sheet__row dt code {
-      font-size: var(--mk-text-xs);
+      font-size: var(--mk-size-mono-sm);
     }
 
     .sheet__row dd {
       margin: 0;
       color: var(--mk-color-text-muted);
-      font-size: var(--mk-text-sm);
+      font-size: var(--mk-size-body-sm);
     }
 
-    @media (min-width: 40rem) {
+    /* Minor divisions between rows — the hairline earns its keep here. */
+    .sheet__row + .sheet__row {
+      border-top: var(--mk-rule-hair);
+      padding-top: var(--mk-space-xs);
+    }
+
+    pre {
+      overflow-x: auto;
+    }
+
+    @media (min-width: 740px) {
       .sheet__row {
-        grid-template-columns: 20rem 1fr;
+        grid-template-columns: 22rem 1fr;
       }
     }
   </style>

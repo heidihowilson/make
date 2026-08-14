@@ -1,61 +1,66 @@
 @layer mk.components {
   /*
-   * Toast — transient confirmation. Per the interaction-hierarchy policy:
-   * fixed placement (bottom-center; no per-app drift), the toast layer
-   * (above chrome and overlays), ONE at a time — a new message replaces
-   * the old, toasts never stack. No shadow: flat language; the surface
-   * step + placement do the separating.
+   * Toast — a telegram slip delivered at the footlights. Fixed
+   * bottom-center (the one sanctioned fixed element: a toast is an EVENT
+   * arriving over the page, not chrome), on the toast layer, ONE at a
+   * time — a new message replaces the old, telegrams never stack.
    *
    * CSS-only by design: the app brings the timer (show, wait, hide) and
    * pairs the visual with a visually-hidden role="status" live region —
-   * announce in text, decorate in pixels. Promoted from the docs site's
-   * own hand-rolled copy-confirmation toast.
+   * announce in text, decorate in pixels.
    *
-   *   <div class="mk-toast" hidden>Saved</div>
+   *   <div class="mk-toast" hidden>FILED · your note is on the spike</div>
    */
   .mk-toast {
     position: fixed;
     left: 50%;
-    bottom: max(var(--mk-space-5), env(safe-area-inset-bottom));
+    bottom: max(28px, env(safe-area-inset-bottom));
     transform: translateX(-50%);
     z-index: var(--mk-layer-toast);
-    background: var(--mk-color-surface-3);
+    background: var(--mk-color-inset);
     color: var(--mk-color-text);
-    font-size: var(--mk-text-sm);
-    padding: var(--mk-space-3) var(--mk-space-4);
-    border-radius: var(--mk-radius-surface);
-    max-width: calc(100vw - var(--mk-space-6));
+    border: var(--mk-rule-thick);
+    box-shadow: var(--mk-shadow-block);
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-list);
+    line-height: 1.5;
+    padding: 12px 18px;
+    max-width: min(520px, calc(100vw - 32px));
   }
 
-  /* Status variants — subtle wash + on-color text, same as alerts. */
+  /* Success — delivered and filed: solid ink slip. */
   .mk-toast--success {
-    background: var(--mk-color-success-subtle);
-    color: var(--mk-color-success);
+    background: var(--mk-color-ink-surface);
+    border-color: var(--mk-color-ink-surface);
+    color: var(--mk-color-text-on-ink);
   }
 
+  /* Warning — the ochre-ruled slip (spends the view's accent ration). */
   .mk-toast--warning {
-    background: var(--mk-color-warning-subtle);
-    color: var(--mk-color-warning);
+    border-color: var(--mk-color-warning);
+    box-shadow: var(--mk-shadow-block-accent);
   }
 
+  /* Danger — the STOP-red rule. */
   .mk-toast--danger {
-    background: var(--mk-color-danger-subtle);
-    color: var(--mk-color-danger);
+    border-color: var(--mk-color-danger);
   }
 
-  /* Quiet entrance — rises a step and fades in; gone means gone (no exit
-     animation: a toast that lingers on its way out reads as a second
-     message). Guarded, with the static state as the reduce fallback. */
+  /*
+   * Entrance — the slip arrives in three stepped frames and holds. Gone
+   * means gone: no exit animation (a lingering telegram reads as a second
+   * message). Static under reduced motion.
+   */
   @media (prefers-reduced-motion: no-preference) {
     .mk-toast:not([hidden]) {
-      animation: mk-toast-in var(--mk-motion-standard) var(--mk-ease-out);
+      animation: mk-toast-arrive var(--mk-dur-beat) var(--mk-steps-3) both;
     }
   }
 
-  @keyframes mk-toast-in {
+  @keyframes mk-toast-arrive {
     from {
       opacity: 0;
-      transform: translate(-50%, var(--mk-space-3));
+      transform: translate(-50%, 16px);
     }
 
     to {

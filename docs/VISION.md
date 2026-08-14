@@ -8,7 +8,7 @@ Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), S
 
 ## Core values (in priority order)
 
-1. **Brand consistency** — one fixed aesthetic (with light/dark modes), applied identically everywhere. Not a multi-brand theming engine.
+1. **Brand consistency** — one fixed aesthetic (single mode), applied identically everywhere. Not a multi-brand theming engine.
 2. **Maximal reusability** — works in any framework, including SSR frameworks and no-JS contexts. Future-proof against framework churn.
 3. **Leaf-node scope** — styled forms, buttons, date pickers, etc. Interactive but never data-bound; no coupling to server APIs or app state.
 4. **Boring, durable tech** — web platform primitives over framework cleverness; don't add tooling before pain.
@@ -38,6 +38,10 @@ Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), S
    - **Overlay policy** → a written strategy doc (`docs/INTERACTION.md` when work starts): one modal at a time via native `<dialog>` + `::backdrop`; a modal never spawns a modal (it morphs or queues); fixed toast placement; what may stack on what.
    - **Behavioral overlay management** (focus trapping, scroll locking, toast queue) → `@sethmakes/components` (`<mk-dialog>`, `<mk-toaster>`) the day a real app needs it — the empty components package's designated reason to exist.
 
+## Roadmap addendum (2026-08-13)
+
+3. **The brand is now *Gholson's Follies*** and the design language is **Vaudeville** — see [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The brand direction is heavy on **deterministic image generation**: the cast registry (`cast.sethgholson.com/cast.json`) is the unit of value, and comics, site art, avatars and stickers are renderers that consume it through a ComfyUI pipeline. The toolkit carries this as **sethmakes-art** (`tools/art`): the locked prompt blocks, per-character rules, and version-controlled generation recipes.
+
 ## Status
 
-The decision tree from the envisioning interview (2026-06-04) is **fully resolved, including the aesthetic** — see [ARCHITECTURE.md](./ARCHITECTURE.md) and [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The aesthetic took two rounds: a questionnaire-derived gestalt was rendered and rejected on sight; the final language ("terminal bones, calm surface" — JetBrains Mono, zero radius, achromatic grays, moss hero accent) was chosen from complete rendered directions on the docs site. Remaining work is execution: self-host the font, contrast audit, then the tv-tracker migration set.
+The decision tree from the envisioning interview (2026-06-04) is **fully resolved** — see [ARCHITECTURE.md](./ARCHITECTURE.md) and [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md). The aesthetic has taken three rounds: a questionnaire-derived gestalt was rendered and rejected on sight (2026-06-04); the "terminal bones, calm surface" language won from rendered directions and shipped as 0.1.x; and on 2026-08-13 Seth replaced it wholesale with **Vaudeville** (Gholson's Follies — sepia newsprint, four faces, printed rules, motion shot on twos), ported into the same `mk` token/class vocabulary. Remaining work: sepia contrast audit, consumer migrations to the new look, and building out the art pipeline recipes.

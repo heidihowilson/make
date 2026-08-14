@@ -1,59 +1,80 @@
 @layer mk.base {
+  /*
+   * The metaphor is print, not screen. The body is the printed matter:
+   * Sorts Mill Goudy prose in warm body ink. (The dark stage floor behind
+   * the sheet is layout, not base — see sheet.css.) Nothing glows, nothing
+   * floats; if a treatment could not be done by a 1933 letterpress shop
+   * plus one warm ink, it does not belong.
+   */
   body {
-    background: var(--mk-color-bg);
+    background: var(--mk-color-sheet);
     color: var(--mk-color-text);
     font-family: var(--mk-font-body);
-    font-size: var(--mk-text-md);
-    font-weight: var(--mk-weight-regular);
-    line-height: var(--mk-leading-normal);
+    font-size: var(--mk-size-body);
+    font-weight: 400;
+    line-height: var(--mk-leading-prose);
     -webkit-font-smoothing: antialiased;
   }
 
+  /*
+   * Headings: h1 is the masthead voice (Rye), h2–h4 are department
+   * headings (Limelight). Caps are WRITTEN in the markup for these faces,
+   * never text-transformed — the caps are typography, not styling.
+   * Everything ships at weight 400: loudness is face, size and tracking.
+   */
   h1,
   h2,
   h3,
   h4 {
-    font-weight: var(--mk-weight-bold);
+    color: var(--mk-color-heading);
+    font-weight: 400;
     line-height: var(--mk-leading-tight);
-    margin-block: 0 var(--mk-space-3);
+    margin-block: 0 var(--mk-space-sm);
   }
 
   h1 {
-    font-size: var(--mk-text-3xl);
+    font-family: var(--mk-font-display);
+    font-size: var(--mk-size-title);
   }
 
   h2 {
-    font-size: var(--mk-text-2xl);
+    font-family: var(--mk-font-marquee);
+    font-size: var(--mk-size-dept);
+    letter-spacing: var(--mk-track-dept);
   }
 
-  h3 {
-    font-size: var(--mk-text-xl);
-  }
-
+  h3,
   h4 {
-    font-size: var(--mk-text-lg);
-  }
-
-  a {
-    color: var(--mk-color-accent);
-    text-decoration: none;
-    transition: color var(--mk-motion-quick) var(--mk-ease-out);
-  }
-
-  a:hover {
-    color: var(--mk-color-accent-hover);
-    text-decoration: underline;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--mk-color-focus);
-    outline-offset: 2px;
+    font-family: var(--mk-font-marquee);
+    font-size: var(--mk-size-dept-sm);
+    letter-spacing: 0.12em;
   }
 
   /*
-   * Global reduced-motion guard. Motion is "quietly alive" by default, but
-   * honor the user's OS-level request to cut it: collapse every transition
-   * and animation site-wide rather than relying on each component to remember.
+   * Links are printed in link ink and go ochre on hover — INSTANTLY.
+   * Ink either is or isn't; there is no colour fade in a print shop.
+   */
+  a {
+    color: var(--mk-color-link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--mk-color-link-hover);
+    text-decoration: underline;
+  }
+
+  /* Focus: the ochre ration spent where it matters most. */
+  :focus-visible {
+    outline: 2px solid var(--mk-color-focus);
+    outline-offset: 3px;
+  }
+
+  /*
+   * Global reduced-motion guard. House motion is already stepped and
+   * event-only, but honor the OS-level request completely: collapse every
+   * transition and animation site-wide rather than relying on each
+   * component to remember.
    */
   @media (prefers-reduced-motion: reduce) {
     *,

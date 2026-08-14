@@ -1,0 +1,4 @@
+The panel art fills the entire frame edge to edge with no border, no frame, no margin.
+The image contains no speech balloons, no word balloons, no caption boxes, no narration
+boxes, no title lettering, no signature and no watermark. Any writing that appears is
+only lettering physically painted or printed on an object within the scene itself.

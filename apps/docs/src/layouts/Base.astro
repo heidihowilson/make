@@ -20,8 +20,8 @@ const current = Astro.url.pathname.replace(base, '/').replace(/\/+$/, '') || '/'
 // Toolbox-level nav; tool sections list their own pages. "ui" highlights
 // for every page under /ui/.
 const nav = [
-  { href: '/ui', label: 'ui' },
-  { href: '/icons', label: 'icons' },
+  { href: '/ui', label: 'UI' },
+  { href: '/icons', label: 'ICONS' },
 ];
 
 const isActive = (href: string) =>
@@ -37,159 +37,153 @@ const isActive = (href: string) =>
     <slot name="head" />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header class="site-header">
-      <a href={link('/')} class="site-logo" aria-current={current === '/' ? 'page' : undefined}>sethmakes</a>
-      <nav class="site-nav" aria-label="Primary">
-        {nav.map((item) => (
-          <a
-            href={link(item.href)}
-            class:list={['site-nav__link', { 'site-nav__link--active': isActive(item.href) }]}
-            aria-current={isActive(item.href) ? 'page' : undefined}
-          >{item.label}</a>
-        ))}
-      </nav>
-      <button class="mk-btn mk-btn--sm" id="mode-toggle" title="Cycle color mode">auto</button>
-    </header>
+    <a href="#main-content" class="skip-link">SKIP TO THE MAIN ATTRACTION</a>
+    <div class="mk-stage">
+      <div class="mk-sheet">
+        <header class="masthead">
+          <p class="masthead__dateline">
+            <span>THE TOOLKIT</span>
+            <span>·</span>
+            <span>APPEARING NIGHTLY</span>
+            <span>·</span>
+            <span>PRICE: FREE</span>
+          </p>
+          <a href={link('/')} class="mk-link-reset masthead__title" aria-current={current === '/' ? 'page' : undefined}>sethmakes</a>
+          <p class="masthead__tagline">tools Seth uses when making things · est. 1983</p>
+          <nav class="mk-appbar masthead__nav" aria-label="Primary">
+            {nav.map((item) => (
+              <a
+                href={link(item.href)}
+                class:list={['masthead__link', { 'masthead__link--active': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >{item.label}</a>
+            ))}
+          </nav>
+        </header>
 
-    <main id="main-content" class="site-main" tabindex="-1">
-      <slot />
-    </main>
+        <main id="main-content" class="site-main" tabindex="-1">
+          <slot />
+        </main>
 
-    <footer class="site-footer">
-      <span>sethmakes — terminal bones, calm surface.</span>
-      <nav class="site-footer__links" aria-label="Footer">
-        <a href="https://github.com/heidihowilson/make">GitHub</a>
-        <a href="https://www.npmjs.com/org/sethmakes">@sethmakes</a>
-      </nav>
-    </footer>
+        <footer class="site-foot">
+          <span>SETHMAKES · SET IN SEPIA ON AGED NEWSPRINT</span>
+          <nav class="site-foot__links" aria-label="Footer">
+            <a href="https://github.com/heidihowilson/make">GITHUB</a>
+            <a href="https://www.npmjs.com/org/sethmakes">@SETHMAKES</a>
+          </nav>
+        </footer>
+      </div>
+    </div>
 
     <style>
       /* Skip link — first focusable element; off-screen until focused. */
       .skip-link {
         position: absolute;
-        left: var(--mk-space-3);
-        top: var(--mk-space-3);
+        left: 14px;
+        top: 14px;
         z-index: 10;
-        padding: var(--mk-space-2) var(--mk-space-4);
-        background: var(--mk-color-accent);
-        color: var(--mk-color-accent-contrast);
-        font-size: var(--mk-text-sm);
-        font-weight: var(--mk-weight-medium);
-        transform: translateY(-150%);
+        padding: 8px 14px;
+        background: var(--mk-color-ink-surface);
+        color: var(--mk-color-text-on-ink);
+        font-family: var(--mk-font-typewriter);
+        font-size: var(--mk-size-mono-sm);
+        letter-spacing: var(--mk-track-back);
+        transform: translateY(-250%);
       }
 
       .skip-link:focus {
         transform: translateY(0);
       }
 
-      @media (prefers-reduced-motion: no-preference) {
-        .skip-link {
-          transition: transform var(--mk-motion-quick) var(--mk-ease-out);
-        }
+      /* The masthead — dateline, Rye title, italic tagline, ruled nav. */
+      .masthead {
+        text-align: center;
       }
 
-      .site-header {
+      .masthead__dateline {
         display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: var(--mk-space-3) var(--mk-space-5);
-        padding: var(--mk-space-3) var(--mk-space-4);
-        background: var(--mk-color-surface-1);
+        justify-content: space-between;
+        gap: 8px;
+        margin: 0 0 10px;
+        font-family: var(--mk-font-typewriter);
+        font-size: var(--mk-size-mono-sm);
+        letter-spacing: var(--mk-track-mono);
+        color: var(--mk-color-text-secondary);
+        border-bottom: var(--mk-rule-hair);
+        padding-bottom: 8px;
       }
 
-      .site-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--mk-space-3) var(--mk-space-4);
-        font-size: var(--mk-text-sm);
+      .masthead__title {
+        display: block;
+        font-family: var(--mk-font-display);
+        font-size: var(--mk-size-title);
+        line-height: var(--mk-leading-tight);
+        color: var(--mk-color-heading);
+        margin: 6px 0 0;
       }
 
-      .site-logo {
-        font-weight: var(--mk-weight-bold);
-        color: var(--mk-color-text);
-        margin-right: auto;
+      .masthead__tagline {
+        margin: 4px 0 14px;
+        font-family: var(--mk-font-body);
+        font-style: italic;
+        font-size: var(--mk-size-tagline);
+        color: var(--mk-color-text-secondary);
       }
 
-      /* Nav links are muted until current; active is moss + bold. */
-      .site-nav__link {
-        color: var(--mk-color-text-muted);
+      .masthead__nav {
+        justify-content: center;
       }
 
-      .site-nav__link:hover {
-        color: var(--mk-color-text);
+      .masthead__link {
+        color: var(--mk-color-heading);
       }
 
-      .site-nav__link--active {
-        color: var(--mk-color-accent);
-        font-weight: var(--mk-weight-bold);
+      .masthead__link:hover {
+        color: var(--mk-color-link-hover);
+        text-decoration: none;
       }
 
-      .site-nav__link--active:hover {
-        color: var(--mk-color-accent);
+      /* The current section underlines itself with the department rule. */
+      .masthead__link--active {
+        border-bottom: 2px solid var(--mk-color-rule);
       }
 
       .site-main {
-        max-width: 56rem;
-        margin-inline: auto;
-        padding: var(--mk-space-6) var(--mk-space-4);
+        padding-block: var(--mk-space-2xl) var(--mk-space-3xl);
       }
 
-      .site-footer {
+      /* The foot — a 3px double rule, slugs left and right. */
+      .site-foot {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
+        align-items: baseline;
         justify-content: space-between;
-        gap: var(--mk-space-2) var(--mk-space-5);
-        max-width: 56rem;
-        margin-inline: auto;
-        padding: var(--mk-space-5) var(--mk-space-4) var(--mk-space-7);
-        color: var(--mk-color-text-faint);
-        font-size: var(--mk-text-xs);
-      }
-
-      .site-footer__links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--mk-space-4);
-      }
-
-      .site-footer__links a {
+        gap: 8px var(--mk-space-2xl);
+        border-top: var(--mk-rule-double-thin);
+        padding-top: var(--mk-space-sm);
+        font-family: var(--mk-font-typewriter);
+        font-size: var(--mk-size-mono-sm);
+        letter-spacing: 0.06em;
         color: var(--mk-color-text-muted);
       }
 
-      @media (min-width: 40rem) {
-        .site-header {
-          padding-inline: var(--mk-space-6);
+      .site-foot__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--mk-space-md);
+      }
+
+      @media (max-width: 740px) {
+        .masthead__dateline {
+          justify-content: center;
         }
 
-        .site-main {
-          padding-inline: var(--mk-space-6);
-        }
-
-        .site-footer {
-          padding-inline: var(--mk-space-6);
+        .site-foot {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
       }
     </style>
-
-    <script is:inline>
-      (() => {
-        const modes = ['auto', 'light', 'dark'];
-        const btn = document.getElementById('mode-toggle');
-        const saved = localStorage.getItem('mk-mode') || 'auto';
-        const apply = (mode) => {
-          if (mode === 'auto') delete document.documentElement.dataset.theme;
-          else document.documentElement.dataset.theme = mode;
-          btn.textContent = mode;
-          localStorage.setItem('mk-mode', mode);
-        };
-        apply(saved);
-        btn.addEventListener('click', () => {
-          const next = modes[(modes.indexOf(btn.textContent) + 1) % modes.length];
-          apply(next);
-        });
-      })();
-    </script>
   </body>
 </html>

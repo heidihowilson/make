@@ -5,126 +5,224 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Typography">
   <h1>Typography &amp; prose</h1>
   <p>
-    Monospace everywhere, hierarchy from size and weight — no borders, no
-    radius. The type scale carries headings to body; <code>.mk-prose</code>
-    handles article-style long-form content.
+    Four faces, each with one job — Rye for the masthead, Limelight for
+    department headings, Special Elite for the typewriter utility voice, and
+    Sorts Mill Goudy for prose. Everything ships at weight 400: loudness is
+    dialled with face, size and tracking, never bold. <code>.mk-prose</code>
+    sets the long-form column.
   </p>
 
   <section class="mk-card">
-    <h2>Type scale</h2>
-    <p>Headings and body text, top to bottom. Set in <code>--mk-font-body</code>.</p>
+    <h2>THE FOUR FACES</h2>
+    <p>Each face has one job; none may do another&rsquo;s.</p>
 
     <div class="specimen">
       <div class="specimen__row">
-        <span class="specimen__label">h1 / 3xl</span>
-        <h1 style="margin: 0;">Watchlist</h1>
+        <span class="specimen__label">Rye · masthead &amp; names</span>
+        <h1 style="margin: 0;">Taylor&rsquo;s Follies</h1>
       </div>
       <div class="specimen__row">
-        <span class="specimen__label">h2 / 2xl</span>
-        <h2 style="margin: 0;">Currently airing</h2>
+        <span class="specimen__label">Limelight · departments</span>
+        <h2 style="margin: 0;">THE EVENING PROGRAMME</h2>
       </div>
       <div class="specimen__row">
-        <span class="specimen__label">h3 / xl</span>
-        <h3 style="margin: 0;">Season 2</h3>
+        <span class="specimen__label">Limelight · subhead</span>
+        <h3 style="margin: 0;">NOTES FROM THE WINGS</h3>
       </div>
       <div class="specimen__row">
-        <span class="specimen__label">h4 / lg</span>
-        <h4 style="margin: 0;">Episode notes</h4>
+        <span class="specimen__label">Special Elite · utility</span>
+        <span class="mk-kicker" style="margin: 0;">DETROIT · TUESDAY EVENING · ONE NIGHT ONLY</span>
       </div>
       <div class="specimen__row">
-        <span class="specimen__label">body / md</span>
-        <p style="margin: 0;">The quick brown fox jumps over the lazy dog — 0123456789.</p>
+        <span class="specimen__label">Goudy · prose</span>
+        <p style="margin: 0;">
+          Mr. Taylor will attempt the soldering iron a second time; the
+          management has moved the front row back six feet.
+        </p>
       </div>
       <div class="specimen__row">
-        <span class="specimen__label">small / sm</span>
-        <small>Last watched 3 days ago.</small>
+        <span class="specimen__label">Goudy italic · taglines</span>
+        <p style="margin: 0; font-style: italic; color: var(--mk-color-text-secondary);">
+          &ldquo;More power&rdquo; — the motto of the house
+        </p>
       </div>
     </div>
 
-    <pre><code>&lt;h1&gt;Watchlist&lt;/h1&gt;
-&lt;h2&gt;Currently airing&lt;/h2&gt;
-&lt;p&gt;Body copy in the mono stack.&lt;/p&gt;
-&lt;small&gt;Caption text.&lt;/small&gt;</code></pre>
+    <pre><code>&lt;h1&gt;Taylor&rsquo;s Follies&lt;/h1&gt;          &lt;!-- Rye — never body, never a button --&gt;
+&lt;h2&gt;THE EVENING PROGRAMME&lt;/h2&gt;   &lt;!-- Limelight — caps written in the markup --&gt;
+&lt;span class="mk-kicker"&gt;ONE NIGHT ONLY&lt;/span&gt;
+&lt;p&gt;Goudy prose for everything spoken.&lt;/p&gt;</code></pre>
   </section>
 
-  <section class="mk-card" style="margin-block-start: var(--mk-space-5);">
-    <h2>Prose</h2>
+  <section class="mk-card">
+    <h2>THE LOUDNESS DIAL</h2>
     <p>
-      Wrap article content in <code>.mk-prose</code> for paragraph rhythm,
-      lists, code, blockquotes, and inline elements — all tonal, all
-      border-free.
+      The typewriter face has no bold; tracking is its loudness dial.
+      Point-one em is a dateline; point-four em is a proscenium announcement.
+      Pick the token for what the line means, not for taste.
+    </p>
+
+    <div class="ladder">
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-dept · .08em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-dept);">A DEPARTMENT SLUG</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-mono · .1em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-mono);">DETROIT · TUESDAY</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-nav-sm · .12em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-nav-sm);">SMALL NAVIGATION</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-back · .18em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-back);">&larr; BACK TO THE LOBBY</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-nav · .22em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-nav);">THE MAIN NAV</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-bill-no · .3em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-bill-no);">BILL NO. 4</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-bulletin · .32em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-bulletin);">BULLETIN</span>
+      </div>
+      <div class="ladder__row">
+        <span class="specimen__label">--mk-track-kicker · .4em</span>
+        <span class="ladder__sample" style="letter-spacing: var(--mk-track-kicker);">TONIGHT</span>
+      </div>
+    </div>
+
+    <pre><code>&lt;span style="font-family: var(--mk-font-typewriter);
+             letter-spacing: var(--mk-track-kicker);"&gt;TONIGHT&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>PROSE</h2>
+    <p>
+      Wrap long-form matter in <code>.mk-prose</code> — Goudy at a 70ch
+      measure, the column a compositor would set. Lists, typewriter code, the
+      ruled pull-quote and the miniature struck key (<code>kbd</code>) are all
+      in the case.
     </p>
 
     <div class="mk-prose">
       <p>
-        <strong>Severance</strong> follows a team whose work selves and home
-        selves are surgically split. You can mark episodes watched, rate them,
-        and leave a <em>note</em> per episode.
+        <strong>Tool Time</strong>, presented nightly by the Binford Tool
+        Company, stars Mr. Tim Taylor and his assistant Mr. Al Borland. The
+        first act is a demonstration; the second act is an apology.
       </p>
 
-      <h3>Watch states</h3>
-      <p>An episode moves through a small set of states:</p>
+      <h3>THE RUNNING ORDER</h3>
+      <p>The bill proceeds in a fixed order of acts:</p>
       <ul>
-        <li>unwatched — the default</li>
-        <li>watched — counts toward season progress</li>
+        <li>Act I — the demonstration, as rehearsed</li>
+        <li>Act II — the improvement, unrehearsed</li>
         <li>
-          skipped — excluded from progress
+          Act III — the repair
           <ul>
-            <li>recaps and specials skip by default</li>
+            <li>Mr. Borland stands by with the extinguisher</li>
           </ul>
         </li>
       </ul>
 
-      <h3>Marking via the API</h3>
+      <h3>SETTING THE BILL BY WIRE</h3>
       <p>
-        Toggle a state with <code>PATCH /episodes/:id</code>. The response
-        echoes the updated record:
+        The box office amends an act with <code>PATCH /acts/:id</code>; the
+        reply confirms what is now printed:
       </p>
-      <pre><code>PATCH /episodes/8f21e
-&#123; "state": "watched", "rating": 5 &#125;
-=&gt; 200 &#123; "id": "8f21e", "state": "watched", "rating": 5 &#125;</code></pre>
+      <pre><code>PATCH /acts/2
+&#123; "state": "on the bill", "billing": "second" &#125;
+=&gt; 200 &#123; "id": 2, "state": "on the bill" &#125;</code></pre>
 
       <blockquote>
         <p>
-          Progress is computed, never stored — skipped episodes simply drop out
-          of the denominator.
+          It is not the applause a man keeps, Tim — it is the neighbours he
+          borrows it from.
         </p>
       </blockquote>
 
       <p>
-        Prefer the keyboard? Press <kbd>W</kbd> to mark watched, or
-        <kbd>Shift</kbd> + <kbd>S</kbd> to skip.
+        Prefer the keys? Press <kbd>G</kbd> to raise the grand drape, or
+        <kbd>Shift</kbd> + <kbd>B</kbd> for the blackout.
       </p>
 
-      <small>Counts refresh on the next sync.</small>
+      <small>Programme subject to change without notice.</small>
     </div>
 
     <pre><code>&lt;article class="mk-prose"&gt;
-  &lt;p&gt;Body copy with &lt;code&gt;inline code&lt;/code&gt;.&lt;/p&gt;
-  &lt;blockquote&gt;&lt;p&gt;A pull quote.&lt;/p&gt;&lt;/blockquote&gt;
-  &lt;p&gt;Press &lt;kbd&gt;W&lt;/kbd&gt; to mark watched.&lt;/p&gt;
+  &lt;p&gt;Goudy prose with &lt;code&gt;inline type&lt;/code&gt;.&lt;/p&gt;
+  &lt;blockquote&gt;&lt;p&gt;The ruled pull quote.&lt;/p&gt;&lt;/blockquote&gt;
+  &lt;p&gt;Press &lt;kbd&gt;G&lt;/kbd&gt; for the drape.&lt;/p&gt;
 &lt;/article&gt;</code></pre>
   </section>
 
   <style>
-    .specimen {
+    .specimen,
+    .ladder {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-4);
+      gap: var(--mk-space-md);
     }
 
-    .specimen__row {
+    .specimen__row,
+    .ladder__row {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: var(--mk-space-2) var(--mk-space-4);
+      gap: var(--mk-space-xxs) var(--mk-space-lg);
     }
 
     .specimen__label {
       flex: 0 0 auto;
-      min-width: 7rem;
-      font-size: var(--mk-text-xs);
+      min-width: 13rem;
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
+      letter-spacing: 0.06em;
       color: var(--mk-color-text-muted);
+    }
+
+    .ladder__sample {
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono);
+      color: var(--mk-color-heading);
+    }
+
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-2xl);
+    }
+
+    pre {
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>
