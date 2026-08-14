@@ -1,46 +1,65 @@
 @layer mk.components {
   /*
-   * Alert — a subtle filled status block. No border (none exist anywhere);
-   * the tinted background carries the meaning. Info uses the moss accent in
-   * its subtle role; success/warning/danger use the functional status hues.
-   * On-color text comes from the matching -subtle pairing.
+   * Alert — a notice from the management. A 2px-ruled bar on the inset
+   * fill; the RULE carries the severity, not a pastel wash — a print shop
+   * tints with line and ink. Copy speaks in character: "a note for the
+   * management", never "Something went wrong".
    */
   .mk-alert {
     display: flex;
     flex-direction: column;
-    gap: var(--mk-space-1);
+    gap: 4px;
+    border: var(--mk-rule-thick);
     border-radius: var(--mk-radius-surface);
-    padding: var(--mk-space-3) var(--mk-space-4);
-    background: var(--mk-color-accent-subtle);
-    color: var(--mk-color-on-accent-subtle);
-    font-size: var(--mk-text-sm);
-    line-height: var(--mk-leading-normal);
+    padding: 12px 16px;
+    background: var(--mk-color-inset);
+    color: var(--mk-color-text);
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-body-sm);
+    line-height: 1.5;
   }
 
-  /* Bold lead line — terse, sits above the body copy */
+  /* Lead line — a typewriter kicker above the body copy. */
   .mk-alert__title {
-    font-weight: var(--mk-weight-bold);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
     line-height: var(--mk-leading-tight);
   }
 
-  /* Info — the default; accent-subtle. Listed for explicit opt-in. */
+  /* Info — the default notice; plain ink rule. Listed for explicit opt-in. */
   .mk-alert--info {
-    background: var(--mk-color-accent-subtle);
-    color: var(--mk-color-on-accent-subtle);
+    border-color: var(--mk-color-rule);
   }
 
+  /* Success — the notice is printed and filed: solid ink, paper text. */
   .mk-alert--success {
-    background: var(--mk-color-success-subtle);
-    color: var(--mk-color-success);
+    background: var(--mk-color-ink-surface);
+    border-color: var(--mk-color-ink-surface);
+    color: var(--mk-color-text-on-ink);
   }
 
+  .mk-alert--success .mk-alert__title {
+    color: var(--mk-color-text-on-ink);
+  }
+
+  /* Warning — ATTENTION: the ochre rule and kicker (the view's ration). */
   .mk-alert--warning {
-    background: var(--mk-color-warning-subtle);
+    border-color: var(--mk-color-warning);
+  }
+
+  .mk-alert--warning .mk-alert__title {
     color: var(--mk-color-warning);
   }
 
+  /* Danger — TROUBLE: the letterpress STOP red rules the bar. */
   .mk-alert--danger {
-    background: var(--mk-color-danger-subtle);
+    border-color: var(--mk-color-danger);
+  }
+
+  .mk-alert--danger .mk-alert__title {
     color: var(--mk-color-danger);
   }
 }

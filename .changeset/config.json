@@ -6,8 +6,7 @@
     [
       "@sethmakes/tokens",
       "@sethmakes/css",
-      "@sethmakes/components",
-      "@sethmakes/icons"
+      "@sethmakes/components"
     ]
   ],
   "linked": [],

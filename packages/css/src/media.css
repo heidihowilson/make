@@ -1,120 +1,99 @@
 @layer mk.components {
   /*
-   * Media thumb — an aspect-ratio box that crops its image to fill. Zero
-   * radius (terminal bones). Default ratio is a poster (2/3); square and
-   * video variants swap the ratio. The box itself carries a tonal surface
-   * so it reads as a slot before any image (or fallback) lands.
+   * Media thumb — art is ALWAYS framed: a 2px ink rule, a 6px newsprint
+   * mat, and the hard 4px letterpress offset with no blur. Full-bleed
+   * imagery is never used; the frame is how a picture sits on a printed
+   * page. Default ratio is a poster (2/3); square and video variants swap
+   * the ratio.
    */
   .mk-thumb {
     display: block;
     position: relative;
-    aspect-ratio: 2 / 3;
-    overflow: hidden;
-    background: var(--mk-color-surface-2);
+    border: var(--mk-rule-thick);
+    padding: var(--mk-frame-pad);
+    background: var(--mk-color-inset);
+    box-shadow: var(--mk-shadow-block);
     border-radius: var(--mk-radius-surface);
     /* Size container so the fallback initial can scale to the box */
     container-type: inline-size;
   }
 
-  .mk-thumb--square {
+  /* The matted window crops its art to fill. */
+  .mk-thumb > img,
+  .mk-thumb__fallback,
+  .mk-thumb > .mk-skeleton {
+    aspect-ratio: 2 / 3;
+  }
+
+  .mk-thumb--square > img,
+  .mk-thumb--square .mk-thumb__fallback,
+  .mk-thumb--square > .mk-skeleton {
     aspect-ratio: 1 / 1;
   }
 
-  .mk-thumb--video {
+  .mk-thumb--video > img,
+  .mk-thumb--video .mk-thumb__fallback,
+  .mk-thumb--video > .mk-skeleton {
     aspect-ratio: 16 / 9;
   }
 
   .mk-thumb > img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
   }
 
   /*
-   * Server-rendered no-image path. tv-tracker emits this on the server when
-   * a poster is missing: it fills the box with a deeper tonal surface and
-   * centers a single large mono initial in muted text. No border, no glyph
-   * font — just type weight doing the work.
+   * Server-rendered no-image path: the empty frame holds a large marquee
+   * initial on the plate tone — a playbill with the portrait not yet
+   * engraved. Scales with the box (the thumb is a size container).
    */
   .mk-thumb__fallback {
-    position: absolute;
-    inset: 0;
     display: grid;
     place-content: center;
-    background: var(--mk-color-surface-3);
+    width: 100%;
+    background: var(--mk-color-plate);
     color: var(--mk-color-text-muted);
-    /*
-     * Scales with the box (the thumb is a size container): a 36px list
-     * thumb gets small type, a full poster gets display size. Clamped to
-     * the type scale at both ends.
-     */
-    font-size: clamp(var(--mk-text-sm), 40cqw, var(--mk-text-3xl));
-    font-weight: var(--mk-weight-bold);
+    font-family: var(--mk-font-marquee);
+    font-size: clamp(17px, 40cqw, 96px);
     line-height: var(--mk-leading-tight);
     text-transform: uppercase;
     user-select: none;
   }
 
   /*
-   * Skeleton — a tonal shimmer placeholder. Animates a gradient sweep
-   * between surface-2 and surface-3; under reduced-motion (and as the
-   * no-animation fallback) it sits as a static surface-2 block. Fills a
-   * thumb when nested, or stands alone as a text-line shim.
+   * Skeleton — NO shimmer; nothing idles in this language. A pending slot
+   * is a dashed plate: "nothing is printed here yet". Fills a thumb when
+   * nested, or stands alone as a text-line shim.
    */
   .mk-skeleton {
-    background: var(--mk-color-surface-2);
+    background: var(--mk-color-inset);
+    border: var(--mk-rule-dash);
+    width: 100%;
   }
 
-  .mk-thumb > .mk-skeleton {
-    position: absolute;
-    inset: 0;
-  }
-
-  /* Text-line skeleton — a single muted bar at line height. */
+  /* Text-line skeleton — a single dashed slot at line height. */
   .mk-skeleton--text {
     height: 1em;
-    line-height: var(--mk-leading-normal);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .mk-skeleton {
-      background: linear-gradient(
-        100deg,
-        var(--mk-color-surface-2) 30%,
-        var(--mk-color-surface-3) 50%,
-        var(--mk-color-surface-2) 70%
-      );
-      background-size: 200% 100%;
-      /* slow token x5 keeps the loop tokenized but readable as a sweep */
-      animation: mk-skeleton-shimmer calc(var(--mk-motion-slow) * 5) var(--mk-ease-out) infinite;
-    }
-  }
-
-  @keyframes mk-skeleton-shimmer {
-    from {
-      background-position: 200% 0;
-    }
-    to {
-      background-position: -200% 0;
-    }
   }
 
   /*
-   * Figure + caption — wraps a thumb (or any media) with a muted, small
-   * caption beneath. The figure carries no chrome; the caption is the only
-   * styled part.
+   * Figure + caption — a framed picture with a typewriter caption slug
+   * beneath, the way a strip panel carries its dateline.
    */
   .mk-figure {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--mk-space-2);
+    gap: var(--mk-space-xs);
   }
 
   .mk-figure > figcaption {
-    font-size: var(--mk-text-sm);
-    line-height: var(--mk-leading-normal);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-mono);
+    line-height: 1.5;
     color: var(--mk-color-text-muted);
   }
 }

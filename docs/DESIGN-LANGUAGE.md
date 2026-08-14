@@ -1,63 +1,113 @@
 # Design Language
 
-The design language is just **"sethmakes"** — no separate name. One fixed aesthetic with light and dark modes; brand consistency across all consuming apps is the top driver. This is not a multi-brand theming engine.
+The design language is **Vaudeville** — the printed-page vocabulary of *Gholson's Follies*
+(one human and his troupe of AI agents, printed as an internet comic strip). One fixed
+aesthetic, **single mode**; brand consistency across all consuming apps is the top driver.
+This is not a multi-brand theming engine.
+
+House style, in one line: **1933 rubber-hose cartooning posed with rotoscoped weight, as if
+traced from live vaudeville footage, printed in sepia duotone on newsprint.**
 
 ## The aesthetic in one paragraph
 
-**Terminal bones, calm surface.** Monospace type everywhere, zero corner radius, and flat tonal surfaces — pure achromatic grays with **zero borders**; hierarchy comes from background shifts, not lines. One muted **moss green** hero accent fills primary actions and marks links and focus; functional status colors exist only to mean things. Density sits in the comfortable middle. Motion is quietly alive — polished, never noticed. Minimalist grayscale with a machine voice, not a costume.
+**The metaphor is print, not screen.** Every surface is a sheet of aged newsprint lying on a
+dark stage floor. Sepia duotone ink on paper; printed rules — not floating shadows — do all
+the dividing; corners are square everywhere (the medallion and the radio are the only round
+things, because a circle is geometry, not softness). Four typefaces with one job each: Rye
+for mastheads, Limelight for department headings, Special Elite for the typewriter utility
+voice, Sorts Mill Goudy for prose. **Ochre is the only warm accent and it is rationed — one
+spot per view.** Motion is "shot on twos": stepped at 12 frames a second, an event (an
+overlay entering, a telegram arriving), never a state. If a treatment could not be done by a
+1933 letterpress shop plus one warm ink, it does not belong.
 
 ## How it was decided
 
-A first axis-by-axis questionnaire pass produced a rounded/warm/playful gestalt that was **rejected on sight** (too playful, 2010s-Bootstrap). Lesson recorded: **aesthetics are judged as gestalts, not axes** — decide from complete rendered directions (a live explorer page, since retired — resurrect the pattern from git history at `apps/docs/src/pages/directions.astro` if a future re-theming needs it), not abstract questions. The Terminal direction won; the accent was tuned from rendered shade/role candidates to **Moss + Hero**.
+- Round 1 (2026-06-04): a questionnaire-derived gestalt was rejected on sight; lesson —
+  **aesthetics are judged as gestalts, not axes**. The Terminal direction ("terminal bones,
+  calm surface") won from complete rendered directions and shipped as 0.1.x.
+- Round 2 (2026-08-13): Seth pivoted the brand to *Gholson's Follies* — the proof-of-concept
+  at `cast.sethgholson.com` and a complete design system built in Claude Design ("Vaudeville")
+  from that site's literal CSS. The terminal language was **replaced wholesale**; the
+  Vaudeville values were ported into the `mk` token/class vocabulary. The new direction is
+  paired with a deterministic generative-art pipeline (ComfyUI) — the cast registry renders
+  the site, the strips, and the assets alike. See [GENERATIVE-ART.md](./GENERATIVE-ART.md).
 
 ## Decisions
 
 | Axis | Decision |
 |---|---|
-| Density | Comfortable middle — generous around content, efficient inside components |
-| Shape | **Terminal-sharp: 0px radius everywhere.** Radius tokens remain as slots; the value is the aesthetic |
-| Elevation | Background-shifts only, **zero borders**; shadows reserved for true overlays |
-| Neutrals | Pure achromatic grays (chroma 0) |
-| Accent | **Moss** — muted green, oklch hue 150 at low chroma (~0.08), in the **hero role**: fills primary buttons, marks links/badges/focus/progress |
-| Typography | **Monospace everywhere: JetBrains Mono**, falling back through the system mono stack (`--mk-font-body`) |
-| Modes | **Truly dual**: every semantic color token is a light/dark pair, written as one `light-dark()` declaration |
-| Motion | Quietly alive: 150–320ms eased transitions; tokenized durations + easings |
+| Metaphor | Print: a newsprint sheet on a dark stage. Nothing glows, floats, or blurs |
+| Density | The source page's literal rhythm (2/6/10/14/16/18/20/26/32/36/48) — not a 4/8 grid; do not snap values |
+| Shape | Square everywhere; `--mk-radius-medallion` (50%) only for the portrait medallion and the radio |
+| Structure | **Printed rules with fixed meanings**: 4px double = major break · 3px double = footer · 2px solid = department underline and every box · 1px tan = minor · 1px dashed = nothing printed here yet |
+| Elevation | Exactly two shadows: the deep sheet drop (once per page) and the hard 4px letterpress offset (no blur). No elevation scale |
+| Neutrals | Sepia duotone: ink `#2a241b` on papers `#e6d9ba`/`#ede2c4`/`#d8c9a4`, tan/brown/faded secondary, stage `#26211a` |
+| Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#8a5a1f`, going ochre on hover |
+| Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. No blue, no `info` hue |
+| Typography | Four faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
+| Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
+| Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press |
+| Iconography | **No icon set.** Unicode glyphs (`←` `→` `·`), CSS-drawn controls, and framed art from the pipeline. `@sethmakes/icons` remains for consumer apps' functional UIs, not for the language's own surfaces |
+| Voice | Playbill, not product: THE BOX OFFICE, a BILL, a DEPARTMENT, SOLD OUT, "No. 2 — coming soon". Never "Loading…", never emoji, always typographic punctuation |
 
 ## Consequences & constraints (accepted)
 
-- **Filled form controls.** Zero borders means inputs/selects get tonal filled backgrounds. Committed style, not an option.
-- **Accent vs success separation.** Moss (hue 150, chroma ~0.08) and status-success (hue 155, chroma ~0.15) share the green family; they stay distinguishable by chroma — success is roughly twice as saturated. Verify the pair in both modes whenever either changes.
-- **Monospace costs width.** Mono runs ~10–15% wider than a UI sans at the same size; copy and labels must stay terse. This is a feature (terseness is the voice), but watch truncation in narrow layouts.
-- **Webfont delivery.** JetBrains Mono must eventually be self-hosted by the docs site and documented for consumers (with the system-mono fallback as the no-font path). Currently loaded from Google Fonts in the docs app only.
-- **Contrast care.** Tonal-step hierarchy without borders needs deliberate WCAG checking — especially adjacent surfaces in dark mode, and moss-on-gray text colors.
-- **Flatness risk.** If a screen looks dead, the fix is hierarchy via tonal steps and type weight — never adding borders or radius.
-- **Visual regression runs in both modes.**
+- **Webfont weight.** Four families (~165KB woff2 latin, self-hosted in `@sethmakes/tokens`).
+  The fallbacks (Georgia serif / Courier mono) are legible but the brand arrives with the
+  fonts. No other weights exist — never synthesize bold.
+- **Caps are written, not transformed** for Rye/Limelight; `text-transform: uppercase` is for
+  the typewriter utility voice only.
+- **The ochre ration is a review criterion.** Two accents in one view cancel each other out.
+  A `--warning` button, an error message, a focus ring and a lever's ON state are all
+  claimants; screens get one.
+- **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
+- **Contrast care.** Faded `#8f8066` on paper is decorative-tier only; body ink and brown carry
+  reading text. Re-audit CONTRAST.md against the sepia palette (the old audit covered the
+  grayscale system).
+- **Print rhythm is literal.** Values were copied from the source CSS; do not round them to a
+  grid during refactors.
+- **Visual regression runs in one mode** (single-mode language), still at two viewports.
 
 ## Token structure
 
-- Two tiers: **primitives** (gray ramp, moss ramp, status hues, type/spacing/radius scales, durations/easings) → **semantic** (`--mk-color-bg`, `--mk-color-surface-1/2/3`, `--mk-color-field`, `--mk-color-accent`, `--mk-color-text`, `--mk-radius-control`, `--mk-motion-quick`…).
+- Two tiers: **primitives** (the sepia palette, literal type/space scales, rules, shadows,
+  frame timings) → **semantic** (`--mk-color-sheet`, `--mk-color-heading`, `--mk-rule-thick`,
+  `--mk-font-typewriter`, `--mk-dur-beat`…).
 - Components reference **semantic tokens only**.
-- Light/dark via `color-scheme` + `light-dark()`; `[data-theme]` overrides, system preference by default. Never per-component mode overrides.
-- Surface hierarchy is numbered tonal steps (`surface-1..3`) since borders don't exist.
+- Composite tokens are first-class: grab a whole rule (`--mk-rule-double`) or shadow
+  (`--mk-shadow-block`), not a width and a colour.
+
+## Responsive doctrine
+
+**Reflow the hierarchy, don't shrink it.** Desktop is the reference; smaller screens get the
+same content re-set for a narrower sheet. Two breakpoints, always the same two: `1000px`
+*relax* (grids loosen, sheet padding drops to its mid value) and `740px` *reflow*
+(single-column; sheet padding to phone value; prose drops one step, never below 17px;
+utility tracking may tighten). No intermediate breakpoints — fluid grids and `clamp()`
+display type do the work between them. Nothing is fixed or sticky; the page scrolls like
+paper (the telegram toast is the one sanctioned fixed element — it is an event, not chrome).
 
 ## Explicitly rejected
 
-- **Round 1 gestalt (2026-06-04):** boldly rounded (pills), rounded sans, warm coral hero accent — too playful, 2010s-Bootstrap.
-- The old tv-tracker aesthetic (DaisyUI "abyss": dark-only, teal/cyan, system fonts).
-- Borders as structure; shadows as primary elevation; tinted neutrals; expressive motion-as-brand.
-- Louder greens (phosphor/matrix/acid) and non-green accents (amber, cyan) — rendered and declined in favor of moss.
-- **Outline buttons** (issue #13, consumer #1 request): an outline is a border, and zero-borders is the language's spine. The tonal default button IS the official secondary action.
-
-## Sanctioned exceptions
-
-- **Chrome translucency**: `.mk-appbar`'s translucent surface + backdrop blur is the one allowed translucency — app chrome floats over scrolling content; everything else is opaque tonal.
-- **Elevation is tokenized**: `--mk-layer-chrome/-overlay/-toast`. Nothing types a raw z-index; what may stack on what is policy, not improvisation.
+- **The Terminal language (0.1.x, retired 2026-08-13):** JetBrains Mono everywhere, achromatic
+  grays, zero borders, moss hero accent, dual light/dark. Replaced wholesale by Vaudeville;
+  resurrect from git history if ever needed.
+- **Round 1 gestalt (2026-06-04):** boldly rounded, warm coral — too playful.
+- Dark mode / theme switching — a printed page has no dark variant.
+- Soft UI: radius, blurred shadows, elevation scales, translucency (the old appbar blur is
+  retired), gradients, scrims-as-protection, skeleton shimmer, smooth easing as default.
+- Modern line-icon libraries on language surfaces.
+- Emoji, anywhere.
 
 ## Remaining open
 
-- Type/spacing scale values are provisional-but-working; revisit only if real screens fight them.
+- A sepia-palette WCAG pass to replace the retired grayscale CONTRAST.md audit.
+- Whether the docs site should embed the cast registry rail (it consumes
+  `cast.sethgholson.com/cast.json`) or stay registry-free.
 
-## Resolved since (2026-06-04 buildout)
+## Source of truth
 
-- **JetBrains Mono self-hosted** in `@sethmakes/tokens` (`fonts.css` + woff2, latin subset, 400/600/700; 600 = SemiBold deliberately, matching `--mk-weight-medium`). Consumers import `@sethmakes/tokens/fonts.css` or live on the system-mono fallback.
-- **WCAG contrast audited** in both modes — see [CONTRAST.md](./CONTRAST.md) and `scripts/contrast-audit.mjs`. Status hues were darkened on the light side to clear 4.5:1; an inset affordance ring (box-shadow, not border) was added to unchecked checkboxes/radios for 1.4.11 non-text contrast.
+The Vaudeville system was authored in Claude Design from `sethgho/the-cast` (site CSS +
+`style/vaudeville-1933.md` + the writing bible) and `cast.sethgholson.com`. Its values live
+here as `@sethmakes/tokens`; its prompt-side art doctrine lives in
+[GENERATIVE-ART.md](./GENERATIVE-ART.md); its motion doctrine in [MOTION.md](./MOTION.md).

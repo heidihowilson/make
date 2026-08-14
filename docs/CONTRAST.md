@@ -1,5 +1,10 @@
 # WCAG Contrast Audit
 
+> **RETIRED 2026-08-13.** This audit covers the terminal/moss grayscale system,
+> replaced wholesale by the Vaudeville language (see DESIGN-LANGUAGE.md). It is
+> kept as the method template; a fresh audit of the sepia palette is an open
+> item. Until then, treat faded `#8f8066` on paper as decorative-tier only.
+
 Concrete WCAG 2.1 contrast audit of the `@sethmakes/tokens` semantic color
 pairs, both light and dark modes. Closes the "concrete WCAG contrast audit of
 the moss/gray pairs" open item in `DESIGN-LANGUAGE.md`.

@@ -1,156 +1,189 @@
 @layer mk.components {
-  /* Form controls — filled (zero-border consequence) */
+  /*
+   * Form controls — filled newsprint slots with a printed rule: a 1px tan
+   * hairline box whose BOTTOM rule is 2px ink, the line you type on.
+   * Focus turns the rule ochre and the fill to the plate tone — instantly.
+   */
   .mk-input,
   .mk-select,
   .mk-textarea {
-    border: 0;
+    border: var(--mk-rule-hair);
+    border-bottom: var(--mk-rule-thick);
     border-radius: var(--mk-radius-control);
-    background: var(--mk-color-field);
-    color: var(--mk-color-text);
-    font: inherit;
-    font-size: max(16px, 1em); /* prevent iOS zoom */
-    padding: 0.6em 0.9em;
+    background: var(--mk-color-inset);
+    color: var(--mk-color-heading);
+    font-family: var(--mk-font-typewriter);
+    font-size: max(16px, var(--mk-size-mono)); /* 16px floor stops iOS focus-zoom */
+    letter-spacing: 0.02em;
+    padding: 10px 12px;
     min-height: 44px;
     width: 100%;
-    transition: background var(--mk-motion-quick) var(--mk-ease-out);
   }
 
   .mk-input::placeholder,
   .mk-textarea::placeholder {
-    color: var(--mk-color-text-faint);
+    color: var(--mk-color-text-muted);
+    font-style: italic;
   }
 
   .mk-input:hover,
   .mk-select:hover,
   .mk-textarea:hover {
-    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 4%);
+    background: var(--mk-color-sheet);
+  }
+
+  .mk-input:focus,
+  .mk-select:focus,
+  .mk-textarea:focus {
+    outline: none;
+    border-color: var(--mk-color-accent);
+    background: var(--mk-color-plate);
   }
 
   /*
-   * Select — drop the native chrome and paint a caret with a background
-   * data-URI. The glyph is stroked in currentColor so it tracks the text
-   * color across light/dark with no extra tokens. Extra inline-end padding
-   * keeps long option text clear of the caret.
+   * Select — drop the native chrome and print a small solid triangle,
+   * drawn with two gradient halves in the heading ink. CSS-drawn controls,
+   * not icons: no glyph font, no image request.
    */
   .mk-select {
     appearance: none;
-    padding-inline-end: var(--mk-space-7);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='square'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    cursor: pointer;
+    padding-inline-end: 34px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--mk-color-heading) 50%),
+      linear-gradient(135deg, var(--mk-color-heading) 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) 55%,
+      calc(100% - 13px) 55%;
+    background-size:
+      5px 5px,
+      5px 5px;
     background-repeat: no-repeat;
-    background-position: right var(--mk-space-4) center;
-    background-size: 1.1em;
   }
 
   /* Textarea — taller default, vertical resize only */
   .mk-textarea {
     min-height: 7rem;
     resize: vertical;
-    line-height: var(--mk-leading-normal);
+    line-height: 1.5;
   }
 
-  /* Field scaffolding */
+  /* Field scaffolding — typewriter label above the slot. */
   .mk-field {
     display: flex;
     flex-direction: column;
-    gap: var(--mk-space-1);
+    gap: 6px;
   }
 
   .mk-field > label {
-    font-size: var(--mk-text-sm);
-    font-weight: var(--mk-weight-medium);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-back);
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
   }
 
   .mk-field__help {
-    font-size: var(--mk-text-xs);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.06em;
     color: var(--mk-color-text-muted);
   }
 
-  /* Error message — danger-tinted, sits below the control */
+  /*
+   * Error message — spoken in character ("that address is not on the
+   * bill") and printed in the accent, which doubles as this view's ochre
+   * ration: a form with an error has no other ochre spot.
+   */
   .mk-field__error {
-    font-size: var(--mk-text-xs);
-    color: var(--mk-color-danger);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.06em;
+    color: var(--mk-color-accent);
   }
 
-  /*
-   * Error state — no border (there are none anywhere); the control gets a
-   * danger-tinted fill instead, mixed off the field token so it stays a
-   * surface, not a loud alert.
-   */
+  /* Error state — the rule turns ochre all the way around. */
   .mk-field--error .mk-input,
   .mk-field--error .mk-select,
   .mk-field--error .mk-textarea {
-    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-danger) 18%);
-  }
-
-  .mk-field--error .mk-input:hover,
-  .mk-field--error .mk-select:hover,
-  .mk-field--error .mk-textarea:hover {
-    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-danger) 26%);
+    border-color: var(--mk-color-accent);
   }
 
   /*
-   * Fieldset — native chrome reset; the legend reads like a field label.
-   * Groups related choices (radio sets, switch stacks).
+   * Disabled inputs — the bottom rule goes DASHED: nothing will be
+   * printed here. Fill empties; nothing is greyed with opacity.
+   */
+  .mk-input:disabled,
+  .mk-select:disabled,
+  .mk-textarea:disabled {
+    color: var(--mk-color-disabled-text);
+    background: transparent;
+    border-color: var(--mk-color-disabled-line);
+    border-bottom-style: dashed;
+    cursor: not-allowed;
+  }
+
+  /*
+   * Fieldset — native chrome reset; the legend is a form kicker in the
+   * proscenium voice. Groups related choices (radio sets, switch stacks).
    */
   .mk-fieldset {
-    border: 0; /* native-chrome reset, not a design border */
+    border: 0; /* native-chrome reset, not a design rule */
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--mk-space-1);
+    gap: var(--mk-space-hair);
   }
 
   .mk-fieldset > legend {
     padding: 0;
-    margin-bottom: var(--mk-space-2);
-    font-size: var(--mk-text-sm);
-    font-weight: var(--mk-weight-medium);
+    margin-bottom: var(--mk-space-xs);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-back);
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
   }
 
   /*
-   * Choice row — a 44px touch target wrapping a 24px control + label.
-   * Used for checkboxes and radios; the whole row is comfortably tappable.
+   * Choice row — a 44px touch target wrapping the control + label.
+   * The whole row is comfortably tappable.
    */
   .mk-choice {
     display: flex;
     align-items: center;
-    gap: var(--mk-space-3);
+    gap: 12px;
     min-height: 44px;
     cursor: pointer;
   }
 
   .mk-choice > span {
-    font-size: var(--mk-text-md);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: 0.06em;
+    color: var(--mk-color-heading);
+    line-height: 1.45;
   }
 
   /*
-   * Checkbox & radio — strip native chrome, paint a 24px filled tonal box.
-   * Checkbox stays sharp (zero radius); radio is a true circle because a
-   * circle is geometry, not softness.
-   *
-   * Affordance ring: field-vs-surface-1 is only ~1.1:1, so an unchecked box
-   * is nearly invisible on a card. We add an inset ring (not a border — the
-   * zero-border rule forbids border-*) in text-muted, which clears 3:1
-   * against every surface (WCAG 1.4.11 non-text contrast). The checked state
-   * drops the ring since the accent fill is its own affordance.
+   * Checkbox & radio — strip native chrome and print the controls. The
+   * checkbox is a STAMPED INK X in a square 2px rule; the radio is the
+   * one round control, because a circle is geometry, not softness.
    */
   .mk-checkbox,
   .mk-radio {
     appearance: none;
     flex: none;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin: 0;
-    background: var(--mk-color-field);
-    color: var(--mk-color-accent-contrast);
-    box-shadow: inset 0 0 0 2px var(--mk-color-text-muted);
+    background: var(--mk-color-inset);
+    border: 2px solid var(--mk-color-rule);
     display: grid;
     place-content: center;
     cursor: pointer;
-    transition:
-      background var(--mk-motion-quick) var(--mk-ease-out),
-      box-shadow var(--mk-motion-quick) var(--mk-ease-out);
+    position: relative;
   }
 
   .mk-checkbox {
@@ -158,124 +191,112 @@
   }
 
   .mk-radio {
-    border-radius: 50%;
+    border-radius: var(--mk-radius-medallion);
   }
 
   .mk-checkbox:hover,
   .mk-radio:hover {
-    background: color-mix(in oklch, var(--mk-color-field), var(--mk-color-text) 8%);
+    background: var(--mk-color-sheet);
   }
 
   /*
-   * Checked — accent fill with a glyph drawn via ::before; the fill is its
-   * own affordance, so the inset ring is dropped.
-   *
+   * The stamped X — two diagonal ink strokes drawn with gradients (a
+   * CSS-drawn control, not a glyph). It appears whole, like a rubber
+   * stamp: no scale-up, no draw-on.
+   */
+  .mk-checkbox::before,
+  .mk-checkbox::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .mk-checkbox::before {
+    background: linear-gradient(
+      to bottom right,
+      transparent 44%,
+      var(--mk-color-rule) 44%,
+      var(--mk-color-rule) 56%,
+      transparent 56%
+    );
+  }
+
+  .mk-checkbox::after {
+    background: linear-gradient(
+      to bottom left,
+      transparent 44%,
+      var(--mk-color-rule) 44%,
+      var(--mk-color-rule) 56%,
+      transparent 56%
+    );
+  }
+
+  /*
    * Three ways to be checked, because this is a progressive-enhancement
    * library: :checked for real inputs; [aria-checked="true"] for widget
-   * roles (a form-POST <button role="checkbox"> — the styling hook IS the
-   * accessibility attribute); and the --checked modifier for static
-   * server-rendered elements with no interactive role. Consumer #2 (eat)
-   * hand-painted this exact recipe on a <span> before these existed.
+   * roles (the styling hook IS the accessibility attribute); and the
+   * --checked modifier for static server-rendered elements.
    */
-  .mk-checkbox:checked,
-  .mk-checkbox[aria-checked="true"],
-  .mk-checkbox--checked,
-  .mk-radio:checked,
-  .mk-radio[aria-checked="true"],
-  .mk-radio--checked {
-    background: var(--mk-color-accent);
-    box-shadow: none;
-  }
-
-  .mk-checkbox:checked:hover,
-  .mk-checkbox[aria-checked="true"]:hover,
-  .mk-checkbox--checked:hover,
-  .mk-radio:checked:hover,
-  .mk-radio[aria-checked="true"]:hover,
-  .mk-radio--checked:hover {
-    background: var(--mk-color-accent-hover);
-  }
-
-  /*
-   * Checkmark — a square-cut tick. Drawn as a currentColor block clipped to
-   * a check polygon (no border-* — the zero-border rule applies to glyphs
-   * too; this mirrors the select caret using a non-border technique).
-   */
-  .mk-checkbox::before {
-    content: "";
-    width: 0.8em;
-    height: 0.8em;
-    background: currentColor;
-    clip-path: polygon(
-      14% 44%, 0% 60%, 40% 100%, 100% 18%, 84% 4%, 38% 70%
-    );
-    transform: scale(0);
-    transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
-  }
-
   .mk-checkbox:checked::before,
+  .mk-checkbox:checked::after,
   .mk-checkbox[aria-checked="true"]::before,
-  .mk-checkbox--checked::before {
-    transform: scale(1);
+  .mk-checkbox[aria-checked="true"]::after,
+  .mk-checkbox--checked::before,
+  .mk-checkbox--checked::after {
+    opacity: 1;
   }
 
-  /* Radio dot — a solid inner disc */
+  /* Radio — a filled ink medallion inside the ring. */
   .mk-radio::before {
     content: "";
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: 50%;
-    background: currentColor;
-    transform: scale(0);
-    transition: transform var(--mk-motion-quick) var(--mk-ease-spring);
+    position: absolute;
+    inset: 3px;
+    border-radius: var(--mk-radius-medallion);
+    background: var(--mk-color-rule);
+    opacity: 0;
   }
 
   .mk-radio:checked::before,
   .mk-radio[aria-checked="true"]::before,
   .mk-radio--checked::before {
-    transform: scale(1);
+    opacity: 1;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .mk-checkbox::before,
-    .mk-radio::before {
-      transition: none;
-    }
+  /* Disabled choices — rule to tan, fill emptied. */
+  .mk-checkbox:disabled,
+  .mk-radio:disabled {
+    border-color: var(--mk-color-disabled-line);
+    background: transparent;
+    cursor: not-allowed;
   }
 
   /*
-   * Switch — a checkbox restyled as a track + sliding thumb. Square thumb
-   * (terminal bones: no soft pills), accent track when on, motion-tokened
-   * slide. Lives in a .mk-choice row like the other choices.
+   * Switch — a hard-edged stage lever on a rail. The lever is an ink
+   * block that jumps to the far end; the rail goes ochre when ON (a
+   * sanctioned accent spot — the ON state is information). The jump is
+   * stepped: two frames, like everything else shot on twos.
    */
   .mk-switch {
     appearance: none;
     flex: none;
     width: 44px;
-    height: 24px;
+    height: 20px;
     margin: 0;
-    padding: 3px;
-    background: var(--mk-color-surface-3);
-    border-radius: var(--mk-radius-pill);
+    background: var(--mk-color-inset);
+    border: 2px solid var(--mk-color-rule);
+    border-radius: var(--mk-radius-control);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: background var(--mk-motion-standard) var(--mk-ease-out);
+    position: relative;
   }
 
   .mk-switch::before {
     content: "";
-    width: 18px;
-    height: 18px;
-    background: var(--mk-color-text-muted);
-    border-radius: var(--mk-radius-sm);
-    transition:
-      transform var(--mk-motion-standard) var(--mk-ease-out),
-      background var(--mk-motion-standard) var(--mk-ease-out);
-  }
-
-  .mk-switch:hover {
-    background: color-mix(in oklch, var(--mk-color-surface-3), var(--mk-color-text) 8%);
+    position: absolute;
+    inset: 2px auto 2px 2px;
+    width: 14px;
+    background: var(--mk-color-rule);
+    transition: inset 160ms steps(2, end);
   }
 
   .mk-switch:checked,
@@ -284,23 +305,19 @@
     background: var(--mk-color-accent);
   }
 
-  .mk-switch:checked:hover,
-  .mk-switch[aria-checked="true"]:hover,
-  .mk-switch--checked:hover {
-    background: var(--mk-color-accent-hover);
-  }
-
   .mk-switch:checked::before,
   .mk-switch[aria-checked="true"]::before,
   .mk-switch--checked::before {
-    background: var(--mk-color-accent-contrast);
-    transform: translateX(20px);
+    inset: 2px 2px 2px auto;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .mk-switch,
-    .mk-switch::before {
-      transition: none;
-    }
+  .mk-switch:disabled {
+    border-color: var(--mk-color-disabled-line);
+    background: transparent;
+    cursor: not-allowed;
+  }
+
+  .mk-switch:disabled::before {
+    background: var(--mk-color-disabled-line);
   }
 }

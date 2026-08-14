@@ -1,53 +1,58 @@
 @layer mk.components {
   /*
-   * Tabs / segmented control — a row of choices where exactly one is
-   * current. Formalizes the pattern two consumers and our own docs built
-   * from loose buttons (browse's set tabs, eat's theme picker).
+   * Tabs — departments on a 2px ink rule. Typewriter caps sit on the
+   * rule; the current department overprints it with its own 2px ink
+   * underline. Tabs wrap to a second line rather than overflowing the
+   * rule.
    *
    * Selection answers to [aria-selected="true"] (role=tablist),
    * [aria-current] (link groups), or the --active modifier — the styling
-   * hooks are the semantics, same contract as the choice controls.
-   *
-   *   <div class="mk-tabs" role="tablist" aria-label="…">
-   *     <button class="mk-tabs__tab" role="tab" aria-selected="true">mk</button>
-   *     <button class="mk-tabs__tab" role="tab" aria-selected="false">lucide</button>
-   *   </div>
+   * hooks are the semantics.
    */
   .mk-tabs {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--mk-space-1);
+    gap: 0 28px;
+    border-bottom: var(--mk-rule-thick);
   }
 
   .mk-tabs__tab {
     appearance: none;
     border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
     border-radius: var(--mk-radius-control);
-    background: var(--mk-color-surface-2);
+    background: none;
     color: var(--mk-color-text-muted);
-    font: inherit;
-    font-size: var(--mk-text-sm);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: var(--mk-track-back);
+    text-transform: uppercase;
     min-height: 44px;
-    padding-inline: var(--mk-space-4);
+    padding: 8px 2px 9px;
     display: inline-flex;
     align-items: center;
     cursor: pointer;
     text-decoration: none; /* tabs can be <a>; never prose-link styled */
-    transition:
-      background var(--mk-motion-quick) var(--mk-ease-out),
-      color var(--mk-motion-quick) var(--mk-ease-out);
   }
 
+  /* Hover goes ochre — instantly; ink either is or isn't. */
   .mk-tabs__tab:hover {
-    color: var(--mk-color-text);
+    color: var(--mk-color-link-hover);
+    text-decoration: none;
   }
 
-  /* Selected — accent-subtle, matching .mk-btn--active's segmented voice. */
+  /* Current department — heading ink on its own ink underline. */
   .mk-tabs__tab[aria-selected="true"],
   .mk-tabs__tab[aria-current],
   .mk-tabs__tab--active {
-    background: var(--mk-color-accent-subtle);
-    color: var(--mk-color-on-accent-subtle);
-    font-weight: var(--mk-weight-bold);
+    color: var(--mk-color-heading);
+    border-bottom-color: var(--mk-color-rule);
+  }
+
+  @media (max-width: 740px) {
+    .mk-tabs {
+      gap: 0 18px;
+    }
   }
 }

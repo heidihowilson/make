@@ -5,115 +5,121 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Feedback">
   <h1>Feedback</h1>
   <p>
-    Status, loading and empty states — all flat and tonal. Alerts tint, the
-    spinner steps like a machine, progress fills with accent, and an empty
-    block stays quiet until there's something to show.
+    Notices from the management. Alerts carry severity in the rule, waiting
+    is a typewriter typing dots, progress is the ledger bar, an empty slot is
+    a dashed tile, a toast is a telegram at the footlights, and the dialog is
+    a playbill over the dimmed house.
   </p>
 
   <section class="mk-card">
-    <h2>Alert</h2>
+    <h2>NOTICES FROM THE MANAGEMENT</h2>
     <p>
-      A subtle filled block with optional bold title. Info uses the moss
-      accent; success, warning and danger use the status hues.
+      The rule carries the severity, not a pastel wash — a print shop tints
+      with line and ink. Success prints solid: a thing done needs no colour.
+      The warning notice spends the view&rsquo;s ochre ration.
     </p>
     <div class="demo-col">
       <div class="mk-alert mk-alert--info">
-        <span class="mk-alert__title">Heads up</span>
-        <span>Two shows on your list air new episodes tonight.</span>
+        <span class="mk-alert__title">Take notice</span>
+        <span>The Tuesday matinee moves to three o&rsquo;clock, weather and Mr. Taylor permitting.</span>
       </div>
       <div class="mk-alert mk-alert--success">
-        <span class="mk-alert__title">Saved</span>
-        <span>Severance marked as watched through s2e4.</span>
+        <span class="mk-alert__title">Printed &amp; filed</span>
+        <span>The new bill is at the printers; the Taylors have their box.</span>
       </div>
       <div class="mk-alert mk-alert--warning">
-        <span class="mk-alert__title">Stale data</span>
-        <span>Episode list last synced 8 days ago.</span>
+        <span class="mk-alert__title">Attention</span>
+        <span>The follow spot is running hot. Shorter solos are advised.</span>
       </div>
       <div class="mk-alert mk-alert--danger">
-        <span class="mk-alert__title">Sync failed</span>
-        <span>Couldn't reach the network. Retry shortly.</span>
+        <span class="mk-alert__title">Trouble</span>
+        <span>The trapdoor is stuck, and Act III depends upon it entirely.</span>
       </div>
       <div class="mk-alert mk-alert--info">
-        No title — a single muted line works too.
+        A single quiet line, without a kicker, works too.
       </div>
     </div>
     <pre><code>&lt;div class="mk-alert mk-alert--warning"&gt;
-  &lt;span class="mk-alert__title"&gt;Stale data&lt;/span&gt;
-  &lt;span&gt;Episode list last synced 8 days ago.&lt;/span&gt;
+  &lt;span class="mk-alert__title"&gt;Attention&lt;/span&gt;
+  &lt;span&gt;The follow spot is running hot.&lt;/span&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Spinner</h2>
+    <h2>TYPING DOTS</h2>
     <p>
-      CSS-only, stepped square sweep. Two sizes; freezes to a static block
-      under reduced motion.
+      There are no spinners in a print shop. Waiting is a typewriter striking
+      &ldquo;. . .&rdquo; one dot at a time on a stepped clock; under reduced
+      motion the dots print once and hold.
     </p>
     <div class="demo-row demo-row--center">
-      <span class="mk-spinner mk-spinner--sm" role="status" aria-label="Loading"></span>
-      <span class="mk-spinner mk-spinner--md" role="status" aria-label="Loading"></span>
+      <span class="mk-spinner mk-spinner--sm" role="status" aria-label="Working"></span>
+      <span class="mk-spinner mk-spinner--md" role="status" aria-label="Working"></span>
+      <span class="wait-note">PATCHING THE PIPES</span>
     </div>
-    <pre><code>&lt;span class="mk-spinner mk-spinner--md" role="status" aria-label="Loading"&gt;&lt;/span&gt;</code></pre>
+    <pre><code>&lt;span class="mk-spinner mk-spinner--md" role="status" aria-label="Working"&gt;&lt;/span&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Progress</h2>
+    <h2>THE LEDGER BAR</h2>
     <p>
-      Native <code>&lt;progress&gt;</code> — tonal track, accent fill. A thinner
-      <code>--sm</code> variant, and an indeterminate state when the value is
-      unknown (omit <code>value</code>).
+      Native <code>&lt;progress&gt;</code>: solid ink filling a 2px-ruled
+      trough, advancing in stepped beats. The disk is at ninety-one percent,
+      and nobody is taking this seriously. Omit <code>value</code> for the
+      marching-hatch indeterminate state — work is happening, amount unknown.
     </p>
     <div class="demo-col">
-      <progress class="mk-progress" value="0.7" max="1">70%</progress>
-      <progress class="mk-progress mk-progress--sm" value="0.35" max="1">35%</progress>
-      <progress class="mk-progress" aria-label="Syncing episodes"></progress>
+      <progress class="mk-progress" value="91" max="100">91%</progress>
+      <progress class="mk-progress mk-progress--sm" value="35" max="100">35%</progress>
+      <progress class="mk-progress" aria-label="Setting the bill"></progress>
     </div>
-    <pre><code>&lt;progress class="mk-progress" value="0.7" max="1"&gt;70%&lt;/progress&gt;
-&lt;progress class="mk-progress mk-progress--sm" value="0.35" max="1"&gt;35%&lt;/progress&gt;
-&lt;progress class="mk-progress" aria-label="Syncing episodes"&gt;&lt;/progress&gt;</code></pre>
+    <pre><code>&lt;progress class="mk-progress" value="91" max="100"&gt;91%&lt;/progress&gt;
+&lt;progress class="mk-progress mk-progress--sm" value="35" max="100"&gt;35%&lt;/progress&gt;
+&lt;progress class="mk-progress" aria-label="Setting the bill"&gt;&lt;/progress&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Empty state</h2>
+    <h2>THE DASHED TILE</h2>
     <p>
-      A centered tonal block for "nothing here yet" — muted message, optional
-      title, and room for a single call to action.
+      An empty state is a dashed rule around typewriter text — nothing is
+      printed here yet. No grey block, no illustration; speak in character.
     </p>
     <div class="demo-col">
       <div class="mk-empty">
-        <span class="mk-empty__title">No shows tracked</span>
+        <span class="mk-empty__title">AN EMPTY SLOT ON THE BILL</span>
         <p class="mk-empty__message">
-          Add a series to start tracking episodes and watch status.
+          No. 2 — coming soon. The second act signs on Thursday, or the
+          chorus goes twice.
         </p>
         <div class="mk-empty__action">
-          <button class="mk-btn mk-btn--primary" type="button">Add a show</button>
+          <button class="mk-btn" type="button">Book an act</button>
         </div>
       </div>
     </div>
     <pre><code>&lt;div class="mk-empty"&gt;
-  &lt;span class="mk-empty__title"&gt;No shows tracked&lt;/span&gt;
-  &lt;p class="mk-empty__message"&gt;Add a series to start tracking.&lt;/p&gt;
+  &lt;span class="mk-empty__title"&gt;AN EMPTY SLOT ON THE BILL&lt;/span&gt;
+  &lt;p class="mk-empty__message"&gt;No. 2 — coming soon.&lt;/p&gt;
   &lt;div class="mk-empty__action"&gt;
-    &lt;button class="mk-btn mk-btn--primary"&gt;Add a show&lt;/button&gt;
+    &lt;button class="mk-btn"&gt;Book an act&lt;/button&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Toast</h2>
+    <h2>TELEGRAM</h2>
     <p>
-      Transient confirmation, by policy: fixed bottom-center, the toast layer,
-      <strong>one at a time</strong> — a new message replaces the old. CSS-only;
-      the app brings the timer and pairs the visual with a hidden
-      <code>role="status"</code> live region. Promoted from this site's own
-      hand-rolled copy toast.
+      A toast is a telegram slip delivered at the footlights: fixed
+      bottom-center, one at a time — a new message replaces the old,
+      telegrams never stack. It arrives in three stepped frames; gone means
+      gone, with no exit animation. CSS-only: the app brings the timer and a
+      hidden <code>role="status"</code> live region.
     </p>
     <div class="row">
-      <button class="mk-btn" type="button" data-toast="">Show toast</button>
-      <button class="mk-btn" type="button" data-toast="success">Success toast</button>
-      <button class="mk-btn" type="button" data-toast="danger">Danger toast</button>
+      <button class="mk-btn" type="button" data-toast="">Send a telegram</button>
+      <button class="mk-btn" type="button" data-toast="success">Delivered</button>
+      <button class="mk-btn" type="button" data-toast="danger">Bad news</button>
     </div>
-    <pre><code>&lt;div class="mk-toast" hidden role="status"&gt;Wall rebuilt — Wilson approved&lt;/div&gt;
+    <pre><code>&lt;div class="mk-toast" hidden role="status"&gt;FILED · your note is on the spike&lt;/div&gt;
 
 // app JS: show, wait, hide
 toast.textContent = msg; toast.hidden = false;
@@ -122,49 +128,49 @@ setTimeout(() =&gt; (toast.hidden = true), 1800);</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Dialog</h2>
+    <h2>PLAYBILL</h2>
     <p>
       Styling for the native <code>&lt;dialog&gt;</code> — the one sanctioned
       modal: opened with <code>showModal()</code>, one at a time, never
-      spawning another. The platform does focus trapping and Esc; the scrim
-      token does the dimming. No shadow — flat language holds even in the top
-      layer.
+      spawning another. The platform does focus trapping and Esc; the warm
+      scrim dims the house, and the sheet drops in shot on twos.
     </p>
     <div class="row">
-      <button class="mk-btn mk-btn--danger" type="button" id="demo-dialog-open">Remove Tool Time…</button>
+      <button class="mk-btn mk-btn--danger" type="button" id="demo-dialog-open">Strike the set&hellip;</button>
     </div>
     <dialog class="mk-dialog" id="demo-dialog">
-      <h3 class="mk-dialog__title">Remove Tool Time?</h3>
+      <h2 class="mk-dialog__title">STRIKE THE SET?</h2>
       <p>
-        Tim, Al, and 204 episodes of flannel leave the watchlist. Wilson's
-        advice over the fence: irreversible decisions deserve a beat.
+        Two hundred four performances of flannel come down with it. The
+        management advises a moment&rsquo;s pause at the fence before
+        anything irreversible.
       </p>
       <form method="dialog" class="mk-dialog__actions">
         <button class="mk-btn" value="cancel">Keep it</button>
-        <button class="mk-btn mk-btn--danger" value="confirm">Remove</button>
+        <button class="mk-btn mk-btn--danger" value="confirm">Strike it</button>
       </form>
     </dialog>
     <pre><code>&lt;dialog class="mk-dialog"&gt;
-  &lt;h3 class="mk-dialog__title"&gt;Remove Tool Time?&lt;/h3&gt;
+  &lt;h2 class="mk-dialog__title"&gt;STRIKE THE SET?&lt;/h2&gt;
   &lt;p&gt;…&lt;/p&gt;
   &lt;form method="dialog" class="mk-dialog__actions"&gt;
     &lt;button class="mk-btn" value="cancel"&gt;Keep it&lt;/button&gt;
-    &lt;button class="mk-btn mk-btn--danger" value="confirm"&gt;Remove&lt;/button&gt;
+    &lt;button class="mk-btn mk-btn--danger" value="confirm"&gt;Strike it&lt;/button&gt;
   &lt;/form&gt;
 &lt;/dialog&gt;
 
-dialogEl.showModal(); // the app's one line</code></pre>
+dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
   </section>
 
   <script is:inline>
-    // Toast demo — show/replace/hide; one toast, per policy.
+    // Toast demo — show/replace/hide; one telegram, per policy.
     (() => {
       const toast = document.getElementById('demo-toast');
       let t;
       const MESSAGES = {
-        '': 'Wall rebuilt — Wilson approved',
-        success: 'More power: Binford 6100 saved',
-        danger: 'That was load-bearing, Tim',
+        '': 'FILED · your note is on the spike',
+        success: 'DELIVERED · the bill is at the printers',
+        danger: 'STOP · the trapdoor is stuck again STOP',
       };
       document.querySelectorAll('[data-toast]').forEach((btn) =>
         btn.addEventListener('click', () => {
@@ -183,39 +189,66 @@ dialogEl.showModal(); // the app's one line</code></pre>
 
   <style>
     section.mk-card + section.mk-card {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-2xl);
     }
 
     .row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
     }
 
     .demo-col {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
       max-width: 30rem;
     }
 
     .demo-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--mk-space-5);
+      gap: var(--mk-space-lg);
     }
 
     .demo-row--center {
       align-items: center;
     }
 
+    .wait-note {
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      letter-spacing: var(--mk-track-back);
+      color: var(--mk-color-text-muted);
+    }
+
     pre {
-      margin-top: var(--mk-space-4);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-xs);
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
       overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>

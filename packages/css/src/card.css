@@ -1,17 +1,27 @@
 @layer mk.components {
-  /* Card — raised tonal surface */
+  /*
+   * Card, or rather PANEL. There are no cards in the shadcn sense — no
+   * radius, no soft shadow, no coloured left border. A panel is a 2px ink
+   * rule around an inset newsprint fill; a boxed item on the printed page.
+   */
   .mk-card {
-    background: var(--mk-color-surface-1);
+    background: var(--mk-color-inset);
+    border: var(--mk-rule-thick);
     border-radius: var(--mk-radius-surface);
-    padding: var(--mk-space-5);
+    padding: var(--mk-panel-pad);
   }
 
-  /* Sunken — recedes to surface-2 for nesting inside a card */
+  /*
+   * Sunken → QUIET: drops to a 1px tan hairline on a transparent fill.
+   * The quiet panel is for asides that shouldn't compete with boxed
+   * content.
+   */
   .mk-card--sunken {
-    background: var(--mk-color-surface-2);
+    background: transparent;
+    border: var(--mk-rule-hair);
   }
 
-  /* Flush — no padding, for media that bleeds to the edge */
+  /* Flush — no padding, for framed art that meets the rule edge-to-edge. */
   .mk-card--flush {
     padding: 0;
     overflow: hidden;

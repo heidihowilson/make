@@ -21,7 +21,8 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
   <header class="hero">
     <h1>Browse icons</h1>
     <p class="hero__lede">
-      Search every glyph, <strong>click to copy</strong> its Tailwind class.
+      The catalogue for consuming apps — search every glyph,
+      <strong>click to copy</strong> its Tailwind class.
     </p>
   </header>
 
@@ -31,18 +32,19 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
     data-ph={dataUrl('ph')}
     data-mk={dataUrl('mk')}
   >
-    <!-- Set tabs. Buttons in a tablist; mk is the default (smallest, brand-most-
-         relevant, instant). currentColor + tonal active state, zero borders. -->
-    <div class="mk-tabs" role="tablist" aria-label="Icon set">
-      <button class="mk-tabs__tab" role="tab" aria-selected="true" data-set="mk" id="tab-mk" aria-controls="results">mk</button>
-      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="lucide" id="tab-lucide" aria-controls="results">lucide</button>
-      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="ph" id="tab-ph" aria-controls="results">phosphor</button>
+    <!-- Set tabs. Buttons in a tablist on the ink rule; mk is the default
+         (smallest, brand-most-relevant, instant). -->
+    <div class="mk-tabs browse__tabs" role="tablist" aria-label="Icon set">
+      <button class="mk-tabs__tab" role="tab" aria-selected="true" data-set="mk" id="tab-mk" aria-controls="results">MK</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="lucide" id="tab-lucide" aria-controls="results">LUCIDE</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false" data-set="ph" id="tab-ph" aria-controls="results">PHOSPHOR</button>
     </div>
 
-    <!-- Search. Labeled (label is visually compact but present), autofocus is
-         applied by JS on desktop only to avoid yanking the viewport on phones. -->
+    <!-- Search. Labeled (the typewriter label is the .mk-field default),
+         autofocus is applied by JS on desktop only to avoid yanking the
+         viewport on phones. -->
     <div class="mk-field browse__search">
-      <label for="icon-search">Search</label>
+      <label for="icon-search">SEARCH THE CATALOGUE</label>
       <input
         class="mk-input"
         type="search"
@@ -55,7 +57,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       />
     </div>
 
-    <p class="browse__count" id="result-count" aria-live="polite">Loading…</p>
+    <p class="browse__count" id="result-count" aria-live="polite">SETTING THE TYPE…</p>
 
     <!-- Results grid. Buttons only — keyboard accessible, visible focus. The
          grid is responsive from 360px via min-width queries. -->
@@ -63,13 +65,13 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
 
     <!-- Empty state, shown when a search matches nothing. -->
     <div class="mk-empty browse__empty" id="empty" hidden>
-      <p class="mk-empty__title">No matches</p>
-      <p class="mk-empty__message">Nothing in this set matches that name. Try a shorter term or another tab.</p>
+      <p class="mk-empty__title">NOTHING ON THE BILL</p>
+      <p class="mk-empty__message">No glyph in this set answers to that name. Try a shorter term or another department.</p>
     </div>
 
     <!-- Show-more reveals the next page of capped results. -->
     <div class="browse__more" id="more-wrap" hidden>
-      <button class="mk-btn" id="show-more" type="button">Show more</button>
+      <button class="mk-btn" id="show-more" type="button">SHOW MORE</button>
     </div>
 
     <!-- Polite live region for copy confirmation (announced to screen readers,
@@ -77,68 +79,71 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
     <p class="browse__sr" id="copy-status" role="status" aria-live="polite"></p>
   </div>
 
-  <!-- Visual copy confirmation toast. aria-hidden — the live region above carries
-       the accessible announcement. -->
+  <!-- Visual copy confirmation — a telegram slip at the footlights.
+       aria-hidden — the live region above carries the accessible
+       announcement. -->
   <div class="mk-toast" id="toast" aria-hidden="true" hidden></div>
 
   <style>
+    /* Layout only — the look comes from the library classes and tokens. */
     .hero {
-      padding-block: var(--mk-space-5) var(--mk-space-5);
+      padding-block: var(--mk-space-lg) var(--mk-space-xl);
     }
 
     .hero__lede {
-      font-size: var(--mk-text-lg);
-      color: var(--mk-color-text-muted);
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-body-lg);
+      color: var(--mk-color-text-secondary);
       max-width: 44ch;
     }
 
     .hero__lede strong {
-      color: var(--mk-color-text);
+      color: var(--mk-color-heading);
     }
 
-    /* Tabs + toast come from the library now (.mk-tabs / .mk-toast) —
-       this page hand-rolled both before they were promoted. */
-    .mk-tabs {
-      margin-bottom: var(--mk-space-4);
+    /* Tabs + toast come from the library (.mk-tabs / .mk-toast). */
+    .browse__tabs {
+      margin-bottom: var(--mk-space-md);
     }
 
-    /* Visible focus ring everywhere — moss, offset, no border anywhere else. */
+    /* Visible focus — the 2px ochre outline, the house focus treatment.
+       (Focus IS the view's accent spend on this page; the copied flash
+       below stays in ink for that reason.) */
     .mk-tabs__tab:focus-visible,
     .browse__cell:focus-visible,
     #show-more:focus-visible {
-      outline: 2px solid var(--mk-color-accent);
-      outline-offset: 2px;
+      outline: 2px solid var(--mk-color-focus);
+      outline-offset: 3px;
     }
 
     .browse__search {
-      margin-bottom: var(--mk-space-3);
+      margin-bottom: var(--mk-space-xs);
     }
 
-    /* Label present for a11y but kept tight (terse mono voice). */
-    .browse__search > label {
-      font-size: var(--mk-text-xs);
-      color: var(--mk-color-text-muted);
-    }
-
+    /* The running count — a typewriter dateline under the search slot. */
     .browse__count {
-      font-size: var(--mk-text-xs);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
+      letter-spacing: var(--mk-track-mono);
       color: var(--mk-color-text-muted);
-      margin-bottom: var(--mk-space-4);
+      margin-bottom: var(--mk-space-md);
       min-height: 1.2em; /* reserve space so the grid doesn't jump on update */
     }
 
-    /* Results grid — auto-fill from 360px. Cells are square-ish tonal blocks. */
+    /* Results grid — auto-fill from 360px. Each cell is a specimen slot in
+       the type tray: hairline rule (minor division), inset paper fill. */
     .browse__grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xxs);
     }
 
     .browse__cell {
       appearance: none;
-      border: 0;
-      border-radius: 0;
-      background: var(--mk-color-surface-1);
+      border: var(--mk-rule-hair);
+      border-radius: var(--mk-radius-control);
+      background: var(--mk-color-inset);
       color: var(--mk-color-text);
       font: inherit;
       cursor: pointer;
@@ -146,24 +151,25 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xxs);
       /* Even padding all around — names clamp instead of crowding the edges. */
-      padding: var(--mk-space-3);
+      padding: var(--mk-space-xs);
       min-height: 44px;
       text-align: center;
-      transition: background var(--mk-motion-quick) var(--mk-ease-out);
     }
 
+    /* Hover darkens to the pressed-plate fill — instantly; ink either is
+       or isn't. No transitions: motion is an event, never a hover state. */
     .browse__cell:hover {
-      background: var(--mk-color-surface-3);
+      background: var(--mk-color-plate);
     }
 
-    /* The glyph — currentColor, standalone-affordance size. The svg inside is
+    /* The glyph — heading ink, standalone-affordance size. The svg inside is
        set to 1em by iconToSVG, so font-size drives it. */
     .browse__glyph {
       font-size: var(--mk-icon-lg);
       line-height: 0;
-      color: var(--mk-color-text);
+      color: var(--mk-color-heading);
     }
 
     .browse__glyph svg {
@@ -173,13 +179,14 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
     }
 
     /*
-     * Name beneath, mono xs, muted. Clamped to exactly two lines AND
+     * Name beneath — typewriter, xs, muted. Clamped to exactly two lines AND
      * reserving two lines, so every cell is the same height whether its
      * name is "x" or "calendar-arrow-down" — uneven cells read as missing
      * padding. Full name lives in the title attribute.
      */
     .browse__name {
-      font-size: var(--mk-text-xs);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
       color: var(--mk-color-text-muted);
       max-width: 100%;
       overflow-wrap: anywhere;
@@ -191,21 +198,24 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       min-height: calc(2 * var(--mk-leading-tight) * 1em);
     }
 
-    /* Brief moss flash on the cell that was just copied. */
+    /* The just-copied cell reads as stamped: solid ink slug, paper text.
+       Ink, not ochre — the focus ring already spends this view's accent. */
     .browse__cell--copied {
-      background: var(--mk-color-accent-subtle);
+      background: var(--mk-color-ink-surface);
+      border-color: var(--mk-color-ink-surface);
     }
 
+    .browse__cell--copied .browse__glyph,
     .browse__cell--copied .browse__name {
-      color: var(--mk-color-on-accent-subtle);
+      color: var(--mk-color-text-on-ink);
     }
 
     .browse__empty {
-      margin-top: var(--mk-space-4);
+      margin-top: var(--mk-space-md);
     }
 
     .browse__more {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-lg);
       display: flex;
       justify-content: center;
     }
@@ -223,21 +233,17 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       border: 0;
     }
 
+    /* The copied class in the telegram, set in typewriter. */
     .mk-toast code {
-      color: var(--mk-color-accent);
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .browse__cell--copied {
-        transition: background var(--mk-motion-quick) var(--mk-ease-out);
-      }
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono);
     }
 
     /* Roomier cells once there's width to spare. min-width queries only. */
     @media (min-width: 30rem) {
       .browse__grid {
         grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-        gap: var(--mk-space-3);
+        gap: var(--mk-space-xs);
       }
     }
   </style>
@@ -327,6 +333,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
       }
 
       // Recompute the filtered list for the current query + set, reset paging.
+      // The count line is typewriter utility text, so it speaks in caps.
       function applyFilter() {
         const data = cache[activeSet];
         if (!data) return;
@@ -341,11 +348,11 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
         if (filtered.length === 0) {
           emptyEl.hidden = false;
           moreWrap.hidden = true;
-          countEl.textContent = `0 of ${total}`;
+          countEl.textContent = `0 OF ${total} GLYPHS`;
           return;
         }
         emptyEl.hidden = true;
-        countEl.textContent = `${filtered.length} of ${total}`;
+        countEl.textContent = `${filtered.length} OF ${total} GLYPHS`;
         renderPage();
       }
 
@@ -355,7 +362,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
           applyFilter();
           return;
         }
-        countEl.textContent = 'Loading…';
+        countEl.textContent = 'SETTING THE TYPE…';
         grid.innerHTML = '';
         emptyEl.hidden = true;
         moreWrap.hidden = true;
@@ -368,7 +375,7 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
           cache[set] = data;
           applyFilter();
         } catch {
-          countEl.textContent = 'Could not load icons. Try refreshing.';
+          countEl.textContent = 'THE CATALOGUE DID NOT ARRIVE · TRY REFRESHING';
         }
       }
 
@@ -389,13 +396,16 @@ const dataUrl = (set: string) => (base + `icons/data/${set}.json`).replace(/\/+/
           ta.remove();
         }
 
-        // Visual flash on the cell.
+        // Visual stamp on the cell.
         btn.classList.add('browse__cell--copied');
         window.setTimeout(() => btn.classList.remove('browse__cell--copied'), 700);
 
-        // Visual toast.
+        // The telegram slip. Hide, reflow, show — restarts the stepped
+        // entrance (a new telegram replaces the old, it never lingers).
+        toast.hidden = true;
+        toast.innerHTML = `COPIED · <code>${cls}</code>`;
+        void toast.offsetWidth;
         toast.hidden = false;
-        toast.innerHTML = `Copied <code>${cls}</code>`;
         window.clearTimeout((copyClass as any)._t);
         (copyClass as any)._t = window.setTimeout(() => { toast.hidden = true; }, 1600);
 

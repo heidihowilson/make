@@ -1,9 +1,15 @@
 # @sethmakes/tokens
 
-CSS custom properties for the **sethmakes** design language — the gray/moss ramp,
-the type/space/radius scales, motion durations/easings, and the self-hosted font.
-**Zero JS.** Every `@sethmakes/css` class and `@sethmakes/components` element reads
-these and only these; this package is the single source of color and scale.
+CSS custom properties for the **sethmakes** design language — **Vaudeville**, the
+printed-page vocabulary of *Gholson's Follies*: sepia duotone on aged newsprint,
+four typefaces with one job each, printed rules, letterpress shadows, and motion
+shot on twos. **Zero JS.** Every `@sethmakes/css` class and
+`@sethmakes/components` element reads these and only these; this package is the
+single source of colour and scale.
+
+House style, in one line: *1933 rubber-hose cartooning posed with rotoscoped
+weight, printed in sepia duotone on newsprint.* The metaphor is print, not
+screen — every surface is a sheet of aged newsprint lying on a dark stage floor.
 
 ## Install
 
@@ -18,49 +24,46 @@ pnpm add @sethmakes/tokens
 ```
 
 `index.css` defines the tokens on `:root`. `fonts.css` is split out so a consumer
-can take the tokens and stay on the system-mono fallback (skip the font download)
-by simply not importing it.
+can take the tokens and stay on the serif/mono system fallbacks (skip the font
+download) by simply not importing it.
 
 ## What's in `index.css`
 
-Two tiers. **Primitives** (the gray ramp, the moss ramp, status hues, raw
-scale values) feed **semantic tokens** — and only semantic tokens are public API.
-Components reference semantic names; never primitives, never raw values.
+Two tiers. **Primitives** (the sepia palette, the literal print scales) feed
+**semantic tokens** — and only semantic tokens are public API. Components
+reference semantic names; never primitives, never raw values.
 
 | Group | Semantic tokens |
 |---|---|
-| Surfaces | `--mk-color-bg`, `--mk-color-surface-1`, `--mk-color-surface-2`, `--mk-color-surface-3`, `--mk-color-field` |
-| Text | `--mk-color-text`, `--mk-color-text-muted`, `--mk-color-text-faint` |
-| Accent (moss) | `--mk-color-accent`, `--mk-color-accent-hover`, `--mk-color-accent-contrast`, `--mk-color-accent-subtle`, `--mk-color-on-accent-subtle` |
-| Status | `--mk-color-success`, `--mk-color-warning`, `--mk-color-danger` (each with a `-subtle` companion) |
-| Focus | `--mk-color-focus` |
-| Type scale | `--mk-text-xs … --mk-text-3xl`, `--mk-weight-regular/-medium/-bold`, `--mk-font-body` |
-| Space | `--mk-space-1 … --mk-space-8` |
-| Radius | `--mk-radius-control`, `--mk-radius-pill` (value is `0` by design — slots, not softness) |
-| Icon size | `--mk-icon-sm/-md/-lg` |
-| Motion | `--mk-motion-quick/-standard/-slow`, `--mk-ease-out` (and friends) |
+| Faces | `--mk-font-display` (Rye) · `--mk-font-marquee` (Limelight) · `--mk-font-typewriter` (Special Elite) · `--mk-font-body` (Sorts Mill Goudy) |
+| Surfaces | `--mk-color-stage`, `--mk-color-sheet`, `--mk-color-inset`, `--mk-color-plate`, `--mk-color-ink-surface` |
+| Text | `--mk-color-heading`, `--mk-color-text`, `--mk-color-text-secondary`, `--mk-color-text-muted`, `--mk-color-text-on-ink` |
+| Lines | `--mk-color-rule`, `--mk-color-rule-hair`, `--mk-color-rule-ghost` — plus composite rules `--mk-rule-double/-double-thin/-thick/-hair/-dash/-accent` |
+| Accent | `--mk-color-accent` (ochre — **rationed: one spot per view**), `--mk-color-link`, `--mk-color-link-hover` |
+| Status | `--mk-color-danger`, `--mk-color-warning`, `--mk-color-success` |
+| Focus | `--mk-color-focus` (the ochre outline) |
+| Shadows | `--mk-shadow-sheet`, `--mk-shadow-block`, `--mk-shadow-block-accent`, `--mk-shadow-press` — the complete set; there is no elevation scale |
+| Type scale | `--mk-size-title/-name/-dept/-player/-body/-quote/-mono…`, `--mk-leading-*`, `--mk-track-*` (tracking is the loudness dial) |
+| Space | `--mk-space-hair … --mk-space-5xl` — the literal print rhythm, not a 4/8 grid |
+| Radius | `--mk-radius-control`/`-surface` (`0` by design) and `--mk-radius-medallion` (`50%` — the circle is geometry, not softness) |
 | Elevation | `--mk-layer-chrome/-overlay/-toast` |
+| Motion | `--mk-frame` (83ms — one drawing at 12fps), `--mk-dur-beat/-enter/-reveal`, `--mk-steps-3/5/8`, `--mk-dur-key` + `--mk-ease-key` |
 
-> There is **no `info` color token** — moss is the only non-status hue. An
-> "informational" surface uses a tonal surface or the accent, not a blue.
+> Everything ships at weight 400. Loudness comes from face, size and tracking,
+> never boldness. There is no `info` colour, no blue, and no icon set — Unicode
+> glyphs (`←` `→` `·`), CSS-drawn controls and framed art do that work.
 
-## Light/dark
+## Modes
 
-One aesthetic, two modes. Every semantic color is a single `light-dark()` pair, so
-there are no per-component mode overrides. The mode is driven by `color-scheme`:
-system preference by default, with `[data-theme="light"]` / `[data-theme="dark"]`
-as explicit overrides on any ancestor.
-
-```css
-/* opt a whole app out of dark mode */
-html { color-scheme: light; }      /* or: <html data-theme="light"> */
-```
+**One.** The sheet-on-stage is the mode; a printed page has no dark variant.
+The old `light-dark()` machinery is gone — do not reintroduce `[data-theme]`
+switches in consumers.
 
 ## Fonts
 
-`fonts.css` self-hosts **JetBrains Mono** (latin subset, weights 400/600/700 —
-600 is SemiBold, deliberately mapped to `--mk-weight-medium`). It references the
-woff2 files with **relative** URLs (`url("./fonts/…")`).
+`fonts.css` self-hosts the four faces (latin subset, weight 400, plus the
+Sorts Mill Goudy italic). It references the woff2 files with **relative** URLs
+(`url("./fonts/…")`).
 
 - **Vite / Astro / most bundlers** rebase those URLs automatically. Nothing to do.
 - **Tailwind's standalone CLI does NOT rebase them.** The emitted CSS keeps
@@ -79,14 +82,15 @@ woff2 files with **relative** URLs (`url("./fonts/…")`).
   (serving the CSS from web root makes `./fonts/` → `/fonts/` line up). If your
   CSS is nested, vendor a tiny `@font-face` override pointing at the copied path.
 
-Skip `fonts.css` entirely to live on the system-mono fallback baked into
-`--mk-font-body` (`ui-monospace, "SF Mono", Menlo, Consolas, monospace`).
+Skip `fonts.css` to live on the fallbacks baked into the face tokens
+(Georgia-serif for prose, Courier-mono for the typewriter voice) — legible, but
+the brand arrives with the webfonts.
 
 ## Tailwind v4 bridge
 
 `tailwind.css` maps the semantic tokens into Tailwind's `@theme`, so utilities
-are token-driven: `bg-surface-1`, `text-accent`, `text-muted`,
-`bg-warning-subtle`, `font-body`. Import it after the token sheet:
+are token-driven: `bg-sheet`, `bg-stage`, `text-heading`, `border-rule`,
+`font-typewriter`. Import it after the token sheet:
 
 ```css
 @import "@sethmakes/tokens/index.css";
@@ -100,5 +104,4 @@ one source of truth beats three copies.
 
 Versions in **lockstep** with `@sethmakes/css`, `@sethmakes/components`, and
 `@sethmakes/icons` (a Changesets fixed group). A token rename or value change is a
-family bump. Pre-1.0:
-`0.x`, minor = breaking.
+family bump. Pre-1.0: `0.x`, minor = breaking.

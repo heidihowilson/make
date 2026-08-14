@@ -1,51 +1,71 @@
 @layer mk.components {
-  /* Badge — tonal */
+  /*
+   * Badge — a ticket stub: typewriter caps inside a printed 1px rule.
+   * The default stub is ink-on-inset; variants swap which line and ink
+   * carry the meaning. No fills of colour washes — a 1933 print shop
+   * tints with line and ink, not with pastel backgrounds.
+   */
   .mk-badge {
     display: inline-flex;
     align-items: center;
-    gap: var(--mk-space-2);
-    border-radius: var(--mk-radius-pill);
-    background: var(--mk-color-surface-3);
-    color: var(--mk-color-text-muted);
-    font-size: var(--mk-text-xs);
-    font-weight: var(--mk-weight-medium);
-    padding: 0.25em 0.9em;
-  }
-
-  .mk-badge--accent {
-    background: var(--mk-color-accent-subtle);
-    color: var(--mk-color-on-accent-subtle);
-  }
-
-  .mk-badge--success {
-    background: var(--mk-color-success-subtle);
-    color: var(--mk-color-success);
-  }
-
-  .mk-badge--warning {
-    background: var(--mk-color-warning-subtle);
-    color: var(--mk-color-warning);
-  }
-
-  .mk-badge--danger {
-    background: var(--mk-color-danger-subtle);
-    color: var(--mk-color-danger);
+    gap: 6px;
+    border: 1px solid var(--mk-color-rule);
+    border-radius: var(--mk-radius-control);
+    background: var(--mk-color-inset);
+    color: var(--mk-color-heading);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 9px 2px;
+    white-space: nowrap;
   }
 
   /*
-   * sm — dense list rows. Same type size (xs is already the floor of the
-   * scale); only the padding tightens, so dense badges stay legible.
+   * Accent — the ochre stub. Rationed like every accent: one per view.
+   * Outline treatment, not a fill — the ink is the colour.
    */
-  .mk-badge--sm {
-    padding: 0.1em 0.6em;
+  .mk-badge--accent {
+    border-color: var(--mk-color-accent);
+    color: var(--mk-color-accent);
+    background: transparent;
   }
 
-  /* Status dot — leading indicator in currentColor */
+  /* Success — a thing done is printed solid; done needs no colour. */
+  .mk-badge--success {
+    background: var(--mk-color-ink-surface);
+    border-color: var(--mk-color-ink-surface);
+    color: var(--mk-color-text-on-ink);
+  }
+
+  /* Warning — ochre, same outline voice as accent (they share the ration). */
+  .mk-badge--warning {
+    border-color: var(--mk-color-warning);
+    color: var(--mk-color-warning);
+    background: transparent;
+  }
+
+  /* Danger — the letterpress STOP red. */
+  .mk-badge--danger {
+    border-color: var(--mk-color-danger);
+    color: var(--mk-color-danger);
+    background: transparent;
+  }
+
+  /* sm — dense ledger rows; only the padding tightens. */
+  .mk-badge--sm {
+    padding: 1px 6px 0;
+  }
+
+  /*
+   * Status dot — a leading printed square in currentColor. Square, not
+   * round: the only round things in the system are the medallion and the
+   * radio.
+   */
   .mk-badge--dot::before {
     content: "";
     width: 0.5em;
     height: 0.5em;
-    border-radius: var(--mk-radius-pill);
     background: currentColor;
     flex: none;
   }

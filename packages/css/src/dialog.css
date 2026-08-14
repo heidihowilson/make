@@ -1,47 +1,53 @@
 @layer mk.components {
   /*
-   * Dialog — styling for the native <dialog>, the interaction policy's one
-   * sanctioned modal: one at a time, opened with showModal(), never
-   * spawning another (it morphs or it queues). The platform provides
-   * focus trapping, Esc, inertness and the top layer; the app provides
-   * the open/close calls; this file provides only the look.
+   * Dialog — a playbill sheet over the dimmed stage. Native <dialog>, the
+   * interaction policy's one sanctioned modal: one at a time, opened with
+   * showModal(), never spawning another (it morphs or it queues). The
+   * platform provides focus trapping, Esc, inertness and the top layer;
+   * this file provides only the look.
    *
-   * Note on layering: the native top layer supersedes z-index entirely —
-   * --mk-layer-overlay documents the policy tier but is not needed here;
-   * it exists for any future non-top-layer overlay.
+   * The entrance is an EVENT: the sheet drops in shot on twos — five
+   * stepped frames with one overshoot and a hard landing. Motion doctrine:
+   * overlays entering is one of the few motion events the language allows.
    *
    *   <dialog class="mk-dialog">
-   *     <h2 class="mk-dialog__title">Remove show?</h2>
+   *     <h2 class="mk-dialog__title">STRIKE THE SET?</h2>
    *     <p>…</p>
    *     <form method="dialog" class="mk-dialog__actions">
-   *       <button class="mk-btn">Cancel</button>
-   *       <button class="mk-btn mk-btn--danger" value="confirm">Remove</button>
+   *       <button class="mk-btn">KEEP IT</button>
+   *       <button class="mk-btn mk-btn--danger" value="confirm">STRIKE IT</button>
    *     </form>
    *   </dialog>
    */
   .mk-dialog {
-    border: 0; /* native-chrome reset, not a design border */
-    padding: var(--mk-space-5);
-    background: var(--mk-color-surface-1);
-    color: var(--mk-color-text);
+    border: var(--mk-rule-thick);
     border-radius: var(--mk-radius-surface);
-    width: min(92vw, 32rem);
-    /* No shadow: the scrim does the separating — flat language holds even
-       in the top layer. */
+    padding: var(--mk-space-lg) var(--mk-space-xl);
+    background: var(--mk-color-sheet);
+    color: var(--mk-color-text);
+    font-family: var(--mk-font-body);
+    width: min(560px, calc(100vw - 40px));
+    /* The sheet shadow — a dialog is a small sheet lifted off the stage. */
+    box-shadow: var(--mk-shadow-sheet);
   }
 
   .mk-dialog::backdrop {
-    /* Scrim — the one place content is dimmed. Token-driven so both modes
-       tune independently (light mode needs a heavier hand: a pale page
-       barely darkens). */
+    /* The dimmed house — warm dark, never a cool grey wash. */
     background: var(--mk-color-scrim);
   }
 
+  /* Title — a marquee heading over a 3px double head rule. */
   .mk-dialog__title {
-    font-size: var(--mk-text-lg);
-    font-weight: var(--mk-weight-bold);
+    font-family: var(--mk-font-marquee);
+    font-size: var(--mk-size-dept);
+    font-weight: 400;
+    letter-spacing: var(--mk-track-dept);
+    color: var(--mk-color-heading);
     line-height: var(--mk-leading-tight);
-    margin-block: 0 var(--mk-space-3);
+    margin-block: 0 var(--mk-space-sm);
+    padding-bottom: var(--mk-space-xs);
+    border-bottom: var(--mk-rule-double-thin);
+    text-align: center;
   }
 
   /* Action row — method="dialog" form; primary action sits at the end. */
@@ -49,30 +55,39 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: var(--mk-space-3);
-    margin-top: var(--mk-space-5);
+    gap: var(--mk-space-sm);
+    margin-top: var(--mk-space-lg);
   }
 
-  /* Quiet entrance for dialog + scrim — guarded; static under reduce. */
+  /* Entrance — dropped in on fives, holding the last frame. */
   @media (prefers-reduced-motion: no-preference) {
     .mk-dialog[open] {
-      animation: mk-dialog-in var(--mk-motion-standard) var(--mk-ease-out);
+      animation: mk-dialog-drop var(--mk-dur-enter) var(--mk-steps-5) both;
     }
 
     .mk-dialog[open]::backdrop {
-      animation: mk-scrim-in var(--mk-motion-standard) var(--mk-ease-out);
+      animation: mk-scrim-in var(--mk-dur-beat) var(--mk-steps-3) both;
     }
   }
 
-  @keyframes mk-dialog-in {
-    from {
+  @keyframes mk-dialog-drop {
+    0% {
+      transform: translateY(-22px);
       opacity: 0;
-      transform: translateY(var(--mk-space-2));
     }
 
-    to {
+    55% {
+      transform: translateY(4px);
       opacity: 1;
-      transform: translateY(0);
+    }
+
+    75% {
+      transform: translateY(-2px);
+    }
+
+    100% {
+      transform: none;
+      opacity: 1;
     }
   }
 

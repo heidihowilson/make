@@ -1,11 +1,14 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /*
- * Visual regression for the design system, keeping DESIGN-LANGUAGE.md's
- * promise: "visual regression runs in both modes." The docs site is the
- * test fixture — every component page screenshotted in light and dark at
- * phone and desktop widths. A token tweak that silently changes rendered
- * pixels fails CI here before it reaches the consumers.
+ * Visual regression for the design system. The docs site is the test
+ * fixture — every component page screenshotted at phone and desktop
+ * widths. A token tweak that silently changes rendered pixels fails CI
+ * here before it reaches the consumers.
+ *
+ * ONE mode: the Vaudeville language is single-mode by design (the sheet
+ * on the stage floor has no dark variant), so the old light/dark matrix
+ * is gone.
  *
  * Animations are neutralized two ways: reducedMotion (our global guard
  * collapses transitions/animations) and Playwright's animations:disabled.
@@ -19,8 +22,8 @@ export default defineConfig({
   expect: {
     toHaveScreenshot: {
       animations: 'disabled',
-      // Mono webfont is self-hosted and deterministic; keep the threshold
-      // tight so tonal-step changes (the whole design language) get caught.
+      // The four faces are self-hosted and deterministic; keep the
+      // threshold tight so palette/rule changes get caught.
       maxDiffPixelRatio: 0.001,
     },
   },
@@ -29,20 +32,12 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'light-desktop',
-      use: { ...devices['Desktop Chrome'], colorScheme: 'light', viewport: { width: 1280, height: 900 } },
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } },
     },
     {
-      name: 'dark-desktop',
-      use: { ...devices['Desktop Chrome'], colorScheme: 'dark', viewport: { width: 1280, height: 900 } },
-    },
-    {
-      name: 'light-mobile',
-      use: { ...devices['Desktop Chrome'], colorScheme: 'light', viewport: { width: 390, height: 844 } },
-    },
-    {
-      name: 'dark-mobile',
-      use: { ...devices['Desktop Chrome'], colorScheme: 'dark', viewport: { width: 390, height: 844 } },
+      name: 'mobile',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 } },
     },
   ],
   webServer: {

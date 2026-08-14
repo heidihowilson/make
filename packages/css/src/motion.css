@@ -1,0 +1,201 @@
+@layer mk.utilities {
+  /*
+   * Motion — "shot on twos". A 1933 cartoon runs at 12 drawings a second
+   * with rotoscoped weight: anticipation, one overshoot, a hard landing,
+   * then a held frame. House motion is STEPPED (steps(), one frame ≈
+   * 83ms), never smoothly eased — except the 90ms button key-press.
+   *
+   * Motion is an EVENT, not a state: overlay entrances, telegram
+   * arrivals, alarms, one art reveal per page. Nothing animates on scroll
+   * or hover; nothing idles except the rationed marquee flicker (once per
+   * page). Apply a class; the animation runs once and holds its last
+   * frame.
+   */
+
+  /* Iris — the silent-film circle wipe, for the one art reveal per page. */
+  .mk-iris-in {
+    animation: mk-iris-in var(--mk-dur-reveal) var(--mk-steps-8) both;
+  }
+
+  @keyframes mk-iris-in {
+    from {
+      clip-path: circle(0% at 50% 50%);
+    }
+
+    to {
+      clip-path: circle(120% at 50% 50%);
+    }
+  }
+
+  /* Curtain — rises from the bottom edge. */
+  .mk-curtain-in {
+    animation: mk-curtain-in var(--mk-dur-reveal) var(--mk-steps-8) both;
+  }
+
+  @keyframes mk-curtain-in {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  /* Settle — rises, overshoots once, lands hard. For sheets and panels. */
+  .mk-settle-in {
+    animation: mk-settle-in var(--mk-dur-enter) var(--mk-steps-5) both;
+  }
+
+  @keyframes mk-settle-in {
+    0% {
+      transform: translateY(14px);
+      opacity: 0;
+    }
+
+    60% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+
+    80% {
+      transform: translateY(2px);
+    }
+
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  /* Drop — falls from above and bounces to rest. For telegrams, dialogs. */
+  .mk-drop-in {
+    animation: mk-drop-in var(--mk-dur-enter) var(--mk-steps-5) both;
+  }
+
+  @keyframes mk-drop-in {
+    0% {
+      transform: translateY(-18px);
+      opacity: 0;
+    }
+
+    55% {
+      transform: translateY(3px);
+      opacity: 1;
+    }
+
+    75% {
+      transform: translateY(-1px);
+    }
+
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  /* Stamp — arrives oversized and strikes down. For badges and verdicts. */
+  .mk-stamp-in {
+    animation: mk-stamp-in var(--mk-dur-beat) var(--mk-steps-3) both;
+  }
+
+  @keyframes mk-stamp-in {
+    0% {
+      transform: scale(1.25);
+      opacity: 0;
+    }
+
+    60% {
+      transform: scale(0.97);
+      opacity: 1;
+    }
+
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  /* Typewriter line — pair with white-space:nowrap on a line that fits. */
+  .mk-typeline {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    animation: mk-typeline 1.1s steps(22, end) both;
+  }
+
+  @keyframes mk-typeline {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  /* The marquee flicker — the ONE idle loop allowed, once per page. */
+  .mk-flicker {
+    animation: mk-flicker 3.2s steps(1, end) infinite;
+  }
+
+  @keyframes mk-flicker {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    7% {
+      opacity: 0.72;
+    }
+
+    9% {
+      opacity: 1;
+    }
+
+    54% {
+      opacity: 1;
+    }
+
+    56% {
+      opacity: 0.85;
+    }
+
+    58% {
+      opacity: 1;
+    }
+  }
+
+  /* Staggering — on a parent whose children carry an entrance class. */
+  .mk-bill-order > *:nth-child(2) {
+    animation-delay: calc(var(--mk-frame) * 2);
+  }
+
+  .mk-bill-order > *:nth-child(3) {
+    animation-delay: calc(var(--mk-frame) * 4);
+  }
+
+  .mk-bill-order > *:nth-child(4) {
+    animation-delay: calc(var(--mk-frame) * 6);
+  }
+
+  .mk-bill-order > *:nth-child(n + 5) {
+    animation-delay: calc(var(--mk-frame) * 8);
+  }
+
+  /* The global reduce guard in base.css collapses all of these, but
+     clip-path entrances also need their held frame cleared. */
+  @media (prefers-reduced-motion: reduce) {
+    .mk-iris-in,
+    .mk-curtain-in,
+    .mk-typeline {
+      animation: none;
+      clip-path: none;
+    }
+
+    .mk-flicker {
+      animation: none;
+    }
+  }
+}

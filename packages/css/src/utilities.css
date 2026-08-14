@@ -1,8 +1,9 @@
 @layer mk.utilities {
   /*
-   * Link reset — for composite links (card-as-link, nav tabs, logos) where
-   * the global accent-and-underline treatment is wrong. Lives in the
-   * utilities layer so it beats mk.base without specificity games.
+   * Link reset — for composite links (a framed picture, a masthead, a
+   * nav slug) where the global link-ink-and-underline treatment is wrong.
+   * Lives in the utilities layer so it beats mk.base without specificity
+   * games.
    */
   .mk-link-reset {
     color: inherit;
@@ -14,24 +15,17 @@
   }
 
   /*
-   * Icon sizing + alignment helper. Mask-style icons (the Iconify
-   * @iconify/tailwind4 model — icon-[lucide--check] emits a mask + bg) are
-   * rendered on a bare element with no intrinsic box. This gives that
-   * element a box and drops it onto the mono baseline. It styles ANY
-   * element carrying a mask class, so we make zero assumptions about
-   * markup — compose it: <span class="mk-icon icon-[lucide--check]">.
+   * Icon sizing + alignment helper. The house has NO icon set — Unicode
+   * glyphs, CSS-drawn controls and framed art do that work — but consumer
+   * builds may still emit mask-style glyphs (the Iconify tailwind4 model).
+   * This gives that bare element a box on the typewriter baseline. Prefer
+   * a Special Elite caps label; if a glyph must appear, keep it in ink.
    */
   .mk-icon {
     display: inline-block;
     width: var(--mk-icon-md);
     height: var(--mk-icon-md);
-    /*
-     * Optical baseline correction. An icon box is square and sits on the
-     * baseline by default, so its visual center floats above mono text's
-     * x-height/cap-height midline. Nudging up by ~0.18em re-centers the
-     * glyph against the surrounding mono line — tuned for the 1.25em-ish
-     * box these tokens produce, not a magic number for its own sake.
-     */
+    /* Optical baseline correction against the typewriter x-height. */
     vertical-align: -0.18em;
     /* Never let a flex/grid parent stretch or shrink the icon. */
     flex: none;

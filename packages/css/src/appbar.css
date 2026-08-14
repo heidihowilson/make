@@ -1,44 +1,52 @@
 @layer mk.components {
   /*
-   * App bar — sticky app chrome. The translucent surface + backdrop blur is
-   * the one sanctioned translucency in the language: chrome floats over
-   * scrolling content, everything else is opaque tonal. Sits on the chrome
-   * elevation layer (below overlays and toasts, by policy). Safe-area
-   * padded for notched devices.
+   * App bar — the masthead nav rail, NOT floating chrome. The old sticky
+   * translucent bar is retired: nothing in this language is fixed or
+   * sticky, and nothing is translucent — the page scrolls like paper and
+   * the bar scrolls with it. What remains is a ruled nav row in the
+   * typewriter voice, boxed by the rules that divide a front page.
    */
   .mk-appbar {
-    position: sticky;
-    top: 0;
-    z-index: var(--mk-layer-chrome);
+    position: static;
     display: flex;
     align-items: center;
-    gap: var(--mk-space-4);
-    padding-block: var(--mk-space-3);
-    padding-inline: max(var(--mk-space-4), env(safe-area-inset-left))
-      max(var(--mk-space-4), env(safe-area-inset-right));
-    background: color-mix(in oklch, var(--mk-color-surface-1) 88%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    gap: var(--mk-space-3xl);
+    padding-block: var(--mk-space-sm);
+    padding-inline: max(var(--mk-space-md), env(safe-area-inset-left))
+      max(var(--mk-space-md), env(safe-area-inset-right));
+    background: var(--mk-color-sheet);
+    border-top: var(--mk-rule-thick);
+    border-bottom: var(--mk-rule-hair);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: var(--mk-track-nav);
+    text-transform: uppercase;
+  }
+
+  .mk-appbar a {
+    color: var(--mk-color-heading);
+  }
+
+  .mk-appbar a:hover {
+    color: var(--mk-color-link-hover);
+    text-decoration: none;
   }
 
   /*
-   * Bottom variant — mobile tab-bar chrome. Same surface, pinned to the
-   * bottom edge, padded past the home indicator.
+   * Bottom variant — the page footer rail: slugs above the foot rule.
+   * Also not pinned; a paper's colophon lives at the end of the paper.
    */
   .mk-appbar--bottom {
-    top: auto;
-    bottom: 0;
-    padding-block: var(--mk-space-2)
-      max(var(--mk-space-2), env(safe-area-inset-bottom));
+    border-top: var(--mk-rule-double-thin);
+    border-bottom: 0;
+    letter-spacing: var(--mk-track-nav-sm);
+    color: var(--mk-color-text-muted);
   }
 
   /*
-   * App shell — the document contract the chrome depends on. The bars are
-   * sticky, not fixed, so a bottom bar only pins to the viewport edge when
-   * the page can push it there: a full-height column with a growing main.
-   * Both early consumers discovered this the hard way; the shell IS the
-   * contract, shipped as code. (Not a layout primitive — those stay the
-   * app's job. This exists solely so mk-appbar--bottom works.)
+   * App shell — kept as the document contract (full-height column with a
+   * growing main) so a footer rail sits at the viewport bottom on short
+   * pages. The bars themselves no longer pin.
    *
    *   <body class="mk-shell">
    *     <header class="mk-appbar">…</header>
@@ -54,5 +62,13 @@
 
   .mk-shell__main {
     flex: 1 0 auto;
+  }
+
+  @media (max-width: 740px) {
+    .mk-appbar {
+      gap: var(--mk-space-md);
+      letter-spacing: var(--mk-track-nav-sm);
+      flex-wrap: wrap;
+    }
   }
 }

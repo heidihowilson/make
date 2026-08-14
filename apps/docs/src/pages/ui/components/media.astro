@@ -5,41 +5,41 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Media">
   <h1>Media</h1>
   <p>
-    Aspect-ratio thumbs that crop to fill, a server-rendered initials fallback
-    for the no-image path, tonal skeletons, and captioned figures. Zero radius,
-    zero borders — the box is a tonal slot.
+    Art is always framed: a 2px ink rule, a 6px newsprint mat, and the hard
+    4px letterpress offset. Full-bleed imagery is never used — the frame is
+    how a picture sits on a printed page. Pending slots are dashed; nothing
+    shimmers.
   </p>
 
   <section class="mk-card">
-    <h2>Thumb ratios</h2>
+    <h2>FRAMED ART</h2>
     <p>
-      A <code>.mk-thumb</code> sets the aspect ratio and crops its
-      <code>&lt;img&gt;</code> with <code>object-fit: cover</code>. Default is a
-      poster (2/3); <code>--square</code> is 1/1 and <code>--video</code> is
-      16/9.
+      A <code>.mk-thumb</code> mats and crops its <code>&lt;img&gt;</code>
+      with <code>object-fit: cover</code>. The default window is a poster
+      (2/3); <code>--square</code> is 1/1 and <code>--video</code> is 16/9.
     </p>
     <div class="row">
       <div class="ratio-cell">
         <div class="mk-thumb">
-          <div class="mk-thumb__fallback">S</div>
+          <div class="mk-thumb__fallback">T</div>
         </div>
         <p class="cap">poster · 2/3</p>
       </div>
       <div class="ratio-cell">
         <div class="mk-thumb mk-thumb--square">
-          <div class="mk-thumb__fallback">T</div>
+          <div class="mk-thumb__fallback">A</div>
         </div>
         <p class="cap">square · 1/1</p>
       </div>
       <div class="ratio-cell">
         <div class="mk-thumb mk-thumb--video">
-          <div class="mk-thumb__fallback">P</div>
+          <div class="mk-thumb__fallback">W</div>
         </div>
         <p class="cap">video · 16/9</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-thumb"&gt;
-  &lt;img src="/poster.jpg" alt="Severance" /&gt;
+  &lt;img src="/portrait.jpg" alt="Mr. Taylor, mid-apology" /&gt;
 &lt;/div&gt;
 
 &lt;div class="mk-thumb mk-thumb--square"&gt;…&lt;/div&gt;
@@ -47,45 +47,45 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
-    <h2>Initials fallback</h2>
+    <h2>THE UNENGRAVED PORTRAIT</h2>
     <p>
-      The no-image path. tv-tracker renders <code>.mk-thumb__fallback</code> on
-      the server when a poster is missing — it fills the box with a deeper tonal
-      surface and a single large mono initial. No image request, no layout
-      shift.
+      The no-image path: render <code>.mk-thumb__fallback</code> on the
+      server when the portrait is missing. The frame holds a large marquee
+      initial on the plate tone — a playbill whose engraving has not come
+      back from the shop. No image request, no layout shift.
     </p>
     <div class="row">
       <div class="ratio-cell">
         <div class="mk-thumb">
-          <div class="mk-thumb__fallback">S</div>
+          <div class="mk-thumb__fallback">T</div>
         </div>
-        <p class="cap">Severance</p>
+        <p class="cap">Tim Taylor</p>
+      </div>
+      <div class="ratio-cell">
+        <div class="mk-thumb">
+          <div class="mk-thumb__fallback">J</div>
+        </div>
+        <p class="cap">Jill Taylor</p>
       </div>
       <div class="ratio-cell">
         <div class="mk-thumb">
           <div class="mk-thumb__fallback">A</div>
         </div>
-        <p class="cap">Andor</p>
-      </div>
-      <div class="ratio-cell">
-        <div class="mk-thumb">
-          <div class="mk-thumb__fallback">T</div>
-        </div>
-        <p class="cap">The Bear</p>
+        <p class="cap">Al Borland</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-thumb"&gt;
-  &lt;div class="mk-thumb__fallback"&gt;S&lt;/div&gt;
+  &lt;div class="mk-thumb__fallback"&gt;T&lt;/div&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Skeleton</h2>
+    <h2>DASHED SLOTS</h2>
     <p>
-      A tonal shimmer for loading state — gradient sweep between surface-2 and
-      surface-3, guarded by <code>prefers-reduced-motion</code> (static
-      surface-2 when reduced). Drop one inside a thumb, or use
-      <code>--text</code> for line shims.
+      A pending picture is a <code>.mk-skeleton</code> — a dashed plate
+      meaning nothing is printed here yet. No shimmer; nothing idles in this
+      language. Nest one in a thumb, or use <code>--text</code> for line
+      shims.
     </p>
     <div class="row">
       <div class="ratio-cell">
@@ -107,40 +107,40 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
-    <h2>Figure with caption</h2>
+    <h2>FIGURE WITH CAPTION</h2>
     <p>
-      Wrap media in <code>.mk-figure</code> for a muted, small caption beneath.
-      No chrome — only the caption is styled.
+      Wrap framed art in <code>.mk-figure</code> for a typewriter caption
+      slug beneath — the way a strip panel carries its dateline.
     </p>
     <div class="row">
       <figure class="mk-figure" style="max-width: 9rem">
         <div class="mk-thumb">
-          <div class="mk-thumb__fallback">S</div>
+          <div class="mk-thumb__fallback">W</div>
         </div>
-        <figcaption>Severance — s2e1, aired Jan 2026.</figcaption>
+        <figcaption>MR. WILSON W. WILSON · SEEN ONLY TO THE BRIM OF HIS HAT</figcaption>
       </figure>
     </div>
     <pre><code>&lt;figure class="mk-figure"&gt;
   &lt;div class="mk-thumb"&gt;
-    &lt;img src="/poster.jpg" alt="Severance" /&gt;
+    &lt;img src="/wilson.jpg" alt="Mr. Wilson at the fence" /&gt;
   &lt;/div&gt;
-  &lt;figcaption&gt;Severance — s2e1, aired Jan 2026.&lt;/figcaption&gt;
+  &lt;figcaption&gt;MR. WILSON W. WILSON · AT THE FENCE&lt;/figcaption&gt;
 &lt;/figure&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Poster grid</h2>
+    <h2>THE PORTRAIT WALL</h2>
     <p>
-      Grids are the app's problem, not the library's — there is no
-      <code>.mk-grid</code>. Lay thumbs out with your own CSS grid; the page-local
-      style below is the whole recipe.
+      Grids are the app&rsquo;s problem, not the library&rsquo;s — there is
+      no <code>.mk-grid</code>. Lay frames out with your own CSS grid; the
+      page-local style below is the whole recipe.
     </p>
     <div class="poster-grid">
-      <div class="mk-thumb"><div class="mk-thumb__fallback">S</div></div>
-      <div class="mk-thumb"><div class="mk-thumb__fallback">A</div></div>
       <div class="mk-thumb"><div class="mk-thumb__fallback">T</div></div>
-      <div class="mk-thumb"><div class="mk-thumb__fallback">F</div></div>
-      <div class="mk-thumb"><div class="mk-thumb__fallback">D</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">J</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">A</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">B</div></div>
+      <div class="mk-thumb"><div class="mk-thumb__fallback">W</div></div>
       <div class="mk-thumb"><div class="mk-skeleton"></div></div>
     </div>
     <pre><code>&lt;ul class="poster-grid"&gt;
@@ -150,59 +150,80 @@ import Base from '../../../layouts/Ui.astro';
 /* app CSS — not shipped by the library */
 .poster-grid &#123;
   display: grid;
-  gap: var(--mk-space-3);
+  gap: var(--mk-space-md);
   grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
 &#125;</code></pre>
   </section>
 
   <style>
     section.mk-card + section.mk-card {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-2xl);
     }
 
     .row {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      gap: var(--mk-space-4);
+      gap: var(--mk-space-lg);
     }
 
     .ratio-cell {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xs);
       width: 8rem;
     }
 
-    .ratio-cell .cap,
     .cap {
       margin: 0;
-      font-size: var(--mk-text-xs);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
+      letter-spacing: 0.08em;
       color: var(--mk-color-text-muted);
     }
 
     .lines {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-2);
+      gap: var(--mk-space-xs);
       flex: 1;
       min-width: 12rem;
     }
 
-    /* Poster grid is page-local on purpose — the library ships no grid. */
+    /* The portrait wall is page-local on purpose — the library ships no grid. */
     .poster-grid {
       display: grid;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-md);
       grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
     }
 
     pre {
-      margin-top: var(--mk-space-4);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-xs);
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
       overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>

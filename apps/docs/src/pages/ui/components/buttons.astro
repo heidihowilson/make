@@ -5,181 +5,193 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Buttons">
   <h1>Buttons &amp; badges</h1>
   <p>
-    Native <code>&lt;button&gt;</code> styled by class — tonal by default, moss
-    fill for primary, status fills for danger. Badges are tonal status pills.
+    A button is a struck typewriter key: a plate in a 2px ink rule with the
+    hard letterpress offset. Pressing it drives the plate into its own shadow
+    — the one smooth motion in the language, 90ms and mechanical. Badges are
+    ticket stubs.
   </p>
 
   <section class="mk-card">
-    <h2>Variants</h2>
-    <p>Tonal default, moss primary, transparent ghost, destructive danger.</p>
+    <h2>THE PLATES</h2>
+    <p>
+      The default plate, solid-ink primary, the ghost nav-link key, the STOP
+      red, and the ochre warning plate. The warning plate spends the
+      view&rsquo;s one accent ration — a page with an ochre button has no
+      other ochre spot.
+    </p>
     <div class="row">
-      <button class="mk-btn mk-btn--primary">Mark watched</button>
-      <button class="mk-btn">Default</button>
-      <button class="mk-btn mk-btn--ghost">Ghost</button>
-      <button class="mk-btn mk-btn--warning">Re-run anyway</button>
-      <button class="mk-btn mk-btn--danger">Remove show</button>
+      <button class="mk-btn mk-btn--primary">Print the bill</button>
+      <button class="mk-btn">Hold for notes</button>
+      <button class="mk-btn mk-btn--ghost">See the programme</button>
+      <button class="mk-btn mk-btn--warning">Mind the sawdust</button>
+      <button class="mk-btn mk-btn--danger">Strike the set</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--primary"&gt;Mark watched&lt;/button&gt;
-&lt;button class="mk-btn"&gt;Default&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--ghost"&gt;Ghost&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--warning"&gt;Re-run anyway&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--danger"&gt;Remove show&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary"&gt;Print the bill&lt;/button&gt;
+&lt;button class="mk-btn"&gt;Hold for notes&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--ghost"&gt;See the programme&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--warning"&gt;Mind the sawdust&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--danger"&gt;Strike the set&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Sizes</h2>
+    <h2>SIZES</h2>
     <p>
-      xs through large. xs is for pointer-dense UIs (table rows, list
-      actions) — it sits below the 44px touch floor, so prefer sm on
-      touch-first surfaces or give the row itself the tap target.
+      Tracking tightens as the plate shrinks; the face never swaps. The xs
+      key is for pointer-dense ledgers — it sits below the 44px touch floor,
+      so prefer sm on touch-first surfaces or give the row itself the tap
+      target.
     </p>
     <div class="row" style="align-items: center;">
-      <button class="mk-btn mk-btn--xs">Tiny</button>
-      <button class="mk-btn mk-btn--sm">Small</button>
-      <button class="mk-btn">Default</button>
-      <button class="mk-btn mk-btn--lg">Large</button>
+      <button class="mk-btn mk-btn--xs">Cut</button>
+      <button class="mk-btn mk-btn--sm">Hold</button>
+      <button class="mk-btn">Print</button>
+      <button class="mk-btn mk-btn--lg">Curtain up</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--xs"&gt;Tiny&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--sm"&gt;Small&lt;/button&gt;
-&lt;button class="mk-btn"&gt;Default&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--lg"&gt;Large&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--xs"&gt;Cut&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--sm"&gt;Hold&lt;/button&gt;
+&lt;button class="mk-btn"&gt;Print&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--lg"&gt;Curtain up&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Active</h2>
+    <h2>HELD DOWN</h2>
     <p>
-      An honest selected state for nav tabs, segmented choices, and toggles —
-      accent-subtle, so it reads "chosen" without competing with primary
-      actions. Pair with <code>aria-current</code> or
-      <code>aria-pressed</code>.
+      <code>--active</code> is an honest selected state for segmented choices
+      and nav keys: the pressed geometry becomes the resting state — the key
+      is held down. Pair it with <code>aria-pressed</code> or
+      <code>aria-current</code>.
     </p>
     <div class="row">
-      <button class="mk-btn mk-btn--ghost mk-btn--active" aria-pressed="true">Watching</button>
-      <button class="mk-btn mk-btn--ghost">Completed</button>
-      <button class="mk-btn mk-btn--ghost">Queued</button>
+      <button class="mk-btn mk-btn--active" aria-pressed="true">Evening</button>
+      <button class="mk-btn" aria-pressed="false">Matinee</button>
+      <button class="mk-btn" aria-pressed="false">Midnight</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--ghost mk-btn--active" aria-pressed="true"&gt;Watching&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--ghost"&gt;Completed&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--active" aria-pressed="true"&gt;Evening&lt;/button&gt;
+&lt;button class="mk-btn" aria-pressed="false"&gt;Matinee&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Tabs</h2>
+    <h2>SOLD OUT</h2>
     <p>
-      A segmented row where exactly one choice is current — set switchers,
-      view filters, theme pickers. Selection answers to
-      <code>aria-selected</code>, <code>aria-current</code>, or
-      <code>--active</code>: the styling hook is the semantics. Promoted after
-      two consumers and our own icon browser built it from loose buttons.
+      Disabled empties the plate: faded text, tan rule, no shadow, no press.
+      Nothing is greyed with opacity — the house simply prints
+      &ldquo;sold out&rdquo; across the ticket window.
     </p>
-    <div class="mk-tabs" role="tablist" aria-label="Tool Time crew">
-      <button class="mk-tabs__tab" role="tab" aria-selected="true">Tim</button>
-      <button class="mk-tabs__tab" role="tab" aria-selected="false">Al</button>
-      <button class="mk-tabs__tab" role="tab" aria-selected="false">Heidi</button>
-    </div>
-    <pre><code>&lt;div class="mk-tabs" role="tablist" aria-label="Tool Time crew"&gt;
-  &lt;button class="mk-tabs__tab" role="tab" aria-selected="true"&gt;Tim&lt;/button&gt;
-  &lt;button class="mk-tabs__tab" role="tab" aria-selected="false"&gt;Al&lt;/button&gt;
-&lt;/div&gt;</code></pre>
-  </section>
-
-  <section class="mk-card">
-    <h2>Disabled</h2>
-    <p>Dimmed, no hover, default cursor — every variant.</p>
     <div class="row">
-      <button class="mk-btn mk-btn--primary" disabled>Primary</button>
-      <button class="mk-btn" disabled>Default</button>
-      <button class="mk-btn mk-btn--ghost" disabled>Ghost</button>
-      <button class="mk-btn mk-btn--danger" disabled>Danger</button>
+      <button class="mk-btn mk-btn--primary" disabled>Sold out</button>
+      <button class="mk-btn" disabled>Sold out</button>
+      <button class="mk-btn mk-btn--ghost" disabled>Sold out</button>
+      <button class="mk-btn mk-btn--danger" disabled>Sold out</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--primary" disabled&gt;Primary&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary" disabled&gt;Sold out&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Block</h2>
-    <p>Full-width — useful in narrow forms and mobile sheets.</p>
-    <div style="display: flex; flex-direction: column; gap: var(--mk-space-3); max-width: 22rem;">
-      <button class="mk-btn mk-btn--primary mk-btn--block">Next episode</button>
-      <button class="mk-btn mk-btn--block">Skip</button>
+    <h2>THE FULL MEASURE</h2>
+    <p><code>--block</code> runs the key the full width of the column — narrow forms, phone sheets.</p>
+    <div style="display: flex; flex-direction: column; gap: var(--mk-space-sm); max-width: 22rem;">
+      <button class="mk-btn mk-btn--primary mk-btn--block">Book the act</button>
+      <button class="mk-btn mk-btn--block">Ask the neighbour first</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--primary mk-btn--block"&gt;Next episode&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary mk-btn--block"&gt;Book the act&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Icon</h2>
-    <p>Square 44×44 target for a single glyph or svg. Always label it.</p>
+    <h2>SINGLE-GLYPH KEYS</h2>
+    <p>
+      A square 44&times;44 plate for one glyph. House doctrine: there is no
+      line-icon set — Unicode glyphs stand in the icon position. Always give
+      the key an <code>aria-label</code>.
+    </p>
     <div class="row">
-      <button class="mk-btn mk-btn--icon" aria-label="Play episode">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </button>
-      <button class="mk-btn mk-btn--primary mk-btn--icon" aria-label="Add to watchlist">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
-          <path d="M12 5v14M5 12h14" />
-        </svg>
-      </button>
-      <button class="mk-btn mk-btn--danger mk-btn--icon" aria-label="Delete">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
-          <path d="M6 7h12M9 7V5h6v2M8 7l1 12h6l1-12" />
-        </svg>
-      </button>
-      <button class="mk-btn mk-btn--icon" aria-label="Play episode" disabled>
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </button>
+      <button class="mk-btn mk-btn--icon" aria-label="Previous act">&larr;</button>
+      <button class="mk-btn mk-btn--primary mk-btn--icon" aria-label="Add to the bill">+</button>
+      <button class="mk-btn mk-btn--danger mk-btn--icon" aria-label="Strike from the bill">&times;</button>
+      <button class="mk-btn mk-btn--icon" aria-label="Next act" disabled>&rarr;</button>
     </div>
-    <pre><code>&lt;button class="mk-btn mk-btn--icon" aria-label="Play episode"&gt;
-  &lt;svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"&gt;
-    &lt;path d="M8 5v14l11-7z" /&gt;
-  &lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+    <pre><code>&lt;button class="mk-btn mk-btn--icon" aria-label="Previous act"&gt;&amp;larr;&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--primary mk-btn--icon" aria-label="Add to the bill"&gt;+&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Badges</h2>
-    <p>Tonal status pills; add <code>--dot</code> for a leading status dot.</p>
+    <h2>TICKET STUBS</h2>
+    <p>
+      Badges are printed stubs: typewriter caps in a 1px rule. Success prints
+      solid ink — a thing done needs no colour. Accent and warning share the
+      ochre ration; add <code>--dot</code> for a leading printed square.
+    </p>
     <div class="row">
-      <span class="mk-badge">neutral</span>
-      <span class="mk-badge mk-badge--accent">featured</span>
-      <span class="mk-badge mk-badge--success">watched</span>
-      <span class="mk-badge mk-badge--warning">behind</span>
+      <span class="mk-badge">on the bill</span>
+      <span class="mk-badge mk-badge--accent">held over</span>
+      <span class="mk-badge mk-badge--success">performed</span>
+      <span class="mk-badge mk-badge--warning">one night only</span>
       <span class="mk-badge mk-badge--danger">cancelled</span>
     </div>
     <div class="row">
-      <span class="mk-badge mk-badge--dot mk-badge--success">airing</span>
-      <span class="mk-badge mk-badge--dot mk-badge--warning">on break</span>
-      <span class="mk-badge mk-badge--dot mk-badge--danger">ended</span>
-      <span class="mk-badge mk-badge--dot">unknown</span>
+      <span class="mk-badge mk-badge--dot mk-badge--success">now playing</span>
+      <span class="mk-badge mk-badge--dot mk-badge--warning">intermission</span>
+      <span class="mk-badge mk-badge--dot mk-badge--danger">dark tonight</span>
+      <span class="mk-badge mk-badge--dot">unbilled</span>
     </div>
     <div class="row" style="align-items: center;">
-      <span class="mk-badge mk-badge--sm mk-badge--success">sm</span>
-      <span class="mk-badge mk-badge--success">default</span>
-      <span style="color: var(--mk-color-text-muted); font-size: var(--mk-text-sm);">— sm tightens padding for dense list rows; type stays legible</span>
+      <span class="mk-badge mk-badge--sm">sm</span>
+      <span class="mk-badge">default</span>
+      <span class="note">— sm tightens the stub for dense ledger rows; the type stays legible</span>
     </div>
-    <pre><code>&lt;span class="mk-badge mk-badge--success"&gt;watched&lt;/span&gt;
-&lt;span class="mk-badge mk-badge--dot mk-badge--success"&gt;airing&lt;/span&gt;
-&lt;span class="mk-badge mk-badge--sm mk-badge--success"&gt;dense&lt;/span&gt;</code></pre>
+    <pre><code>&lt;span class="mk-badge mk-badge--success"&gt;performed&lt;/span&gt;
+&lt;span class="mk-badge mk-badge--dot mk-badge--danger"&gt;dark tonight&lt;/span&gt;
+&lt;span class="mk-badge mk-badge--sm"&gt;dense&lt;/span&gt;</code></pre>
   </section>
 
   <style>
     .row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
+    }
+
+    .row + .row {
+      margin-top: var(--mk-space-sm);
+    }
+
+    .note {
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
+      letter-spacing: 0.06em;
+      color: var(--mk-color-text-muted);
     }
 
     section.mk-card + section.mk-card {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-2xl);
     }
 
     pre {
-      margin-top: var(--mk-space-4);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-xs);
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
       overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>

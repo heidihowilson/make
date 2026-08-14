@@ -5,178 +5,221 @@ import Base from '../../../layouts/Ui.astro';
 <Base title="Surfaces">
   <h1>Surfaces</h1>
   <p>
-    Containers and structure built from tonal background shifts — cards, tables,
-    dividers, and disclosures. No borders, no radius; hierarchy is steps in gray.
+    Structure is printed, not floated: panels are 2px ink rules, the table is
+    the ledger, dividers are rules with fixed meanings, disclosures are
+    programme notes, and tabs are departments on a rule.
   </p>
 
   <section class="mk-card">
-    <h2>Card</h2>
+    <h2>PANEL</h2>
     <p>
-      Raised tonal surface. Nest a <code>--sunken</code> card to recede a step;
-      use <code>--flush</code> for edge-to-edge media.
+      A <code>.mk-card</code> is a panel — a 2px ink rule around an inset
+      fill. <code>--sunken</code> drops to a quiet 1px tan hairline for
+      asides; <code>--flush</code> removes the padding so framed art meets
+      the rule edge to edge.
     </p>
     <div class="mk-card mk-card--sunken">
-      <strong>Continue watching</strong>
-      <p style="margin: var(--mk-space-2) 0 0; color: var(--mk-color-text-muted);">
-        A sunken card sits at surface-2, one tonal step below its parent.
+      <strong>From the wings</strong>
+      <p style="margin: var(--mk-space-xxs) 0 0; color: var(--mk-color-text-muted);">
+        The quiet panel — a hairline aside that does not compete with boxed
+        content.
       </p>
     </div>
-    <div class="mk-card mk-card--flush" style="margin-top: var(--mk-space-4); max-width: 18rem;">
-      <div style="aspect-ratio: 16 / 9; background: var(--mk-color-surface-3); display: flex; align-items: center; justify-content: center; color: var(--mk-color-text-faint); font-size: var(--mk-text-xs);">poster</div>
-      <div style="padding: var(--mk-space-4);">
-        <strong>Severance</strong>
-        <p style="margin: var(--mk-space-1) 0 0; color: var(--mk-color-text-muted); font-size: var(--mk-text-sm);">Season 2 · drama</p>
+    <div class="mk-card mk-card--flush" style="margin-top: var(--mk-space-md); max-width: 18rem;">
+      <div style="aspect-ratio: 16 / 9; background: var(--mk-color-plate); display: grid; place-content: center; color: var(--mk-color-text-muted); font-family: var(--mk-font-marquee); font-size: var(--mk-size-dept);">T</div>
+      <div style="padding: var(--mk-panel-pad);">
+        <strong>Tool Time</strong>
+        <p style="margin: 2px 0 0; color: var(--mk-color-text-muted); font-style: italic;">nightly · sponsored by Binford</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-card"&gt;
-  &lt;div class="mk-card mk-card--sunken"&gt;Nested&lt;/div&gt;
+  &lt;div class="mk-card mk-card--sunken"&gt;A quiet aside&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="mk-card mk-card--flush"&gt;&lt;img …&gt;&lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Table</h2>
+    <h2>THE LEDGER</h2>
     <p>
-      Full-width and mono-friendly. Tonal header, hover rows, right-aligned
-      numeric cells. Wrap it to scroll on narrow screens.
+      Typewriter caps over a 2px ink rule, Goudy figures on hairline rows,
+      and a 3px double rule closing the account in <code>tfoot</code>.
+      Numeric cells take <code>__num</code>; wrap the whole book in
+      <code>.mk-table-wrap</code> so it scrolls inside its own rules.
     </p>
     <div class="mk-table-wrap">
       <table class="mk-table">
         <thead>
           <tr>
-            <th scope="col">Title</th>
-            <th scope="col" class="mk-table__num">Season</th>
-            <th scope="col" class="mk-table__num">Watched</th>
+            <th scope="col">Act</th>
+            <th scope="col" class="mk-table__num">Nights</th>
+            <th scope="col" class="mk-table__num">Receipts</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Severance</td>
-            <td class="mk-table__num">2</td>
-            <td class="mk-table__num">7</td>
-          </tr>
-          <tr>
-            <td>The Bear</td>
-            <td class="mk-table__num">3</td>
-            <td class="mk-table__num">10</td>
-          </tr>
-          <tr>
-            <td>Andor</td>
-            <td class="mk-table__num">1</td>
+            <td>Tim Taylor · More Power</td>
             <td class="mk-table__num">12</td>
+            <td class="mk-table__num">$1,240.50</td>
+          </tr>
+          <tr>
+            <td>Wilson · Over the Fence</td>
+            <td class="mk-table__num">8</td>
+            <td class="mk-table__num">$612.00</td>
+          </tr>
+          <tr>
+            <td>Al Borland &amp; His Flannel Revue</td>
+            <td class="mk-table__num">5</td>
+            <td class="mk-table__num">$301.25</td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td>IN TOTAL</td>
+            <td class="mk-table__num">25</td>
+            <td class="mk-table__num">$2,153.75</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
     <pre><code>&lt;div class="mk-table-wrap"&gt;
   &lt;table class="mk-table"&gt;
     &lt;thead&gt;&lt;tr&gt;
-      &lt;th scope="col"&gt;Title&lt;/th&gt;
-      &lt;th scope="col" class="mk-table__num"&gt;Watched&lt;/th&gt;
+      &lt;th scope="col"&gt;Act&lt;/th&gt;
+      &lt;th scope="col" class="mk-table__num"&gt;Receipts&lt;/th&gt;
     &lt;/tr&gt;&lt;/thead&gt;
     &lt;tbody&gt;&lt;tr&gt;
-      &lt;td&gt;Severance&lt;/td&gt;
-      &lt;td class="mk-table__num"&gt;7&lt;/td&gt;
+      &lt;td&gt;Tim Taylor · More Power&lt;/td&gt;
+      &lt;td class="mk-table__num"&gt;$1,240.50&lt;/td&gt;
     &lt;/tr&gt;&lt;/tbody&gt;
+    &lt;tfoot&gt;&lt;tr&gt;
+      &lt;td&gt;IN TOTAL&lt;/td&gt;
+      &lt;td class="mk-table__num"&gt;$2,153.75&lt;/td&gt;
+    &lt;/tr&gt;&lt;/tfoot&gt;
   &lt;/table&gt;
 &lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Divider</h2>
-    <p>A 1px tonal line, drawn as a background shift. Optional centered label.</p>
-    <p style="margin: 0; color: var(--mk-color-text-muted);">Recently watched</p>
+    <h2>PRINTED RULES</h2>
+    <p>
+      Rules do the dividing, and each weight has a fixed meaning. Pick the
+      rule for what the break means, not for taste. The accent rule spends
+      the ochre ration — use it once, if at all.
+    </p>
+    <p class="rule-note">default · 1px tan — a minor division</p>
     <hr class="mk-divider" />
-    <p style="margin: 0; color: var(--mk-color-text-muted);">Up next</p>
-    <div class="mk-divider mk-divider--label"><span>archived</span></div>
-    <p style="margin: 0; color: var(--mk-color-text-muted);">Cancelled shows</p>
+    <p class="rule-note">--thick · 2px ink — a department underline</p>
+    <hr class="mk-divider mk-divider--thick" />
+    <p class="rule-note">--double · 4px double — a major section break</p>
+    <hr class="mk-divider mk-divider--double" />
+    <p class="rule-note">--double-thin · 3px double — the footer break</p>
+    <hr class="mk-divider mk-divider--double-thin" />
+    <p class="rule-note">--dash · nothing is printed here yet</p>
+    <hr class="mk-divider mk-divider--dash" />
+    <p class="rule-note">--accent · the ochre rule — rationed</p>
+    <hr class="mk-divider mk-divider--accent" />
+    <p class="rule-note">--label · a typewriter slug flanked by hairlines</p>
+    <div class="mk-divider mk-divider--label"><span>intermission</span></div>
     <pre><code>&lt;hr class="mk-divider" /&gt;
-&lt;div class="mk-divider mk-divider--label"&gt;&lt;span&gt;archived&lt;/span&gt;&lt;/div&gt;</code></pre>
+&lt;hr class="mk-divider mk-divider--double" /&gt;
+&lt;div class="mk-divider mk-divider--label"&gt;&lt;span&gt;intermission&lt;/span&gt;&lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>Disclosure</h2>
+    <h2>PROGRAMME NOTES</h2>
     <p>
-      Native <code>&lt;details&gt;</code> with a styled summary, a rotating caret,
-      and a tonal content body.
+      Native <code>&lt;details&gt;</code> between hairline rules. The marker
+      is a typewriter + that becomes &minus; when the note is open — the
+      glyph swaps instantly, like set type.
     </p>
     <details class="mk-disclosure">
-      <summary>Episode notes</summary>
+      <summary>A NOTE ON THE PYROTECHNICS</summary>
       <div class="mk-disclosure__body">
-        Mark Scout returns to the severed floor. The MDR team uncovers a fourth
-        macrodata file and the overtime contingency is finally explained.
+        The management wishes to assure patrons that the flames in Act II are
+        entirely intentional, and that Mr. Borland stands in the wings with
+        the extinguisher as always.
       </div>
     </details>
-    <details class="mk-disclosure" open style="margin-top: var(--mk-space-3);">
-      <summary>Spoilers (open by default)</summary>
+    <details class="mk-disclosure" open>
+      <summary>ON THE MATTER OF THE FENCE</summary>
       <div class="mk-disclosure__body">
-        Add the <code>open</code> attribute to expand on load. The caret rotates
-        down; motion is disabled under reduced-motion.
+        Mr. Wilson appears by arrangement with his garden, and is seen only
+        to the brim of his hat. Add the <code>open</code> attribute to unfold
+        a note on load.
       </div>
     </details>
     <pre><code>&lt;details class="mk-disclosure"&gt;
-  &lt;summary&gt;Episode notes&lt;/summary&gt;
+  &lt;summary&gt;A NOTE ON THE PYROTECHNICS&lt;/summary&gt;
   &lt;div class="mk-disclosure__body"&gt;…&lt;/div&gt;
 &lt;/details&gt;</code></pre>
   </section>
 
   <section class="mk-card">
-    <h2>App bar</h2>
+    <h2>DEPARTMENTS</h2>
     <p>
-      Sticky app chrome — translucent surface + backdrop blur, the one
-      sanctioned translucency in the language. Sits on the
-      <code>--mk-layer-chrome</code> elevation token (below overlays and
-      toasts, by policy). Safe-area padded. <code>--bottom</code> pins it as
-      mobile tab-bar chrome. Demoed here inside a scrollable box; in an app
-      it sticks to the viewport.
+      Tabs are departments on a 2px ink rule; the current department
+      overprints it with its own ink underline. Selection answers to
+      <code>aria-selected</code>, <code>aria-current</code>, or
+      <code>--active</code> — the styling hook is the semantics. Tabs wrap
+      rather than overflow the rule.
     </p>
-    <div class="appbar-demo">
-      <header class="mk-appbar">
-        <strong>tv-tracker</strong>
-        <nav style="display: flex; gap: var(--mk-space-4); margin-left: auto;">
-          <a class="mk-link-reset" href="#appbar-demo">shows</a>
-          <a class="mk-link-reset" href="#appbar-demo">upcoming</a>
-        </nav>
-      </header>
-      <p>Scroll me — the bar stays put while content slides under the blur.</p>
-      <p>Note the nav links use <code>mk-link-reset</code>: composite links
-      (nav tabs, card-as-link, logos) opt out of the global accent-and-underline
-      treatment.</p>
-      <p>More filler so there is something to scroll.</p>
-      <p>Even more filler.</p>
-      <p>Last one.</p>
+    <div class="mk-tabs" role="tablist" aria-label="Departments of the house">
+      <button class="mk-tabs__tab" role="tab" aria-selected="true">Stage</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false">Carpentry</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false">Wardrobe</button>
+      <button class="mk-tabs__tab" role="tab" aria-selected="false">Front of house</button>
     </div>
-    <pre><code>&lt;header class="mk-appbar"&gt;
-  &lt;strong&gt;tv-tracker&lt;/strong&gt;
-  &lt;nav&gt;&lt;a class="mk-link-reset" href="/shows"&gt;shows&lt;/a&gt;…&lt;/nav&gt;
-&lt;/header&gt;
-
-&lt;nav class="mk-appbar mk-appbar--bottom"&gt;…&lt;/nav&gt;</code></pre>
+    <pre><code>&lt;div class="mk-tabs" role="tablist" aria-label="Departments"&gt;
+  &lt;button class="mk-tabs__tab" role="tab" aria-selected="true"&gt;Stage&lt;/button&gt;
+  &lt;button class="mk-tabs__tab" role="tab" aria-selected="false"&gt;Carpentry&lt;/button&gt;
+&lt;/div&gt;</code></pre>
   </section>
 
   <style>
-    .appbar-demo {
-      height: 11rem;
-      overflow-y: auto;
-      background: var(--mk-color-bg);
-      margin-bottom: var(--mk-space-4);
+    .rule-note {
+      margin: var(--mk-space-md) 0 0;
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-xs);
+      letter-spacing: 0.06em;
+      color: var(--mk-color-text-muted);
     }
 
-    .appbar-demo > p {
-      padding-inline: var(--mk-space-4);
+    /* Tighten the demo rules so the meanings read as a chart. */
+    .rule-note + .mk-divider {
+      margin: var(--mk-space-xs) 0 0;
     }
 
     section.mk-card + section.mk-card {
-      margin-top: var(--mk-space-5);
+      margin-top: var(--mk-space-2xl);
     }
 
     pre {
-      margin-top: var(--mk-space-4);
-      padding: var(--mk-space-3) var(--mk-space-4);
-      background: var(--mk-color-surface-2);
-      color: var(--mk-color-text);
-      font-size: var(--mk-text-xs);
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
       overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
     }
   </style>
 </Base>

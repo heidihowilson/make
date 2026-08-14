@@ -25,9 +25,9 @@ SSR matters — consumers are SSR-first frameworks (Remix v2/v3, SvelteKit).
 | Editor support | **custom-elements manifest** | Autocomplete in any consuming framework |
 | Styling | **Hand-written modern CSS** with cascade layers (`@layer mk.reset, mk.base, mk.components, mk.utilities`) | Zero toolchain coupling; trivially overridable without specificity wars |
 | Tokens | **CSS custom properties**, two tiers: primitives → semantic | Industry standard; portable everywhere |
-| Tailwind bridge | `@sethmakes/tokens/tailwind.css` — Tailwind v4 `@theme` mapping (shipped 2026-06-05 after tv-tracker and eat both hand-rolled it) | Tailwind consumers get `bg-surface-1`, `text-accent`, `font-body` etc. driven by our tokens; one source of truth |
+| Tailwind bridge | `@sethmakes/tokens/tailwind.css` — Tailwind v4 `@theme` mapping (shipped 2026-06-05 after tv-tracker and eat both hand-rolled it) | Tailwind consumers get `bg-sheet`, `text-heading`, `font-typewriter` etc. driven by our tokens; one source of truth |
 
-**Token rule:** components only ever reference **semantic** tokens (`--mk-color-bg`, not a raw hex or primitive). This is what makes dark mode a token swap instead of a rewrite.
+**Token rule:** components only ever reference **semantic** tokens (`--mk-color-sheet`, not a raw hex or primitive). This is what made the 2026-08-13 re-theme (terminal → Vaudeville) a token swap instead of a component rewrite.
 
 ## Package boundaries
 
@@ -35,7 +35,7 @@ Three packages, published publicly to npm under `@sethmakes/*`:
 
 | Package | Contents | JS? |
 |---|---|---|
-| `@sethmakes/tokens` | CSS custom properties, light/dark themes, Tailwind `@theme` bridge | No |
+| `@sethmakes/tokens` | CSS custom properties (single-mode Vaudeville), the four self-hosted faces, Tailwind `@theme` bridge | No |
 | `@sethmakes/css` | Class-based styles for native HTML (depends on tokens) | No |
 | `@sethmakes/components` | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes |
 
@@ -58,7 +58,7 @@ A consumer wanting only the look pulls tokens + css and ships zero JS.
 
 ## Versioning & releases
 
-- **Lockstep versioning for the design-system family** (tokens/css/components/icons) via a Changesets fixed group — "the design system is at 0.4.0." Icons joined the group 2026-06-05: the brand icon vocabulary is part of the design language, and Seth prefers one number for the whole system over avoiding occasional empty bumps. Future unrelated packages (e.g. a utils package) version **independently**; lockstep is per package family, not repo-wide.
+- **Lockstep versioning for the design-system family** (tokens/css/components) via a Changesets fixed group — "the design system is at 0.4.0." Icons joined the group 2026-06-05 ("the brand icon vocabulary is part of the design language") and **left it 2026-08-14**: Vaudeville has no icon set, so that rationale no longer holds — `@sethmakes/icons` versions independently again, as a consumer-app tool rather than a language surface. Future unrelated packages also version **independently**; lockstep is per package family, not repo-wide.
 - **Changesets**: every behavior-changing PR adds a changeset; release PR aggregates; merge → GitHub Actions publishes to npm.
 - **Public packages** — free CDN via unpkg/jsdelivr, zero auth friction in consumers.
 - **Pre-1.0 policy:** stay at `0.x` (minor = breaking) until the **third** real project adopts the library. No premature 1.0.

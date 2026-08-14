@@ -7,55 +7,64 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
 
 const components = [
-  { href: '/ui/components/typography', name: 'typography', desc: 'Monospace scale, prose, headings.' },
-  { href: '/ui/components/buttons', name: 'buttons', desc: 'Tonal, primary, ghost, danger, badges.' },
-  { href: '/ui/components/forms', name: 'forms', desc: 'Filled inputs, selects, choices, switches.' },
-  { href: '/ui/components/surfaces', name: 'surfaces', desc: 'Cards, tables, dividers, disclosure.' },
-  { href: '/ui/components/feedback', name: 'feedback', desc: 'Alerts, badges, progress, spinners.' },
-  { href: '/ui/components/media', name: 'media', desc: 'Thumbnails, figures, skeletons.' },
+  { href: '/ui/components/typography', name: 'typography', desc: 'the four faces, prose, headings' },
+  { href: '/ui/components/buttons', name: 'buttons', desc: 'struck keys, ticket-stub badges' },
+  { href: '/ui/components/forms', name: 'forms', desc: 'inputs, choices, the stage lever' },
+  { href: '/ui/components/surfaces', name: 'surfaces', desc: 'panels, the ledger, printed rules' },
+  { href: '/ui/components/feedback', name: 'feedback', desc: 'notices, telegrams, typing dots' },
+  { href: '/ui/components/media', name: 'media', desc: 'framed art, figures, dashed slots' },
 ];
 ---
 
 <Base title="ui">
   <header class="hero">
+    <p class="mk-kicker">THE HEADLINE ACT</p>
     <h1>sethmakes-ui</h1>
     <p class="hero__lede">
-      The toolbox's UI library — framework-neutral packages implementing one
-      design language: <strong>terminal bones, calm surface.</strong>
+      the toolbox&rsquo;s UI library — framework-neutral packages printing one
+      design language: Vaudeville, the house style of Gholson&rsquo;s Follies
     </p>
   </header>
 
-  <section class="mk-card" aria-labelledby="what">
-    <h2 id="what">What it is</h2>
-    <p>
-      Monospace type everywhere, zero corner radius, flat tonal surfaces with
-      <strong>zero borders</strong> — hierarchy comes from background shifts, not
-      lines. One muted moss-green hero accent fills primary actions and marks
-      links and focus; functional status colors exist only to mean things.
-      Density sits in the comfortable middle, and motion is quietly alive.
-      A machine voice, not a costume.
+  <hr class="mk-divider mk-divider--double" />
+
+  <section aria-labelledby="what">
+    <h2 id="what">What It Is</h2>
+    <p class="prose">
+      The metaphor is print, not screen: every page is a sheet of aged
+      newsprint on a dark stage floor. Sepia duotone ink throughout; four
+      faces, each with one job — Rye for mastheads, Limelight for department
+      headings, Special Elite for the typewriter utility voice, Sorts Mill
+      Goudy for prose. Printed rules do the dividing, corners are square,
+      and ochre is the only warm accent — rationed to one spot per view.
+      Motion is shot on twos: stepped, event-only, never on scroll or hover.
+      If a 1933 letterpress shop plus one warm ink could not do it, it does
+      not belong.
     </p>
-    <p>
+    <p class="prose">
       Decided from rendered directions, not questionnaires — the decision
-      trail lives in the repo's design docs.
+      trail lives in the repo&rsquo;s design docs.
     </p>
   </section>
 
   <section aria-labelledby="components">
-    <h2 id="components">Components</h2>
+    <h2 id="components">The Departments</h2>
     <ul class="index">
       {components.map((c) => (
         <li class="mk-card index__item">
-          <a class="index__link" href={link(c.href)}>{c.name} →</a>
+          <a class="mk-link-reset index__link" href={link(c.href)}>{c.name} →</a>
           <span class="index__desc">{c.desc}</span>
         </li>
       ))}
     </ul>
   </section>
 
-  <section class="mk-card" aria-labelledby="install">
-    <h2 id="install">Install</h2>
-    <p>Pull tokens + css for the look with zero JS, then import them once.</p>
+  <section aria-labelledby="install">
+    <h2 id="install">Admission</h2>
+    <p class="prose">
+      Pull tokens + css for the whole look with zero JS, then import them
+      once — order matters, since the css package defines no tokens.
+    </p>
     <pre><code>pnpm add @sethmakes/tokens @sethmakes/css</code></pre>
     <pre><code>/* app entry CSS */
 @import "@sethmakes/tokens/index.css";
@@ -63,19 +72,20 @@ const components = [
 @import "@sethmakes/css/index.css";</code></pre>
     <p class="install-note">
       <strong>Fonts note:</strong> fonts.css references its woff2 files with
-      relative URLs. Vite rebases these automatically; Tailwind's standalone
-      CLI does not — copy <code>node_modules/@sethmakes/tokens/fonts/</code>
-      into your public assets at build time if fonts 404.
+      relative URLs. Vite rebases these automatically; Tailwind&rsquo;s
+      standalone CLI does not — copy
+      <code>node_modules/@sethmakes/tokens/fonts/</code> into your public
+      assets at build time if the four faces 404.
     </p>
 
     <h3 id="tailwind">With Tailwind v4</h3>
-    <p>
+    <p class="prose">
       sethmakes-ui and Tailwind coexist by design — Tailwind handles layout,
       sethmakes handles components. Two rules: import sethmakes
-      <em>first</em>, and skip Tailwind's preflight (it lands after
+      <em>first</em>, and skip Tailwind&rsquo;s preflight (it lands after
       <code>mk.base</code> in the cascade and overwrites heading and link
-      styles). sethmakes' reset zeroes <code>body</code> only, so bring a
-      small margin reset of your own:
+      styles). sethmakes&rsquo; reset zeroes <code>body</code> only, so bring
+      a small margin reset of your own:
     </p>
     <pre><code>/* app entry CSS — order matters */
 @import "@sethmakes/tokens/index.css";
@@ -97,8 +107,8 @@ const components = [
       fights.
     </p>
 
-    <h3 id="standalone-cli">With Tailwind's standalone CLI</h3>
-    <p>
+    <h3 id="standalone-cli">With Tailwind&rsquo;s standalone CLI</h3>
+    <p class="prose">
       Apps that compile with <code>@tailwindcss/cli</code> (no Vite, no
       PostCSS) follow the same layering, plus <strong>one gotcha</strong>: the
       standalone CLI does not rebase relative <code>url()</code>s, so
@@ -129,37 +139,33 @@ const components = [
     </p>
   </section>
 
-  <section class="mk-card" aria-labelledby="migrate-daisy">
-    <h2 id="migrate-daisy">Migrating off DaisyUI</h2>
-    <p>
-      Coming from a DaisyUI app pinned to one theme (the
-      <code>data-theme="nord"</code> shape)? Remove <code>@plugin
-      "daisyui"</code> and the theme pin. sethmakes drives every color through
-      <code>color-scheme</code> + <code>light-dark()</code> on the system
-      preference, so you <strong>gain dark mode for free</strong> — or pin
-      <code>&lt;html data-theme="light"&gt;</code> to stay single-mode.
+  <section aria-labelledby="migrate-daisy">
+    <h2 id="migrate-daisy">Migrating Off DaisyUI</h2>
+    <p class="prose">
+      Coming from a DaisyUI app pinned to one theme? Remove <code>@plugin
+      "daisyui"</code>, the theme pin, and any theme switcher along with it —
+      sethmakes is <strong>single mode by design</strong>. There is no dark
+      variant of a printed page; the sheet-on-stage is the mode.
     </p>
-    <p>Remap the daisy tokens you were using:</p>
+    <p class="prose">Remap the daisy tokens you were using:</p>
     <ul class="remap">
-      <li><code>base-100</code> → <code>--mk-color-bg</code></li>
-      <li><code>base-200</code> → <code>--mk-color-surface-1</code></li>
-      <li><code>base-300</code> → <code>--mk-color-surface-2</code> / <code>-3</code></li>
+      <li><code>base-100</code> → <code>--mk-color-sheet</code></li>
+      <li><code>base-200</code> → <code>--mk-color-inset</code></li>
+      <li><code>base-300</code> → <code>--mk-color-plate</code></li>
       <li><code>base-content</code> → <code>--mk-color-text</code></li>
       <li><code>base-content/50</code> → <code>--mk-color-text-muted</code></li>
-      <li><code>base-content/40</code> → <code>--mk-color-text-faint</code></li>
-      <li><code>primary</code> → <code>--mk-color-accent</code></li>
-      <li><code>primary-content</code> → <code>--mk-color-accent-contrast</code></li>
+      <li><code>primary</code> → <code>--mk-color-accent</code> — and mind the ration: one ochre spot per view</li>
       <li><code>warning</code> → <code>--mk-color-warning</code></li>
       <li><code>error</code> → <code>--mk-color-danger</code></li>
-      <li><code>info</code> → no color token — use a tonal surface or <code>.mk-alert--info</code></li>
+      <li><code>info</code> → no color token — use a panel or <code>.mk-alert--info</code></li>
     </ul>
     <p class="install-note">
-      There is deliberately no blue "info" hue: moss is the only non-status
-      accent.
+      There is deliberately no blue &ldquo;info&rdquo; hue: ochre is the only
+      accent in the world, and even that is rationed.
     </p>
 
     <h3 id="migrate-e2e">Playwright selectors</h3>
-    <p>
+    <p class="prose">
       The restyle changes <strong>classes, not roles, labels, or routes</strong>.
       Two kinds of selector to know about:
     </p>
@@ -168,87 +174,89 @@ const components = [
       <li><strong>These survive untouched</strong> — <code>getByRole</code>, <code>getByPlaceholder</code>, <code>getByText</code>, <code>form[action=…]</code>, button labels, and native <code>confirm()</code> dialog auto-accept. The library changes how things look, not what they are.</li>
     </ul>
     <p class="install-note">
-      Prefer role/label/placeholder selectors going forward — they don't break
-      on the next restyle.
+      Prefer role/label/placeholder selectors going forward — they don&rsquo;t
+      break on the next restyle.
     </p>
   </section>
 
-  <section class="mk-card" aria-labelledby="recipes">
+  <section aria-labelledby="recipes">
     <h2 id="recipes">Recipes</h2>
 
     <h3 id="recipe-bottom-nav">Mobile bottom tab bar</h3>
-    <p>
-      The library ships the chrome — <code>.mk-appbar--bottom</code> is a
-      fixed-to-bottom translucent surface, safe-area padded (the one sanctioned
-      translucency). The per-tab layout (icon over a tiny label, a fixed tab
-      height) is app layout, so Tailwind owns it. Mark the active tab with the
-      accent color token; render adult-only or conditional tabs server-side.
+    <p class="prose">
+      The library ships the chrome — <code>.mk-appbar--bottom</code> is the
+      ruled rail at the bottom edge (nothing in the language is sticky; the
+      rail sits in flow, pinned by <code>.mk-shell</code>). The per-tab
+      layout (glyph over a tiny typewriter label, a fixed tab height) is app
+      layout, so Tailwind owns it. There is no line-icon set in this
+      language — Unicode glyphs stand in icon positions. Mark the active tab
+      with the accent token; that spends the view&rsquo;s ochre ration.
     </p>
     <pre><code>&lt;nav class="mk-appbar mk-appbar--bottom" aria-label="Primary"&gt;
   &lt;a href="/" class="mk-link-reset flex flex-col items-center gap-1
                      min-h-[56px] justify-center
                      text-[color:var(--mk-color-accent)]"&gt;
-    &lt;span class="mk-icon icon-[mk--home]"&gt;&lt;/span&gt;
-    &lt;span class="text-[11px]"&gt;Home&lt;/span&gt;
+    &lt;span class="mk-icon" aria-hidden="true"&gt;⌂&lt;/span&gt;
+    &lt;span class="text-[11px]"&gt;HOME&lt;/span&gt;
   &lt;/a&gt;
   &lt;a href="/week" class="mk-link-reset flex flex-col items-center gap-1
                          min-h-[56px] justify-center"&gt;
-    &lt;span class="mk-icon icon-[mk--calendar]"&gt;&lt;/span&gt;
-    &lt;span class="text-[11px]"&gt;Week&lt;/span&gt;
+    &lt;span class="mk-icon" aria-hidden="true"&gt;☰&lt;/span&gt;
+    &lt;span class="text-[11px]"&gt;WEEK&lt;/span&gt;
   &lt;/a&gt;
   &#123;/* conditional tab — render only when allowed */&#125;
 &lt;/nav&gt;</code></pre>
     <p class="install-note">
-      <code>.mk-link-reset</code> strips the moss link color/underline so the
-      tab paints its own state; the active color reads
-      <code>var(--mk-color-accent)</code> directly so it tracks light/dark.
+      <code>.mk-link-reset</code> strips the link ink and underline so the
+      tab paints its own state.
     </p>
 
     <h3 id="recipe-loading">Loading &amp; async states</h3>
-    <p>
+    <p class="prose">
       Fully server-rendered apps need none of these — but when you add client
-      interactivity the vocabulary is already here:
-      <code>.mk-spinner</code> (<code>--sm</code> / <code>--md</code>),
-      <code>.mk-progress</code> (drop <code>value</code> for an indeterminate
-      bar), and <code>.mk-skeleton</code> / <code>.mk-skeleton--text</code>.
-      All reduced-motion guarded. See the
+      interactivity the waiting vocabulary is already here:
+      <code>.mk-spinner</code> (typewriter typing dots — never a wheel),
+      <code>.mk-progress</code> (ink in a ruled trough; drop
+      <code>value</code> for the marching-hatch indeterminate state), and
+      <code>.mk-skeleton</code> / <code>.mk-skeleton--text</code> (dashed
+      &ldquo;not printed yet&rdquo; slots — no shimmer). See the
       <a href={link('/ui/components/feedback')}>feedback</a> and
       <a href={link('/ui/components/media')}>media</a> pages.
     </p>
 
     <h3 id="recipe-native-inputs">Native inputs, no theming needed</h3>
-    <p>
+    <p class="prose">
       A number stepper (<code>&lt;input type="number" min="0" max="7"&gt;</code>)
       and a datalist typeahead (<code>&lt;input list&gt;</code> +
       <code>&lt;datalist&gt;</code>) are just <code>.mk-input</code>. Their
       dropdown and spinner are browser chrome — un-styleable cross-browser by
-      spec — so there's no <code>.mk-stepper</code> or <code>.mk-combobox</code>,
-      and you don't need one. A styled combobox would be a future
-      <code>@sethmakes/components</code> element.
+      spec — so there&rsquo;s no <code>.mk-stepper</code> or
+      <code>.mk-combobox</code>, and you don&rsquo;t need one. A styled
+      combobox would be a future <code>@sethmakes/components</code> element.
     </p>
   </section>
 
-  <section class="mk-card" aria-labelledby="sampler">
-    <h2 id="sampler">Sampler</h2>
-    <p>A taste in the current mode. Flip the toggle up top to see both.</p>
+  <section aria-labelledby="sampler">
+    <h2 id="sampler">A Brief Turn</h2>
+    <p class="prose">A taste of the company before the full revue.</p>
     <div class="row">
-      <button class="mk-btn mk-btn--primary">Mark watched</button>
-      <button class="mk-btn">Default</button>
-      <button class="mk-btn mk-btn--ghost">Ghost</button>
+      <button class="mk-btn mk-btn--primary">MARK WATCHED</button>
+      <button class="mk-btn">DEFAULT</button>
+      <button class="mk-btn mk-btn--ghost">GHOST</button>
+      <button class="mk-btn" disabled>SOLD OUT</button>
     </div>
     <div class="row">
-      <span class="mk-badge mk-badge--accent">accent</span>
-      <span class="mk-badge mk-badge--success">aired</span>
-      <span class="mk-badge mk-badge--warning">delayed</span>
-      <span class="mk-badge mk-badge--danger">cancelled</span>
-      <span class="mk-badge">neutral</span>
+      <span class="mk-badge mk-badge--success">AIRED</span>
+      <span class="mk-badge mk-badge--warning">DELAYED</span>
+      <span class="mk-badge mk-badge--danger">CANCELLED</span>
+      <span class="mk-badge">MATINEE</span>
     </div>
     <div class="mk-field">
-      <label for="sample-q">Search shows</label>
-      <input id="sample-q" class="mk-input" type="search" placeholder="The Bear" />
+      <label for="sample-q">SEARCH THE PROGRAMME</label>
+      <input id="sample-q" class="mk-input" type="search" placeholder="Tool Time" />
     </div>
     <div class="mk-alert mk-alert--success">
-      <span class="mk-alert__title">Synced</span>
+      <span class="mk-alert__title">A note from the management</span>
       <span>Watch history is up to date.</span>
     </div>
     <progress class="mk-progress" max="100" value="62"></progress>
@@ -256,75 +264,95 @@ const components = [
 
   <style>
     .hero {
-      padding-block: var(--mk-space-5) var(--mk-space-6);
+      text-align: center;
+      padding-block: var(--mk-space-xs) var(--mk-space-xs);
     }
 
     .hero__lede {
-      font-size: var(--mk-text-lg);
-      color: var(--mk-color-text-muted);
-      max-width: 44ch;
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-tagline);
+      color: var(--mk-color-text-secondary);
+      max-width: 52ch;
+      margin-inline: auto;
     }
 
-    .hero__lede strong {
-      color: var(--mk-color-text);
+    section + section {
+      margin-top: var(--mk-space-3xl);
     }
 
-    section + section,
-    .mk-card + section,
-    section + .mk-card {
-      margin-top: var(--mk-space-6);
+    .prose {
+      max-width: var(--mk-measure-prose);
     }
 
     .index {
       list-style: none;
-      margin: 0;
+      margin: var(--mk-space-lg) 0 0;
       padding: 0;
       display: grid;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-md);
       grid-template-columns: 1fr;
     }
 
     .index__item {
       display: flex;
       flex-direction: column;
-      gap: var(--mk-space-1);
+      gap: var(--mk-space-hair);
     }
 
     .index__link {
-      font-weight: var(--mk-weight-bold);
+      font-family: var(--mk-font-marquee);
+      font-size: var(--mk-size-dept-sm);
+      color: var(--mk-color-heading);
+      line-height: var(--mk-leading-tight);
     }
 
+    .index__link:hover {
+      color: var(--mk-color-link-hover);
+    }
+
+    /* Department descriptions — lowercase italic, the role line. */
     .index__desc {
-      color: var(--mk-color-text-muted);
-      font-size: var(--mk-text-sm);
+      font-family: var(--mk-font-body);
+      font-style: italic;
+      font-size: var(--mk-size-tagline);
+      color: var(--mk-color-text-secondary);
     }
 
     .row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--mk-space-3);
+      gap: var(--mk-space-sm);
       align-items: center;
-      margin-block: var(--mk-space-4);
+      margin-block: var(--mk-space-md);
+    }
+
+    .mk-field,
+    .mk-alert,
+    .mk-progress {
+      margin-block: var(--mk-space-md);
     }
 
     .install-note {
       color: var(--mk-color-text-muted);
-      font-size: var(--mk-text-sm);
+      font-size: var(--mk-size-body-sm);
+      max-width: var(--mk-measure-prose);
     }
 
     .remap {
-      margin-block: var(--mk-space-3);
-      padding-left: var(--mk-space-5);
+      margin-block: var(--mk-space-sm);
+      padding-left: var(--mk-space-xl);
       display: grid;
-      gap: var(--mk-space-2);
-      font-size: var(--mk-text-sm);
+      gap: var(--mk-space-xxs);
+      font-size: var(--mk-size-list);
+      max-width: var(--mk-measure-prose);
     }
 
-    .mk-card pre {
+    pre {
       overflow-x: auto;
     }
 
-    @media (min-width: 40rem) {
+    @media (min-width: 740px) {
       .index {
         grid-template-columns: 1fr 1fr;
       }

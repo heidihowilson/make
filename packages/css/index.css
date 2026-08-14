@@ -1,22 +1,26 @@
 /*
- * @sethmakes/css
+ * @sethmakes/css — the Vaudeville design language for native HTML.
  *
- * Class-based styles for native HTML. Zero JS. References semantic tokens
- * only (see @sethmakes/tokens). All rules live in cascade layers so
- * consumer styles win without specificity wars.
+ * Class-based styles, zero JS. Every treatment is the printed-page
+ * vocabulary of Gholson's Follies: panels ruled in ink, struck-key
+ * buttons, ledger tables, dashed empty slots, telegrams at the
+ * footlights, motion shot on twos. References semantic tokens only (see
+ * @sethmakes/tokens). All rules live in cascade layers so consumer
+ * styles win without specificity wars.
  *
  * One file per component under src/; this index is the public entry.
  *
  * CONSUMPTION CONTRACT: this package defines no tokens — import
- * @sethmakes/tokens (and optionally its fonts.css) BEFORE this file, or
- * every var(--mk-*) resolves to nothing. Kept separate on purpose so
- * tokens-only consumption stays possible.
+ * @sethmakes/tokens (and its fonts.css for the four faces) BEFORE this
+ * file, or every var(--mk-*) resolves to nothing. Kept separate on
+ * purpose so tokens-only consumption stays possible.
  */
 
 @layer mk.reset, mk.base, mk.components, mk.utilities;
 
 @import "./src/reset.css";
 @import "./src/base.css";
+@import "./src/sheet.css";
 @import "./src/prose.css";
 @import "./src/button.css";
 @import "./src/badge.css";
@@ -34,4 +38,5 @@
 @import "./src/toast.css";
 @import "./src/media.css";
 @import "./src/empty.css";
+@import "./src/motion.css";
 @import "./src/utilities.css";

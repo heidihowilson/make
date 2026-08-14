@@ -1,0 +1,71 @@
+@layer mk.components {
+  /*
+   * The sheet on the stage floor — the one page-level pattern the language
+   * owns. Every view is a sheet of aged newsprint lying on a dark stage:
+   * the stage is the <body>-level wrapper, the sheet is the centered
+   * printed page, lifted by the ONE deep shadow in the system. Use it once
+   * per page; panels and frames inside the sheet use the hard letterpress
+   * offset, never this drop.
+   *
+   *   <body>
+   *     <div class="mk-stage">
+   *       <div class="mk-sheet">…the entire page…</div>
+   *     </div>
+   *   </body>
+   *
+   * Nothing in the language is fixed or sticky — the page scrolls like
+   * paper.
+   */
+  .mk-stage {
+    min-height: 100svh;
+    padding: var(--mk-page-pad);
+    background: var(--mk-color-stage);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .mk-sheet {
+    width: 100%;
+    max-width: var(--mk-sheet-max);
+    background: var(--mk-color-sheet);
+    color: var(--mk-color-text);
+    padding: var(--mk-sheet-pad);
+    box-shadow: var(--mk-shadow-sheet);
+  }
+
+  /*
+   * Responsive doctrine: reflow the hierarchy, don't shrink it. Two
+   * breakpoints, always the same two — 1000px "relax", 740px "reflow".
+   * Between them, fluid grids and clamp() display type do the work; don't
+   * invent intermediate breakpoints.
+   */
+  @media (max-width: 1000px) {
+    .mk-sheet {
+      padding: var(--mk-sheet-pad-mid);
+    }
+  }
+
+  @media (max-width: 740px) {
+    .mk-stage {
+      padding: 16px 10px 48px;
+    }
+
+    .mk-sheet {
+      padding: var(--mk-sheet-pad-phone);
+    }
+  }
+
+  /*
+   * Kicker — the typewriter announcement voice: a dateline, a form
+   * section label, a proscenium slug. ALL CAPS in the markup; tracking is
+   * the loudness dial (this is the loud end).
+   */
+  .mk-kicker {
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-kicker);
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
+  }
+}

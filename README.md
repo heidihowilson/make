@@ -4,15 +4,17 @@ A toolbox of shared packages — tools for making things — published under the
 
 ## sethmakes-ui
 
-The first tool: a small design language with one fixed aesthetic: **terminal bones, calm surface.** Monospace type everywhere, zero corner radius, flat tonal surfaces with zero borders — hierarchy comes from background shifts, not lines — and one muted moss-green accent for primary actions, links, and focus. It ships as CSS-first primitives (native HTML styled by classes, zero JS) plus a thin layer of Lit custom elements for the few widgets that actually need behavior. SSR-first, framework-agnostic, brand-consistent across every app that uses it.
+The first tool: a small design language with one fixed aesthetic — **Vaudeville**, the printed-page vocabulary of *Gholson's Follies*. Sepia duotone ink on aged newsprint on a dark stage; four typefaces with one job each (Rye mastheads, Limelight departments, Special Elite typewriter utility, Sorts Mill Goudy prose); printed rules do the dividing; corners square everywhere; ochre as the one rationed accent; motion "shot on twos" — stepped at 12fps, event-only. Single mode: a printed page has no dark variant. It ships as CSS-first primitives (native HTML styled by classes, zero JS) plus a thin layer of Lit custom elements for the few widgets that actually need behavior. SSR-first, framework-agnostic, brand-consistent across every app that uses it.
+
+The brand's art is generated deterministically: the cast registry (`cast.sethgholson.com/cast.json`) is the unit of value, and [`tools/art`](tools/art) carries the locked prompt blocks and version-controlled ComfyUI recipes that render it — see [`docs/GENERATIVE-ART.md`](docs/GENERATIVE-ART.md).
 
 ## Packages
 
-The design-system packages (`tokens`, `css`, `components`, `icons`) version in **lockstep** — the brand icon vocabulary is part of the design language, so it rides the system version. `tokens`, `css`, and `icons` publish publicly to npm under `@sethmakes/*`; `components` is reserved and still private (marked `"private": true`) until it has a component to ship.
+The design-system packages (`tokens`, `css`, `components`) version in **lockstep**; `icons` versions independently — Vaudeville has no icon set, so the icon tool serves consuming apps rather than the language and doesn't ride the system version. `tokens`, `css`, and `icons` publish publicly to npm under `@sethmakes/*`; `components` is reserved and still private (marked `"private": true`) until it has a component to ship.
 
 | Package | Contents | JS? | Published? |
 |---|---|---|---|
-| [`@sethmakes/tokens`](packages/tokens) | CSS custom properties — light/dark themes | No | Yes |
+| [`@sethmakes/tokens`](packages/tokens) | CSS custom properties (single-mode sepia) + the four self-hosted faces | No | Yes |
 | [`@sethmakes/css`](packages/css) | Class-based styles for native HTML (depends on tokens) | No | Yes |
 | [`@sethmakes/components`](packages/components) | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes | No — private, reserved until it ships |
 | [`@sethmakes/icons`](packages/icons) | Brand aliases + custom Iconify set (`mk` prefix) | No (build/CLI only) | Yes |
@@ -60,14 +62,13 @@ section; the shape:
    `tailwindcss` bundle) drops preflight — which would otherwise overwrite
    `mk.base` headings/links. Re-add just the margin reset above.
 
-3. **Drop DaisyUI.** Remove `@plugin "daisyui"` and the `data-theme="nord"` pin.
-   sethmakes drives color via `color-scheme` + `light-dark()` (system preference) —
-   you **gain dark mode for free**, or pin `[data-theme="light"]` to stay single-mode.
-   Remap daisy tokens: `base-100`→`bg`, `base-200`→`surface-1`,
-   `base-300`→`surface-2/3`, `base-content`→`text` (`/50`→`text-muted`,
-   `/40`→`text-faint`), `primary`→`accent`, `primary-content`→`accent-contrast`,
-   `warning`/`error`→`warning`/`danger`. There is **no `info` color** — use a tonal
-   surface or `.mk-alert--info`.
+3. **Drop DaisyUI.** Remove `@plugin "daisyui"` and any `data-theme` pin.
+   sethmakes is **single-mode by design** — no theme attribute, no dark variant.
+   Remap daisy tokens: `base-100`→`sheet`, `base-200`→`inset`,
+   `base-300`→`plate`, `base-content`→`text` (`/50`→`muted`),
+   `primary`→the ink-filled `.mk-btn--primary`, `warning`/`error`→
+   `warning`/`danger`. There is **no `info` color** — use a panel or
+   `.mk-alert--info`.
 
 4. **Copy the fonts.** The standalone CLI does not rebase `fonts.css`'s relative
    `url(./fonts/…)`, so add a build step copying
@@ -102,6 +103,8 @@ Pre-1.0: stay at `0.x` (minor = breaking) until a third real project adopts the 
 The why behind all of this lives in [`docs/`](docs):
 
 - [`VISION.md`](docs/VISION.md) — what this is for
-- [`DESIGN-LANGUAGE.md`](docs/DESIGN-LANGUAGE.md) — the aesthetic and its tokens
+- [`DESIGN-LANGUAGE.md`](docs/DESIGN-LANGUAGE.md) — the Vaudeville aesthetic and its tokens
+- [`GENERATIVE-ART.md`](docs/GENERATIVE-ART.md) — the prompt-side art doctrine (style block, exclusions, character tokens)
+- [`MOTION.md`](docs/MOTION.md) — shot on twos: the animation language
 - [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — CSS-first/Lit hybrid, packages, releases
-- [`CONTRAST.md`](docs/CONTRAST.md) — color/contrast reasoning
+- [`CONTRAST.md`](docs/CONTRAST.md) — color/contrast reasoning (retired grayscale audit; sepia pass pending)

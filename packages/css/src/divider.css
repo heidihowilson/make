@@ -1,29 +1,60 @@
 @layer mk.components {
-  /* Divider — a 1px tonal line drawn as a background shift, not a border */
+  /*
+   * Divider — a printed rule. Rules do the dividing in this language, and
+   * each weight has a fixed meaning:
+   *   4px double = major section break (--double)
+   *   3px double = footer break (--double-thin)
+   *   2px solid  = department underline (--thick)
+   *   1px tan    = minor division (the default)
+   *   1px dashed = nothing is printed here yet (--dash)
+   * Don't pick a rule for taste; pick it for what the break means.
+   */
   .mk-divider {
-    height: 1px;
+    height: 0;
     border: 0;
-    margin: var(--mk-space-5) 0;
-    background: var(--mk-color-surface-3);
+    border-top: var(--mk-rule-hair);
+    margin: var(--mk-space-lg) 0;
+    background: none;
   }
 
-  /* Labelled variant — centered text flanked by tonal rules */
+  .mk-divider--double {
+    border-top: var(--mk-rule-double);
+  }
+
+  .mk-divider--double-thin {
+    border-top: var(--mk-rule-double-thin);
+  }
+
+  .mk-divider--thick {
+    border-top: var(--mk-rule-thick);
+  }
+
+  .mk-divider--dash {
+    border-top: var(--mk-rule-dash);
+  }
+
+  .mk-divider--accent {
+    border-top: var(--mk-rule-accent);
+  }
+
+  /* Labelled variant — a typewriter slug flanked by hairlines. */
   .mk-divider--label {
+    border-top: 0;
     height: auto;
-    background: none;
     display: flex;
     align-items: center;
-    gap: var(--mk-space-3);
+    gap: var(--mk-space-sm);
     color: var(--mk-color-text-muted);
-    font-size: var(--mk-text-xs);
-    font-weight: var(--mk-weight-medium);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-sm);
+    letter-spacing: var(--mk-track-mono);
+    text-transform: uppercase;
   }
 
   .mk-divider--label::before,
   .mk-divider--label::after {
     content: "";
     flex: 1;
-    height: 1px;
-    background: var(--mk-color-surface-3);
+    border-top: var(--mk-rule-hair);
   }
 }

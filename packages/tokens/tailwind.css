@@ -2,10 +2,9 @@
  * @sethmakes/tokens — Tailwind v4 bridge.
  *
  * Maps the semantic tokens into Tailwind's @theme so Tailwind utilities are
- * driven by the design system: bg-surface-1, text-accent, text-muted,
- * bg-warning-subtle, font-body, etc. One source of truth — the utilities
- * resolve through the mk custom properties, so light/dark stays a token
- * swap and a future re-theme reskins Tailwind output too.
+ * driven by the design system: bg-sheet, text-heading, border-rule,
+ * font-typewriter, etc. One source of truth — the utilities resolve through
+ * the mk custom properties, so a re-theme reskins Tailwind output too.
  *
  * Born from real demand: the first two consumers (tv-tracker, eat) each
  * hand-rolled this exact mapping. Import it AFTER the token sheet:
@@ -18,36 +17,41 @@
  */
 
 @theme {
-  /* Surfaces */
-  --color-bg: var(--mk-color-bg);
-  --color-surface-1: var(--mk-color-surface-1);
-  --color-surface-2: var(--mk-color-surface-2);
-  --color-surface-3: var(--mk-color-surface-3);
-  --color-field: var(--mk-color-field);
+  /* Surfaces — the sheet on the stage floor */
+  --color-stage: var(--mk-color-stage);
+  --color-sheet: var(--mk-color-sheet);
+  --color-inset: var(--mk-color-inset);
+  --color-plate: var(--mk-color-plate);
+  --color-ink: var(--mk-color-ink-surface);
 
   /* Text */
+  --color-heading: var(--mk-color-heading);
   --color-text: var(--mk-color-text);
+  --color-secondary: var(--mk-color-text-secondary);
   --color-muted: var(--mk-color-text-muted);
-  --color-faint: var(--mk-color-text-faint);
+  --color-on-ink: var(--mk-color-text-on-ink);
 
-  /* Accent */
+  /* Lines — border-rule / border-rule-hair / border-rule-ghost */
+  --color-rule: var(--mk-color-rule);
+  --color-rule-hair: var(--mk-color-rule-hair);
+  --color-rule-ghost: var(--mk-color-rule-ghost);
+
+  /* Accent & links — ochre is rationed: one spot per view */
   --color-accent: var(--mk-color-accent);
-  --color-accent-hover: var(--mk-color-accent-hover);
-  --color-accent-contrast: var(--mk-color-accent-contrast);
-  --color-accent-subtle: var(--mk-color-accent-subtle);
-  --color-on-accent-subtle: var(--mk-color-on-accent-subtle);
+  --color-link: var(--mk-color-link);
+  --color-link-hover: var(--mk-color-link-hover);
 
   /* Status */
-  --color-success: var(--mk-color-success);
-  --color-success-subtle: var(--mk-color-success-subtle);
-  --color-warning: var(--mk-color-warning);
-  --color-warning-subtle: var(--mk-color-warning-subtle);
   --color-danger: var(--mk-color-danger);
-  --color-danger-subtle: var(--mk-color-danger-subtle);
+  --color-warning: var(--mk-color-warning);
+  --color-success: var(--mk-color-success);
 
   /* Focus */
   --color-focus: var(--mk-color-focus);
 
-  /* Type — font-body utility renders the system mono stack */
+  /* Type — the four faces, one job each */
+  --font-display: var(--mk-font-display);
+  --font-marquee: var(--mk-font-marquee);
+  --font-typewriter: var(--mk-font-typewriter);
   --font-body: var(--mk-font-body);
 }
