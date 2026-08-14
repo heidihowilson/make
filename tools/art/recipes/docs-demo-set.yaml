@@ -1,0 +1,29 @@
+# The docs-site demo set — seven renders shipped 2026-08-14 into
+# apps/docs/public/art/. Pipeline: Comfy Cloud, GeminiImage2Node
+# (gemini-3-pro-image-preview), async graph path, reference-conditioned on
+# the turnaround sheets from sethgho/the-cast; prompts assembled as
+# style-block + registry tokens + staging/camera + exclusion-block.
+# Resolution 1K. Batch of 7, zero failures, ~2.5 min wall clock.
+set: docs-demo
+model: gemini-3-pro-image-preview
+date: 2026-08-14
+renders:
+  - asset: portrait-seth      # 2:3 · seed 1101 · job 01ff24c2-5973-44e8-bcbc-a2a559d502d3
+    staging: Seth alone on the boards, waist-up, laptop on one arm, mid-explanation.
+  - asset: portrait-wilson    # 2:3 · seed 1102 · job 5d05a1e9-5666-4dbc-aded-eba24b66fc23
+    staging: Wilson in a tidy garden, watering can lettered "CONFIG" at his boots.
+  - asset: portrait-cadbury   # 2:3 · seed 1103 · job aba3f98c-e067-456d-bf3f-2ef9b6640bcf
+    staging: Cadbury at a tall ledger desk, adding machine spilling tape.
+  - asset: portrait-ake       # 2:3 · seed 1104 · job 15e62328-ac4b-4ce3-853f-f3e98c713eac
+    staging: Ake's bowl at the stage apron, water sloshing, cap "FEW" tilted.
+  - asset: hero-bow           # 16:9 · seed 1105 · job 94664a93-377f-4357-a925-3673563296fe
+    staging: The full company takes a bow at the footlights. (Refs wilson/cadbury/ake;
+      Seth drawn from tokens only — three sheets is the conditioning ceiling.)
+  - asset: scene-config-water # 16:9 · seed 1106 · job d5bcaba7-7e35-4aa9-b62e-f6365ff19592
+    staging: Wilson fills the "CONFIG" can at the tap; Ake watches with alarm.
+  - asset: scene-ledger-fire  # 1:1 · seed 1107 · job c913924e-aa14-45f3-9c36-fc79e196c6e6
+    staging: Cadbury balances the ledger, wastepaper fire behind, wall notice
+      "ALL ACCOUNTS SETTLED NIGHTLY".
+verdict: all seven accepted on first roll; monocle, FEW cap, fence-body and
+  diegetic lettering all correct. Renders carry their own drawn foxed-paper
+  margins — kept (they read as the print, and the mk-thumb mat frames them).
