@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 // and base+path without a separator produced /makeicons/... 404s in prod.
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
+const art = (file: string) => link('/art/' + file);
 
 // The bill — every act currently booked. Numbered like a programme.
 const tools = [
@@ -36,6 +37,14 @@ const tools = [
       and appearing in every production thereafter.
     </p>
   </header>
+
+  <!-- The one art reveal the page is allowed: the company, from the pipeline. -->
+  <figure class="mk-figure hero-figure">
+    <div class="mk-thumb mk-thumb--video mk-curtain-in">
+      <img src={art('hero-bow.jpg')} alt="The full company taking a bow at the footlights" />
+    </div>
+    <figcaption>THE COMPANY, TAKING ITS BOW · DRAWN BY THE PIPELINE, NOT BY HAND</figcaption>
+  </figure>
 
   <hr class="mk-divider mk-divider--double" />
 
@@ -82,6 +91,12 @@ const tools = [
     .hero {
       text-align: center;
       padding-block: var(--mk-space-lg) var(--mk-space-xs);
+    }
+
+    .hero-figure {
+      max-width: 44rem;
+      margin: var(--mk-space-xl) auto 0;
+      text-align: center;
     }
 
     .hero__lede {

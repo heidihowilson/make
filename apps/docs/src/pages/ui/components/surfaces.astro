@@ -26,10 +26,14 @@ import Base from '../../../layouts/Ui.astro';
       </p>
     </div>
     <div class="mk-card mk-card--flush" style="margin-top: var(--mk-space-md); max-width: 18rem;">
-      <div style="aspect-ratio: 16 / 9; background: var(--mk-color-plate); display: grid; place-content: center; color: var(--mk-color-text-muted); font-family: var(--mk-font-marquee); font-size: var(--mk-size-dept);">T</div>
+      <img
+        src={(import.meta.env.BASE_URL.replace(/\/?$/, '/') + 'art/scene-config-water.jpg').replace(/\/+/g, '/')}
+        alt="Wilson watering the config while Ake watches with alarm"
+        style="width: 100%; display: block;"
+      />
       <div style="padding: var(--mk-panel-pad);">
-        <strong>Tool Time</strong>
-        <p style="margin: 2px 0 0; color: var(--mk-color-text-muted); font-style: italic;">nightly · sponsored by Binford</p>
+        <strong>The water is the config</strong>
+        <p style="margin: 2px 0 0; color: var(--mk-color-text-muted); font-style: italic;">change the water, not the fish</p>
       </div>
     </div>
     <pre><code>&lt;div class="mk-card"&gt;
