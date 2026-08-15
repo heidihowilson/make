@@ -5,9 +5,13 @@ import '@sethmakes/css/index.css';
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = 'sethmakes — the Vaudeville design system of Gholson’s Follies: framework-neutral tokens, CSS and components, printed in sepia on aged newsprint.',
+} = Astro.props;
 
 // Normalize: Astro's BASE_URL has no trailing slash when base is '/make',
 // and base+path without a separator produced /makeicons/... 404s in prod.
@@ -34,6 +38,7 @@ const isActive = (href: string) =>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} · sethmakes</title>
+    <meta name="description" content={description} />
     <slot name="head" />
   </head>
   <body>

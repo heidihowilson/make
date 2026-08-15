@@ -37,6 +37,13 @@
   --mk-tan: #b3a37e;
   --mk-brown: #5b4a33;
   --mk-faded: #8f8066;
+  /*
+   * Faded ink that still READS. The source's faded #8f8066 sits at 2.75:1
+   * on the sheet — decorative-tier only (ghost rules, dashed slots).
+   * Wherever muted TEXT must be read, this darker cut clears WCAG 4.5:1
+   * on sheet and inset while keeping the washed-out register.
+   */
+  --mk-faded-ink: #685d45;
   --mk-stage-floor: #26211a;
   --mk-body-ink: #3a3128;
 
@@ -46,7 +53,9 @@
    * state of a switch). Two accents in one view cancel each other out.
    */
   --mk-ochre: #c47a2e;
-  --mk-link-ink: #8a5a1f;
+  /* Deepened from the source's #8a5a1f (4.21:1 — just under WCAG) to clear
+     4.5:1 on the sheet; still the same warm printed-link brown. */
+  --mk-link-ink: #7a4e15;
 
   /*
    * Type scale — four faces, each with one job. Loudness is dialled with
@@ -178,7 +187,7 @@
   --mk-color-heading: var(--mk-ink);
   --mk-color-text: var(--mk-body-ink);
   --mk-color-text-secondary: var(--mk-brown);
-  --mk-color-text-muted: var(--mk-faded);
+  --mk-color-text-muted: var(--mk-faded-ink); /* readable muted; raw faded is line-work only */
   --mk-color-text-on-ink: var(--mk-paper);
 
   /* Lines — rules do the dividing; hierarchy is printed, not floated */
