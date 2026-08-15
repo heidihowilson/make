@@ -62,43 +62,10 @@
   }
 
   /*
-   * Inline code — the typewriter voice on a plate chip with a hairline.
-   * Slightly small against prose so the two faces sit on one baseline.
+   * Inline code, blocks and kbd inherit the base-layer typewriter
+   * treatment (mk.base styles bare code/pre/kbd everywhere) — prose adds
+   * nothing so the two can never drift apart.
    */
-  .mk-prose code {
-    background: var(--mk-color-plate);
-    border: var(--mk-rule-hair);
-    color: var(--mk-color-heading);
-    font-family: var(--mk-font-typewriter);
-    font-size: 0.86em;
-    letter-spacing: 0.02em;
-    padding: 1px 6px 0;
-  }
-
-  /*
-   * Pre / fenced blocks — a plate slab with a hairline box and a 2px ink
-   * rule down the left: a column of set type, not a terminal window.
-   */
-  .mk-prose pre {
-    background: var(--mk-color-plate);
-    border: var(--mk-rule-hair);
-    border-left: var(--mk-rule-thick);
-    color: var(--mk-color-heading);
-    padding: 12px 14px;
-    overflow-x: auto;
-    font-family: var(--mk-font-typewriter);
-    font-size: var(--mk-size-mono);
-    line-height: 1.6;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Code inside pre resets the inline-chip treatment. */
-  .mk-prose pre code {
-    background: none;
-    border: 0;
-    padding: 0;
-    font-size: inherit;
-  }
 
   /*
    * Blockquote — the pull quote: ruled top and bottom with hairlines,
@@ -118,19 +85,6 @@
 
   .mk-prose blockquote > :first-child {
     margin-block-start: 0;
-  }
-
-  /* kbd — a struck key in miniature: ink rule, press shadow, typewriter. */
-  .mk-prose kbd {
-    display: inline-block;
-    background: var(--mk-color-inset);
-    border: 1px solid var(--mk-color-rule);
-    box-shadow: var(--mk-shadow-press);
-    color: var(--mk-color-heading);
-    font-family: var(--mk-font-typewriter);
-    font-size: 0.8em;
-    line-height: 1;
-    padding: 0.25em 0.5em 0.15em;
   }
 
   /* Small / caption text — the typewriter aside. */

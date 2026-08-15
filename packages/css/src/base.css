@@ -71,6 +71,67 @@
   }
 
   /*
+   * Code is the typewriter voice EVERYWHERE, not only inside .mk-prose.
+   * Left to the UA stylesheet, bare <code> renders in the browser's own
+   * monospace — larger than Goudy's small x-height and with no chip — and
+   * reads as a different publication. Base owns the treatment; .mk-prose
+   * only adjusts rhythm.
+   *
+   * The 0.86em compensates the x-height mismatch between Special Elite
+   * and Sorts Mill Goudy so both sit on one optical line.
+   */
+  code,
+  kbd,
+  samp {
+    font-family: var(--mk-font-typewriter);
+    font-size: 0.86em;
+    letter-spacing: 0.02em;
+    color: var(--mk-color-heading);
+  }
+
+  code {
+    background: var(--mk-color-plate);
+    border: var(--mk-rule-hair);
+    padding: 1px 6px 0;
+  }
+
+  /*
+   * Code blocks — a plate slab with a hairline box and a 2px ink rule down
+   * the left: a column of set type, not a terminal window.
+   */
+  pre {
+    background: var(--mk-color-plate);
+    border: var(--mk-rule-hair);
+    border-left: var(--mk-rule-thick);
+    color: var(--mk-color-heading);
+    padding: 12px 14px;
+    overflow-x: auto;
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    line-height: 1.6;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Code inside pre resets the inline-chip treatment. */
+  pre code {
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  /* kbd — a struck key in miniature: ink rule, press shadow. */
+  kbd {
+    display: inline-block;
+    background: var(--mk-color-inset);
+    border: 1px solid var(--mk-color-rule);
+    box-shadow: var(--mk-shadow-press);
+    font-size: 0.8em;
+    line-height: 1;
+    padding: 0.25em 0.5em 0.15em;
+  }
+
+  /*
    * Global reduced-motion guard. House motion is already stepped and
    * event-only, but honor the OS-level request completely: collapse every
    * transition and animation site-wide rather than relying on each
