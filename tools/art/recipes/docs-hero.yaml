@@ -1,26 +1,36 @@
-# The docs-site hero: the whole company taking a bow at the footlights.
-# The shipped reference render lives at reference/hero.png (from the-cast);
-# this recipe exists to regenerate it at new sizes in the same staging.
+# The docs-site hero: the company building the set pieces in the scene shop —
+# a workshop, because the toolkit is the scene shop, not the performance.
+# Replaced the bow staging 2026-08-15 (Seth: backstage construction reads
+# better for a component design library than a curtain call).
 asset: docs-hero
-output: 1536x640            # hero frame crops to 320px tall on desktop; full scene shows at 740px
-model: TBD                  # pin on first real run (ComfyUI checkpoint or Comfy Cloud model id)
-seed: 1933
-steps: 30
-cfg: 4.5
+output: 1376x768             # Gemini 16:9 1K native; shipped as q85 progressive JPEG
+model: gemini-3-pro-image-preview   # Comfy Cloud GeminiImage2Node, async graph path
+seed: 2301
 reference:
-  characters: [seth, wilson, cadbury, ake]
-  weight: 0.75
+  # Three refs, in order: the cast-site hero panel (identity for all four +
+  # palette + linework), then the two most fragile character sheets.
+  images: [the-cast/public/hero.png, cast/ake/sheet.png, cast/wilson/sheet.png]
 prompt:
   style: prompts/style-block.txt
   tokens: from-registry
   staging: >
-    The full company takes a bow at the footlights: Seth center stage mid-bow,
-    Wilson the fence panel tipping his hat, Cadbury inclining precisely with
-    ledger under one arm, Ake's wheeled fishbowl rolled to the front, water
-    sloshing with alarm. Footlights below, curtain behind.
-  camera: flat wide proscenium view, held
+    The scene shop backstage, behind the theatre — the back side of the great
+    curtain hangs at one edge, bare brick wall behind, a work light on a stand
+    casting warm light. The company is building the set pieces for tonight.
+    Seth kneels sawing a wooden theatrical flat on two sawhorses, sawdust
+    flying; Wilson holds a tall finished flat upright with both metal arms,
+    steadying it; Cadbury stands consulting a large unrolled blueprint, towel
+    still on his forearm; Ake's wheeled fishbowl is parked up on the workbench
+    among the tools, the goldfish supervising closely. Wood shavings, a crate
+    stenciled "ACT I", scattered hand tools of the 1930s.
+  camera: flat wide view of the workshop, held
   exclusions: prompts/exclusion-block.txt
 notes: >
   Ake always renders with reference conditioning (the moustache and buck teeth
   are the first things a text-only prompt loses). His ochre is the only colour.
-history: []
+  Conditioning on the cast-site hero panel itself (all four characters in one
+  image) held identity better than sheets alone across two 4-variant batches.
+history:
+  - 2026-08-14 · bow staging · seed 1105 · job 94664a93-377f-4357-a925-3673563296fe · shipped as hero-bow.jpg, retired 2026-08-15
+  - 2026-08-15 · bow-variant batch (seeds 2201-2204) · all four rejected in favour of a backstage concept
+  - 2026-08-15 · backstage batch (seeds 2301-2304) · scene-shop (2301, job 3b011c45-3569-411d-87ef-e006ea1aa0c3) SHIPPED as hero-scene-shop.jpg; hoisting (2302) and paint-shop (2303) on-model spares; assembly (2304) off-model
