@@ -43,7 +43,7 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 | Structure | **Printed rules with fixed meanings**: 4px double = major break · 3px double = footer · 2px solid = department underline and every box · 1px tan = minor · 1px dashed = nothing printed here yet |
 | Elevation | Exactly two shadows: the deep sheet drop (once per page) and the hard 4px letterpress offset (no blur). No elevation scale |
 | Neutrals | Sepia duotone: ink `#2a241b` on papers `#e6d9ba`/`#ede2c4`/`#d8c9a4`, tan/brown/faded secondary, stage `#26211a` |
-| Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#8a5a1f`, going ochre on hover |
+| Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#7a4e15` (deepened from the source's `#8a5a1f` in the sepia pass), going ochre on hover |
 | Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. No blue, no `info` hue |
 | Typography | Three faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
 | Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
@@ -53,7 +53,7 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 
 ## Consequences & constraints (accepted)
 
-- **Webfont weight.** Three families (~165KB woff2 latin, self-hosted in `@sethmakes/tokens`).
+- **Webfont weight.** Three families (~139KB woff2 latin, self-hosted in `@sethmakes/tokens`).
   The fallbacks (Georgia serif / Courier mono) are legible but the brand arrives with the
   fonts. No other weights exist — never synthesize bold.
 - **Caps are written, not transformed** for Rye and typewriter headings; `text-transform: uppercase` is for

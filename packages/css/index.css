@@ -11,7 +11,7 @@
  * One file per component under src/; this index is the public entry.
  *
  * CONSUMPTION CONTRACT: this package defines no tokens — import
- * @sethmakes/tokens (and its fonts.css for the four faces) BEFORE this
+ * @sethmakes/tokens (and its fonts.css for the three faces) BEFORE this
  * file, or every var(--mk-*) resolves to nothing. Kept separate on
  * purpose so tokens-only consumption stays possible.
  */

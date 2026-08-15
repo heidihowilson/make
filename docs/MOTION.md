@@ -45,8 +45,9 @@ checked-state colour — changes instantly.
 | `.mk-bill-order` | Staggers children by 2 frames each | A parent whose children carry an entrance class |
 
 Timing tokens: `--mk-frame` (83ms), `--mk-dur-beat` (250ms), `--mk-dur-enter` (420ms),
-`--mk-dur-reveal` (660ms), easings `--mk-steps-3/5/8`. All animations hold their last frame
-(`both`) and switch off under `prefers-reduced-motion`.
+`--mk-dur-reveal` (660ms), easings `--mk-steps-3/5/8`. Every entrance holds its last frame
+(`both`); `.mk-flicker` is the one loop and holds nothing. All of them switch off under
+`prefers-reduced-motion`.
 
 ## Designing NEW animations
 

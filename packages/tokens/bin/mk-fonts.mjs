@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /*
- * mk-fonts <dest-dir> — copy the self-hosted JetBrains Mono woff2 files into
+ * mk-fonts <dest-dir> — copy the self-hosted face woff2 files (Rye, Special
+ * Elite, Sorts Mill Goudy) into
  * a consumer's served assets.
  *
  * WHY this exists: fonts.css references its woff2 files with relative URLs.

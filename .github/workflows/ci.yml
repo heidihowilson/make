@@ -27,8 +27,8 @@ jobs:
       - name: Build docs
         run: pnpm docs:build
 
-  # Visual regression — DESIGN-LANGUAGE.md's "visual regression runs in both
-  # modes" promise, enforced. Every docs page screenshotted light+dark at
+  # Visual regression — DESIGN-LANGUAGE.md's "visual regression runs in one
+  # mode" promise, enforced. Every docs page screenshotted (single mode) at
   # phone+desktop; pixel drift here IS design drift. Baselines are committed
   # (generated on linux, same as this runner).
   visual:

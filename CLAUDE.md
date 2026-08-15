@@ -4,9 +4,10 @@ Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a 
 
 ## Structure
 
-- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (single-mode sepia) plus the three self-hosted faces (Rye, Special Elite, Sorts Mill Goudy — Limelight retired 2026-08-15: a third display face read as noise). No JS. (Includes the Tailwind v4 `@theme` bridge — `@sethmakes/tokens/tailwind.css` — shipped after both early consumers hand-rolled it.)
+- `packages/tokens` → `@sethmakes/tokens` — CSS custom properties (single-mode sepia) plus the three self-hosted faces (Rye, Special Elite, Sorts Mill Goudy — Limelight retired 2026-08-15: a third display face read as noise). No runtime JS (ships one build-time bin, `mk-fonts`, that copies the font dir for non-rebasing bundlers). (Includes the Tailwind v4 `@theme` bridge — `@sethmakes/tokens/tailwind.css` — shipped after both early consumers hand-rolled it.)
 - `packages/css` → `@sethmakes/css` — class-based styles for native HTML. No JS.
 - `packages/components` → `@sethmakes/components` — Lit + TypeScript custom elements. Starts empty; components are added only when a real consuming project needs them.
+- `packages/icons` → `@sethmakes/icons` — brand aliases + custom Iconify set (`mk` prefix; build/CLI only). A consumer-app tool, not a language surface — Vaudeville has no icon set.
 - `apps/docs` — Astro docs site: public docs + dev playground + SSR test fixture. Deploys to GitHub Pages.
 - `tools/art` — **sethmakes-art**, the deterministic generative-art pipeline: locked prompt blocks, per-character rules (read from the cast registry at `cast.sethgholson.com/cast.json`), version-controlled ComfyUI recipes. Not published to npm.
 - `docs/` — vision/architecture/design-language decision docs. Update these when decisions change.
@@ -27,6 +28,6 @@ Monorepo of shared packages forming the **sethmakes** toolkit; each tool gets a 
 - pnpm workspaces. No additional build orchestration (Turbo etc.) without demonstrated need.
 - **Lockstep versioning for the design-system family (tokens/css/components)** via a Changesets fixed group. Icons versioned in lockstep 2026-06-05 → 2026-08-14, then went independent again: Vaudeville has no icon set, so `@sethmakes/icons` is a consumer-app tool, not part of the language. Future unrelated packages version independently. Any behavior-changing PR must include a changeset.
 - CI: `pnpm docs:build` (build smoke) + **Playwright visual regression** (`tests/visual.spec.ts` — every docs page, single mode, phone+desktop; baselines committed, regenerate with `npx playwright test --update-snapshots` on linux). A token/CSS change that shifts pixels must update baselines deliberately. Still planned: @web/test-runner (behavior), `@lit-labs/ssr` smoke suite (when components exist).
-- Packages publish publicly to npm via GitHub Actions on release-PR merge.
+- Public packages (tokens, css, icons) publish to npm via GitHub Actions on release-PR merge; components stays `private` until it has a component to ship.
 - Pre-1.0: `0.x` semver, minor = breaking. Don't propose 1.0 until three real projects consume the library.
 - TypeScript throughout `packages/components`; emit a custom-elements manifest (planned — `components` is currently empty, so neither exists yet).
