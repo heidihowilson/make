@@ -92,14 +92,15 @@
 
   /*
    * Error message — spoken in character ("that address is not on the
-   * bill") and printed in the accent, which doubles as this view's ochre
-   * ration: a form with an error has no other ochre spot.
+   * bill") and printed in the letterpress STOP red (6.7:1); the ochre
+   * ration is spent on the field's RULE, not on 11px text it would
+   * render unreadable.
    */
   .mk-field__error {
     font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-mono-xs);
     letter-spacing: 0.06em;
-    color: var(--mk-color-accent);
+    color: var(--mk-color-danger);
   }
 
   /* Error state — the rule turns ochre all the way around. */

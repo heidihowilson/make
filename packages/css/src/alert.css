@@ -45,13 +45,12 @@
     color: var(--mk-color-text-on-ink);
   }
 
-  /* Warning — ATTENTION: the ochre rule and kicker (the view's ration). */
+  /*
+   * Warning — ATTENTION: the ochre RULE is the view's ration; the kicker
+   * stays in secondary ink (ochre at 11px caps is 2.6:1 — illegible).
+   */
   .mk-alert--warning {
     border-color: var(--mk-color-warning);
-  }
-
-  .mk-alert--warning .mk-alert__title {
-    color: var(--mk-color-warning);
   }
 
   /* Danger — TROUBLE: the letterpress STOP red rules the bar. */

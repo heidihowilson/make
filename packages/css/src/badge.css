@@ -23,11 +23,12 @@
 
   /*
    * Accent — the ochre stub. Rationed like every accent: one per view.
-   * Outline treatment, not a fill — the ink is the colour.
+   * The ochre carries the RULE; the words stay in heading ink — ochre at
+   * typewriter-caps size is 2.4:1 on paper, unreadable by WCAG and by eye.
    */
   .mk-badge--accent {
     border-color: var(--mk-color-accent);
-    color: var(--mk-color-accent);
+    color: var(--mk-color-heading);
     background: transparent;
   }
 
@@ -38,10 +39,10 @@
     color: var(--mk-color-text-on-ink);
   }
 
-  /* Warning — ochre, same outline voice as accent (they share the ration). */
+  /* Warning — ochre rule, ink words; same outline voice as accent. */
   .mk-badge--warning {
     border-color: var(--mk-color-warning);
-    color: var(--mk-color-warning);
+    color: var(--mk-color-heading);
     background: transparent;
   }
 
