@@ -13,6 +13,7 @@ const components = [
   { href: '/ui/components/surfaces', name: 'surfaces', desc: 'panels, the ledger, printed rules' },
   { href: '/ui/components/feedback', name: 'feedback', desc: 'notices, telegrams, typing dots' },
   { href: '/ui/components/media', name: 'media', desc: 'framed art, figures, dashed slots' },
+  { href: '/ui/components/motion', name: 'motion', desc: 'shot on twos, replayed on cue' },
 ];
 ---
 
@@ -43,7 +44,9 @@ const components = [
     </p>
     <p class="prose">
       Decided from rendered directions, not questionnaires — the decision
-      trail lives in the repo&rsquo;s design docs.
+      trail lives in
+      <a href="https://github.com/heidihowilson/make/tree/main/docs">the
+      repo&rsquo;s design docs</a>.
     </p>
   </section>
 
@@ -73,9 +76,9 @@ const components = [
     <p class="install-note">
       <strong>Fonts note:</strong> fonts.css references its woff2 files with
       relative URLs. Vite rebases these automatically; Tailwind&rsquo;s
-      standalone CLI does not — copy
-      <code>node_modules/@sethmakes/tokens/fonts/</code> into your public
-      assets at build time if the faces 404.
+      standalone CLI does not — run the <code>mk-fonts</code> bin shipped
+      with tokens (<code>mk-fonts public/fonts</code>) at build time if the
+      faces 404.
     </p>
 
     <h3 id="tailwind">With Tailwind v4</h3>
@@ -113,11 +116,12 @@ const components = [
       PostCSS) follow the same layering, plus <strong>one gotcha</strong>: the
       standalone CLI does not rebase relative <code>url()</code>s, so
       <code>fonts.css</code> ships <code>./fonts/…</code> verbatim and the
-      woff2 files 404. Copy them into your served assets at build time:
+      woff2 files 404. The <code>mk-fonts</code> bin ships with tokens for
+      exactly this — copy the faces into your served assets at build time:
     </p>
     <pre><code>// package.json
 "scripts": &#123;
-  "fonts": "cp -r node_modules/@sethmakes/tokens/fonts public/fonts",
+  "fonts": "mk-fonts public/fonts",
   "build:css": "npm run fonts &amp;&amp; tailwindcss -i styles/app.css -o public/app.css"
 &#125;</code></pre>
     <pre><code>/* styles/app.css — sethmakes first, Tailwind layers after */

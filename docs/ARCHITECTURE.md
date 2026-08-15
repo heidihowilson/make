@@ -27,7 +27,7 @@ SSR matters — consumers are SSR-first frameworks (Remix v2/v3, SvelteKit).
 | Tokens | **CSS custom properties**, two tiers: primitives → semantic | Industry standard; portable everywhere |
 | Tailwind bridge | `@sethmakes/tokens/tailwind.css` — Tailwind v4 `@theme` mapping (shipped 2026-06-05 after tv-tracker and eat both hand-rolled it) | Tailwind consumers get `bg-sheet`, `text-heading`, `font-typewriter` etc. driven by our tokens; one source of truth |
 
-**Token rule:** components only ever reference **semantic** tokens (`--mk-color-sheet`, not a raw hex or primitive). This is what made the 2026-08-13 re-theme (terminal → Vaudeville) a token swap instead of a component rewrite.
+**Token rule:** components only ever reference **semantic** tokens (`--mk-color-sheet`, not a raw hex or primitive). This is what made the 2026-08-13 re-theme (terminal → Vaudeville, see [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md)) a token swap instead of a component rewrite. The motion side of the language has its own doctrine in [MOTION.md](./MOTION.md).
 
 ## Package boundaries
 

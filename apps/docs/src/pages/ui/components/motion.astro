@@ -1,0 +1,254 @@
+---
+import Base from '../../../layouts/Ui.astro';
+
+// Demo art comes from the sethmakes-art pipeline (tools/art) — never stock.
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
+---
+
+<Base title="Motion">
+  <h1>Motion</h1>
+  <p>
+    Shot on twos: stepped at 12 drawings a second, one overshoot, a hard
+    landing, a held frame. Motion is an <strong>event</strong> — an overlay
+    entering, a telegram arriving — never a state; nothing animates on
+    scroll or hover, so this page loads at rest. Strike CUE to run each one.
+    Every class respects <code>prefers-reduced-motion</code>: with it set,
+    the cues do nothing, by design.
+  </p>
+
+  <section class="mk-card">
+    <h2>IRIS &amp; CURTAIN</h2>
+    <p>
+      The silent-film reveals, for the one art reveal per page —
+      <code>.mk-iris-in</code> is the circle wipe, <code>.mk-curtain-in</code>
+      rises from the bottom edge. Eight frames over 660ms.
+    </p>
+    <div class="row">
+      <div class="cue-cell">
+        <div class="mk-thumb mk-thumb--square">
+          <img data-demo="iris" src={art('scene-ledger-fire.jpg')} alt="Cadbury balancing the ledger as the wastepaper basket burns" width="1024" height="1024" loading="lazy" />
+        </div>
+        <button class="mk-btn mk-btn--sm" data-cue="iris" data-class="mk-iris-in">CUE THE IRIS</button>
+      </div>
+      <div class="cue-cell">
+        <div class="mk-thumb mk-thumb--square">
+          <img data-demo="curtain" src={art('portrait-wilson.jpg')} alt="Wilson, the living picket fence, at his garden tap" width="848" height="1264" loading="lazy" />
+        </div>
+        <button class="mk-btn mk-btn--sm" data-cue="curtain" data-class="mk-curtain-in">CUE THE CURTAIN</button>
+      </div>
+    </div>
+    <pre><code>&lt;img class="mk-iris-in" src="…" /&gt;
+&lt;img class="mk-curtain-in" src="…" /&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>SETTLE &amp; DROP</h2>
+    <p>
+      <code>.mk-settle-in</code> rises 14px, overshoots once, lands — for
+      sheets and panels arriving. <code>.mk-drop-in</code> falls from above
+      and bounces to rest — for dialogs and telegrams. Five frames over
+      420ms.
+    </p>
+    <div class="row">
+      <div class="cue-cell">
+        <div class="mk-card mk-card--sunken cue-panel" data-demo="settle">
+          <strong>From the wings</strong>
+          <p class="cue-panel__line">a panel takes its place</p>
+        </div>
+        <button class="mk-btn mk-btn--sm" data-cue="settle" data-class="mk-settle-in">CUE THE SETTLE</button>
+      </div>
+      <div class="cue-cell">
+        <div class="mk-alert cue-panel" data-demo="drop">
+          <span class="mk-alert__title">A telegram, delivered</span>
+          <span>it lands with weight, not with ease</span>
+        </div>
+        <button class="mk-btn mk-btn--sm" data-cue="drop" data-class="mk-drop-in">CUE THE DROP</button>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-card mk-settle-in"&gt;…&lt;/div&gt;
+&lt;div class="mk-alert mk-drop-in"&gt;…&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>STAMP</h2>
+    <p>
+      <code>.mk-stamp-in</code> arrives oversized and strikes down like a
+      rubber stamp — for badges and verdicts. Three frames over 250ms.
+    </p>
+    <div class="row">
+      <span class="mk-badge mk-badge--danger" data-demo="stamp">SOLD OUT</span>
+      <button class="mk-btn mk-btn--sm" data-cue="stamp" data-class="mk-stamp-in">CUE THE STAMP</button>
+    </div>
+    <pre><code>&lt;span class="mk-badge mk-badge--danger mk-stamp-in"&gt;SOLD OUT&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>TYPELINE</h2>
+    <p>
+      <code>.mk-typeline</code> strikes a single line onto the page,
+      twenty-two steps left to right. For kickers and datelines that fit on
+      one line.
+    </p>
+    <div class="row">
+      <p class="mk-kicker cue-typeline" data-demo="typeline">APPEARING NIGHTLY · PRICE: FREE</p>
+      <button class="mk-btn mk-btn--sm" data-cue="typeline" data-class="mk-typeline">CUE THE LINE</button>
+    </div>
+    <pre><code>&lt;p class="mk-kicker mk-typeline"&gt;APPEARING NIGHTLY&lt;/p&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE MARQUEE FLICKER</h2>
+    <p>
+      <code>.mk-flicker</code> is the one idle loop the language allows —
+      a marquee bulb wavering on a 3.2s cycle — and it is rationed to one
+      announcement per page. Here it runs only while cued; strike DOUSE to
+      put it out.
+    </p>
+    <div class="row">
+      <p class="cue-marquee" data-demo="flicker">TONIGHT — GHOLSON&rsquo;S FOLLIES</p>
+      <button class="mk-btn mk-btn--sm" data-cue="flicker" data-class="mk-flicker" data-toggle>CUE THE MARQUEE</button>
+    </div>
+    <pre><code>&lt;h2 class="mk-flicker"&gt;TONIGHT&lt;/h2&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>BILLING ORDER</h2>
+    <p>
+      <code>.mk-bill-order</code> on a parent staggers its children two
+      frames apart — each child carries its own entrance class and enters in
+      billing order.
+    </p>
+    <div class="row">
+      <div class="mk-bill-order bill-row" data-demo="bill">
+        <span class="mk-badge">CADBURY</span>
+        <span class="mk-badge">SETH</span>
+        <span class="mk-badge">WILSON</span>
+        <span class="mk-badge mk-badge--accent">AKE</span>
+      </div>
+      <button class="mk-btn mk-btn--sm" data-cue="bill" data-class="mk-stamp-in" data-children>CUE THE BILL</button>
+    </div>
+    <pre><code>&lt;div class="mk-bill-order"&gt;
+  &lt;span class="mk-badge mk-stamp-in"&gt;CADBURY&lt;/span&gt;
+  &lt;span class="mk-badge mk-stamp-in"&gt;SETH&lt;/span&gt;
+  …
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE CLOCKWORK</h2>
+    <p>
+      One frame is <code>--mk-frame</code> (83ms); entrances run 3, 5 or 8
+      frames; the struck key is the one smooth easing. The full timing-token
+      table lives on <a href={(base + 'ui/tokens').replace(/\/+/g, '/') + '#motion'}>TOKENS</a>,
+      and the doctrine — what qualifies as an event, the six-point checklist
+      for new animations — in the repo&rsquo;s
+      <a href="https://github.com/heidihowilson/make/blob/main/docs/MOTION.md">MOTION.md</a>.
+    </p>
+  </section>
+
+  <style>
+    section.mk-card + section.mk-card {
+      margin-top: var(--mk-space-2xl);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--mk-space-lg);
+      margin-block: var(--mk-space-md);
+    }
+
+    .cue-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-xs);
+      width: 11rem;
+    }
+
+    .cue-panel {
+      width: 100%;
+    }
+
+    .cue-panel__line {
+      margin: var(--mk-space-hair) 0 0;
+      font-style: italic;
+      color: var(--mk-color-text-muted);
+    }
+
+    .cue-typeline {
+      margin: 0;
+    }
+
+    /* The marquee line — display face at department size, ink on paper. */
+    .cue-marquee {
+      margin: 0;
+      font-family: var(--mk-font-display);
+      font-size: var(--mk-size-dept);
+      color: var(--mk-color-heading);
+      line-height: var(--mk-leading-tight);
+    }
+
+    .bill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-sm);
+    }
+
+    pre {
+      margin-top: var(--mk-space-md);
+      padding: 12px 14px;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      border-left: var(--mk-rule-thick);
+      color: var(--mk-color-heading);
+      font-family: var(--mk-font-typewriter);
+      font-size: var(--mk-size-mono-sm);
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: var(--mk-font-typewriter);
+      font-size: 0.86em;
+      background: var(--mk-color-plate);
+      border: var(--mk-rule-hair);
+      color: var(--mk-color-heading);
+      padding: 1px 5px 0;
+    }
+
+    pre code {
+      background: none;
+      border: 0;
+      padding: 0;
+      font-size: inherit;
+    }
+  </style>
+
+  <script>
+    // The cues. Each button re-strikes its animation class on the demo
+    // element; a forced reflow between remove and add restarts the run.
+    // The flicker cue toggles instead — it is a loop, and loops are doused,
+    // not replayed.
+    for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-cue]')) {
+      const target = document.querySelector<HTMLElement>(`[data-demo="${btn.dataset.cue}"]`);
+      if (!target) continue;
+      const cls = btn.dataset.class!;
+
+      btn.addEventListener('click', () => {
+        if ('toggle' in btn.dataset) {
+          const on = target.classList.toggle(cls);
+          btn.textContent = on ? 'DOUSE THE MARQUEE' : 'CUE THE MARQUEE';
+          return;
+        }
+        const targets = 'children' in btn.dataset
+          ? Array.from(target.children) as HTMLElement[]
+          : [target];
+        for (const el of targets) el.classList.remove(cls);
+        void target.offsetWidth;
+        for (const el of targets) el.classList.add(cls);
+      });
+    }
+  </script>
+</Base>

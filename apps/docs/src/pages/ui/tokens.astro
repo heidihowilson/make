@@ -70,35 +70,58 @@ const statuses = [
 ];
 
 const typeScale = [
-  { var: '--mk-size-title', note: 'Rye mastheads' },
-  { var: '--mk-size-name', note: 'Rye character names' },
-  { var: '--mk-size-dept', note: 'typewriter department headings' },
-  { var: '--mk-size-dept-sm', note: 'small departments' },
-  { var: '--mk-size-player', note: 'player names' },
-  { var: '--mk-size-body-lg', note: 'lead prose' },
-  { var: '--mk-size-body', note: 'prose' },
-  { var: '--mk-size-body-sm', note: 'the responsive floor' },
-  { var: '--mk-size-list', note: 'list text' },
-  { var: '--mk-size-quote', note: 'pull-quotes' },
-  { var: '--mk-size-tagline', note: 'italic taglines' },
-  { var: '--mk-size-mono', note: 'typewriter utility' },
-  { var: '--mk-size-mono-sm', note: 'small typewriter' },
-  { var: '--mk-size-mono-xs', note: 'the fine print' },
+  { var: '--mk-size-title', value: 'clamp(44px, 6.5vw, 78px)', note: 'Rye mastheads' },
+  { var: '--mk-size-name', value: 'clamp(56px, 9vw, 96px)', note: 'Rye character names' },
+  { var: '--mk-size-dept', value: '23px', note: 'typewriter department headings' },
+  { var: '--mk-size-dept-sm', value: '17px', note: 'small departments' },
+  { var: '--mk-size-player', value: '19px', note: 'player names' },
+  { var: '--mk-size-body-lg', value: '19px', note: 'lead prose' },
+  { var: '--mk-size-body', value: '18px', note: 'prose' },
+  { var: '--mk-size-body-sm', value: '17px', note: 'the responsive floor' },
+  { var: '--mk-size-list', value: '16px', note: 'list text' },
+  { var: '--mk-size-quote', value: '20px', note: 'pull-quotes' },
+  { var: '--mk-size-tagline', value: '17px', note: 'italic taglines' },
+  { var: '--mk-size-mono', value: '13px', note: 'typewriter utility' },
+  { var: '--mk-size-mono-sm', value: '12px', note: 'small typewriter' },
+  { var: '--mk-size-mono-xs', value: '11px', note: 'the fine print' },
 ];
 
 const tracks = [
-  { var: '--mk-track-dept', note: 'department headings' },
-  { var: '--mk-track-mono', note: 'a dateline' },
-  { var: '--mk-track-nav-sm', note: 'small nav' },
-  { var: '--mk-track-back', note: 'the back link' },
-  { var: '--mk-track-nav', note: 'primary nav' },
-  { var: '--mk-track-bill-no', note: 'bill numbers' },
-  { var: '--mk-track-bulletin', note: 'the bulletin' },
-  { var: '--mk-track-kicker', note: 'a proscenium announcement' },
+  { var: '--mk-track-dept', value: '0.08em', note: 'department headings' },
+  { var: '--mk-track-mono', value: '0.1em', note: 'a dateline' },
+  { var: '--mk-track-nav-sm', value: '0.12em', note: 'small nav' },
+  { var: '--mk-track-back', value: '0.18em', note: 'the back link' },
+  { var: '--mk-track-nav', value: '0.22em', note: 'primary nav' },
+  { var: '--mk-track-bill-no', value: '0.3em', note: 'bill numbers' },
+  { var: '--mk-track-bulletin', value: '0.32em', note: 'the bulletin' },
+  { var: '--mk-track-kicker', value: '0.4em', note: 'a proscenium announcement' },
 ];
 
 const spaceScale = [
-  'hair', 'xxs', 'xs', 'sm', 'md', 'inset', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl',
+  { step: 'hair', value: '2px' },
+  { step: 'xxs', value: '6px' },
+  { step: 'xs', value: '10px' },
+  { step: 'sm', value: '14px' },
+  { step: 'md', value: '16px' },
+  { step: 'inset', value: '18px' },
+  { step: 'lg', value: '20px' },
+  { step: 'xl', value: '26px' },
+  { step: '2xl', value: '32px' },
+  { step: '3xl', value: '36px' },
+  { step: '4xl', value: '44px' },
+  { step: '5xl', value: '48px' },
+];
+
+// The measure, icon and layer slots — small families the components and
+// icons package reference; listed so this page is the full primitive map.
+const misc = [
+  { var: '--mk-measure-prose', value: '70ch', note: 'the prose measure' },
+  { var: '--mk-icon-sm', value: '1rem', note: 'small glyph slot' },
+  { var: '--mk-icon-md', value: '1.25rem', note: 'default glyph slot' },
+  { var: '--mk-icon-lg', value: '1.5rem', note: 'large glyph slot' },
+  { var: '--mk-layer-chrome', value: '100', note: 'app chrome' },
+  { var: '--mk-layer-overlay', value: '200', note: 'dialogs and scrims' },
+  { var: '--mk-layer-toast', value: '300', note: 'the telegram — above everything' },
 ];
 
 const rules = [
@@ -237,7 +260,7 @@ const motions = [
         <li class="specimen__row">
           <span class="specimen__text" style={`font-size: var(${t.var});`}>Aa on the bill</span>
           <code class="specimen__name">{t.var}</code>
-          <span class="specimen__note">{t.note}</span>
+          <span class="specimen__note">{t.value} · {t.note}</span>
         </li>
       ))}
     </ul>
@@ -254,7 +277,7 @@ const motions = [
         <li class="specimen__row">
           <span class="specimen__track" style={`letter-spacing: var(${t.var});`}>APPEARING NIGHTLY</span>
           <code class="specimen__name">{t.var}</code>
-          <span class="specimen__note">{t.note}</span>
+          <span class="specimen__note">{t.value} · {t.note}</span>
         </li>
       ))}
     </ul>
@@ -267,13 +290,43 @@ const motions = [
       4/8 grid — the print rhythm is the rhythm. Do not snap it.
     </p>
     <ul class="bars">
-      {spaceScale.map((step) => (
+      {spaceScale.map((s) => (
         <li class="bars__row">
-          <span class="bars__bar" style={`inline-size: var(--mk-space-${step});`}></span>
-          <code class="bars__name">--mk-space-{step}</code>
+          <span class="bars__bar" style={`inline-size: var(--mk-space-${s.step});`}></span>
+          <code class="bars__name">--mk-space-{s.step}</code>
+          <span class="bars__note">{s.value}</span>
         </li>
       ))}
     </ul>
+  </section>
+
+  <section class="mk-card" aria-labelledby="misc">
+    <h2 id="misc">MEASURE, ICON SLOTS &amp; LAYERS</h2>
+    <p class="prose">
+      The small families: the prose measure, the glyph slots the icons
+      package aligns to, and the named layers so nothing ever types
+      <code>z-index: 9999</code>.
+    </p>
+    <div class="mk-table-wrap">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th>TOKEN</th>
+            <th>VALUE</th>
+            <th>MEANING</th>
+          </tr>
+        </thead>
+        <tbody>
+          {misc.map((t) => (
+            <tr>
+              <td><code>{t.var}</code></td>
+              <td class="mk-table__num"><code>{t.value}</code></td>
+              <td>{t.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section class="mk-card" aria-labelledby="rules">
@@ -415,6 +468,7 @@ const motions = [
     .rules__note,
     .rows__note,
     .specimen__note,
+    .bars__note,
     .faces__note {
       font-family: var(--mk-font-body);
       font-style: italic;

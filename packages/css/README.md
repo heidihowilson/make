@@ -40,7 +40,9 @@ so import sethmakes after any reset, or skip the reset.
 Compose these on native elements. Variants are `--` suffixed; structure parts are
 `__` suffixed (BEM-ish).
 
-This is the complete inventory — if a class isn't here, it doesn't exist.
+The canonical complete inventory is the docs-site
+[cheatsheet](https://design.sethgholson.com/ui/cheatsheet); this table is the
+same catalog grouped by area for npm/offline reading.
 Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 `--checked` modifier (progressive-enhancement consumers render state server-side).
 
@@ -59,7 +61,10 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 | Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` (the one idle loop, once per page), `.mk-bill-order` (stagger parent) |
 | Utilities | `.mk-icon` (`--sm` / `--lg`), `.mk-link-reset` |
 
-The full live catalog with rendered examples is the docs site (`/ui/components/*`).
+The full live catalog with rendered examples is the docs site:
+[design.sethgholson.com/ui](https://design.sethgholson.com/ui) — and its
+[cheatsheet](https://design.sethgholson.com/ui/cheatsheet) is the **canonical
+complete inventory**; this table is the per-area summary.
 
 ## House rules that shape usage
 

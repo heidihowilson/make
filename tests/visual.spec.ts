@@ -14,6 +14,7 @@ const PAGES = [
   '/ui/components/surfaces',
   '/ui/components/feedback',
   '/ui/components/media',
+  '/ui/components/motion',
   '/ui/tokens',
   '/ui/cheatsheet',
   '/icons',
