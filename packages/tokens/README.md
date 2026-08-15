@@ -2,7 +2,7 @@
 
 CSS custom properties for the **sethmakes** design language — **Vaudeville**, the
 printed-page vocabulary of *Gholson's Follies*: sepia duotone on aged newsprint,
-four typefaces with one job each, printed rules, letterpress shadows, and motion
+three typefaces with one job each, printed rules, letterpress shadows, and motion
 shot on twos. **Zero JS.** Every `@sethmakes/css` class and
 `@sethmakes/components` element reads these and only these; this package is the
 single source of colour and scale.
@@ -35,7 +35,7 @@ reference semantic names; never primitives, never raw values.
 
 | Group | Semantic tokens |
 |---|---|
-| Faces | `--mk-font-display` (Rye) · `--mk-font-marquee` (Limelight) · `--mk-font-typewriter` (Special Elite) · `--mk-font-body` (Sorts Mill Goudy) |
+| Faces | `--mk-font-display` (Rye) · `--mk-font-typewriter` (Special Elite — headings AND utility) · `--mk-font-body` (Sorts Mill Goudy) |
 | Surfaces | `--mk-color-stage`, `--mk-color-sheet`, `--mk-color-inset`, `--mk-color-plate`, `--mk-color-ink-surface` |
 | Text | `--mk-color-heading`, `--mk-color-text`, `--mk-color-text-secondary`, `--mk-color-text-muted`, `--mk-color-text-on-ink` |
 | Lines | `--mk-color-rule`, `--mk-color-rule-hair`, `--mk-color-rule-ghost` — plus composite rules `--mk-rule-double/-double-thin/-thick/-hair/-dash/-accent` |
@@ -61,7 +61,7 @@ switches in consumers.
 
 ## Fonts
 
-`fonts.css` self-hosts the four faces (latin subset, weight 400, plus the
+`fonts.css` self-hosts the three faces (latin subset, weight 400, plus the
 Sorts Mill Goudy italic). It references the woff2 files with **relative** URLs
 (`url("./fonts/…")`).
 

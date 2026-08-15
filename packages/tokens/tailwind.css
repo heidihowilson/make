@@ -49,9 +49,8 @@
   /* Focus */
   --color-focus: var(--mk-color-focus);
 
-  /* Type — the four faces, one job each */
+  /* Type — the three faces, one job each */
   --font-display: var(--mk-font-display);
-  --font-marquee: var(--mk-font-marquee);
   --font-typewriter: var(--mk-font-typewriter);
   --font-body: var(--mk-font-body);
 }

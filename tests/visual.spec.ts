@@ -37,7 +37,7 @@ async function settled(page: import('@playwright/test').Page) {
   await page.evaluate(async () => {
     await Promise.all([
       document.fonts.load('400 1rem "Rye"'),
-      document.fonts.load('400 1rem "Limelight"'),
+      
       document.fonts.load('400 1rem "Special Elite"'),
       document.fonts.load('400 1rem "Sorts Mill Goudy"'),
       document.fonts.load('italic 400 1rem "Sorts Mill Goudy"'),

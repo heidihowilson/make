@@ -36,9 +36,9 @@
     background: var(--mk-color-scrim);
   }
 
-  /* Title — a marquee heading over a 3px double head rule. */
+  /* Title — a department heading over a 3px double head rule. */
   .mk-dialog__title {
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept);
     font-weight: 400;
     letter-spacing: var(--mk-track-dept);

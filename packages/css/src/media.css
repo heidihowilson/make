@@ -45,7 +45,7 @@
   }
 
   /*
-   * Server-rendered no-image path: the empty frame holds a large marquee
+   * Server-rendered no-image path: the empty frame holds a large display
    * initial on the plate tone — a playbill with the portrait not yet
    * engraved. Scales with the box (the thumb is a size container).
    */
@@ -55,7 +55,7 @@
     width: 100%;
     background: var(--mk-color-plate);
     color: var(--mk-color-text-muted);
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: clamp(17px, 40cqw, 96px);
     line-height: var(--mk-leading-tight);
     text-transform: uppercase;

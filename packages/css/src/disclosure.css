@@ -22,7 +22,7 @@
     min-height: 44px;
     padding: 13px 2px;
     color: var(--mk-color-heading);
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
     letter-spacing: 0.1em;
     cursor: pointer;
