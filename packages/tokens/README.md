@@ -102,6 +102,7 @@ one source of truth beats three copies.
 
 ## Versioning
 
-Versions in **lockstep** with `@sethmakes/css`, `@sethmakes/components`, and
-`@sethmakes/icons` (a Changesets fixed group). A token rename or value change is a
-family bump. Pre-1.0: `0.x`, minor = breaking.
+Versions in **lockstep** with `@sethmakes/css` and `@sethmakes/components`
+(a Changesets fixed group; `@sethmakes/icons` left the group 2026-08-14 and
+versions independently). A token rename or value change is a family bump.
+Pre-1.0: `0.x`, minor = breaking.

@@ -2,8 +2,10 @@
 
 > **RETIRED 2026-08-13.** This audit covers the terminal/moss grayscale system,
 > replaced wholesale by the Vaudeville language (see DESIGN-LANGUAGE.md). It is
-> kept as the method template; a fresh audit of the sepia palette is an open
-> item. Until then, treat faded `#8f8066` on paper as decorative-tier only.
+> kept as the method template. The sepia pass completed 2026-08-15 — outcomes
+> recorded in DESIGN-LANGUAGE.md: faded `#8f8066` is decorative-tier only,
+> muted TEXT uses `--mk-faded-ink` `#685d45` (≥4.5:1), link ink deepened to
+> `#7a4e15`, ochre carries lines never small text.
 
 Concrete WCAG 2.1 contrast audit of the `@sethmakes/tokens` semantic color
 pairs, both light and dark modes. Closes the "concrete WCAG contrast audit of

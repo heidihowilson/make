@@ -5,7 +5,7 @@
 The library is **CSS-first for basics, custom elements for widgets**:
 
 - **Native HTML, styled by classes** for everything the platform already provides: buttons, inputs, selects, checkboxes, typography, surfaces. `<button class="mk-btn mk-btn--primary">`. These SSR perfectly in every framework, ship zero JS, and participate in native forms — load-bearing for Remix.
-- **Lit custom elements** only where behavior demands JS: date picker, combobox, dialog, toast, tabs, etc. `<mk-datepicker>`.
+- **Lit custom elements** only where behavior demands JS: date picker, combobox, tooltip, etc. `<mk-datepicker>`. (Dialog, toast and tabs were once on this list but shipped CSS-first — native `<dialog>` provides the focus trap, and the rest is look, not behavior.)
 
 Rationale: a design language is ~80% CSS. This makes the 80% bulletproof across all frameworks (including no-JS), and shrinks the SSR problem to a small set of components. Escape hatch: classes can later be wrapped in custom elements if a component grows behavior; the reverse migration is expensive. Low-regret.
 
@@ -31,11 +31,11 @@ SSR matters — consumers are SSR-first frameworks (Remix v2/v3, SvelteKit).
 
 ## Package boundaries
 
-Three packages, published publicly to npm under `@sethmakes/*`:
+Three packages under `@sethmakes/*` — tokens and css publish publicly to npm; components is marked `private` until it has a component to ship:
 
 | Package | Contents | JS? |
 |---|---|---|
-| `@sethmakes/tokens` | CSS custom properties (single-mode Vaudeville), the four self-hosted faces, Tailwind `@theme` bridge | No |
+| `@sethmakes/tokens` | CSS custom properties (single-mode Vaudeville), the three self-hosted faces, Tailwind `@theme` bridge | No |
 | `@sethmakes/css` | Class-based styles for native HTML (depends on tokens) | No |
 | `@sethmakes/components` | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes |
 
@@ -46,9 +46,8 @@ A consumer wanting only the look pulls tokens + css and ships zero JS.
 ## Demo, docs & testing
 
 - **`apps/docs`** — an Astro site that is simultaneously the public docs site, the dev playground, and the SSR test fixture. Every component is rendered both pre-rendered (server path) and client-upgraded. Deployed to **GitHub Pages** via Actions (static hosting is fine — Astro exercises the server-render path at build time).
-- **@web/test-runner** for behavior tests (real browsers, built for web components).
-- **Playwright** for visual regression.
-- **SSR smoke suite** in CI: render each custom element via `@lit-labs/ssr`, assert on the emitted HTML.
+- **Playwright** for visual regression (in CI today: every docs page, single mode, phone + desktop).
+- Planned, not yet built: **@web/test-runner** for behavior tests (real browsers, built for web components) and an **SSR smoke suite** in CI (render each custom element via `@lit-labs/ssr`, assert on the emitted HTML) — both wait on the first shipped component.
 
 ## Adoption mechanics
 

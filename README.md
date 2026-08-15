@@ -14,7 +14,7 @@ The design-system packages (`tokens`, `css`, `components`) version in **lockstep
 
 | Package | Contents | JS? | Published? |
 |---|---|---|---|
-| [`@sethmakes/tokens`](packages/tokens) | CSS custom properties (single-mode sepia) + the four self-hosted faces | No | Yes |
+| [`@sethmakes/tokens`](packages/tokens) | CSS custom properties (single-mode sepia) + the three self-hosted faces | No | Yes |
 | [`@sethmakes/css`](packages/css) | Class-based styles for native HTML (depends on tokens) | No | Yes |
 | [`@sethmakes/components`](packages/components) | Lit custom elements (depends on tokens; styles its own shadow DOM) | Yes | No — private, reserved until it ships |
 | [`@sethmakes/icons`](packages/icons) | Brand aliases + custom Iconify set (`mk` prefix) | No (build/CLI only) | Yes |
@@ -32,7 +32,7 @@ Import order matters — `css` defines no tokens:
 ```
 
 - **With Tailwind v4 (Vite):** import sethmakes first and skip preflight (it lands after `mk.base` and overwrites heading/link styles); bring a small p/heading margin reset of your own. Full recipe on the docs site's install section.
-- **Fonts:** `fonts.css` uses relative `url(./fonts/…)`. Vite rebases these; Tailwind's standalone CLI does not — copy the `fonts/` dir to public assets at build time if fonts 404.
+- **Fonts:** `fonts.css` uses relative `url(./fonts/…)`. Vite rebases these; Tailwind's standalone CLI does not — run the `mk-fonts` bin shipped with tokens (`mk-fonts public/fonts`) to copy the `fonts/` dir into served assets if fonts 404.
 
 ### Tailwind standalone CLI + DaisyUI → sethmakes
 
@@ -71,8 +71,8 @@ section; the shape:
    `.mk-alert--info`.
 
 4. **Copy the fonts.** The standalone CLI does not rebase `fonts.css`'s relative
-   `url(./fonts/…)`, so add a build step copying
-   `node_modules/@sethmakes/tokens/fonts/` into your served assets, or fonts 404.
+   `url(./fonts/…)`, so run the `mk-fonts` bin shipped with tokens
+   (`"fonts": "mk-fonts public/fonts"` before your CSS build), or fonts 404.
 
 **Playwright note:** the restyle changes **classes, not roles/labels/routes**.
 Class-coupled selectors (`.card` → `.mk-card`, `li.card` → `li.mk-card`) must be
@@ -94,7 +94,7 @@ Changesets, automated by GitHub Actions:
 
 1. Every behavior-changing PR adds a changeset (`pnpm changeset`).
 2. On merge to `main`, the release workflow opens or updates a **Version Packages** PR aggregating pending changesets.
-3. Merging that PR runs `changeset publish`, releasing the public packages (`tokens` and `css`) to npm. `components` is private and is skipped until it ships. Publishing uses **npm Trusted Publishing (OIDC)** — no token secret; the workflow is registered as a trusted publisher on npmjs.com and provenance attestations are attached automatically.
+3. Merging that PR runs `changeset publish`, releasing every public package with pending changesets (`tokens`, `css`, and `icons` on its own version line) to npm. `components` is private and is skipped until it ships. Publishing uses **npm Trusted Publishing (OIDC)** — no token secret; the workflow is registered as a trusted publisher on npmjs.com and provenance attestations are attached automatically.
 
 Pre-1.0: stay at `0.x` (minor = breaking) until a third real project adopts the library. Consumers pin exact versions; the changelog is the migration doc.
 
