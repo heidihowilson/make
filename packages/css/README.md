@@ -18,7 +18,7 @@ twos — stepped at 12fps, never smoothly eased.
 ```css
 /* order matters — css defines no tokens */
 @import "@sethmakes/tokens/index.css";
-@import "@sethmakes/tokens/fonts.css"; /* the four faces — skip only for fallback type */
+@import "@sethmakes/tokens/fonts.css"; /* the three faces — skip only for fallback type */
 @import "@sethmakes/css/index.css";
 ```
 
@@ -30,7 +30,7 @@ without specificity fights — layered rules lose to unlayered ones by definitio
 That is also why coexisting with Tailwind is a matter of import order, not `!important`.
 
 `mk.reset` zeroes `body` margin and sets `box-sizing` only. `mk.base` styles bare
-`h1–h4`, `a`, and document defaults (Rye masthead h1, Limelight department h2–h4,
+`h1–h4`, `a`, and document defaults (Rye masthead h1, typewriter department h2–h4,
 Goudy prose, link ink that goes ochre on hover). If you drop a CSS reset (Tailwind
 preflight, normalize) **after** `mk.base`, it overwrites those heading/link styles —
 so import sethmakes after any reset, or skip the reset.
@@ -72,7 +72,7 @@ The full live catalog with rendered examples is the docs site (`/ui/components/*
   for the meaning, not the look.
 - **Copy is playbill.** "SOLD OUT" for disabled, "No. 2 — coming soon" for
   empty, "a note for the management" for alerts. ALL CAPS lives in typewriter
-  utility text; Limelight/Rye caps are written in the markup, never
+  utility text; Rye and heading caps are written in the markup, never
   `text-transform`.
 - **Motion is an event.** Entrances only; nothing on scroll or hover; the only
   loops are the typing dots, the progress hatch, and one marquee flicker.

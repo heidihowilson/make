@@ -13,9 +13,10 @@ traced from live vaudeville footage, printed in sepia duotone on newsprint.**
 **The metaphor is print, not screen.** Every surface is a sheet of aged newsprint lying on a
 dark stage floor. Sepia duotone ink on paper; printed rules — not floating shadows — do all
 the dividing; corners are square everywhere (the medallion and the radio are the only round
-things, because a circle is geometry, not softness). Four typefaces with one job each: Rye
-for mastheads, Limelight for department headings, Special Elite for the typewriter utility
-voice, Sorts Mill Goudy for prose. **Ochre is the only warm accent and it is rationed — one
+things, because a circle is geometry, not softness). Three typefaces with one job each: Rye for
+mastheads, Special Elite for department headings and the typewriter utility voice, Sorts
+Mill Goudy for prose. (Limelight served as a fourth marquee face until 2026-08-15 —
+alongside Rye and Special Elite it read as noise, and was retired.) **Ochre is the only warm accent and it is rationed — one
 spot per view.** Motion is "shot on twos": stepped at 12 frames a second, an event (an
 overlay entering, a telegram arriving), never a state. If a treatment could not be done by a
 1933 letterpress shop plus one warm ink, it does not belong.
@@ -44,7 +45,7 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 | Neutrals | Sepia duotone: ink `#2a241b` on papers `#e6d9ba`/`#ede2c4`/`#d8c9a4`, tan/brown/faded secondary, stage `#26211a` |
 | Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#8a5a1f`, going ochre on hover |
 | Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. No blue, no `info` hue |
-| Typography | Four faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
+| Typography | Three faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
 | Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
 | Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press |
 | Iconography | **No icon set.** Unicode glyphs (`←` `→` `·`), CSS-drawn controls, and framed art from the pipeline. `@sethmakes/icons` remains for consumer apps' functional UIs, not for the language's own surfaces |
@@ -52,18 +53,19 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 
 ## Consequences & constraints (accepted)
 
-- **Webfont weight.** Four families (~165KB woff2 latin, self-hosted in `@sethmakes/tokens`).
+- **Webfont weight.** Three families (~165KB woff2 latin, self-hosted in `@sethmakes/tokens`).
   The fallbacks (Georgia serif / Courier mono) are legible but the brand arrives with the
   fonts. No other weights exist — never synthesize bold.
-- **Caps are written, not transformed** for Rye/Limelight; `text-transform: uppercase` is for
+- **Caps are written, not transformed** for Rye and typewriter headings; `text-transform: uppercase` is for
   the typewriter utility voice only.
 - **The ochre ration is a review criterion.** Two accents in one view cancel each other out.
   A `--warning` button, an error message, a focus ring and a lever's ON state are all
   claimants; screens get one.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
-- **Contrast care.** Faded `#8f8066` on paper is decorative-tier only; body ink and brown carry
-  reading text. Re-audit CONTRAST.md against the sepia palette (the old audit covered the
-  grayscale system).
+- **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
+  (ghost rules, dashed slots); muted TEXT uses the darker `--mk-faded-ink` `#685d45` (≥4.5:1);
+  link ink deepened to `#7a4e15`; **ochre carries lines, never small text** — its ~2.5:1 on
+  paper fails everywhere. Links in running text carry a printed underline (WCAG 1.4.1).
 - **Print rhythm is literal.** Values were copied from the source CSS; do not round them to a
   grid during refactors.
 - **Visual regression runs in one mode** (single-mode language), still at two viewports.
@@ -101,7 +103,6 @@ paper (the telegram toast is the one sanctioned fixed element — it is an event
 
 ## Remaining open
 
-- A sepia-palette WCAG pass to replace the retired grayscale CONTRAST.md audit.
 - Whether the docs site should embed the cast registry rail (it consumes
   `cast.sethgholson.com/cast.json`) or stay registry-free.
 

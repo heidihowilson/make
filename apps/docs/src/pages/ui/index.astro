@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const link = (path: string) => (base + path.replace(/^\//, '')).replace(/\/+/g, '/');
 
 const components = [
-  { href: '/ui/components/typography', name: 'typography', desc: 'the four faces, prose, headings' },
+  { href: '/ui/components/typography', name: 'typography', desc: 'the three faces, prose, headings' },
   { href: '/ui/components/buttons', name: 'buttons', desc: 'struck keys, ticket-stub badges' },
   { href: '/ui/components/forms', name: 'forms', desc: 'inputs, choices, the stage lever' },
   { href: '/ui/components/surfaces', name: 'surfaces', desc: 'panels, the ledger, printed rules' },
@@ -33,7 +33,7 @@ const components = [
     <p class="prose">
       The metaphor is print, not screen: every page is a sheet of aged
       newsprint on a dark stage floor. Sepia duotone ink throughout; four
-      faces, each with one job — Rye for mastheads, Limelight for department
+      faces, each with one job — Rye for mastheads, Special Elite for department
       headings, Special Elite for the typewriter utility voice, Sorts Mill
       Goudy for prose. Printed rules do the dividing, corners are square,
       and ochre is the only warm accent — rationed to one spot per view.
@@ -75,7 +75,7 @@ const components = [
       relative URLs. Vite rebases these automatically; Tailwind&rsquo;s
       standalone CLI does not — copy
       <code>node_modules/@sethmakes/tokens/fonts/</code> into your public
-      assets at build time if the four faces 404.
+      assets at build time if the faces 404.
     </p>
 
     <h3 id="tailwind">With Tailwind v4</h3>
@@ -301,7 +301,7 @@ const components = [
     }
 
     .index__link {
-      font-family: var(--mk-font-marquee);
+      font-family: var(--mk-font-typewriter);
       font-size: var(--mk-size-dept-sm);
       color: var(--mk-color-heading);
       line-height: var(--mk-leading-tight);

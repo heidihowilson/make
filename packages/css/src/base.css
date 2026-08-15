@@ -17,10 +17,12 @@
   }
 
   /*
-   * Headings: h1 is the masthead voice (Rye), h2–h4 are department
-   * headings (Limelight). Caps are WRITTEN in the markup for these faces,
-   * never text-transformed — the caps are typography, not styling.
-   * Everything ships at weight 400: loudness is face, size and tracking.
+   * Headings: h1 is the masthead voice (Rye); h2–h4 are department
+   * headings in the typewriter face at display sizes — three faces total,
+   * and the typewriter carries both the utility voice and the headings
+   * (Limelight was retired 2026-08-15: with Rye and Special Elite on the
+   * page, a third display face read as noise). Caps are written in the
+   * markup. Everything ships at 400: loudness is size and tracking.
    */
   h1,
   h2,
@@ -38,14 +40,14 @@
   }
 
   h2 {
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept);
     letter-spacing: var(--mk-track-dept);
   }
 
   h3,
   h4 {
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
     letter-spacing: 0.12em;
   }

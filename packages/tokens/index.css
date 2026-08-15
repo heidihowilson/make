@@ -58,14 +58,14 @@
   --mk-link-ink: #7a4e15;
 
   /*
-   * Type scale — four faces, each with one job. Loudness is dialled with
+   * Type scale — three faces, each with one job. Loudness is dialled with
    * face, size and TRACKING, never weight: everything ships at 400.
    */
   --mk-size-title: clamp(44px, 6.5vw, 78px); /* Rye mastheads */
   --mk-size-name: clamp(56px, 9vw, 96px); /* Rye character names */
-  --mk-size-dept: 23px; /* Limelight department headings */
+  --mk-size-dept: 23px; /* typewriter department headings */
   --mk-size-dept-sm: 17px;
-  --mk-size-player: 19px; /* Limelight player names */
+  --mk-size-player: 19px; /* player names */
   --mk-size-body-lg: 19px; /* Sorts Mill Goudy prose */
   --mk-size-body: 18px;
   --mk-size-body-sm: 17px; /* the responsive floor — prose never drops below */
@@ -172,7 +172,6 @@
 
   /* Faces */
   --mk-font-display: 'Rye', serif; /* mastheads, names. Never body, never a button. */
-  --mk-font-marquee: 'Limelight', serif; /* department headings, panel titles — caps written in the markup */
   --mk-font-typewriter: 'Special Elite', 'Courier New', monospace; /* datelines, nav, labels, code */
   --mk-font-body: 'Sorts Mill Goudy', Georgia, serif; /* all prose; italic = taglines, roles, quotes */
 

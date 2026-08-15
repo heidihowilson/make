@@ -21,10 +21,10 @@
     letter-spacing: var(--mk-track-mono);
   }
 
-  /* Optional lead line — a small marquee heading above the typewriter note. */
+  /* Optional lead line — a small department heading above the typewriter note. */
   .mk-empty__title {
     color: var(--mk-color-heading);
-    font-family: var(--mk-font-marquee);
+    font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
     letter-spacing: 0.12em;
     line-height: var(--mk-leading-tight);
