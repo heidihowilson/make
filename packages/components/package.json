@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://design.sethgholson.com/ui",
   "description": "Lit custom elements for the sethmakes design language. Intentionally empty until a real consuming project needs a component.",
   "license": "MIT",

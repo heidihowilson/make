@@ -1,6 +1,6 @@
 {
   "name": "@sethmakes/tokens",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://design.sethgholson.com/ui",
   "description": "Design tokens for the sethmakes design language (Vaudeville — Gholson's Follies): sepia newsprint CSS custom properties plus the three self-hosted faces.",
   "license": "MIT",

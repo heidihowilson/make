@@ -1,5 +1,37 @@
 # @sethmakes/css
 
+## 0.3.0
+
+### Minor Changes
+
+- d52da12: **Limelight is retired — three faces, not four.** With Rye and Special Elite
+  on the page, a third display face read as noise. Department headings, panel
+  titles, dialog titles, empty-state titles and fallback initials now set in
+  Special Elite at display sizes. Breaking: `--mk-font-marquee` and the
+  Tailwind `font-marquee` utility are removed (use `--mk-font-typewriter` /
+  `font-typewriter`), and the Limelight woff2 no longer ships.
+
+### Patch Changes
+
+- e77b810: Ochre carries the line, never small text: warning/accent badges and the
+  warning alert kicker keep their ochre rule but set their words in ink
+  (ochre at typewriter sizes is ~2.5:1 on paper — illegible); the field
+  error message prints in the letterpress STOP red.
+- bb75494: Sepia WCAG pass (closes the open contrast item): muted TEXT now uses a new
+  darker `--mk-faded-ink` (#685d45, ≥4.5:1 on sheet and inset) while raw faded
+  `#8f8066` stays for line-work (ghost rules, dashed slots); link ink deepens
+  `#8a5a1f` → `#7a4e15` to clear 4.5:1; links in running text (`p`, `li`,
+  `figcaption`, `blockquote`) carry a printed underline so they never rely on
+  colour alone.
+- d0e50bb: Bare `code`, `pre`, `kbd` and `samp` now get the typewriter treatment in
+  `mk.base` — Special Elite at 0.86em on the plate chip/slab — instead of
+  falling back to the browser's default monospace (which rendered larger than
+  the prose with no background outside `.mk-prose`). `.mk-prose` no longer
+  duplicates the rules.
+- Updated dependencies [bb75494]
+- Updated dependencies [d52da12]
+  - @sethmakes/tokens@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
