@@ -187,8 +187,9 @@ prefix-`mk` Iconify set, validates it against the Iconify schema, and writes
 
 ## Versioning
 
-This package versions **independently** of the design-system family. It rode
-the tokens/css/components lockstep 2026-06-05 → 2026-08-14, then left the
-fixed group when Vaudeville landed: the language has no icon set, so icons is
-a consumer-app tool rather than a language surface and doesn't share the
-system version. Pre-1.0: `0.x`, minor = breaking.
+This package versions **independently** of the design-system family:
+Vaudeville has no icon set, so icons is a consumer-app tool rather than a
+language surface and doesn't share the system version. (It once rode the
+lockstep; the dated history lives in
+[ARCHITECTURE.md](../../docs/ARCHITECTURE.md) §Versioning.) Pre-1.0: `0.x`,
+minor = breaking.
