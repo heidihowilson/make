@@ -63,19 +63,23 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   claimants; screens get one.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
 - **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
-  (ghost rules, dashed slots): at 2.75:1 on the sheet it must never carry text. Muted TEXT
-  uses the darker `--mk-faded-ink` `#685d45` — 4.63:1 on the sheet, 5.02:1 on the inset.
-  Keep muted text off the `plate` fill, where it drops to 3.95:1. Link ink deepened to
-  `#7a4e15` (5.12:1 on the sheet). **Ochre carries lines, never small text** — 2.43:1 on
-  paper fails everywhere. Links in running text carry a printed underline (WCAG 1.4.1).
-  The measured table lives in [CONTRAST.md](./CONTRAST.md).
+  (ghost rules, dashed slots): at 2.75:1 on the sheet it must never carry ACTIVE text. The
+  disabled state is the one exception, and WCAG 1.4.3 exempts it as an inactive component.
+  Muted TEXT uses the darker `--mk-faded-ink` `#685d45` — 4.63:1 on the sheet, 5.02:1 on
+  the inset. Keep muted text off the `plate` fill, where it drops to 3.95:1. Link ink
+  deepened to `#7a4e15` (5.12:1 on the sheet). **Ochre carries lines and plates, never
+  ink** — 2.43:1 as a foreground fails at every size, while full heading ink on an ochre
+  ground is 4.52:1 and passes. Links in running text carry a printed underline
+  (WCAG 1.4.1). The measured table, and the four shipped pairs that still miss AA, live
+  in [CONTRAST.md](./CONTRAST.md).
 - **Vendor marks stay outside the language (settled 2026-09-05).** Ready Up
   (`sethgho/readyup`, issue #64) asked which rule wins when "Continue with Google" meets
   the no-icon-set rule. **The typographic key wins.** A sign-in button is an `.mk-btn` with
   the vendor's name spelled out in the typewriter voice — CONTINUE WITH GOOGLE — and no
   glyph. The two rulebooks cannot both be obeyed. Google requires its four-colour G,
-  unmodified, on white; Vaudeville has no white, no second colour and one rationed ochre.
-  A G in ink breaks Google's rules; a G in colour breaks ours. The language therefore takes
+  unmodified; Vaudeville is a sepia duotone with no second colour and one rationed ochre,
+  so a four-colour mark cannot enter the palette on any ground, light or dark. A G in ink
+  breaks Google's rules; a G in colour breaks ours. The language therefore takes
   the deviation on its own side, where it costs one glyph instead of the palette.
   `@sethmakes/icons` gets no vendor brand aliases — its `mk--*` entries name meanings, and a
   trademark is not a meaning. **At the boundary:** a consumer whose legal review demands the
@@ -126,7 +130,8 @@ paper (the telegram toast is the one sanctioned fixed element — it is an event
     for its own screens. See [CONTRAST.md](./CONTRAST.md) for the measured pairs.
 - Soft UI: radius, blurred shadows, elevation scales, translucency (the old appbar blur is
   retired), gradients, scrims-as-protection, skeleton shimmer, smooth easing as default.
-- Modern line-icon libraries — and vendor brand marks — on language surfaces (issue #64).
+- Modern line-icon libraries — and vendor brand marks — on language surfaces
+  (`sethgho/readyup`, issue #64).
 - Emoji, anywhere.
 
 ## Remaining open
