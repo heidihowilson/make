@@ -12,8 +12,8 @@
     align-items: center;
     gap: var(--mk-space-3xl);
     padding-block: var(--mk-space-sm);
-    padding-inline: max(var(--mk-space-md), env(safe-area-inset-left))
-      max(var(--mk-space-md), env(safe-area-inset-right));
+    padding-inline: max(var(--mk-space-md), var(--mk-safe-left))
+      max(var(--mk-space-md), var(--mk-safe-right));
     background: var(--mk-color-sheet);
     border-top: var(--mk-rule-thick);
     border-bottom: var(--mk-rule-hair);
@@ -34,11 +34,20 @@
 
   /*
    * Bottom variant — the page footer rail: slugs above the foot rule.
-   * Also not pinned; a paper's colophon lives at the end of the paper.
+   * Also not pinned; a paper's colophon lives at the end of the paper. It
+   * does carry the home-indicator inset, and the reason is .mk-shell, not
+   * the class: the shell contract puts this rail LAST in the document, so
+   * on a phone its own 14px is the last thing before the device edge. That
+   * is the only place the inset belongs. Used mid-document — inside a
+   * sheet, above a footer — a --bottom rail grows ~34px of dead space on a
+   * phone and nothing anywhere else, so set padding-bottom back to
+   * var(--mk-space-sm) there. The top rail is padded by nobody, for the
+   * same reason read the other way: it is never guaranteed to be first.
    */
   .mk-appbar--bottom {
     border-top: var(--mk-rule-double-thin);
     border-bottom: 0;
+    padding-bottom: calc(var(--mk-space-sm) + var(--mk-safe-bottom));
     letter-spacing: var(--mk-track-nav-sm);
     color: var(--mk-color-text-muted);
   }

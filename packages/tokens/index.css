@@ -58,6 +58,23 @@
   --mk-link-ink: #7a4e15;
 
   /*
+   * The call-board green — the second state ink. The call board is the
+   * backstage sheet that tells a performer when they are on, and this ink
+   * is the only thing on it that is not black. Deliberately NOT "moss":
+   * moss was the 0.1.x hero accent, it is listed under "explicitly
+   * rejected", and this ink does a different job.
+   *
+   * One step deeper than the consumer's proposed #6b7a3a, because that
+   * value measured 2.87:1 on the plate tone — under the 3:1 WCAG 1.4.11
+   * asks of a graphical carrier, so a band on a pressed row would have
+   * failed. Measured here: 3.59:1 on the sheet, 3.89:1 on the inset,
+   * 3.06:1 on the plate, and 3.06:1 against the ink. Deepening further
+   * (#4e5a28 reads 5.32:1 on the sheet) drops to 2.06:1 against the ink
+   * and then prints as a dark ring, not a coloured one.
+   */
+  --mk-callboard-green: #63763a;
+
+  /*
    * Type scale — three faces, each with one job. Loudness is dialled with
    * face, size and TRACKING, never weight: everything ships at 400.
    */
@@ -72,6 +89,7 @@
   --mk-size-list: 16px;
   --mk-size-quote: 20px;
   --mk-size-tagline: 17px;
+  --mk-size-mono-lg: 17px; /* the hero key's caps — the typewriter voice at department volume */
   --mk-size-mono: 13px; /* Special Elite typewriter utility */
   --mk-size-mono-sm: 12px;
   --mk-size-mono-xs: 11px;
@@ -142,6 +160,41 @@
   --mk-radius-medallion: 50%;
 
   /*
+   * The medallion ladder — five printed cameo sizes, taken from the
+   * consumer's thumbnail, list row, hub face, feature and headliner. The
+   * ladder is a billing order, not a size scale: the headliner's cameo is
+   * larger because the headliner is on. Literal values, like every measure
+   * in this file; do not snap them to a grid.
+   */
+  --mk-size-medallion-xs: 30px;
+  --mk-size-medallion-sm: 38px;
+  --mk-size-medallion-md: 60px;
+  --mk-size-medallion-lg: 78px;
+  --mk-size-medallion-xl: 92px;
+
+  /*
+   * The status band's geometry. A band is NOT a rule: rules divide, and
+   * this encircles — it goes round a cameo the way a mourning band goes
+   * round a sleeve, so it stays out of the printed-rule table.
+   *
+   * TWO GEOMETRIES, because the two carriers do different jobs. The
+   * soon/later RING stands off the cameo on clear paper: it is a mark
+   * ABOUT the portrait, and it must never touch the cameo's own ink ring
+   * or the two print as one thick ring. 78 + 2 × (7 + 4) = 100.
+   *
+   * The marquee BAND hugs, with no standoff at all: it is the sign the
+   * player stands inside, not a mark about them, and a sign with a gap
+   * behind it is a hovering ring. Hugging also lands the ladder on
+   * itself — a cameo on any rung prints at the NEXT rung's footprint
+   * (78 + 2 × 7 = 92, which is --xl exactly), so a hub laid out on the
+   * ladder needs no second grid for the players who are on.
+   */
+  --mk-medallion-ring: 4px;
+  --mk-medallion-standoff: 7px;
+  --mk-medallion-band: 7px; /* the ink band the marquee lamps sit on */
+  --mk-medallion-bulb: 5px; /* one paper lamp, sitting ON the 7px band */
+
+  /*
    * Elevation — named z-index layers so nothing ever types z-index: 9999.
    * Chrome < overlay < toast. Stacking is policy, not improvisation.
    */
@@ -160,6 +213,7 @@
   --mk-dur-beat: 250ms; /* 3 frames — small entrances */
   --mk-dur-enter: 420ms; /* 5 frames — sheet/art entrances */
   --mk-dur-reveal: 660ms; /* 8 frames — iris, curtain */
+  --mk-dur-hold: 660ms; /* a press-and-hold — the app's gesture engine overrides it per key */
   --mk-steps-3: steps(3, end);
   --mk-steps-5: steps(5, end);
   --mk-steps-8: steps(8, end);
@@ -215,6 +269,26 @@
   --mk-color-success: var(--mk-ink);
 
   /*
+   * State inks — a CLOSED, two-value set that encodes ONE datum: when a
+   * player is available. They are not accents and they do not spend the
+   * ochre ration, because they are not decoration — they are the datum. A
+   * roster of eight is eight readings of one datum, not eight ornaments.
+   * The bound is written in DESIGN-LANGUAGE.md and it is narrow: these two
+   * values, on medallion bands and their matching badge stubs, nowhere
+   * else. "Soon" IS the house ochre, so a view that prints soon bands has
+   * already spent its accent — do not also put an ochre key on it.
+   *
+   * Both are BAND inks. Neither ever sets type: paper on soon is 2.43:1
+   * and paper on later is 3.59:1, and both fail. The words go in ink and
+   * the band carries the colour — the same division the badge makes.
+   *
+   * Red is excluded on purpose. Red is the letterpress STOP hue and it
+   * means trouble. A player who is not ready yet is not in trouble.
+   */
+  --mk-color-state-soon: var(--mk-ochre);
+  --mk-color-state-later: var(--mk-callboard-green);
+
+  /*
    * Rules — composite line values; grab a whole rule, not a width.
    * 4px double = major section break · 3px double = footer break ·
    * 2px solid = department underline and every box · 1px tan = minor
@@ -243,4 +317,27 @@
    * never a cool grey wash.
    */
   --mk-color-scrim: rgba(20, 17, 12, 0.6);
+
+  /*
+   * The device edges. A phone hands the page four insets — the notch, the
+   * home indicator, the two rounded corners — and every other screen hands
+   * it nothing. Read these instead of typing env() again: the zero fallback
+   * is printed once, here, so a rail or a telegram is padded on the phone
+   * and unmoved on the desktop sheet. They go non-zero only when the
+   * consuming document asks for the whole screen —
+   * <meta name="viewport" content="…, viewport-fit=cover">.
+   */
+  --mk-safe-top: env(safe-area-inset-top, 0px);
+  --mk-safe-right: env(safe-area-inset-right, 0px);
+  --mk-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --mk-safe-left: env(safe-area-inset-left, 0px);
+
+  /*
+   * The thumb zone — the bottom third of a held phone, the only part of the
+   * screen a thumb reaches without a second hand. The one hero key of a
+   * phone view sits inside it. The library ships the measure; the app ships
+   * the layout (the grid was never ours). Measured in svh so the browser's
+   * own chrome cannot move the line.
+   */
+  --mk-thumb-zone: 33svh;
 }

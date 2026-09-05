@@ -14,8 +14,15 @@
   .mk-toast {
     position: fixed;
     left: 50%;
-    bottom: max(28px, env(safe-area-inset-bottom));
-    transform: translateX(-50%);
+    /* The inset is the ORIGIN, the 28px is the gap. max() would hand the
+       slip a 34px home indicator and call it clearance, landing the slip's
+       own rule on the indicator; add instead, and the gap is the same gap
+       on every screen. */
+    bottom: calc(var(--mk-safe-bottom) + 28px);
+    /* Centred on the independent translate property so an entrance that
+       animates transform — the house drop, below — composes with the
+       centring instead of throwing the slip off the middle of the stage. */
+    translate: -50%;
     z-index: var(--mk-layer-toast);
     background: var(--mk-color-inset);
     color: var(--mk-color-text);
@@ -47,6 +54,19 @@
   }
 
   /*
+   * Top placement — on a phone the footlights are where the one hero key
+   * lives, so a telegram at the bottom lands on the very button it is
+   * announcing. --top pins the slip under the notch and drops it in from
+   * the flies instead. ONE telegram at a time still holds: --top is not a
+   * second spike above the first — a new message replaces the old wherever
+   * it lands.
+   */
+  .mk-toast--top {
+    top: calc(var(--mk-safe-top) + 28px);
+    bottom: auto;
+  }
+
+  /*
    * Entrance — the slip arrives in three stepped frames and holds. Gone
    * means gone: no exit animation (a lingering telegram reads as a second
    * message). Static under reduced motion.
@@ -55,17 +75,23 @@
     .mk-toast:not([hidden]) {
       animation: mk-toast-arrive var(--mk-dur-beat) var(--mk-steps-3) both;
     }
+
+    /* From the flies — the house drop, borrowed by name rather than printed
+       a second time. */
+    .mk-toast--top:not([hidden]) {
+      animation: mk-drop-in var(--mk-dur-enter) var(--mk-steps-5) both;
+    }
   }
 
   @keyframes mk-toast-arrive {
     from {
       opacity: 0;
-      transform: translate(-50%, 16px);
+      transform: translateY(16px);
     }
 
     to {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: none;
     }
   }
 }

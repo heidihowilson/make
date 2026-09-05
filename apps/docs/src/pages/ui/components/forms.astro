@@ -128,6 +128,53 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
   </section>
 
   <section class="mk-card">
+    <h2>THE TICKET</h2>
+    <p>
+      One large option on a ruled row of inset paper. Three stacked keys read
+      as three actions, and a picker is <strong>one choice</strong> &mdash; so
+      the whole row is the tap target and the radio inside it is hidden, but
+      still focusable and still in the accessibility tree. A typewriter title
+      carries the performance and a Goudy italic note carries its terms, the
+      way a stub carries the fine print.
+    </p>
+    <p>
+      The chosen row prints the plate tone and a 2px ink box. The second pixel
+      goes <em>inward</em> as an inset shadow, so a chosen ticket does not
+      shift on the page. Checked answers to the same trio as every other
+      choice: <code>:checked</code>, <code>[aria-checked="true"]</code>, or
+      <code>--checked</code>.
+    </p>
+    <div class="field-demo">
+      <fieldset class="mk-fieldset">
+        <legend>Status</legend>
+        <label class="mk-choice mk-choice--ticket">
+          <input class="mk-radio" type="radio" name="d-status" checked />
+          <span class="mk-choice__title">READY NOW</span>
+          <span class="mk-choice__note">clears after two hours</span>
+        </label>
+        <label class="mk-choice mk-choice--ticket">
+          <input class="mk-radio" type="radio" name="d-status" />
+          <span class="mk-choice__title">READY SOON</span>
+          <span class="mk-choice__note">within the hour</span>
+        </label>
+        <label class="mk-choice mk-choice--ticket">
+          <input class="mk-radio" type="radio" name="d-status" />
+          <span class="mk-choice__title">NOT TONIGHT</span>
+          <span class="mk-choice__note">ask me tomorrow</span>
+        </label>
+      </fieldset>
+    </div>
+    <pre><code>&lt;label class="mk-choice mk-choice--ticket"&gt;
+  &lt;input class="mk-radio" type="radio" name="status" /&gt;
+  &lt;span class="mk-choice__title"&gt;READY NOW&lt;/span&gt;
+  &lt;span class="mk-choice__note"&gt;clears after two hours&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- server-rendered, no input --&gt;
+&lt;div class="mk-choice mk-choice--ticket mk-choice--checked"&gt;…&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
     <h2>SWITCH</h2>
     <p>
       A hard-edged stage lever: the ink block jumps to the far end in two

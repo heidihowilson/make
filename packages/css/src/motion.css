@@ -7,9 +7,10 @@
    *
    * Motion is an EVENT, not a state: overlay entrances, telegram
    * arrivals, alarms, one art reveal per page. Nothing animates on scroll
-   * or hover; nothing idles except the rationed marquee flicker (once per
-   * page). Apply a class; the animation runs once and holds its last
-   * frame.
+   * or hover; nothing idles except the two rationed loops — the marquee
+   * flicker below and the medallion chase in src/medallion.css — and a
+   * page runs one, not both. Apply a class; the animation runs once and
+   * holds its last frame.
    */
 
   /* Iris — the silent-film circle wipe, for the one art reveal per page. */
@@ -135,7 +136,11 @@
     }
   }
 
-  /* The marquee flicker — the ONE idle loop allowed, once per page. */
+  /*
+   * The marquee flicker — one of the two idle loops allowed, and the two
+   * share one ration: a page runs the flicker or the medallion chase
+   * (src/medallion.css), never both.
+   */
   .mk-flicker {
     animation: mk-flicker 3.2s steps(1, end) infinite;
   }

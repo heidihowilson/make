@@ -61,4 +61,23 @@
   .mk-alert--danger .mk-alert__title {
     color: var(--mk-color-danger);
   }
+
+  /*
+   * Action row — the in-flow confirm. A "last call" raised from inside a
+   * sheet is a SENTENCE IN THE SHEET, not a second stage: a modal never
+   * spawns a modal, so the keys sit under the line that raised them, in
+   * reading order. That is why they do not justify to the end the way
+   * .mk-dialog__actions does — a playbill's actions are dismissed, an
+   * in-flow confirm is read. The safe key comes first in the DOM and takes
+   * the focus; the destructive key is the letterpress red. Danger notices
+   * only: a --success alert prints on solid ink, and a key dropped into it
+   * reads as a hole punched in the block. Full pattern and its four
+   * accessibility rules: docs/INTERACTION.md.
+   */
+  .mk-alert__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--mk-space-xs);
+    margin-top: var(--mk-space-xxs);
+  }
 }

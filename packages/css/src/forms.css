@@ -168,6 +168,165 @@
   }
 
   /*
+   * The ticket — one large tappable option, not three stacked keys. Three
+   * keys read as three actions; a picker is ONE choice, so the whole ruled
+   * row is the target and the radio inside it is hidden. A typewriter
+   * title carries the option and a Goudy italic note carries its terms,
+   * the way a ticket stub carries the performance and the fine print
+   * beneath it.
+   *
+   * Chosen state: the plate tone (the pressed fill) and a 2px ink box —
+   * the printed-rule table's "every box" weight, grabbed whole as
+   * --mk-rule-thick. Every element in this package is border-box, so the
+   * second pixel prints INWARD and the chosen ticket does not shift on the
+   * page. There is no hand-composed shadow here: the shadow set is the
+   * sheet drop and the letterpress offset, and a third shape invented in a
+   * component is how an elevation scale starts.
+   *
+   *   <label class="mk-choice mk-choice--ticket">
+   *     <input class="mk-radio" type="radio" name="status" />
+   *     <span class="mk-choice__title">READY NOW</span>
+   *     <span class="mk-choice__note">clears after two hours</span>
+   *   </label>
+   */
+  .mk-choice--ticket {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: var(--mk-space-hair);
+    min-height: 56px;
+    padding: var(--mk-space-xs) var(--mk-space-sm);
+    background: var(--mk-color-inset);
+    border: var(--mk-rule-hair);
+    border-radius: var(--mk-radius-control);
+  }
+
+  /*
+   * The radio is present and focusable but never seen: the ROW is the
+   * control. Kept in the accessibility tree — this is not display: none.
+   */
+  .mk-choice--ticket > .mk-radio {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /*
+   * The row wears the focus ring, because the row is what the reader is
+   * choosing. The ochre outline is the view's accent ration, spent here.
+   */
+  .mk-choice--ticket:has(> .mk-radio:focus-visible) {
+    outline: 2px solid var(--mk-color-focus);
+    outline-offset: 3px;
+  }
+
+  /*
+   * The mouse gets an answer. Every key in this language lights under a
+   * pointer, and a ticket IS the tap target, so a picker of tickets was
+   * the one control on a sheet that stayed dead to a mouse. Gated on a
+   * real pointer so a touch device never paints a stuck hover after the
+   * tap, and it is the INSET stepping up to the plate tone — the same
+   * step the chosen ticket takes, one beat early. No motion: this is a
+   * fill swap, not a state animation, so the doctrine holds.
+   *
+   * A checked ticket does not answer: it is already at the plate, and a
+   * hover that changed it would say the choice was about to be undone.
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .mk-choice--ticket:hover:not(
+        :has(> .mk-radio:checked),
+        [aria-checked="true"],
+        .mk-choice--checked
+      ) {
+      background: var(--mk-color-plate);
+    }
+  }
+
+  /*
+   * The performance, in the typewriter voice at the SMALL department size:
+   * a ticket is a row in a list, not a heading, and the 23px cut plus a
+   * 17px note overflows a 56px row. A consumer who wants the larger cut
+   * sets it on the __title.
+   */
+  .mk-choice--ticket > .mk-choice__title {
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-dept-sm);
+    letter-spacing: var(--mk-track-dept);
+    line-height: var(--mk-leading-tight);
+    color: var(--mk-color-heading);
+    text-transform: none;
+  }
+
+  /* The terms, in Goudy italic — the fine print under the stub. */
+  .mk-choice--ticket > .mk-choice__note {
+    font-family: var(--mk-font-body);
+    font-style: italic;
+    font-size: var(--mk-size-body-sm);
+    letter-spacing: normal;
+    line-height: 1.4;
+    color: var(--mk-color-text-muted);
+  }
+
+  /*
+   * The same three ways to be checked the other choices answer to: a real
+   * :checked input, [aria-checked] on a widget role, and the --checked
+   * modifier for a server-rendered static row. :has() bridges the hidden
+   * input to the row — the [aria-checked] and --checked paths need no
+   * :has(), so a server-rendering consumer is never left unstyled.
+   */
+  .mk-choice--ticket:has(> .mk-radio:checked),
+  .mk-choice--ticket[aria-checked="true"],
+  .mk-choice--ticket.mk-choice--checked {
+    background: var(--mk-color-plate);
+    border: var(--mk-rule-thick);
+  }
+
+  /*
+   * On the plate tone the muted ink reads 3.95:1 — under WCAG AA — so the
+   * chosen row steps its note up to secondary ink (5.18:1). The note stays
+   * legible in both states; a chosen option must not be the harder read.
+   */
+  .mk-choice--ticket:has(> .mk-radio:checked) > .mk-choice__note,
+  .mk-choice--ticket[aria-checked="true"] > .mk-choice__note,
+  .mk-choice--ticket.mk-choice--checked > .mk-choice__note {
+    color: var(--mk-color-text-secondary);
+  }
+
+  /*
+   * Forced colours — the one mode that can erase this component. Windows
+   * High Contrast replaces every author colour with a system pair, so the
+   * plate fill and the ink box both flatten and a chosen ticket becomes
+   * byte-identical to an unchosen one. The row's radio is hidden, so there
+   * is no native control left to fall back on either. Print the mark in a
+   * SYSTEM colour instead: CanvasText survives the substitution, and the
+   * inset offset keeps it inside the ruled box rather than on it.
+   *
+   * The focus ring is repeated after it on purpose. Only one outline can
+   * exist on an element, and the reader must always be able to see where
+   * they are — so focus outranks the chosen mark for as long as it is
+   * there, and the mark comes back when focus leaves.
+   */
+  @media (forced-colors: active) {
+    .mk-choice--ticket:has(> .mk-radio:checked),
+    .mk-choice--ticket[aria-checked="true"],
+    .mk-choice--ticket.mk-choice--checked {
+      outline: 2px solid CanvasText;
+      outline-offset: -5px;
+    }
+
+    .mk-choice--ticket:has(> .mk-radio:focus-visible) {
+      outline: 2px solid Highlight;
+      outline-offset: 3px;
+    }
+  }
+
+  /*
    * Checkbox & radio — strip native chrome and print the controls. The
    * checkbox is a STAMPED INK X in a square 2px rule; the radio is the
    * one round control, because a circle is geometry, not softness.

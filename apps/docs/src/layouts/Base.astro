@@ -36,7 +36,7 @@ const isActive = (href: string) =>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title} · sethmakes</title>
     <meta name="description" content={description} />
     <slot name="head" />
@@ -82,11 +82,17 @@ const isActive = (href: string) =>
     </div>
 
     <style>
-      /* Skip link — first focusable element; off-screen until focused. */
+      /*
+       * Skip link — first focusable element; off-screen until focused. The
+       * viewport meta asks for the whole screen, so the origin is the
+       * physical edge: on a notched phone a plain 14px puts the first
+       * focusable element of every page under the status bar. The insets
+       * read 0px everywhere else.
+       */
       .skip-link {
         position: absolute;
-        left: 14px;
-        top: 14px;
+        left: max(14px, var(--mk-safe-left));
+        top: max(14px, var(--mk-safe-top));
         z-index: 10;
         padding: 8px 14px;
         background: var(--mk-color-ink-surface);

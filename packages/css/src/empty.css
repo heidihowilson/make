@@ -46,4 +46,26 @@
   .mk-empty__action {
     margin-top: var(--mk-space-xs);
   }
+
+  /*
+   * Strip — the state of the wire, on one line at the top of a view: "NO
+   * CONNECTION — TRYING AGAIN . . ." The dashed rule still means "nothing
+   * is printed here yet", which is exactly true of a page with no line to
+   * the server. One row, left-aligned, so it reads as a slug and not as a
+   * hole in the page. Pair it with .mk-spinner, whose reserved dot width
+   * already keeps the line from shuffling as the dots type.
+   */
+  .mk-empty--strip {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--mk-space-xs);
+    padding: var(--mk-space-xs) var(--mk-space-sm);
+    text-align: left;
+  }
+
+  /* On one line the message takes the room it has. */
+  .mk-empty--strip .mk-empty__message {
+    max-width: none;
+  }
 }
