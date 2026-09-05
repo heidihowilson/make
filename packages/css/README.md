@@ -45,20 +45,24 @@ The canonical complete inventory is the docs-site
 same catalog grouped by area for npm/offline reading.
 Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 `--checked` modifier (progressive-enhancement consumers render state server-side).
+`.mk-choice--ticket` hides its radio, so the `:checked` path there needs `:has()`
+(Baseline 2023). If your build's CSS minifier drops `:has()`, render the
+`--checked` or `[aria-checked]` path on the server instead.
 
 | Area | Classes |
 |---|---|
 | Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice) |
 | Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
 | Badges | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot` |
-| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever) |
+| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice` (+ `--ticket` with `__title` / `__note` — one large ruled option, the hidden radio makes the whole row the choice), `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever) |
 | Surfaces | `.mk-card` (a PANEL: 2px ink rule; `--sunken` = quiet hairline / `--flush`), `.mk-table` (the ledger; `.mk-table-wrap`, `__num`), `.mk-divider` (printed rules: `--double` / `--double-thin` / `--thick` / `--dash` / `--accent` / `--label`), `.mk-disclosure` (programme notes; `__body`) |
-| Chrome | `.mk-appbar` (ruled nav rail — **not sticky**; `--bottom`), `.mk-shell` (`__main`) |
-| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, scrim via `::backdrop`), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
-| Feedback | `.mk-alert` (notice from the management: `__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action`) |
+| Chrome | `.mk-appbar` (ruled nav rail — **not sticky**; `--bottom`), `.mk-shell` (`__main`), `.mk-pager` (the neighbouring acts by name: `__prev` / `__next` / `__label` / `__dots` / `__dot` / `--current` — no count, no numbering) |
+| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, `__body`, scrim via `::backdrop`; `--sheet` is the phone's bottom sheet), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
+| Feedback | `.mk-alert` (notice from the management: `__title`, `__actions` — the in-flow confirm, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action`) |
 | Media | `.mk-thumb` (framed art: ink rule + mat + letterpress offset; `--square` / `--video`, `__fallback`), `.mk-skeleton` (dashed slot, no shimmer; `--text`), `.mk-figure` |
+| Medallion | `.mk-medallion` (the one round thing: ink ring, paper mat, hairline rim; `__initials` is the typewriter fallback AND the pending state) + `--xs`/`--sm`/`--md`/`--lg`/`--xl` or your own `--mk-medallion-size`, `--now` (the marquee band of twelve paper lamps), `--soon` / `--later` (state bands; both step the cameo down a rung), `--chase` (the rationed idle loop) |
 | Prose | `.mk-prose` (Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd) |
-| Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` (the one idle loop, once per page), `.mk-bill-order` (stagger parent) |
+| Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` and `.mk-medallion--chase` (the two idle loops — a page runs one), `.mk-bill-order` (stagger parent) |
 | Utilities | `.mk-icon` (`--sm` / `--lg`), `.mk-link-reset` |
 
 The full live catalog with rendered examples is the docs site:
@@ -70,8 +74,15 @@ complete inventory**; this table is the per-area summary.
 
 - **One mode.** There is no dark mode; the sheet-on-stage is the mode. No theme
   switcher, no `[data-theme]`.
+- **Nothing is fixed.** The page scrolls like paper. Two exceptions are
+  written down and argued: the telegram toast and `.mk-dialog--sheet` — see
+  `docs/INTERACTION.md` in the repo, which also carries the in-flow confirm
+  pattern (a modal never spawns a modal).
 - **The ochre ration.** One accent spot per view: a `--warning` button, an
-  error message, a focus ring, OR a lever's ON state — never several.
+  error message, a focus ring, OR a lever's ON state — never several. The
+  one relaxation is the closed two-value **state-ink** set the medallion
+  bands read, bounded in `docs/DESIGN-LANGUAGE.md`; `--mk-color-state-soon`
+  *is* the ochre, so a view that prints soon bands has already spent it.
 - **Rules mean things.** 4px double = major break, 3px double = footer, 2px =
   department/box, 1px tan = minor, 1px dashed = not printed yet. Pick the rule
   for the meaning, not the look.
@@ -96,6 +107,44 @@ complete inventory**; this table is the per-area summary.
     </div>
   </div>
 </body>
+```
+
+### The in-flow confirm
+
+A destructive step raised from inside a sheet is a sentence in the sheet, not
+a second stage. The safe key comes first in the DOM and takes the focus; use
+`role="group"`, never `role="alert"` (a live region announces the keys before
+the reader can reach them). Danger notices only.
+
+```html
+<div class="mk-alert mk-alert--danger mk-settle-in" role="group" aria-labelledby="lastcall">
+  <span class="mk-alert__title" id="lastcall">Last call</span>
+  <span>Strike the squad?</span>
+  <div class="mk-alert__actions">
+    <button class="mk-btn mk-btn--sm" type="button">Keep it</button>
+    <button class="mk-btn mk-btn--sm mk-btn--danger" type="button">Strike it</button>
+  </div>
+</div>
+```
+
+### The bottom sheet
+
+The same native `<dialog>`, anchored to the bottom edge for a phone. The
+handle is drawn, not bound — bind your pointer handlers to the dialog itself,
+and keep the gesture engine and the iOS body-scroll lock in your app.
+
+```html
+<dialog class="mk-dialog mk-dialog--sheet" id="picker">
+  <h2 class="mk-dialog__title">THE STATUS PICKER</h2>
+  <div class="mk-dialog__body">…</div>
+  <form method="dialog" class="mk-dialog__actions">
+    <button class="mk-btn">Done</button>
+  </form>
+</dialog>
+```
+
+```js
+picker.showModal(); // the app's one line
 ```
 
 ### Loading / async states

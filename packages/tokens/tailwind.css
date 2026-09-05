@@ -46,6 +46,10 @@
   --color-warning: var(--mk-color-warning);
   --color-success: var(--mk-color-success);
 
+  /* State inks — bands only, never type (see DESIGN-LANGUAGE.md) */
+  --color-state-soon: var(--mk-color-state-soon);
+  --color-state-later: var(--mk-color-state-later);
+
   /* Focus */
   --color-focus: var(--mk-color-focus);
 

@@ -18,6 +18,15 @@
    *       <button class="mk-btn mk-btn--danger" value="confirm">STRIKE IT</button>
    *     </form>
    *   </dialog>
+   *
+   * On a phone the same element takes --sheet and rises from the bottom
+   * edge instead of sitting centred:
+   *
+   *   <dialog class="mk-dialog mk-dialog--sheet">
+   *     <h2 class="mk-dialog__title">THE STATUS PICKER</h2>
+   *     <div class="mk-dialog__body">…</div>
+   *     <form method="dialog" class="mk-dialog__actions">…</form>
+   *   </dialog>
    */
   .mk-dialog {
     border: var(--mk-rule-thick);
@@ -59,6 +68,64 @@
     margin-top: var(--mk-space-lg);
   }
 
+  /*
+   * The bottom sheet — the playbill that rises from the footlights, and
+   * the SECOND sanctioned fixed element. The argument is written in full
+   * in docs/INTERACTION.md; the short form: a centred dialog works on a
+   * desktop page because the dimmed paper stays visible behind it. On a
+   * 358px phone the dialog IS the viewport, so a centred one floats on a
+   * dark field — the soft-UI pose this language exists to avoid. Anchored
+   * to the bottom edge it has a PLACE: a second sheet slid in from under
+   * the first, its 2px ink rule showing where the two overlap.
+   *
+   * Same native <dialog>, same showModal(), same one-at-a-time rule. The
+   * gesture engine — the pull-down to dismiss — stays in the consumer;
+   * this is the look and the placement only. The handle is drawn, not
+   * bound: bind the pointer handlers to the dialog element itself.
+   */
+  .mk-dialog--sheet {
+    /* auto/auto/0 defeats the UA's centring margin for a modal dialog. */
+    margin: auto auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mk-space-sm);
+    inline-size: 100%;
+    max-inline-size: none;
+    max-block-size: 88svh;
+    /* Only the top rule prints — the sheet runs off both edges of the phone. */
+    border-inline-width: 0;
+    border-block-end-width: 0;
+    padding: var(--mk-space-xs) var(--mk-space-lg) max(var(--mk-space-lg), var(--mk-safe-bottom));
+  }
+
+  /*
+   * The grab handle — a typewriter rule, not a rounded pill: 2px of ink,
+   * struck once, centred. It says the sheet can be pulled down. It is not
+   * a control, so it is a pseudo-element with no markup and no name.
+   */
+  .mk-dialog--sheet::before {
+    content: "";
+    display: block;
+    flex: none;
+    inline-size: var(--mk-space-4xl);
+    block-size: 2px;
+    margin-inline: auto;
+    margin-block-end: var(--mk-space-xs);
+    background: var(--mk-color-rule);
+  }
+
+  /*
+   * The scrolling body. The page beneath stays put: showModal() inerts it,
+   * and overscroll-behavior stops the scroll chaining out of the sheet.
+   * CSS can do no more — iOS Safari still scrolls the document behind a
+   * modal, and that lock is the consumer's one line of JS.
+   */
+  .mk-dialog__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
   /* Entrance — dropped in on fives, holding the last frame. */
   @media (prefers-reduced-motion: no-preference) {
     .mk-dialog[open] {
@@ -67,6 +134,16 @@
 
     .mk-dialog[open]::backdrop {
       animation: mk-scrim-in var(--mk-dur-beat) var(--mk-steps-3) both;
+    }
+
+    /*
+     * A sheet RISES; it does not drop. The settle replaces the drop —
+     * five stepped frames with one overshoot. (mk-settle-in's keyframes
+     * live in src/motion.css; @keyframes are document-global, so this
+     * reference needs no copy of them.)
+     */
+    .mk-dialog--sheet[open] {
+      animation: mk-settle-in var(--mk-dur-enter) var(--mk-steps-5) both;
     }
   }
 

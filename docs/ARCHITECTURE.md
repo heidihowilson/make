@@ -5,7 +5,7 @@
 The library is **CSS-first for basics, custom elements for widgets**:
 
 - **Native HTML, styled by classes** for everything the platform already provides: buttons, inputs, selects, checkboxes, typography, surfaces. `<button class="mk-btn mk-btn--primary">`. These SSR perfectly in every framework, ship zero JS, and participate in native forms — load-bearing for Remix.
-- **Lit custom elements** only where behavior demands JS: date picker, combobox, tooltip, etc. `<mk-datepicker>`. (Dialog, toast and tabs were once on this list but shipped CSS-first — native `<dialog>` provides the focus trap, and the rest is look, not behavior.)
+- **Lit custom elements** only where behavior demands JS: date picker, combobox, tooltip, etc. `<mk-datepicker>`. (Dialog, toast and tabs were once on this list but shipped CSS-first — native `<dialog>` provides the focus trap, and the rest is look, not behavior. Their placement policy — what may be fixed, and what a modal does instead of spawning a modal — is [INTERACTION.md](./INTERACTION.md).)
 
 Rationale: a design language is ~80% CSS. This makes the 80% bulletproof across all frameworks (including no-JS), and shrinks the SSR problem to a small set of components. Escape hatch: classes can later be wrapped in custom elements if a component grows behavior; the reverse migration is expensive. Low-regret.
 
@@ -27,7 +27,7 @@ SSR matters — consumers are SSR-first frameworks (Remix v2/v3, SvelteKit).
 | Tokens | **CSS custom properties**, two tiers: primitives → semantic | Industry standard; portable everywhere |
 | Tailwind bridge | `@sethmakes/tokens/tailwind.css` — Tailwind v4 `@theme` mapping (shipped 2026-06-05 after tv-tracker and eat both hand-rolled it) | Tailwind consumers get `bg-sheet`, `text-heading`, `font-typewriter` etc. driven by our tokens; one source of truth |
 
-**Token rule:** components only ever reference **semantic** tokens (`--mk-color-sheet`, not a raw hex or primitive). This is what made the 2026-08-13 re-theme (terminal → Vaudeville, see [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md)) a token swap instead of a component rewrite. The motion side of the language has its own doctrine in [MOTION.md](./MOTION.md).
+**Token rule:** components only ever reference **semantic** tokens (`--mk-color-sheet`, not a raw hex or primitive). This is what made the 2026-08-13 re-theme (terminal → Vaudeville, see [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md)) a token swap instead of a component rewrite. The motion side of the language has its own doctrine in [MOTION.md](./MOTION.md); the overlay side has [INTERACTION.md](./INTERACTION.md).
 
 ## Package boundaries
 

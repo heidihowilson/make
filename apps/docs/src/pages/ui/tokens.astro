@@ -17,6 +17,7 @@ const palette = [
   { var: '--mk-stage-floor', hex: '#26211a', note: 'the stage behind the sheet' },
   { var: '--mk-body-ink', hex: '#3a3128', note: 'prose ink' },
   { var: '--mk-link-ink', hex: '#7a4e15', note: 'link ink — deepened in the sepia pass' },
+  { var: '--mk-callboard-green', hex: '#63763a', note: 'the call-board green — the state ink, NOT the retired moss' },
 ];
 
 const faces = [
@@ -67,6 +68,8 @@ const statuses = [
   { var: '--mk-color-success', note: 'printed ink — a thing done needs no colour' },
   { var: '--mk-color-warning', note: 'the house ochre' },
   { var: '--mk-color-danger', note: 'letterpress red — the hue kept for STOP' },
+  { var: '--mk-color-state-soon', note: 'the ochre band — a player is on soon (a band, never type)' },
+  { var: '--mk-color-state-later', note: 'the call-board green band — later (a band, never type)' },
 ];
 
 const typeScale = [
@@ -122,6 +125,16 @@ const misc = [
   { var: '--mk-layer-chrome', value: '100', note: 'app chrome' },
   { var: '--mk-layer-overlay', value: '200', note: 'dialogs and scrims' },
   { var: '--mk-layer-toast', value: '300', note: 'the telegram — above everything' },
+  { var: '--mk-size-medallion-xs', value: '30px', note: 'the thumbnail cameo' },
+  { var: '--mk-size-medallion-sm', value: '38px', note: 'the list-row cameo' },
+  { var: '--mk-size-medallion-md', value: '60px', note: 'the hub face' },
+  { var: '--mk-size-medallion-lg', value: '78px', note: 'a feature' },
+  { var: '--mk-size-medallion-xl', value: '92px', note: 'the headliner' },
+  { var: '--mk-medallion-ring', value: '4px', note: 'the status band — a band, not a rule' },
+  { var: '--mk-medallion-standoff', value: '7px', note: 'clear paper between cameo and band' },
+  { var: '--mk-medallion-band', value: '10px', note: 'the ink band the marquee lamps sit on' },
+  { var: '--mk-medallion-bulb', value: '4px', note: 'one flat paper lamp — no blur, ever' },
+  { var: '--mk-safe-bottom', value: 'env(safe-area-inset-bottom, 0px)', note: 'the phone inset; the caller wraps it in max()' },
 ];
 
 const rules = [
@@ -136,7 +149,7 @@ const rules = [
 const radii = [
   { var: '--mk-radius-control', note: '0 — square keys' },
   { var: '--mk-radius-surface', note: '0 — square panels' },
-  { var: '--mk-radius-medallion', note: '50% — the circle is geometry, not softness' },
+  { var: '--mk-radius-medallion', note: '50% — the circle is geometry, not softness; the marquee lamps share the exception' },
 ];
 
 const shadows = [
@@ -301,11 +314,14 @@ const motions = [
   </section>
 
   <section class="mk-card" aria-labelledby="misc">
-    <h2 id="misc">MEASURE, ICON SLOTS &amp; LAYERS</h2>
+    <h2 id="misc">MEASURE, ICON SLOTS, LAYERS &amp; THE CAMEO LADDER</h2>
     <p class="prose">
       The small families: the prose measure, the glyph slots the icons
-      package aligns to, and the named layers so nothing ever types
-      <code>z-index: 9999</code>.
+      package aligns to, the named layers so nothing ever types
+      <code>z-index: 9999</code>, the medallion&rsquo;s five rungs and its
+      band geometry, and the phone&rsquo;s bottom inset. The cameo ladder is
+      a billing order, not a size scale &mdash; and the status band is a
+      <em>band</em>, not a rule: rules divide, and this encircles.
     </p>
     <div class="mk-table-wrap">
       <table class="mk-table">

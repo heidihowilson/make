@@ -40,12 +40,14 @@ reference semantic names; never primitives, never raw values.
 | Text | `--mk-color-heading`, `--mk-color-text`, `--mk-color-text-secondary`, `--mk-color-text-muted`, `--mk-color-text-on-ink` |
 | Lines | `--mk-color-rule`, `--mk-color-rule-hair`, `--mk-color-rule-ghost` — plus composite rules `--mk-rule-double/-double-thin/-thick/-hair/-dash/-accent` |
 | Accent | `--mk-color-accent` (ochre — **rationed: one spot per view**), `--mk-color-link`, `--mk-color-link-hover` |
-| Status | `--mk-color-danger`, `--mk-color-warning`, `--mk-color-success` |
+| Status | `--mk-color-danger`, `--mk-color-warning`, `--mk-color-success`, plus the state inks `--mk-color-state-soon` / `--mk-color-state-later` (**bands only — never type**; the closed two-value set the medallion's status band reads) |
 | Focus | `--mk-color-focus` (the ochre outline) |
 | Shadows | `--mk-shadow-sheet`, `--mk-shadow-block`, `--mk-shadow-block-accent`, `--mk-shadow-press` — the complete set; there is no elevation scale |
 | Type scale | `--mk-size-title/-name/-dept/-player/-body/-quote/-mono…`, `--mk-leading-*`, `--mk-track-*` (tracking is the loudness dial) |
 | Space | `--mk-space-hair … --mk-space-5xl` — the literal print rhythm, not a 4/8 grid |
-| Radius | `--mk-radius-control`/`-surface` (`0` by design) and `--mk-radius-medallion` (`50%` — the circle is geometry, not softness) |
+| Medallion | `--mk-size-medallion-xs/-sm/-md/-lg/-xl` (30/38/60/78/92 — a billing order, not a size scale) plus the band geometry `--mk-medallion-ring/-standoff/-band/-bulb` |
+| Safe area | `--mk-safe-bottom` (`env(safe-area-inset-bottom, 0px)` — the caller wraps it in `max()`) |
+| Radius | `--mk-radius-control`/`-surface` (`0` by design) and `--mk-radius-medallion` (`50%` — the circle is geometry, not softness; the medallion's marquee lamps share that one exception) |
 | Elevation | `--mk-layer-chrome/-overlay/-toast` |
 | Motion | `--mk-frame` (83ms — one drawing at 12fps), `--mk-dur-beat/-enter/-reveal`, `--mk-steps-3/5/8`, `--mk-dur-key` + `--mk-ease-key` |
 
