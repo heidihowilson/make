@@ -60,7 +60,7 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 | Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, `__body`, scrim via `::backdrop`; `--sheet` is the phone's bottom sheet), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
 | Feedback | `.mk-alert` (notice from the management: `__title`, `__actions` — the in-flow confirm, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action`) |
 | Media | `.mk-thumb` (framed art: ink rule + mat + letterpress offset; `--square` / `--video`, `__fallback`), `.mk-skeleton` (dashed slot, no shimmer; `--text`), `.mk-figure` |
-| Medallion | `.mk-medallion` (the one round thing: ink ring, paper mat, hairline rim; `__initials` is the typewriter fallback AND the pending state) + `--xs`/`--sm`/`--md`/`--lg`/`--xl` or your own `--mk-medallion-size`, `--now` (the marquee band of twelve paper lamps), `--soon` / `--later` (state bands; both step the cameo down a rung), `--chase` (the rationed idle loop) |
+| Medallion | `.mk-medallion` (the one round thing: ink ring, paper mat, hairline rim; `__initials` is the typewriter fallback AND the pending state) + `--xs`/`--sm`/`--md`/`--lg`/`--xl` or your own `--mk-medallion-size` (set it on an ancestor to size a whole roster — it wins over the ladder and composes with the bands), `--now` (the marquee band of twelve paper lamps), `--soon` / `--later` (state bands; both step the cameo down a rung), `--chase` (the rationed idle loop) |
 | Prose | `.mk-prose` (Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd) |
 | Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` and `.mk-medallion--chase` (the two idle loops — a page runs one), `.mk-bill-order` (stagger parent) |
 | Utilities | `.mk-icon` (`--sm` / `--lg`), `.mk-link-reset` |
@@ -132,6 +132,10 @@ the reader can reach them). Danger notices only.
 The same native `<dialog>`, anchored to the bottom edge for a phone. The
 handle is drawn, not bound — bind your pointer handlers to the dialog itself,
 and keep the gesture engine and the iOS body-scroll lock in your app.
+
+The modifier is bounded at the `740px` reflow breakpoint. Leave the class on
+the element at every width: above 740px it does nothing and the same dialog is
+the centred playbill. A desktop consumer keeps the playbill.
 
 ```html
 <dialog class="mk-dialog mk-dialog--sheet" id="picker">

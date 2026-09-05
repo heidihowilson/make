@@ -35,7 +35,12 @@
     display: inline-grid;
     flex: none;
     box-sizing: border-box;
-    /* --mk-medallion-size is the consumer's override; the ladder is only the default. */
+    /*
+     * --mk-medallion-size is the CONSUMER's override and nothing in this
+     * file ever writes it; the ladder and the status bands both write the
+     * private rung underneath it. Set it on an ancestor to size a whole
+     * roster, or inline to size one cameo.
+     */
     inline-size: var(--mk-medallion-size, var(--mk-medallion-step));
     block-size: var(--mk-medallion-size, var(--mk-medallion-step));
     border: var(--mk-rule-thick);
@@ -70,12 +75,20 @@
    * The fallback is the TYPEWRITER voice, not a display one: initials are
    * utility text, not a masthead, and the fourth display face was retired
    * in 2026-08-15. The 0.34 factor keeps two letters inside a 30px cameo.
+   *
+   * SECONDARY ink, not muted. The mat under the initials is the plate
+   * tone, and muted ink reads 3.95:1 there — under WCAG AA, and three of
+   * the five rungs set the initials at normal size (10/13/20px), where
+   * 4.5:1 is what is asked. Secondary reads 5.18:1 on the same tone. This
+   * is the identical step the chosen ticket takes in src/forms.css, for
+   * the identical reason: paper type on a tinted stub needs the darker
+   * ink.
    */
   .mk-medallion__initials {
     display: grid;
     place-content: center;
     background: var(--mk-color-plate);
-    color: var(--mk-color-text-muted);
+    color: var(--mk-color-text-secondary);
     font-family: var(--mk-font-typewriter);
     font-size: calc(var(--mk-medallion-size, var(--mk-medallion-step)) * 0.34);
     line-height: 1;
@@ -87,8 +100,10 @@
   /*
    * The ladder — a billing order, not a size scale. Each rung also names
    * the rung BELOW it, so a status band can demote a cameo without knowing
-   * which rung it started on, in any source order. --xs steps down to
-   * itself; it is the floor.
+   * which rung it started on, in any class order on the element. --xs
+   * steps down to itself; it is the floor. The band rules must stay BELOW
+   * the ladder in this file: they write the same rung property at the same
+   * specificity, and source order is what lands the demotion.
    */
   .mk-medallion--xs {
     --mk-medallion-step: var(--mk-size-medallion-xs);
@@ -129,10 +144,19 @@
    *
    * --now, --soon and --later are mutually exclusive: a player cannot be
    * on now and later. The file does not defend against the combination.
+   *
+   * THE DEMOTION WRITES THE PRIVATE RUNG, never --mk-medallion-size. The
+   * size property is the CONSUMER's slot, and a modifier that wrote it
+   * would beat the consumer's own value on an ancestor — a roster sized by
+   * one declaration on its container would then print the player who is
+   * NOT on larger than the player who is, which is the hierarchy inverted.
+   * Writing the rung keeps the two channels apart: the consumer's override
+   * wins for every cameo in the group, and the step-down still applies
+   * whenever no override is set.
    */
   .mk-medallion--soon,
   .mk-medallion--later {
-    --mk-medallion-size: var(--mk-medallion-step-down);
+    --mk-medallion-step: var(--mk-medallion-step-down);
   }
 
   .mk-medallion--soon::after,

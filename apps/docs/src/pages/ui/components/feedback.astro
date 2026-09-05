@@ -183,6 +183,14 @@ dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
       <code>.mk-dialog__body</code> scrolls and contains its overscroll, and
       CSS can do no more.
     </p>
+    <p>
+      <strong>The modifier is bounded at the 740px reflow breakpoint.</strong>
+      Leave it on the element at every width: above 740px it does nothing and
+      the same dialog is the centred playbill again. A desktop consumer keeps
+      the playbill, exactly as the argument promises, so try the key below on
+      a phone column and on a desktop one and watch the same element take
+      both poses.
+    </p>
     <div class="row">
       <button class="mk-btn" type="button" id="demo-sheet-open">Raise the sheet&hellip;</button>
     </div>

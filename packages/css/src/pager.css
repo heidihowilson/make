@@ -41,12 +41,19 @@
    * rail's height, and a thumb needs more than a nav rail. The zero
    * min-inline-size lets a long neighbour name clip instead of pushing the
    * dots off the column.
+   *
+   * The cap is 60%, not half. The point of this component is that the key
+   * carries the NEIGHBOUR'S NAME, so a hard half-and-half cap is the wrong
+   * trade: it clipped a long name while a seventh of the row sat empty
+   * beside a short one. At 60% the long name takes the spare width and
+   * flex-shrink settles the rest, while the short neighbour still cannot
+   * be crowded out of readability by a very long one.
    */
   .mk-pager__prev,
   .mk-pager__next {
     min-height: 44px;
     min-inline-size: 0;
-    max-inline-size: 45%;
+    max-inline-size: 60%;
     padding-block: var(--mk-space-xxs);
   }
 
@@ -80,6 +87,14 @@
    * medallion is the only round thing in the system. They carry position
    * and nothing else, so mark the row aria-hidden and let the neighbour
    * names carry the meaning.
+   *
+   * The current dot answers to --current ONLY, and deliberately: there is
+   * no [aria-current] hook here. The row is aria-hidden by design, where
+   * aria-current announces nothing, and a styling hook that reads like an
+   * accessibility attribute but does no accessibility work is worse than
+   * no hook at all. Elsewhere in this package the hook IS the attribute
+   * (.mk-tabs__tab[aria-selected]); those elements are exposed and these
+   * are not.
    */
   .mk-pager__dots {
     display: flex;
@@ -96,7 +111,6 @@
     background: transparent;
   }
 
-  .mk-pager__dot[aria-current],
   .mk-pager__dot--current {
     background: var(--mk-color-rule);
   }

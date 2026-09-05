@@ -30,7 +30,7 @@ a review failure unless this file names the element. Two elements are named belo
 | Element | What earns the exception | What it may not do |
 |---|---|---|
 | `.mk-toast` — the telegram | It is an **event arriving**, not chrome. A telegram is a slip handed over the page, not part of the page. The consumer's timer bounds it in time, and there is only ever one | Persist, stack, carry an action, or narrate state |
-| `.mk-dialog--sheet` — the phone's bottom sheet | A phone has no visible paper behind a centred dialog. The bottom edge gives the overlay a **place** instead of a float. The argument is written in full below | Appear as page furniture, stay open across a navigation, or carry a second sheet |
+| `.mk-dialog--sheet` — the phone's bottom sheet | A phone has no visible paper behind a centred dialog. The bottom edge gives the overlay a **place** instead of a float. The argument is written in full below, and the CSS bounds it at `740px` | Appear as page furniture, stay open across a navigation, carry a second sheet, or take the bottom edge above 740px |
 
 ### The telegram toast
 
@@ -56,12 +56,15 @@ Do not assert this exception. Argue it, in this order.
 4. **The letterpress precedent.** A sheet slid part way out of a folder still shows the sheet
    beneath it. The 2px ink rule along the top of the sheet, and the exposed scrim above it,
    draw exactly that overlap.
-5. **The exception is bounded.** The sheet is still a native `<dialog>`, still opened with
-   `showModal()`, still one at a time, and it still cannot spawn another. Only the placement
-   changed.
+5. **The exception is bounded, and the bound is in the CSS.** The sheet is still a native
+   `<dialog>`, still opened with `showModal()`, still one at a time, and it still cannot spawn
+   another. Only the placement changed — and the placement lives inside `@media (max-width:
+   740px)`, the language's own reflow breakpoint. Above 740px the modifier does nothing.
 
 The sheet is granted its exception on the phone's terms. A desktop consumer keeps the centred
 playbill; `.mk-dialog--sheet` is the phone form of the same element, not a second component.
+The consumer leaves the class on the element at every width and the breakpoint decides, so an
+argument made on the phone's terms cannot ship a full-width bar welded to a desktop viewport.
 
 ## A modal never spawns a modal
 

@@ -82,36 +82,60 @@
    * gesture engine — the pull-down to dismiss — stays in the consumer;
    * this is the look and the placement only. The handle is drawn, not
    * bound: bind the pointer handlers to the dialog element itself.
+   *
+   * THE EXCEPTION IS BOUNDED IN THE CSS, not in a note the consumer has to
+   * read. The whole modifier lives inside the 740px reflow breakpoint —
+   * the language's own, so it costs no new one — because the argument is
+   * made on the phone's terms. A full-width bar welded to the bottom edge
+   * of a 1920px desktop is the unplaced float the argument forbids. Above
+   * 740px the same element is simply the centred playbill again, which is
+   * exactly what INTERACTION.md promises a desktop consumer.
    */
-  .mk-dialog--sheet {
-    /* auto/auto/0 defeats the UA's centring margin for a modal dialog. */
-    margin: auto auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--mk-space-sm);
-    inline-size: 100%;
-    max-inline-size: none;
-    max-block-size: 88svh;
-    /* Only the top rule prints — the sheet runs off both edges of the phone. */
-    border-inline-width: 0;
-    border-block-end-width: 0;
-    padding: var(--mk-space-xs) var(--mk-space-lg) max(var(--mk-space-lg), var(--mk-safe-bottom));
-  }
+  @media (max-width: 740px) {
+    .mk-dialog--sheet {
+      /* auto/auto/0 defeats the UA's centring margin for a modal dialog. */
+      margin: auto auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-sm);
+      inline-size: 100%;
+      max-inline-size: none;
+      max-block-size: 88svh;
+      /* Only the top rule prints — the sheet runs off both edges of the phone. */
+      border-inline-width: 0;
+      border-block-end-width: 0;
+      padding: var(--mk-space-xs) var(--mk-space-lg) max(var(--mk-space-lg), var(--mk-safe-bottom));
+    }
 
-  /*
-   * The grab handle — a typewriter rule, not a rounded pill: 2px of ink,
-   * struck once, centred. It says the sheet can be pulled down. It is not
-   * a control, so it is a pseudo-element with no markup and no name.
-   */
-  .mk-dialog--sheet::before {
-    content: "";
-    display: block;
-    flex: none;
-    inline-size: var(--mk-space-4xl);
-    block-size: 2px;
-    margin-inline: auto;
-    margin-block-end: var(--mk-space-xs);
-    background: var(--mk-color-rule);
+    /*
+     * Put the UA's own rule back by hand. `display: flex` above is an
+     * AUTHOR declaration and author beats user-agent whatever layer it
+     * sits in, so it overrides `dialog:not([open]) { display: none }` and
+     * a closed — or server-rendered — sheet prints its whole contents down
+     * the page. Zero JS must render correctly; this line is that promise.
+     */
+    .mk-dialog--sheet:not([open]) {
+      display: none;
+    }
+
+    /*
+     * The grab handle — a typewriter rule, not a rounded pill: the 2px
+     * rule token, struck once, centred. It says the sheet can be pulled
+     * down. It is not a control, so it is a pseudo-element with no markup
+     * and no name. Zero block-size plus a top border is how a rule prints
+     * with no box of its own: grab the whole rule, never a width and a
+     * colour.
+     */
+    .mk-dialog--sheet::before {
+      content: "";
+      display: block;
+      flex: none;
+      inline-size: var(--mk-space-4xl);
+      block-size: 0;
+      border-top: var(--mk-rule-thick);
+      margin-inline: auto;
+      margin-block-end: var(--mk-space-xs);
+    }
   }
 
   /*
@@ -135,13 +159,20 @@
     .mk-dialog[open]::backdrop {
       animation: mk-scrim-in var(--mk-dur-beat) var(--mk-steps-3) both;
     }
+  }
 
-    /*
-     * A sheet RISES; it does not drop. The settle replaces the drop —
-     * five stepped frames with one overshoot. (mk-settle-in's keyframes
-     * live in src/motion.css; @keyframes are document-global, so this
-     * reference needs no copy of them.)
-     */
+  /*
+   * A sheet RISES; it does not drop. The settle replaces the drop — five
+   * stepped frames with one overshoot. (mk-settle-in's keyframes live in
+   * src/motion.css; @keyframes are document-global, so this reference
+   * needs no copy of them.)
+   *
+   * Bounded at 740px with the placement it belongs to: above that the
+   * element is the centred playbill and it drops, like every other dialog.
+   * The rule follows the drop above so equal specificity lands the right
+   * way round.
+   */
+  @media (max-width: 740px) and (prefers-reduced-motion: no-preference) {
     .mk-dialog--sheet[open] {
       animation: mk-settle-in var(--mk-dur-enter) var(--mk-steps-5) both;
     }

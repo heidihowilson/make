@@ -92,7 +92,10 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       engraver&rsquo;s tool is round. Three printed things, one job each: a
       2px ink ring, a 2px paper mat, and a hairline rim where the plate meets
       the mat. The five rungs are a billing order, not a size scale; set
-      <code>--mk-medallion-size</code> yourself for anything between.
+      <code>--mk-medallion-size</code> yourself for anything between. That
+      property is yours alone &mdash; nothing in the library writes it, so it
+      wins over the ladder wherever you set it, and it composes with the
+      status bands instead of fighting them.
     </p>
     <div class="row">
       <div class="cameo-cell">

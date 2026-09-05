@@ -175,9 +175,13 @@
    * the way a ticket stub carries the performance and the fine print
    * beneath it.
    *
-   * Chosen state: the plate tone (the pressed fill) and a 2px ink box. The
-   * second pixel is printed INWARD as an inset shadow rather than by
-   * thickening the border, so a chosen ticket does not shift on the page.
+   * Chosen state: the plate tone (the pressed fill) and a 2px ink box —
+   * the printed-rule table's "every box" weight, grabbed whole as
+   * --mk-rule-thick. Every element in this package is border-box, so the
+   * second pixel prints INWARD and the chosen ticket does not shift on the
+   * page. There is no hand-composed shadow here: the shadow set is the
+   * sheet drop and the letterpress offset, and a third shape invented in a
+   * component is how an elevation scale starts.
    *
    *   <label class="mk-choice mk-choice--ticket">
    *     <input class="mk-radio" type="radio" name="status" />
@@ -258,8 +262,7 @@
   .mk-choice--ticket[aria-checked="true"],
   .mk-choice--ticket.mk-choice--checked {
     background: var(--mk-color-plate);
-    border-color: var(--mk-color-rule);
-    box-shadow: inset 0 0 0 1px var(--mk-color-rule);
+    border: var(--mk-rule-thick);
   }
 
   /*
@@ -271,6 +274,34 @@
   .mk-choice--ticket[aria-checked="true"] > .mk-choice__note,
   .mk-choice--ticket.mk-choice--checked > .mk-choice__note {
     color: var(--mk-color-text-secondary);
+  }
+
+  /*
+   * Forced colours — the one mode that can erase this component. Windows
+   * High Contrast replaces every author colour with a system pair, so the
+   * plate fill and the ink box both flatten and a chosen ticket becomes
+   * byte-identical to an unchosen one. The row's radio is hidden, so there
+   * is no native control left to fall back on either. Print the mark in a
+   * SYSTEM colour instead: CanvasText survives the substitution, and the
+   * inset offset keeps it inside the ruled box rather than on it.
+   *
+   * The focus ring is repeated after it on purpose. Only one outline can
+   * exist on an element, and the reader must always be able to see where
+   * they are — so focus outranks the chosen mark for as long as it is
+   * there, and the mark comes back when focus leaves.
+   */
+  @media (forced-colors: active) {
+    .mk-choice--ticket:has(> .mk-radio:checked),
+    .mk-choice--ticket[aria-checked="true"],
+    .mk-choice--ticket.mk-choice--checked {
+      outline: 2px solid CanvasText;
+      outline-offset: -5px;
+    }
+
+    .mk-choice--ticket:has(> .mk-radio:focus-visible) {
+      outline: 2px solid Highlight;
+      outline-offset: 3px;
+    }
   }
 
   /*

@@ -60,7 +60,26 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   the typewriter utility voice only.
 - **The ochre ration is a review criterion.** Two accents in one view cancel each other out.
   A `--warning` button, an error message, a focus ring and a lever's ON state are all
-  claimants; screens get one.
+  claimants; screens get one. The one relaxation is the status-ink amendment below.
+- **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
+- **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
+  (ghost rules, dashed slots); muted TEXT uses the darker `--mk-faded-ink` `#685d45`;
+  link ink deepened to `#7a4e15`; **ochre carries lines, never small text** — its ~2.5:1 on
+  paper fails everywhere. Links in running text carry a printed underline (WCAG 1.4.1).
+  **Muted ink clears 4.5:1 on the two lighter papers only** — 4.63:1 on the sheet and 5.02:1
+  on the inset, but 3.95:1 on the plate tone. Type printed on the plate therefore steps up to
+  secondary ink `#5b4a33` (5.18:1). Two shipped surfaces do exactly that: the medallion's
+  `__initials` and the chosen ticket's note.
+  The state inks were measured against every paper tone before they shipped: soon (the ochre)
+  reads 2.43:1 on the sheet, 2.64:1 on the inset and 2.08:1 on the plate; later (call-board
+  green `#63763a`) reads 3.59:1, 3.89:1 and 3.06:1, and 3.06:1 against the ink, so it prints
+  as a colour and not as a dark ring. The consumer's proposed `#6b7a3a` was deepened one step
+  because it measured 2.87:1 on the plate — under the 3:1 WCAG 1.4.11 asks of a graphical
+  carrier. Both inks are BANDS. Neither ever carries a word: the stub beside the cameo does,
+  in ink, so the datum never depends on colour alone (WCAG 1.4.1).
+- **Print rhythm is literal.** Values were copied from the source CSS; do not round them to a
+  grid during refactors.
+- **Visual regression runs in one mode** (single-mode language), still at two viewports.
 
 ### Amendment (2026-09-05): one accent plus status inks
 
@@ -74,27 +93,14 @@ relaxed, and the relaxation is bounded by five clauses.
 3. **The set is closed at two values** — `--mk-color-state-soon` and `--mk-color-state-later`.
    A third state needs a new amendment. **Red stays excluded**: red is the letterpress STOP
    hue and it means trouble, and a player who is not ready yet is not in trouble.
-4. **State inks appear only as a `.mk-medallion` status band and on its matching `.mk-badge`
-   stub.** They never set type and they never fill a surface.
+4. **A state ink appears only as a `.mk-medallion` status band.** It never sets type and it
+   never fills a surface. The band is always paired with a `.mk-badge` stub beside the cameo,
+   but the stub carries the word in plain ink — the colour stays on the band, so the datum
+   never depends on colour alone. There is deliberately no state-ink badge modifier.
 5. **The bound that closes the loop:** `--mk-color-state-soon` *is* the ochre. A view that
    prints soon bands has already spent its ochre, so it may not also carry an ochre key, an
    ochre kicker or an ochre-ruled toast. The relaxation costs the view nothing it did not
    already own.
-- **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
-- **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
-  (ghost rules, dashed slots); muted TEXT uses the darker `--mk-faded-ink` `#685d45` (≥4.5:1);
-  link ink deepened to `#7a4e15`; **ochre carries lines, never small text** — its ~2.5:1 on
-  paper fails everywhere. Links in running text carry a printed underline (WCAG 1.4.1).
-  The state inks were measured against every paper tone before they shipped: soon (the ochre)
-  reads 2.43:1 on the sheet, 2.64:1 on the inset and 2.08:1 on the plate; later (call-board
-  green `#63763a`) reads 3.59:1, 3.89:1 and 3.06:1, and 3.06:1 against the ink, so it prints
-  as a colour and not as a dark ring. The consumer's proposed `#6b7a3a` was deepened one step
-  because it measured 2.87:1 on the plate — under the 3:1 WCAG 1.4.11 asks of a graphical
-  carrier. Both inks are BANDS. Neither ever carries a word: the stub beside the cameo does,
-  in ink, so the datum never depends on colour alone (WCAG 1.4.1).
-- **Print rhythm is literal.** Values were copied from the source CSS; do not round them to a
-  grid during refactors.
-- **Visual regression runs in one mode** (single-mode language), still at two viewports.
 
 ## Token structure
 
