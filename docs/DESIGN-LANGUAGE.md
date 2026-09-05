@@ -47,7 +47,7 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 | Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. No blue, no `info` hue |
 | Typography | Three faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
 | Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
-| Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press |
+| Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press. The one exception is a gesture in progress: the press-and-hold fill (see MOTION.md) |
 | Iconography | **No icon set.** Unicode glyphs (`←` `→` `·`), CSS-drawn controls, and framed art from the pipeline. `@sethmakes/icons` remains for consumer apps' functional UIs, not for the language's own surfaces |
 | Voice | Playbill, not product: THE BOX OFFICE, a BILL, a DEPARTMENT, SOLD OUT, "No. 2 — coming soon". Never "Loading…", never emoji, always typographic punctuation |
 
@@ -88,6 +88,11 @@ same content re-set for a narrower sheet. Two breakpoints, always the same two: 
 utility tracking may tighten). No intermediate breakpoints — fluid grids and `clamp()`
 display type do the work between them. Nothing is fixed or sticky; the page scrolls like
 paper (the telegram toast is the one sanctioned fixed element — it is an event, not chrome).
+
+A phone also has device edges. The tokens `--mk-safe-top`, `--mk-safe-right`,
+`--mk-safe-bottom` and `--mk-safe-left` carry the insets. They are zero on every
+other screen, so nothing moves on the desktop sheet. `--mk-thumb-zone` is the
+bottom third of a held phone. Put the one hero action of a phone view inside it.
 
 ## Explicitly rejected
 

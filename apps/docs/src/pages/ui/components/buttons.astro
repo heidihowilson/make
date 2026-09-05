@@ -39,18 +39,53 @@ import Base from '../../../layouts/Ui.astro';
       Tracking tightens as the plate shrinks; the face never swaps. The xs
       key is for pointer-dense ledgers — it sits below the 44px touch floor,
       so prefer sm on touch-first surfaces or give the row itself the tap
-      target.
+      target. The xl key is the hero — 56px of plate at department volume,
+      for the one action on a phone screen. Keep its label to a word or
+      three; the tracking is the loud end.
     </p>
     <div class="row" style="align-items: center;">
       <button class="mk-btn mk-btn--xs">Cut</button>
       <button class="mk-btn mk-btn--sm">Hold</button>
       <button class="mk-btn">Print</button>
       <button class="mk-btn mk-btn--lg">Curtain up</button>
+      <button class="mk-btn mk-btn--xl">Ready up</button>
     </div>
     <pre><code>&lt;button class="mk-btn mk-btn--xs"&gt;Cut&lt;/button&gt;
 &lt;button class="mk-btn mk-btn--sm"&gt;Hold&lt;/button&gt;
 &lt;button class="mk-btn"&gt;Print&lt;/button&gt;
-&lt;button class="mk-btn mk-btn--lg"&gt;Curtain up&lt;/button&gt;</code></pre>
+&lt;button class="mk-btn mk-btn--lg"&gt;Curtain up&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--xl"&gt;Ready up&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>PRESS AND HOLD</h2>
+    <p>
+      The one gesture the house lets move while it is happening. The finger
+      is the event, and the fill is the key reporting it — three stepped
+      frames, never an eased glide. It answers to <code>:active</code> and to
+      <code>[data-holding]</code>, never to hover: that is the line that
+      keeps a gesture from becoming state motion. The app owns the clock —
+      set <code>--mk-dur-hold</code> on the key, or drive
+      <code>[data-holding]</code> from your own touch handler, which is also
+      how you work around iOS&rsquo;s shy <code>:active</code>.
+      <code>.mk-btn__hint</code> sets the second line, quieter by size and
+      tracking rather than by a wash.
+    </p>
+    <div class="row" style="align-items: center;">
+      <button class="mk-btn mk-btn--primary mk-btn--xl mk-btn--hold" type="button">
+        Ready up
+        <span class="mk-btn__hint">hold for the full bill</span>
+      </button>
+      <button class="mk-btn mk-btn--hold" type="button" data-holding style="--mk-dur-hold: 0ms;">
+        Held
+        <span class="mk-btn__hint">the fill, at rest</span>
+      </button>
+    </div>
+    <p class="note">— the second key is frozen at <code>--mk-dur-hold: 0ms</code>, so this page still loads at rest</p>
+    <pre><code>&lt;button class="mk-btn mk-btn--primary mk-btn--xl mk-btn--hold" type="button"&gt;
+  Ready up
+  &lt;span class="mk-btn__hint"&gt;hold for the full bill&lt;/span&gt;
+&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">
@@ -111,6 +146,41 @@ import Base from '../../../layouts/Ui.astro';
     </div>
     <pre><code>&lt;button class="mk-btn mk-btn--icon" aria-label="Previous act"&gt;&amp;larr;&lt;/button&gt;
 &lt;button class="mk-btn mk-btn--primary mk-btn--icon" aria-label="Add to the bill"&gt;+&lt;/button&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE MARK</h2>
+    <p>
+      A leading or trailing spot inside a key: an ink dot, a lit bulb, a
+      stand-in glyph. The button sizes it and sits it on the typewriter cap
+      line, so nobody nudges a dot with a magic margin. Left empty the slot
+      prints the dot itself — square, because the only round things in the
+      system are the medallion and the radio. <code>--lit</code> turns the
+      bulb on in ochre, which spends the view&rsquo;s one accent spot; on the
+      ochre plate the ration is already gone, so leave that mark in ink.
+    </p>
+    <div class="row" style="align-items: center;">
+      <button class="mk-btn" type="button">
+        <span class="mk-btn__mark" aria-hidden="true"></span>
+        On the bill
+      </button>
+      <button class="mk-btn mk-btn--primary" type="button">
+        House lights
+        <span class="mk-btn__mark mk-btn__mark--lit" aria-hidden="true"></span>
+      </button>
+      <button class="mk-btn" type="button">
+        <span class="mk-btn__mark" aria-hidden="true">&#10035;</span>
+        Struck
+      </button>
+    </div>
+    <pre><code>&lt;button class="mk-btn"&gt;
+  &lt;span class="mk-btn__mark" aria-hidden="true"&gt;&lt;/span&gt;
+  On the bill
+&lt;/button&gt;
+&lt;button class="mk-btn mk-btn--primary"&gt;
+  House lights
+  &lt;span class="mk-btn__mark mk-btn__mark--lit" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/button&gt;</code></pre>
   </section>
 
   <section class="mk-card">

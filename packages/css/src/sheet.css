@@ -68,4 +68,21 @@
     text-transform: uppercase;
     color: var(--mk-color-text-secondary);
   }
+
+  /*
+   * Wire slug — the kicker cut down to a status lamp for the line itself:
+   * "· LIVE", "· RECONNECTING". The middot is the lamp and the word is the
+   * state, so the lamp is printed here and the word stays in the markup,
+   * in caps, as every kicker does. Quieter than a kicker by size and
+   * tracking, because the state of the wire is not an announcement.
+   */
+  .mk-kicker--wire {
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-nav-sm);
+    color: var(--mk-color-text-muted);
+  }
+
+  .mk-kicker--wire::before {
+    content: "· ";
+  }
 }

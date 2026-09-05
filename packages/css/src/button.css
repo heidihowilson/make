@@ -54,15 +54,18 @@
 
   /*
    * Ghost — a nav-link key: no plate, no shadow, a hairline underneath.
-   * It presses nothing because there is nothing to press.
+   * It presses nothing because there is nothing to press. It is still a
+   * KEY, though, and it keeps the 44px target every other key guarantees —
+   * a thumb cannot tell that this one carries no ink. (It used to set
+   * min-height: 0 and land near 31px, which dropped a real app's pager
+   * arrows, SETTINGS and CLEAR under the floor.)
    */
   .mk-btn--ghost {
     background: transparent;
     border-color: transparent;
     border-bottom: var(--mk-rule-hair);
     box-shadow: none;
-    padding: 6px 2px;
-    min-height: 0;
+    padding: 11px 2px;
   }
 
   .mk-btn--ghost:hover {
@@ -147,6 +150,20 @@
     min-height: 52px;
   }
 
+  /*
+   * xl — the hero key: the ONE action on a phone screen. 56px of plate and
+   * the typewriter voice at department volume, so nobody overrides
+   * --mk-size-mono inline to make the key that matters read like the key
+   * that matters. Loudness is size and tracking, never weight — so keep the
+   * label to a word or three; at .3em a sentence eats the sheet.
+   */
+  .mk-btn--xl {
+    font-size: var(--mk-size-mono-lg);
+    letter-spacing: var(--mk-track-bill-no);
+    padding: var(--mk-space-md) var(--mk-space-xl);
+    min-height: 56px;
+  }
+
   /* Full-width block */
   .mk-btn--block {
     display: flex;
@@ -166,6 +183,117 @@
   .mk-btn--icon svg {
     width: 1.25em;
     height: 1.25em;
+  }
+
+  /*
+   * Press and hold — the ONE gesture the motion doctrine lets move while it
+   * is happening. "Motion is an event, not a state" still holds: the finger
+   * IS the event, and the three-frame fill is the key reporting it, exactly
+   * as the stage lever snaps in two frames when it is thrown. It answers
+   * only to :active and to [data-holding] — never to :hover, and that is
+   * the line that keeps a gesture from becoming the state motion the house
+   * exists to avoid. The package ships the look; the app's gesture engine
+   * owns the clock (set --mk-dur-hold on the key, or drive [data-holding]
+   * yourself — which is also how a touch handler works around iOS's shy
+   * :active). Under reduced motion the fill prints at once and holds: the
+   * key still reports the hold.
+   *
+   * These rules sit AFTER the hover rules on purpose. They match the hover
+   * rules' specificity, so source order is what keeps the fill on a key
+   * held down under a mouse pointer — do not regroup this file by variant.
+   */
+  .mk-btn--hold {
+    --mk-btn-hold-fill: var(--mk-color-plate);
+  }
+
+  .mk-btn--primary.mk-btn--hold {
+    --mk-btn-hold-fill: var(--mk-color-text-secondary);
+  }
+
+  .mk-btn--hold:active,
+  .mk-btn--hold[data-holding] {
+    /* The fill is a background IMAGE, so the plate's own colour — and the
+       hover colour the shorthand above sets — stay where they are. */
+    background-image: linear-gradient(var(--mk-btn-hold-fill) 0 0);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-btn--hold:active,
+    .mk-btn--hold[data-holding] {
+      animation: mk-btn-hold var(--mk-dur-hold) var(--mk-steps-3) forwards;
+    }
+  }
+
+  @keyframes mk-btn-hold {
+    from {
+      background-size: 0% 100%;
+    }
+
+    to {
+      background-size: 100% 100%;
+    }
+  }
+
+  /*
+   * The hint line — "HOLD FOR THE FULL BILL", set under the label. It is
+   * quieter by size and tracking, not by a wash: a print shop sets a subhead
+   * smaller, it does not print it in grey. It carries no colour of its own,
+   * so it reads on the ink plate, the ochre plate and the STOP-red plate
+   * alike. A key that carries a hint wraps to two lines.
+   */
+  .mk-btn:has(.mk-btn__hint) {
+    flex-wrap: wrap;
+    row-gap: var(--mk-space-hair);
+  }
+
+  .mk-btn__hint {
+    width: 100%;
+    text-align: center;
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-nav-sm);
+    line-height: 1.2;
+  }
+
+  /*
+   * The mark slot — a leading or trailing spot inside a key: an ink dot, a
+   * lit bulb, a stand-in glyph. The BUTTON sizes it and sits it on the
+   * typewriter cap line, so nobody nudges a dot with a magic margin again.
+   * The key's own gap does the spacing. Left empty it prints the dot
+   * itself — square, because the only round things in the system are the
+   * medallion and the radio.
+   */
+  .mk-btn__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 1em;
+    height: 1em;
+    /* Typewriter caps sit high in the em box; lift the mark to the cap. */
+    translate: 0 -0.06em;
+  }
+
+  .mk-btn__mark:empty::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    background: currentColor;
+  }
+
+  .mk-btn__mark > svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /*
+   * Lit — the bulb is on. Ochre, so a lit mark spends the view's one accent
+   * spot. On the ochre plate the ration is already gone: leave that mark in
+   * ink.
+   */
+  .mk-btn__mark--lit {
+    color: var(--mk-color-accent);
   }
 
   /*

@@ -44,6 +44,43 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
+    <h2>THE VERDICT</h2>
+    <p>
+      A stamp is the verdict struck across the thing it judges: paper caps on
+      an ink slab, a few degrees off square because a hand holds a rubber
+      stamp and a hand is never square. One word, never a sentence. The
+      parent places it — give the panel <code>position: relative</code> and
+      pick the corner — because a verdict belongs to the thing it is struck
+      on, not to itself. Add <code>.mk-stamp-in</code> and it arrives on
+      three frames and holds.
+    </p>
+    <div class="verdict-row">
+      <div class="mk-card mk-card--sunken" style="position: relative; max-width: 20rem;">
+        <strong>Wilson &middot; Over the Fence</strong>
+        <p style="margin: var(--mk-space-xxs) 0 0; color: var(--mk-color-text-muted);">
+          Eight nights, one hat, no face.
+        </p>
+        <span class="mk-stamp" style="position: absolute; top: -10px; right: 14px;">Ready</span>
+      </div>
+      <div class="mk-thumb mk-thumb--square" style="width: 13rem;">
+        <img
+          src={(import.meta.env.BASE_URL.replace(/\/?$/, '/') + 'art/scene-ledger-fire.jpg').replace(/\/+/g, '/')}
+          alt="The ledger goes up in flames while the company looks on"
+          width="1024" height="1024" loading="lazy"
+          style="width: 100%; height: auto; display: block;"
+        />
+        <span class="mk-stamp mk-stamp--danger" style="position: absolute; bottom: 18px; left: 10px;">Cancelled</span>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-card" style="position: relative"&gt;
+  …
+  &lt;span class="mk-stamp mk-stamp-in"
+        style="position: absolute; top: -10px; right: 14px"&gt;Ready&lt;/span&gt;
+&lt;/div&gt;
+&lt;span class="mk-stamp mk-stamp--danger"&gt;Cancelled&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
     <h2>THE LEDGER</h2>
     <p>
       Typewriter caps over a 2px ink rule, Goudy figures on hairline rows,
@@ -187,6 +224,13 @@ import Base from '../../../layouts/Ui.astro';
       font-size: var(--mk-size-mono-xs);
       letter-spacing: 0.06em;
       color: var(--mk-color-text-muted);
+    }
+
+    .verdict-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--mk-space-lg);
+      align-items: flex-start;
     }
 
     /* Tighten the demo rules so the meanings read as a chart. */

@@ -196,6 +196,16 @@ const components = [
       language — Unicode glyphs stand in icon positions. Mark the active tab
       with the accent token; that spends the view&rsquo;s ochre ration.
     </p>
+    <p class="prose">
+      The rail pads itself above the home indicator —
+      <code>--mk-safe-bottom</code>, which is zero on every screen that is
+      not a phone. The top rail does not do the same: the language&rsquo;s
+      bars sit in flow and may appear anywhere in a document, so padding one
+      for a notch would be wrong. If you really do pin a bar to the top edge
+      of the device, pad it yourself with <code>--mk-safe-top</code>. All
+      four insets read zero until the document asks for the whole screen
+      (<code>viewport-fit=cover</code> in the viewport meta).
+    </p>
     <pre><code>&lt;nav class="mk-appbar mk-appbar--bottom" aria-label="Primary"&gt;
   &lt;a href="/" class="mk-link-reset flex flex-col items-center gap-1
                      min-h-[56px] justify-center

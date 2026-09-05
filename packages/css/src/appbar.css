@@ -12,8 +12,8 @@
     align-items: center;
     gap: var(--mk-space-3xl);
     padding-block: var(--mk-space-sm);
-    padding-inline: max(var(--mk-space-md), env(safe-area-inset-left))
-      max(var(--mk-space-md), env(safe-area-inset-right));
+    padding-inline: max(var(--mk-space-md), var(--mk-safe-left))
+      max(var(--mk-space-md), var(--mk-safe-right));
     background: var(--mk-color-sheet);
     border-top: var(--mk-rule-thick);
     border-bottom: var(--mk-rule-hair);
@@ -34,11 +34,15 @@
 
   /*
    * Bottom variant — the page footer rail: slugs above the foot rule.
-   * Also not pinned; a paper's colophon lives at the end of the paper.
+   * Also not pinned; a paper's colophon lives at the end of the paper. It
+   * does carry the home-indicator inset, because .mk-shell sets it against
+   * the bottom edge of the device: the rail's own 14px plus whatever the
+   * phone reserves, which is nothing anywhere else.
    */
   .mk-appbar--bottom {
     border-top: var(--mk-rule-double-thin);
     border-bottom: 0;
+    padding-bottom: calc(var(--mk-space-sm) + var(--mk-safe-bottom));
     letter-spacing: var(--mk-track-nav-sm);
     color: var(--mk-color-text-muted);
   }

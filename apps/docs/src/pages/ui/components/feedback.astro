@@ -106,20 +106,53 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
+    <h2>THE WIRE</h2>
+    <p>
+      A phone needs the state of its line on one row, not in a tile.
+      <code>--strip</code> lays the dashed slot on a single left-aligned
+      line — the dashed rule still means &ldquo;nothing is printed here
+      yet&rdquo;, which is exactly true of a page with no line to the server.
+      The dots reserve their own width, so the message does not shuffle as
+      they type. The wire slug is the same state in miniature for a status
+      bar: the middot is the lamp, the word is the state.
+    </p>
+    <div class="demo-col">
+      <div class="mk-empty mk-empty--strip" role="status">
+        <span class="mk-empty__message">NO CONNECTION &mdash; TRYING AGAIN</span>
+        <span class="mk-spinner" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="demo-row demo-row--center" style="margin-top: var(--mk-space-sm);">
+      <span class="mk-kicker mk-kicker--wire">LIVE</span>
+      <span class="mk-kicker mk-kicker--wire">RECONNECTING</span>
+    </div>
+    <pre><code>&lt;div class="mk-empty mk-empty--strip" role="status"&gt;
+  &lt;span class="mk-empty__message"&gt;NO CONNECTION — TRYING AGAIN&lt;/span&gt;
+  &lt;span class="mk-spinner" aria-hidden="true"&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;span class="mk-kicker mk-kicker--wire"&gt;LIVE&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
     <h2>TELEGRAM</h2>
     <p>
       A toast is a telegram slip delivered at the footlights: fixed
       bottom-center, one at a time — a new message replaces the old,
       telegrams never stack. It arrives in three stepped frames; gone means
       gone, with no exit animation. CSS-only: the app brings the timer and a
-      hidden <code>role="status"</code> live region.
+      hidden <code>role="status"</code> live region. On a phone the
+      footlights are where the one hero key lives, so <code>--top</code> pins
+      the slip under the notch and drops it in from the flies instead. One at
+      a time still holds — a new message replaces the old wherever it lands.
     </p>
     <div class="row">
       <button class="mk-btn" type="button" data-toast="">Send a telegram</button>
       <button class="mk-btn" type="button" data-toast="success">Delivered</button>
       <button class="mk-btn" type="button" data-toast="danger">Bad news</button>
+      <button class="mk-btn" type="button" data-toast="" data-place="top">From the flies</button>
     </div>
     <pre><code>&lt;div class="mk-toast" hidden role="status"&gt;FILED · your note is on the spike&lt;/div&gt;
+&lt;div class="mk-toast mk-toast--top" hidden role="status"&gt;…&lt;/div&gt;
 
 // app JS: show, wait, hide
 toast.textContent = msg; toast.hidden = false;
@@ -174,7 +207,10 @@ dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
       };
       document.querySelectorAll('[data-toast]').forEach((btn) =>
         btn.addEventListener('click', () => {
-          toast.className = 'mk-toast' + (btn.dataset.toast ? ` mk-toast--${btn.dataset.toast}` : '');
+          toast.className =
+            'mk-toast' +
+            (btn.dataset.toast ? ` mk-toast--${btn.dataset.toast}` : '') +
+            (btn.dataset.place === 'top' ? ' mk-toast--top' : '');
           toast.textContent = MESSAGES[btn.dataset.toast];
           toast.hidden = false;
           clearTimeout(t);

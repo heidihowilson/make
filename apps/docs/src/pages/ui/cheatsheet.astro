@@ -11,6 +11,7 @@ const groups = [
     items: [
       ['.mk-stage > .mk-sheet', 'the sheet on the stage floor — once per page, lifted by the one deep shadow'],
       ['.mk-kicker', 'the typewriter announcement voice — ALL CAPS in the markup'],
+      ['.mk-kicker--wire', 'the status lamp slug — “· LIVE”, “· RECONNECTING” — demoed on FEEDBACK'],
     ],
   },
   {
@@ -23,6 +24,9 @@ const groups = [
       ['--warning', 'the ochre plate — spends the view’s accent ration'],
       ['--active', 'held down — pair with aria-pressed'],
       ['--sm / --xs / --lg', 'sizes; xs is sub-44px, pointer-dense UIs only'],
+      ['--xl', 'the hero key — 56px, 17px caps, for the one action on a phone screen'],
+      ['--hold + __hint', 'press and hold: a typewriter hint line and a three-frame stepped fill; :active or [data-holding], never hover'],
+      ['__mark / __mark--lit', 'the leading or trailing mark slot — an ink dot when empty, ochre when lit (spends the ration)'],
       ['--block', 'full width'],
       ['--icon', 'square, single glyph — always aria-label; disabled copy is “SOLD OUT”'],
     ],
@@ -35,6 +39,7 @@ const groups = [
       ['--success', 'solid ink — a thing done needs no colour'],
       ['--sm', 'dense rows — tighter padding, same type size'],
       ['--dot', 'leading status dot in currentColor'],
+      ['.mk-stamp / --danger', 'the rubber-stamp verdict — paper caps on a tilted ink slab; the parent positions it, it enters on .mk-stamp-in — demoed on SURFACES'],
     ],
   },
   {
@@ -76,6 +81,7 @@ const groups = [
     items: [
       ['__title / __actions, ::backdrop scrim', 'native <dialog> as a playbill; the warm scrim dims the stage; app calls showModal() — demoed on FEEDBACK'],
       ['.mk-toast / --success / --warning / --danger', 'a telegram slip at the footlights — fixed bottom-center, one at a time, app brings the timer — demoed on FEEDBACK'],
+      ['.mk-toast--top', 'pinned under the top safe area, arriving from the flies — still one telegram at a time'],
       ['.mk-tabs / __tab', 'departments on a rule; selected via aria-selected / aria-current / --active — demoed on SURFACES'],
     ],
   },
@@ -88,6 +94,7 @@ const groups = [
       ['.mk-spinner--sm / --md', 'smaller dot sizes'],
       ['.mk-progress / --sm', 'ink fill in a ruled trough; no value attr = the marching-hatch indeterminate'],
       ['.mk-empty / __title / __message / __action', 'the dashed tile — “nothing is printed here yet”; speak in character: “No. 2 — coming soon”'],
+      ['.mk-empty--strip', 'the one-line wire strip — left-aligned, dots reserved; for connection state'],
     ],
   },
   {
