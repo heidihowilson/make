@@ -39,8 +39,21 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       # Trusted publishing requires npm >= 11.5.1; Node 22 ships npm 10.
-      - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@latest && npm --version
+      #
+      # PINNED TO 11.x ON PURPOSE — do not move this to npm@latest.
+      # npm 12 changed the shape of `npm info <pkg> --json`: it now wraps the
+      # packument in an ARRAY, where npm 11 and earlier returned the object.
+      # Changesets reads `pkgInfo.versions` off that result, which is
+      # `undefined` on an array, so EVERY package looks unpublished and
+      # `changeset publish` retries versions npm already has. That is what
+      # made every release since npm 12 landed on the runner finish red while
+      # actually succeeding (issue #50): the retry of @sethmakes/icons@0.1.6
+      # exits 1 after tokens/css publish fine.
+      #
+      # Revisit when changesets handles the npm 12 shape; until then the pin
+      # is the fix, and the range keeps us on 11.x patches.
+      - name: Install npm 11 for trusted publishing
+        run: npm install -g 'npm@^11.5.1' && npm --version
 
       - name: Install
         run: pnpm install --frozen-lockfile
