@@ -1,0 +1,41 @@
+@layer mk.components {
+  /*
+   * Stamp — the verdict, struck across the thing it judges: paper caps on
+   * an ink slab, set a few degrees off square because a hand holds a rubber
+   * stamp and a hand is never square. One word, never a sentence: READY,
+   * PAID, SCRATCHED. No rule around it — a rubber stamp is one colour, and
+   * an ink line around an ink slab is two-pixel theatre.
+   *
+   * The PARENT places it. A verdict belongs to the panel, the ticket or the
+   * medallion it is struck on, so the stamp never picks its own corner:
+   *
+   *   <div class="mk-card" style="position: relative">
+   *     …
+   *     <span class="mk-stamp mk-stamp-in"
+   *           style="position: absolute; top: -10px; right: 14px">READY</span>
+   *   </div>
+   *
+   * The tilt rides the independent rotate property on purpose: the house
+   * entrance (.mk-stamp-in) animates transform and lands on transform:none,
+   * so a transform-based tilt would be flattened the moment the stamp
+   * landed. Override rotate inline for the other hand.
+   */
+  .mk-stamp {
+    display: inline-block;
+    background: var(--mk-color-ink-surface);
+    color: var(--mk-color-text-on-ink);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-lg);
+    letter-spacing: var(--mk-track-bill-no);
+    line-height: var(--mk-leading-tight);
+    text-transform: uppercase;
+    padding: 5px 14px 3px;
+    rotate: -6deg;
+    white-space: nowrap;
+  }
+
+  /* Danger — the letterpress STOP red: CANCELLED, SCRATCHED, DARK TONIGHT. */
+  .mk-stamp--danger {
+    background: var(--mk-color-danger);
+  }
+}

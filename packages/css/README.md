@@ -51,18 +51,18 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 
 | Area | Classes |
 |---|---|
-| Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice) |
-| Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
-| Badges | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot` |
+| Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice; `--wire` = the status lamp slug, "· LIVE" — the class prints the middot) |
+| Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--xl` (the 56px hero key) / `--block` / `--icon` / `--hold` (+ `__hint` — press and hold) / `__mark` (`--lit`) |
+| Badges & stamps | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot`; `.mk-stamp` (the rubber-stamp verdict; `--danger`; the parent positions it) |
 | Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice` (+ `--ticket` with `__title` / `__note` — one large ruled option, the hidden radio makes the whole row the choice), `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever) |
 | Surfaces | `.mk-card` (a PANEL: 2px ink rule; `--sunken` = quiet hairline / `--flush`), `.mk-table` (the ledger; `.mk-table-wrap`, `__num`), `.mk-divider` (printed rules: `--double` / `--double-thin` / `--thick` / `--dash` / `--accent` / `--label`), `.mk-disclosure` (programme notes; `__body`) |
 | Chrome | `.mk-appbar` (ruled nav rail — **not sticky**; `--bottom`), `.mk-shell` (`__main`), `.mk-pager` (the neighbouring acts by name: `__prev` / `__next` / `__label` / `__dots` / `__dot` / `--current` — no count, no numbering) |
-| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, `__body`, scrim via `::backdrop`; `--sheet` is the phone's bottom sheet), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
-| Feedback | `.mk-alert` (notice from the management: `__title`, `__actions` — the in-flow confirm, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action`) |
+| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, `__body`, scrim via `::backdrop`; `--sheet` is the phone's bottom sheet — sheet below 740px, centred playbill above, with `--bill` the one escape for a phone-width column), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger` / `--top`; fixed, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
+| Feedback | `.mk-alert` (notice from the management: `__title`, `__actions` — the in-flow confirm, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action` / `--strip` = the one-line wire strip) |
 | Media | `.mk-thumb` (framed art: ink rule + mat + letterpress offset; `--square` / `--video`, `__fallback`), `.mk-skeleton` (dashed slot, no shimmer; `--text`), `.mk-figure` |
-| Medallion | `.mk-medallion` (the one round thing: ink ring, paper mat, hairline rim; `__initials` is the typewriter fallback AND the pending state) + `--xs`/`--sm`/`--md`/`--lg`/`--xl` or your own `--mk-medallion-size` (set it on an ancestor to size a whole roster — it wins over the ladder and composes with the bands), `--now` (the marquee band of twelve paper lamps), `--soon` / `--later` (state bands; both step the cameo down a rung), `--chase` (the rationed idle loop) |
+| Medallion | `.mk-medallion` (the one round thing: ink ring, paper mat, hairline rim; `__initials` is the typewriter fallback AND the pending state) + `--xs`/`--sm`/`--md`/`--lg`/`--xl` or your own `--mk-medallion-size` (set it on an ancestor to size a whole roster — it wins over the ladder and composes with the bands), `--now` (the marquee band of twelve paper lamps, hugging at 7px so a cameo prints at the next rung's footprint), `--soon` / `--later` (state bands at a 7px standoff), `--bare` (no status — the ONE modifier that steps the cameo down a rung), `--chase` (the idle loop; the ration is one KIND per page) |
 | Prose | `.mk-prose` (Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd) |
-| Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` and `.mk-medallion--chase` (the two idle loops — a page runs one), `.mk-bill-order` (stagger parent) |
+| Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` and `.mk-medallion--chase` (the two idle loops — a page runs one KIND, never both), `.mk-bill-order` (stagger parent) |
 | Utilities | `.mk-icon` (`--sm` / `--lg`), `.mk-link-reset` |
 
 The full live catalog with rendered examples is the docs site:
@@ -91,7 +91,9 @@ complete inventory**; this table is the per-area summary.
   utility text; Rye and heading caps are written in the markup, never
   `text-transform`.
 - **Motion is an event.** Entrances only; nothing on scroll or hover; the only
-  loops are the typing dots, the progress hatch, and one marquee flicker.
+  loops are the typing dots, the progress hatch, and one marquee flicker. The
+  only exception is a gesture in progress: the press-and-hold fill, which
+  answers to `:active` and `[data-holding]` and never to hover.
 
 ## Recipes
 

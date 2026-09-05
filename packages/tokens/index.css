@@ -89,6 +89,7 @@
   --mk-size-list: 16px;
   --mk-size-quote: 20px;
   --mk-size-tagline: 17px;
+  --mk-size-mono-lg: 17px; /* the hero key's caps — the typewriter voice at department volume */
   --mk-size-mono: 13px; /* Special Elite typewriter utility */
   --mk-size-mono-sm: 12px;
   --mk-size-mono-xs: 11px;
@@ -194,13 +195,6 @@
   --mk-medallion-bulb: 5px; /* one paper lamp, sitting ON the 7px band */
 
   /*
-   * The phone's bottom inset. Zero on every surface without a home bar, so
-   * it is safe to add unconditionally; the CALLER wraps it in max() when a
-   * minimum padding is wanted too.
-   */
-  --mk-safe-bottom: env(safe-area-inset-bottom, 0px);
-
-  /*
    * Elevation — named z-index layers so nothing ever types z-index: 9999.
    * Chrome < overlay < toast. Stacking is policy, not improvisation.
    */
@@ -219,6 +213,7 @@
   --mk-dur-beat: 250ms; /* 3 frames — small entrances */
   --mk-dur-enter: 420ms; /* 5 frames — sheet/art entrances */
   --mk-dur-reveal: 660ms; /* 8 frames — iris, curtain */
+  --mk-dur-hold: 660ms; /* a press-and-hold — the app's gesture engine overrides it per key */
   --mk-steps-3: steps(3, end);
   --mk-steps-5: steps(5, end);
   --mk-steps-8: steps(8, end);
@@ -322,4 +317,27 @@
    * never a cool grey wash.
    */
   --mk-color-scrim: rgba(20, 17, 12, 0.6);
+
+  /*
+   * The device edges. A phone hands the page four insets — the notch, the
+   * home indicator, the two rounded corners — and every other screen hands
+   * it nothing. Read these instead of typing env() again: the zero fallback
+   * is printed once, here, so a rail or a telegram is padded on the phone
+   * and unmoved on the desktop sheet. They go non-zero only when the
+   * consuming document asks for the whole screen —
+   * <meta name="viewport" content="…, viewport-fit=cover">.
+   */
+  --mk-safe-top: env(safe-area-inset-top, 0px);
+  --mk-safe-right: env(safe-area-inset-right, 0px);
+  --mk-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --mk-safe-left: env(safe-area-inset-left, 0px);
+
+  /*
+   * The thumb zone — the bottom third of a held phone, the only part of the
+   * screen a thumb reaches without a second hand. The one hero key of a
+   * phone view sits inside it. The library ships the measure; the app ships
+   * the layout (the grid was never ours). Measured in svh so the browser's
+   * own chrome cannot move the line.
+   */
+  --mk-thumb-zone: 33svh;
 }
