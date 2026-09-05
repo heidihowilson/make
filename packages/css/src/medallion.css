@@ -1,0 +1,309 @@
+@layer mk.components {
+  /*
+   * Medallion — the portrait cameo, and the ONE round thing in the system
+   * beside the radio. A circle here is geometry, not softness: a portrait
+   * engraved for a playbill is round because the engraver's tool is round.
+   *
+   * Three concentric printed things, one job each. The 2px ink ring is the
+   * engraving's boundary. The 2px paper mat is the margin the engraver
+   * leaves inside it. The hairline rim on the picture is where the plate
+   * meets the mat. Nothing floats and nothing glows.
+   *
+   * THE PENDING RULE, in one sentence: the initials hold silently and the
+   * picture swaps in place; there is no spinner, no "generating" and no
+   * retry, because a playbill does not apologise for an engraving that has
+   * not come back. There is deliberately NO --pending modifier — a cameo
+   * that is waiting and a cameo that will never have a portrait must look
+   * identical, since a difference would be a promise and this language
+   * does not promise. The consumer replaces the __initials node with an
+   * <img class="mk-stamp-in"> when the picture arrives, and that is the
+   * whole state machine.
+   *
+   *   <span class="mk-medallion mk-medallion--lg">
+   *     <span class="mk-medallion__initials">TT</span>
+   *   </span>
+   *
+   *   <span class="mk-medallion mk-medallion--lg">
+   *     <img class="mk-stamp-in" src="…" alt="Tim Taylor" />
+   *   </span>
+   */
+  .mk-medallion {
+    /* The rung, and the rung below it — see the ladder and the bands. */
+    --mk-medallion-step: var(--mk-size-medallion-md);
+    --mk-medallion-step-down: var(--mk-size-medallion-sm);
+    position: relative;
+    display: inline-grid;
+    flex: none;
+    box-sizing: border-box;
+    /*
+     * --mk-medallion-size is the CONSUMER's override and nothing in this
+     * file ever writes it; the ladder and the status bands both write the
+     * private rung underneath it. Set it on an ancestor to size a whole
+     * roster, or inline to size one cameo.
+     */
+    inline-size: var(--mk-medallion-size, var(--mk-medallion-step));
+    block-size: var(--mk-medallion-size, var(--mk-medallion-step));
+    border: var(--mk-rule-thick);
+    border-radius: var(--mk-radius-medallion);
+    padding: var(--mk-space-hair);
+    background: var(--mk-color-sheet);
+  }
+
+  .mk-medallion > img,
+  .mk-medallion__initials {
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    border: var(--mk-rule-hair);
+    border-radius: var(--mk-radius-medallion);
+  }
+
+  /*
+   * The cameo window is square and it says so: the ratio is STATED, the
+   * way .mk-thumb states its poster ratio, and not inherited from
+   * whatever plate the consumer hands over. A tall portrait therefore
+   * crops to the circle instead of stretching the ring out of round.
+   */
+  .mk-medallion > img {
+    display: block;
+    aspect-ratio: 1 / 1;
+    block-size: auto;
+    object-fit: cover;
+  }
+
+  /*
+   * The fallback is the TYPEWRITER voice, not a display one: initials are
+   * utility text, not a masthead, and the fourth display face was retired
+   * in 2026-08-15. The 0.34 factor keeps two letters inside a 30px cameo.
+   *
+   * SECONDARY ink, not muted. The mat under the initials is the plate
+   * tone, and muted ink reads 3.95:1 there — under WCAG AA, and three of
+   * the five rungs set the initials at normal size (10/13/20px), where
+   * 4.5:1 is what is asked. Secondary reads 5.18:1 on the same tone. This
+   * is the identical step the chosen ticket takes in src/forms.css, for
+   * the identical reason: paper type on a tinted stub needs the darker
+   * ink.
+   */
+  .mk-medallion__initials {
+    display: grid;
+    place-content: center;
+    background: var(--mk-color-plate);
+    color: var(--mk-color-text-secondary);
+    font-family: var(--mk-font-typewriter);
+    font-size: calc(var(--mk-medallion-size, var(--mk-medallion-step)) * 0.34);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  /*
+   * The ladder — a billing order, not a size scale. Each rung also names
+   * the rung BELOW it, so --bare can demote a cameo without knowing which
+   * rung it started on, in any class order on the element. --xs steps
+   * down to itself; it is the floor. The --bare rule must stay BELOW the
+   * ladder in this file: it writes the same rung property at the same
+   * specificity, and source order is what lands the demotion.
+   */
+  .mk-medallion--xs {
+    --mk-medallion-step: var(--mk-size-medallion-xs);
+    --mk-medallion-step-down: var(--mk-size-medallion-xs);
+  }
+
+  .mk-medallion--sm {
+    --mk-medallion-step: var(--mk-size-medallion-sm);
+    --mk-medallion-step-down: var(--mk-size-medallion-xs);
+  }
+
+  .mk-medallion--md {
+    --mk-medallion-step: var(--mk-size-medallion-md);
+    --mk-medallion-step-down: var(--mk-size-medallion-sm);
+  }
+
+  .mk-medallion--lg {
+    --mk-medallion-step: var(--mk-size-medallion-lg);
+    --mk-medallion-step-down: var(--mk-size-medallion-md);
+  }
+
+  .mk-medallion--xl {
+    --mk-medallion-step: var(--mk-size-medallion-xl);
+    --mk-medallion-step-down: var(--mk-size-medallion-lg);
+  }
+
+  /*
+   * The status band — 4px of state ink at a 7px standoff of clear paper.
+   *
+   * THE BILLING RULE, and it runs the other way round from the obvious
+   * one: a player with ANY status is billed, and the cameo that steps
+   * down is the one with no status at all. Now, soon and later all hold
+   * their rung and all wear a band; --bare takes the rung below and
+   * prints no band. A hub reads "who is in the company" before it reads
+   * "who is on", so demoting soon and later would shrink two thirds of a
+   * mixed hub and leave the player who has said nothing standing tallest
+   * — the company inverted. (Consumer #1 caught exactly that inversion in
+   * review; the note is here so it is not re-introduced.)
+   *
+   * COLOUR IS NEVER THE ONLY CARRIER. Measured on the sheet, the soon band
+   * is 2.43:1 and the later band 3.59:1 — so print the matching badge stub
+   * beside the cameo, words in ink (WCAG 1.4.1). The band is a redundant
+   * carrier by construction; a band shipped without its stub hides the
+   * status from a low-vision reader, and no CSS here can prevent that.
+   *
+   * --now, --soon and --later are mutually exclusive: a player cannot be
+   * on now and later. The file does not defend against the combination.
+   *
+   * THE DEMOTION WRITES THE PRIVATE RUNG, never --mk-medallion-size. The
+   * size property is the CONSUMER's slot, and a modifier that wrote it
+   * would beat the consumer's own value on an ancestor — a roster sized by
+   * one declaration on its container would then print every cameo at the
+   * same rung and the billing would say nothing at all. Writing the rung
+   * keeps the two channels apart: the consumer's override wins for every
+   * cameo in the group, and the step-down still applies whenever no
+   * override is set.
+   */
+  .mk-medallion--bare {
+    --mk-medallion-step: var(--mk-medallion-step-down);
+  }
+
+  .mk-medallion--soon::after,
+  .mk-medallion--later::after {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * (var(--mk-medallion-standoff) + var(--mk-medallion-ring)));
+    border: var(--mk-medallion-ring) solid var(--mk-medallion-band-ink);
+    border-radius: var(--mk-radius-medallion);
+    pointer-events: none;
+  }
+
+  .mk-medallion--soon {
+    --mk-medallion-band-ink: var(--mk-color-state-soon);
+  }
+
+  .mk-medallion--later {
+    --mk-medallion-band-ink: var(--mk-color-state-later);
+  }
+
+  /*
+   * NOW is a component, not a colour. The player who is on gets the sign
+   * from a marquee wrapped round them: an ink band carrying twelve paper
+   * lamps. The lamps are round for the same reason the cameo is — they
+   * belong to the same engraving, and a lamp is a circle by geometry.
+   * DESIGN-LANGUAGE.md carries this as a bounded extension of the
+   * medallion's own radius exception, not as a new one.
+   *
+   * Flat printed dots only. The source mock's filter: blur(2.2px) halo
+   * does NOT ship: nothing in this language glows, and a blurred lamp is a
+   * screen effect a 1933 press could not strike.
+   *
+   * THE BAND HUGS. No standoff: the soon/later ring stands off because it
+   * is a mark ABOUT the portrait, but the marquee is the sign the player
+   * stands inside, and a sign with a gap behind it hovers. Hugging is
+   * also what lands the marquee on the ladder — a --lg cameo inside a 7px
+   * band prints 78 + 2 × 7 = 92px, which is the --xl rung exactly, so a
+   * hub already laid out on the ladder needs no second grid for the
+   * players who are on.
+   *
+   * Best at --md and up. At --xs the ring radius is 22px and sub-pixel
+   * rounding makes the lamps look ragged; nothing enforces that, so this
+   * comment is the guard.
+   */
+  .mk-medallion--now::before {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--mk-medallion-band));
+    border: var(--mk-medallion-band) solid var(--mk-color-ink-surface);
+    border-radius: var(--mk-radius-medallion);
+    pointer-events: none;
+  }
+
+  /*
+   * The twelve lamps — one printed dot copied eleven times by box-shadow
+   * onto a circle of radius R, alternating a lit paper lamp with an unlit
+   * one in secondary ink. Offsets are R × sin/cos of 0°, 30°, 60° …
+   * written as the literal multipliers 0 / .5 / .866 / 1, so the file
+   * needs no trigonometry and no JS. Every copy has a zero blur radius:
+   * these are dots, not glows.
+   */
+  .mk-medallion--now::after {
+    /*
+     * The lamps ride the centre-line of the band, so the radius is the
+     * cameo's own radius plus half a band — no standoff term, because the
+     * band hugs. A 5px lamp on a 7px band leaves 1px of ink each side.
+     */
+    --mk-medallion-lamp-r: calc(
+      var(--mk-medallion-size, var(--mk-medallion-step)) / 2 + var(--mk-medallion-band) / 2
+    );
+    content: "";
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    inline-size: var(--mk-medallion-bulb);
+    block-size: var(--mk-medallion-bulb);
+    margin: calc(var(--mk-medallion-bulb) / -2);
+    border-radius: var(--mk-radius-medallion);
+    background: transparent; /* the centre socket holds no lamp */
+    pointer-events: none;
+    box-shadow:
+      /* 0° */ 0 calc(var(--mk-medallion-lamp-r) * -1) 0 0 var(--mk-color-sheet),
+      /* 30° */ calc(var(--mk-medallion-lamp-r) * 0.5) calc(var(--mk-medallion-lamp-r) * -0.866) 0
+        0 var(--mk-color-text-secondary),
+      /* 60° */ calc(var(--mk-medallion-lamp-r) * 0.866) calc(var(--mk-medallion-lamp-r) * -0.5) 0 0
+        var(--mk-color-sheet),
+      /* 90° */ var(--mk-medallion-lamp-r) 0 0 0 var(--mk-color-text-secondary),
+      /* 120° */ calc(var(--mk-medallion-lamp-r) * 0.866) calc(var(--mk-medallion-lamp-r) * 0.5) 0 0
+        var(--mk-color-sheet),
+      /* 150° */ calc(var(--mk-medallion-lamp-r) * 0.5) calc(var(--mk-medallion-lamp-r) * 0.866) 0 0
+        var(--mk-color-text-secondary),
+      /* 180° */ 0 var(--mk-medallion-lamp-r) 0 0 var(--mk-color-sheet),
+      /* 210° */ calc(var(--mk-medallion-lamp-r) * -0.5) calc(var(--mk-medallion-lamp-r) * 0.866) 0
+        0 var(--mk-color-text-secondary),
+      /* 240° */ calc(var(--mk-medallion-lamp-r) * -0.866) calc(var(--mk-medallion-lamp-r) * 0.5) 0
+        0 var(--mk-color-sheet),
+      /* 270° */ calc(var(--mk-medallion-lamp-r) * -1) 0 0 0 var(--mk-color-text-secondary),
+      /* 300° */ calc(var(--mk-medallion-lamp-r) * -0.866) calc(var(--mk-medallion-lamp-r) * -0.5) 0
+        0 var(--mk-color-sheet),
+      /* 330° */ calc(var(--mk-medallion-lamp-r) * -0.5) calc(var(--mk-medallion-lamp-r) * -0.866) 0
+        0 var(--mk-color-text-secondary);
+  }
+
+  /*
+   * The chase — the marquee's two-frame cycle. The lamp ring turns one
+   * socket (30°) and back on steps(1), so the lit lamps land in the unlit
+   * sockets and come back: two poses, held. That is a chase shot on twos,
+   * and it is the whole trick — no second shadow list, no JS.
+   *
+   * THIS IS AN IDLE LOOP, and the ration counts KINDS, not elements
+   * (MOTION.md). A page spends its one idle loop on one kind of motion;
+   * however many elements wear it, they run off the same clock and read
+   * as one sign, because every chase on the page steps together. Eight
+   * marquees chasing in unison is a lit hub. Eight loops of DIFFERENT
+   * kinds — a chase, a flicker and something else again — is the slot
+   * machine, and that is what the ration forbids.
+   *
+   * So: chase every marquee on the hub if the marquees are the status, or
+   * chase none. Do not mix the chase with the flicker on one page.
+   */
+  .mk-medallion--chase::after {
+    animation: mk-marquee-chase calc(var(--mk-frame) * 4) steps(1, end) infinite;
+  }
+
+  @keyframes mk-marquee-chase {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    50% {
+      transform: rotate(30deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mk-medallion--chase::after {
+      animation: none;
+    }
+  }
+}

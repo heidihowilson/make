@@ -217,7 +217,75 @@ import Base from '../../../layouts/Ui.astro';
 &lt;/div&gt;</code></pre>
   </section>
 
+  <section class="mk-card">
+    <h2>THE PAGER</h2>
+    <p>
+      The neighbouring acts, named. &ldquo;&larr; THE PREVIOUS &middot; No. 1
+      of 3 &middot; THE NEXT &rarr;&rdquo; does not fit a 358px column, and
+      numbering the acts is wrong anyway &mdash; nobody thinks of their
+      Thursday group as No. 2. The arrows carry the neighbour&rsquo;s name,
+      which is the only thing a reader wants to know before moving.
+      <strong>No count, no numbering.</strong>
+    </p>
+    <p>
+      The dots are printed <strong>squares</strong>, the current one inked
+      solid &mdash; square like the badge&rsquo;s status dot, because the
+      medallion is the only round thing in the system. They carry position
+      and nothing else, so the row is <code>aria-hidden</code> and the
+      neighbour names in the <code>aria-label</code>s carry the meaning. The
+      <code>__label</code> span is required: it is what clips a long act name
+      instead of widening the column.
+    </p>
+    <div class="pager-demo">
+      <nav class="mk-pager" aria-label="Squads">
+        <a class="mk-btn mk-btn--ghost mk-pager__prev" href="#" aria-label="Previous: Raid Night">
+          <span class="mk-pager__label">Raid Night</span>
+        </a>
+        <span class="mk-pager__dots" aria-hidden="true">
+          <span class="mk-pager__dot"></span>
+          <span class="mk-pager__dot mk-pager__dot--current"></span>
+          <span class="mk-pager__dot"></span>
+        </span>
+        <a class="mk-btn mk-btn--ghost mk-pager__next" href="#" aria-label="Next: Tabletop">
+          <span class="mk-pager__label">Tabletop</span>
+        </a>
+      </nav>
+    </div>
+    <p class="rule-note">two acts only &middot; the dots row is optional</p>
+    <div class="pager-demo">
+      <nav class="mk-pager" aria-label="Acts">
+        <a class="mk-btn mk-btn--ghost mk-pager__prev" href="#" aria-label="Previous: The Amazing Flannel Brothers">
+          <span class="mk-pager__label">The Amazing Flannel Brothers</span>
+        </a>
+        <a class="mk-btn mk-btn--ghost mk-pager__next" href="#" aria-label="Next: Wardrobe">
+          <span class="mk-pager__label">Wardrobe</span>
+        </a>
+      </nav>
+    </div>
+    <pre><code>&lt;nav class="mk-pager" aria-label="Squads"&gt;
+  &lt;a class="mk-btn mk-btn--ghost mk-pager__prev" href="/raid-night"
+     aria-label="Previous: Raid Night"&gt;
+    &lt;span class="mk-pager__label"&gt;Raid Night&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;span class="mk-pager__dots" aria-hidden="true"&gt;
+    &lt;span class="mk-pager__dot"&gt;&lt;/span&gt;
+    &lt;span class="mk-pager__dot mk-pager__dot--current"&gt;&lt;/span&gt;
+    &lt;span class="mk-pager__dot"&gt;&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;a class="mk-btn mk-btn--ghost mk-pager__next" href="/tabletop"
+     aria-label="Next: Tabletop"&gt;
+    &lt;span class="mk-pager__label"&gt;Tabletop&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+  </section>
+
   <style>
+    /* The phone column, so the clipping constraint is visible. */
+    .pager-demo {
+      max-width: 24rem;
+      margin-top: var(--mk-space-md);
+    }
+
     .rule-note {
       margin: var(--mk-space-md) 0 0;
       font-family: var(--mk-font-typewriter);

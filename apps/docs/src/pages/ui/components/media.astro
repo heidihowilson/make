@@ -55,7 +55,7 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
     <h2>THE UNENGRAVED PORTRAIT</h2>
     <p>
       The no-image path: render <code>.mk-thumb__fallback</code> on the
-      server when the portrait is missing. The frame holds a large marquee
+      server when the portrait is missing. The frame holds a large typewriter
       initial on the plate tone — a playbill whose engraving has not come
       back from the shop. No image request, no layout shift.
     </p>
@@ -82,6 +82,212 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
     <pre><code>&lt;div class="mk-thumb"&gt;
   &lt;div class="mk-thumb__fallback"&gt;T&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE MEDALLION</h2>
+    <p>
+      The portrait cameo, and the one round thing in the system beside the
+      radio &mdash; a circle here is geometry, not softness, because the
+      engraver&rsquo;s tool is round. Three printed things, one job each: a
+      2px ink ring, a 2px paper mat, and a hairline rim where the plate meets
+      the mat. The five rungs are a billing order, not a size scale; set
+      <code>--mk-medallion-size</code> yourself for anything between. That
+      property is yours alone &mdash; nothing in the library writes it, so it
+      wins over the ladder wherever you set it, and it composes with the
+      status bands instead of fighting them.
+    </p>
+    <div class="row">
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--xs"><img src={art('portrait-seth.jpg')} alt="Seth, the operator" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">xs &middot; 30px</p>
+      </div>
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--sm"><img src={art('portrait-wilson.jpg')} alt="Wilson, the neighbour" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">sm &middot; 38px</p>
+      </div>
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--md"><img src={art('portrait-cadbury.jpg')} alt="Cadbury, the bookkeeper" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">md &middot; 60px</p>
+      </div>
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--lg"><img src={art('portrait-ake.jpg')} alt="Ake, the sysop" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">lg &middot; 78px</p>
+      </div>
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--xl"><span class="mk-medallion__initials">TT</span></span>
+        <p class="cap">xl &middot; 92px</p>
+      </div>
+    </div>
+    <pre><code>&lt;span class="mk-medallion mk-medallion--lg"&gt;
+  &lt;img src="/tim.jpg" alt="Tim Taylor" /&gt;
+&lt;/span&gt;
+
+&lt;span class="mk-medallion mk-medallion--sm"&gt;
+  &lt;span class="mk-medallion__initials"&gt;TT&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- any size, off the ladder --&gt;
+&lt;span class="mk-medallion" style="--mk-medallion-size: 52px"&gt;…&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE ENGRAVING HAS NOT COME BACK</h2>
+    <p>
+      The initials hold silently. There is no spinner, no
+      &ldquo;generating&rdquo;, and no retry &mdash; a playbill does not
+      apologise for an engraving still at the shop. When the picture arrives,
+      replace the initials node with an
+      <code>&lt;img class="mk-stamp-in"&gt;</code> and let it strike into
+      place. That is the whole state machine.
+    </p>
+    <p>
+      There is deliberately <strong>no <code>--pending</code> class</strong>.
+      A cameo that is waiting and a cameo that will never have a portrait must
+      look identical, because a difference between them would be a promise,
+      and this language does not promise.
+    </p>
+    <div class="row">
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--lg"><span class="mk-medallion__initials">JT</span></span>
+        <p class="cap">waiting</p>
+      </div>
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--lg"><img src={art('portrait-wilson.jpg')} alt="Wilson, the living picket fence" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">arrived</p>
+      </div>
+    </div>
+    <pre><code>&lt;!-- before --&gt;
+&lt;span class="mk-medallion mk-medallion--lg"&gt;
+  &lt;span class="mk-medallion__initials"&gt;JT&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- after: the same element, the picture swaps in --&gt;
+&lt;span class="mk-medallion mk-medallion--lg"&gt;
+  &lt;img class="mk-stamp-in" src="/jill.jpg" alt="Jill Taylor" /&gt;
+&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>WHO IS ON, AND WHO IS NOT</h2>
+    <p>
+      One datum, printed four ways. <code>--now</code> wraps the player in a
+      marquee: an ink band carrying twelve flat paper lamps. Nothing glows
+      &mdash; the mock&rsquo;s blurred halos do not ship, because a 1933 press
+      could not strike one. The marquee band <strong>hugs</strong> at 7px, so
+      a cameo prints at the next rung&rsquo;s footprint &mdash; 78 inside the
+      band is 92, which is <code>--xl</code> exactly, and a hub laid out on
+      the ladder needs no second grid. <code>--soon</code> and
+      <code>--later</code> print a 4px state band at a 7px standoff of clear
+      paper: a ring stands off because it is a mark <em>about</em> the
+      portrait, where the marquee is the sign the player stands inside.
+    </p>
+    <p>
+      <strong>The billing runs the other way round from the obvious one.</strong>
+      Any status is billing, so <code>--now</code>, <code>--soon</code> and
+      <code>--later</code> all hold their rung. The cameo that steps down is
+      <code>--bare</code>: the player who has said nothing. A hub reads
+      &ldquo;who is in the company&rdquo; before it reads &ldquo;who is
+      on&rdquo;, so demoting soon and later would shrink two thirds of a mixed
+      hub and leave the silent player standing tallest.
+    </p>
+    <p>
+      <strong>The band is never the only carrier.</strong> Measured on the
+      sheet, the soon band reads 2.43:1 and the later band 3.59:1 &mdash; band
+      ratios, not text ratios, because neither ink ever sets type. Print the
+      matching badge stub beside the cameo with its words in ink, exactly as
+      the badges already do (WCAG 1.4.1). A band shipped without its stub
+      hides the status from a low-vision reader, and no CSS can prevent that.
+    </p>
+    <p>
+      Red is excluded on purpose: red is the letterpress STOP hue and it means
+      trouble, and a player who is not ready yet is not in trouble. The
+      <code>--now</code> cameos here are <strong>static</strong>, because the
+      printed band already says NOW. Its two-frame chase is a separate opt-in
+      modifier, and the ration counts kinds rather than elements &mdash; chase
+      every marquee on a hub or chase none, but never mix the chase with the
+      flicker. Cue it on
+      <a href={(base + 'ui/components/motion').replace(/\/+/g, '/')}>MOTION</a>.
+    </p>
+    <div class="row">
+      <div class="cameo-cell">
+        <span class="mk-medallion mk-medallion--lg mk-medallion--bare"><img src={art('portrait-seth.jpg')} alt="Seth, the operator" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">&mdash;&mdash;bare, steps down</p>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--lg mk-medallion--now"><img src={art('portrait-wilson.jpg')} alt="Wilson, ready now" width="848" height="1264" loading="lazy" /></span>
+        <span class="mk-badge">ON NOW</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--lg mk-medallion--soon"><img src={art('portrait-cadbury.jpg')} alt="Cadbury, ready soon" width="848" height="1264" loading="lazy" /></span>
+        <span class="mk-badge mk-badge--warning">SOON</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--lg mk-medallion--later"><img src={art('portrait-ake.jpg')} alt="Ake, ready later" width="848" height="1264" loading="lazy" /></span>
+        <span class="mk-badge">LATER</span>
+      </div>
+    </div>
+    <pre><code>&lt;span class="mk-medallion mk-medallion--lg mk-medallion--bare"&gt;…&lt;/span&gt;
+
+&lt;span class="mk-medallion mk-medallion--lg mk-medallion--now"&gt;…&lt;/span&gt;
+&lt;span class="mk-badge"&gt;ON NOW&lt;/span&gt;
+
+&lt;span class="mk-medallion mk-medallion--lg mk-medallion--soon"&gt;…&lt;/span&gt;
+&lt;span class="mk-badge mk-badge--warning"&gt;SOON&lt;/span&gt;
+
+&lt;span class="mk-medallion mk-medallion--lg mk-medallion--later"&gt;…&lt;/span&gt;
+&lt;span class="mk-badge"&gt;LATER&lt;/span&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>ON THE HUB</h2>
+    <p>
+      Eight players, one datum each, and the hierarchy does the reading:
+      everyone who has answered keeps the rung and wears a band, and the two
+      who have said nothing take <code>--bare</code> and step down. The grid
+      is page-local &mdash; the library styles the cameo, never the grid.
+    </p>
+    <div class="hub-grid">
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--now"><span class="mk-medallion__initials">TT</span></span>
+        <span class="mk-badge mk-badge--sm">TIM &middot; ON NOW</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--now"><span class="mk-medallion__initials">JT</span></span>
+        <span class="mk-badge mk-badge--sm">JILL &middot; ON NOW</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--soon"><span class="mk-medallion__initials">AB</span></span>
+        <span class="mk-badge mk-badge--sm mk-badge--warning">AL &middot; SOON</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--later"><span class="mk-medallion__initials">WW</span></span>
+        <span class="mk-badge mk-badge--sm">WILSON &middot; LATER</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--now"><span class="mk-medallion__initials">RT</span></span>
+        <span class="mk-badge mk-badge--sm">RANDY &middot; ON NOW</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--bare"><span class="mk-medallion__initials">BT</span></span>
+        <span class="mk-badge mk-badge--sm">BRAD &middot; NO WORD</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--now"><span class="mk-medallion__initials">MT</span></span>
+        <span class="mk-badge mk-badge--sm">MARK &middot; ON NOW</span>
+      </div>
+      <div class="cameo-cell cameo-cell--banded">
+        <span class="mk-medallion mk-medallion--md mk-medallion--bare"><span class="mk-medallion__initials">HK</span></span>
+        <span class="mk-badge mk-badge--sm">HEIDI &middot; NO WORD</span>
+      </div>
+    </div>
+    <pre><code>/* app CSS — not shipped by the library */
+.hub-grid &#123;
+  display: grid;
+  gap: var(--mk-space-xl) var(--mk-space-md);
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  justify-items: center;
+&#125;</code></pre>
   </section>
 
   <section class="mk-card">
@@ -193,6 +399,31 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       gap: var(--mk-space-xs);
       flex: 1;
       min-width: 12rem;
+    }
+
+    .cameo-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--mk-space-xs);
+      width: 8rem;
+    }
+
+    /*
+     * A banded cameo needs clear paper around it: the marquee reaches 17px
+     * past the ring, so the stub below it needs more than the default gap.
+     */
+    .cameo-cell--banded {
+      gap: var(--mk-space-xl);
+      padding-block: var(--mk-space-xl);
+    }
+
+    /* The hub is page-local on purpose — the library ships no grid. */
+    .hub-grid {
+      display: grid;
+      gap: var(--mk-space-xl) var(--mk-space-md);
+      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+      justify-items: center;
     }
 
     /* The portrait wall is page-local on purpose — the library ships no grid. */

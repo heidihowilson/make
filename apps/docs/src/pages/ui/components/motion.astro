@@ -105,11 +105,30 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       announcement per page. Here it runs only while cued; strike DOUSE to
       put it out.
     </p>
+    <p>
+      <code>.mk-medallion--chase</code> is the second idle loop: the
+      medallion&rsquo;s lamp ring turns one socket and back on
+      <code>steps(1)</code>, so the lit lamps land in the unlit sockets. Two
+      poses, held &mdash; a chase shot on twos. It shares the flicker&rsquo;s
+      ration: <strong>a page runs one idle loop, not both</strong>, and a hub
+      of players who are on gets one chase at most. The static band already
+      says NOW; eight chases is a slot machine.
+    </p>
     <div class="row">
-      <p class="cue-marquee" data-demo="flicker">TONIGHT — GHOLSON&rsquo;S FOLLIES</p>
-      <button class="mk-btn mk-btn--sm" data-cue="flicker" data-class="mk-flicker" data-toggle>CUE THE MARQUEE</button>
+      <div class="cue-cell">
+        <p class="cue-marquee" data-demo="flicker">TONIGHT — GHOLSON&rsquo;S FOLLIES</p>
+        <button class="mk-btn mk-btn--sm" data-cue="flicker" data-class="mk-flicker" data-toggle data-on="DOUSE THE MARQUEE" data-off="CUE THE MARQUEE">CUE THE MARQUEE</button>
+      </div>
+      <div class="cue-cell cue-cell--cameo">
+        <span class="mk-medallion mk-medallion--lg mk-medallion--now" data-demo="chase"><span class="mk-medallion__initials">TT</span></span>
+        <button class="mk-btn mk-btn--sm" data-cue="chase" data-class="mk-medallion--chase" data-toggle data-on="DOUSE THE CHASE" data-off="CUE THE CHASE">CUE THE CHASE</button>
+      </div>
     </div>
-    <pre><code>&lt;h2 class="mk-flicker"&gt;TONIGHT&lt;/h2&gt;</code></pre>
+    <pre><code>&lt;h2 class="mk-flicker"&gt;TONIGHT&lt;/h2&gt;
+
+&lt;span class="mk-medallion mk-medallion--lg mk-medallion--now mk-medallion--chase"&gt;
+  &lt;span class="mk-medallion__initials"&gt;TT&lt;/span&gt;
+&lt;/span&gt;</code></pre>
   </section>
 
   <section class="mk-card">
@@ -165,6 +184,12 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       flex-direction: column;
       gap: var(--mk-space-xs);
       width: 11rem;
+    }
+
+    /* A cued cameo needs clear paper round it for its marquee band. */
+    .cue-cell--cameo {
+      align-items: center;
+      padding-block: var(--mk-space-lg);
     }
 
     .cue-panel {
@@ -239,7 +264,7 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       btn.addEventListener('click', () => {
         if ('toggle' in btn.dataset) {
           const on = target.classList.toggle(cls);
-          btn.textContent = on ? 'DOUSE THE MARQUEE' : 'CUE THE MARQUEE';
+          btn.textContent = (on ? btn.dataset.on : btn.dataset.off) ?? btn.textContent;
           return;
         }
         const targets = 'children' in btn.dataset

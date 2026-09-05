@@ -39,12 +39,12 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 |---|---|
 | Metaphor | Print: a newsprint sheet on a dark stage. Nothing glows, floats, or blurs |
 | Density | The source page's literal rhythm (2/6/10/14/16/18/20/26/32/36/48) — not a 4/8 grid; do not snap values |
-| Shape | Square everywhere; `--mk-radius-medallion` (50%) only for the portrait medallion and the radio |
+| Shape | Square everywhere; `--mk-radius-medallion` (50%) only for the portrait medallion — its marquee lamps included, they belong to the same engraving — and the radio |
 | Structure | **Printed rules with fixed meanings**: 4px double = major break · 3px double = footer · 2px solid = department underline and every box · 1px tan = minor · 1px dashed = nothing printed here yet |
 | Elevation | Exactly two shadows: the deep sheet drop (once per page) and the hard 4px letterpress offset (no blur). No elevation scale |
 | Neutrals | Sepia duotone: ink `#2a241b` on papers `#e6d9ba`/`#ede2c4`/`#d8c9a4`, tan/brown/faded secondary, stage `#26211a` |
-| Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#7a4e15` (deepened from the source's `#8a5a1f` in the sepia pass), going ochre on hover |
-| Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. No blue, no `info` hue |
+| Accent | **Ochre `#c47a2e`** (Ake's colour — the only colour in the world), **rationed to one spot per view**. Links `#7a4e15` (deepened from the source's `#8a5a1f` in the sepia pass), going ochre on hover; state inks are not accents (see the amendment) |
+| Status | Period-vocabulary: success = printed solid ink, warning = the ochre ration, danger = deep letterpress red `#7a2f1d`. Plus two **state inks** — `--mk-color-state-soon` (the ochre) and `--mk-color-state-later` (call-board green `#63763a`) — bounded by the amendment below. No blue, no `info` hue |
 | Typography | Three faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
 | Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
 | Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press. The one exception is a gesture in progress: the press-and-hold fill (see MOTION.md) |
@@ -60,18 +60,26 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   the typewriter utility voice only.
 - **The ochre ration is a review criterion.** Two accents in one view cancel each other out.
   A `--warning` button, an error message, a focus ring and a lever's ON state are all
-  claimants; screens get one.
+  claimants; screens get one. The one relaxation is the status-ink amendment below.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
 - **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
   (ghost rules, dashed slots): at 2.75:1 on the sheet it must never carry ACTIVE text. The
   disabled state is the one exception, and WCAG 1.4.3 exempts it as an inactive component.
   Muted TEXT uses the darker `--mk-faded-ink` `#685d45` — 4.63:1 on the sheet, 5.02:1 on
-  the inset. Keep muted text off the `plate` fill, where it drops to 3.95:1. Link ink
-  deepened to `#7a4e15` (5.12:1 on the sheet). **Ochre carries lines and plates, never
-  ink** — 2.43:1 as a foreground fails at every size, while full heading ink on an ochre
-  ground is 4.52:1 and passes. Links in running text carry a printed underline
-  (WCAG 1.4.1). The measured table, and the four shipped pairs that still miss AA, live
-  in [CONTRAST.md](./CONTRAST.md).
+  the inset. Keep muted text off the `plate` fill, where it drops to 3.95:1; type printed
+  there steps up to secondary ink `#5b4a33` (5.18:1), as the medallion's `__initials` and
+  the chosen ticket's note both do. Link ink deepened to `#7a4e15` (5.12:1 on the sheet).
+  **Ochre carries lines and plates, never ink** — 2.43:1 as a foreground fails at every
+  size, while full heading ink on an ochre ground is 4.52:1 and passes. Links in running
+  text carry a printed underline (WCAG 1.4.1). The measured table, and the four shipped
+  pairs that still miss AA, live in [CONTRAST.md](./CONTRAST.md).
+- **The status inks are bands, never words (measured 2026-09-05).** Soon (the ochre) reads
+  2.43:1 on the sheet, 2.64:1 on the inset and 2.08:1 on the plate; later (call-board green
+  `#63763a`) reads 3.59:1, 3.89:1 and 3.06:1, and 3.06:1 against the ink, so it prints as a
+  colour and not as a dark ring. The consumer's proposed `#6b7a3a` was deepened one step
+  because it measured 2.87:1 on the plate — under the 3:1 WCAG 1.4.11 asks of a graphical
+  carrier. Neither ink ever carries a word: the stub beside the cameo does, in ink, so the
+  datum never depends on colour alone (WCAG 1.4.1).
 - **Vendor marks stay outside the language (settled 2026-09-05).** Ready Up
   (`sethgho/readyup`, issue #64) asked which rule wins when "Continue with Google" meets
   the no-icon-set rule. **The typographic key wins.** A sign-in button is an `.mk-btn` with
@@ -91,6 +99,27 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   grid during refactors.
 - **Visual regression runs in one mode** (single-mode language), still at two viewports.
 
+### Amendment (2026-09-05): one accent plus status inks
+
+The phone consumer's hub prints eight players and one datum about each — when that player is
+available. That datum needs a colour, and "one accent per view" forbade it. The rule is
+relaxed, and the relaxation is bounded by five clauses.
+
+1. **The ochre ration is unchanged for accents.** One ochre spot per view, exactly as before.
+2. **A state ink is not an accent.** It encodes one datum, and it may repeat once per player:
+   a roster of eight is eight readings of one datum, not eight decorations.
+3. **The set is closed at two values** — `--mk-color-state-soon` and `--mk-color-state-later`.
+   A third state needs a new amendment. **Red stays excluded**: red is the letterpress STOP
+   hue and it means trouble, and a player who is not ready yet is not in trouble.
+4. **A state ink appears only as a `.mk-medallion` status band.** It never sets type and it
+   never fills a surface. The band is always paired with a `.mk-badge` stub beside the cameo,
+   but the stub carries the word in plain ink — the colour stays on the band, so the datum
+   never depends on colour alone. There is deliberately no state-ink badge modifier.
+5. **The bound that closes the loop:** `--mk-color-state-soon` *is* the ochre. A view that
+   prints soon bands has already spent its ochre, so it may not also carry an ochre key, an
+   ochre kicker or an ochre-ruled toast. The relaxation costs the view nothing it did not
+   already own.
+
 ## Token structure
 
 - Two tiers: **primitives** (the sepia palette, literal type/space scales, rules, shadows,
@@ -108,7 +137,8 @@ same content re-set for a narrower sheet. Two breakpoints, always the same two: 
 (single-column; sheet padding to phone value; prose drops one step, never below 17px;
 utility tracking may tighten). No intermediate breakpoints — fluid grids and `clamp()`
 display type do the work between them. Nothing is fixed or sticky; the page scrolls like
-paper (the telegram toast is the one sanctioned fixed element — it is an event, not chrome).
+paper (two elements are sanctioned as fixed: the telegram toast, which is an event and not
+chrome, and on a phone the bottom sheet — see [INTERACTION.md](./INTERACTION.md)).
 
 A phone also has device edges. The tokens `--mk-safe-top`, `--mk-safe-right`,
 `--mk-safe-bottom` and `--mk-safe-left` carry the insets. They are zero on every
@@ -138,6 +168,11 @@ bottom third of a held phone. Put the one hero action of a phone view inside it.
 - Modern line-icon libraries — and vendor brand marks — on language surfaces
   (`sethgho/readyup`, issue #64).
 - Emoji, anywhere.
+- **Blurred halos on the marquee lamps** (`filter: blur(2.2px)` in the source mock). Nothing in
+  this language glows. The lamps are flat printed dots.
+- **The name "moss" for the state ink.** Moss was the 0.1.x hero accent, already rejected
+  above. The new green does a different job and is named for it — the call board is the
+  backstage sheet that tells a performer when they are on.
 
 ## Remaining open
 

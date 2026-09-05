@@ -35,7 +35,7 @@ Seth's projects span **heterogeneous frameworks**: Remix v3, Remix v2 (React), S
 2. **Interaction hierarchy — settled (2026-06-04): there is NO `sethmakes-layout` package.** Stack/cluster-style spacing primitives are rejected — Tailwind already owns that job in every consuming app, and competing primitives would be shelf-ware. The "modals-on-modals" problem is *policy*, not primitives, and decomposes into the packages that already exist:
    - **Elevation/z-index scale** → named layer tokens in `@sethmakes/tokens` (`--mk-layer-chrome/-overlay/-toast`…) so nothing ever types `z-index: 9999`.
    - **App chrome recipes** → `@sethmakes/css` components (`.mk-appbar` sticky translucent header — issue #11, mobile bottom nav, safe-area handling).
-   - **Overlay policy** → a written strategy doc (`docs/INTERACTION.md` when work starts): one modal at a time via native `<dialog>` + `::backdrop`; a modal never spawns a modal (it morphs or queues); fixed toast placement; what may stack on what.
+   - **Overlay policy** → [INTERACTION.md](./INTERACTION.md) (written 2026-09-05, when the phone consumer started the work): one modal at a time via native `<dialog>` + `::backdrop`; a modal never spawns a modal (it morphs, it queues, or it becomes an in-flow confirm); two sanctioned fixed elements — the telegram toast and the phone's bottom sheet; what may stack on what.
    - **Behavioral overlay management** (focus trapping, scroll locking, toast queue) → `@sethmakes/components` (`<mk-dialog>`, `<mk-toaster>`) the day a real app needs it — the empty components package's designated reason to exist.
 
 ## Roadmap addendum (2026-08-13)

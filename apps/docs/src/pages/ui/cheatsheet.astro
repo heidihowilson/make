@@ -51,6 +51,7 @@ const groups = [
       ['.mk-input / .mk-select / .mk-textarea', 'ruled controls on the inset fill'],
       ['.mk-fieldset', 'native-chrome reset, legend as label'],
       ['.mk-choice', 'tap row wrapping a control'],
+      ['.mk-choice--ticket / __title / __note', 'the ticket — one large ruled option; the hidden radio makes the whole row the choice'],
       ['.mk-checkbox / .mk-radio / .mk-switch', 'the stamped X, the one round control, the stage lever'],
       [':checked / [aria-checked="true"] / --checked', 'three ways to be checked — input, widget role, or server-rendered static'],
     ],
@@ -65,6 +66,7 @@ const groups = [
       ['.mk-table + .mk-table-wrap / __num', 'the ledger + mobile scroll wrapper'],
       ['.mk-divider', 'printed rules: --double (4px, major break) / --double-thin (3px, footer) / --thick (2px, department) / --dash (not printed yet) / --accent / --label (typewriter slug on hairlines); default is the 1px tan minor division'],
       ['.mk-disclosure / __body', 'programme notes — styled details/summary'],
+      ['.mk-pager / __prev / __next / __label / __dots / __dot / --current', 'the neighbouring acts by name; printed square dots, no count, no numbering — the __label span is required'],
     ],
   },
   {
@@ -81,6 +83,8 @@ const groups = [
     base: '.mk-dialog',
     items: [
       ['__title / __actions, ::backdrop scrim', 'native <dialog> as a playbill; the warm scrim dims the stage; app calls showModal() — demoed on FEEDBACK'],
+      ['.mk-dialog--sheet / __body', 'the phone’s bottom sheet — the second sanctioned fixed element; sheet below 740px, centred playbill above it, enforced; the handle is drawn, the gesture engine is yours — demoed on FEEDBACK'],
+      ['.mk-dialog--bill', 'the one escape from that: keeps the sheet above 740px for an app whose own column stays phone-width — set --mk-dialog-bill-width; see INTERACTION.md'],
       ['.mk-toast / --success / --warning / --danger', 'a telegram slip at the footlights — fixed bottom-center, one at a time, app brings the timer — demoed on FEEDBACK'],
       ['.mk-toast--top', 'pinned under the top safe area, arriving from the flies — still one telegram at a time'],
       ['.mk-tabs / __tab', 'departments on a rule; selected via aria-selected / aria-current / --active — demoed on SURFACES'],
@@ -91,6 +95,7 @@ const groups = [
     base: '.mk-alert',
     items: [
       ['__title, --info / --success / --warning / --danger', 'a notice from the management'],
+      ['__actions', 'the in-flow confirm — a modal never spawns a modal; danger notices only, safe key first, focus moves to it'],
       ['.mk-spinner', 'typewriter typing dots — there are no spinners, only “. . .” struck one at a time'],
       ['.mk-spinner--sm / --md', 'smaller dot sizes'],
       ['.mk-progress / --sm', 'ink fill in a ruled trough; no value attr = the marching-hatch indeterminate'],
@@ -109,6 +114,18 @@ const groups = [
     ],
   },
   {
+    area: 'MEDALLION',
+    base: '.mk-medallion',
+    items: [
+      ['--xs / --sm / --md / --lg / --xl', '30 / 38 / 60 / 78 / 92 — a billing order, not a size scale; or set --mk-medallion-size yourself, on an ancestor or inline — it wins over the ladder and composes with the bands'],
+      ['__initials', 'the typewriter fallback — and it IS the pending state; no spinner, no retry, no --pending class'],
+      ['--now', 'the marquee: an ink band carrying twelve flat paper lamps'],
+      ['--soon / --later', 'a 4px state band at a 7px standoff — always print the matching badge stub, words in ink'],
+      ['--bare', 'no status: the ONE modifier that steps the cameo down a rung — any status keeps its rung, so the silent player is the small one'],
+      ['--chase', 'the two-frame marquee chase — an idle loop; the ration is one KIND per page, so chase every marquee on a hub or none — demoed on MOTION'],
+    ],
+  },
+  {
     area: 'PROSE',
     base: '.mk-prose',
     items: [['(wrapper)', 'Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd']],
@@ -121,7 +138,7 @@ const groups = [
       ['.mk-iris-in / .mk-curtain-in', 'the silent-film reveals — one art reveal per page'],
       ['.mk-settle-in / .mk-drop-in / .mk-stamp-in', 'entrances that land hard and hold the frame'],
       ['.mk-typeline', 'text struck onto the page'],
-      ['.mk-flicker', 'the one idle loop — the marquee flicker, once per page'],
+      ['.mk-flicker / .mk-medallion--chase', 'the two idle loops — the marquee flicker and the marquee chase; a page runs one KIND, never both, but any number of elements may wear that kind'],
       ['.mk-bill-order', 'stagger parent — children enter in billing order'],
     ],
   },

@@ -202,6 +202,139 @@ setTimeout(() =&gt; (toast.hidden = true), 1800);</code></pre>
 dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
   </section>
 
+  <section class="mk-card">
+    <h2>THE SHEET FROM THE FOOTLIGHTS</h2>
+    <p>
+      The second sanctioned fixed element, and the only other one beside the
+      telegram. The argument, in one line: a centred playbill works on a
+      desktop page because the dimmed paper stays visible behind it, and a
+      phone has no paper to scroll &mdash; the dialog <em>is</em> the
+      viewport, so a centred one floats on a dark field. Anchored to the
+      bottom edge it has a place: a second sheet slid in from under the first,
+      its 2px ink rule showing where the two overlap. The full argument is in
+      the repo&rsquo;s
+      <a href="https://github.com/heidihowilson/make/blob/main/docs/INTERACTION.md">INTERACTION.md</a>.
+    </p>
+    <p>
+      It is the same native <code>&lt;dialog&gt;</code>, opened the same way,
+      one at a time, and it still cannot spawn another. The handle is drawn,
+      not bound: bind your pointer handlers to the dialog element. The gesture
+      engine and the iOS body-scroll lock stay in your app &mdash;
+      <code>.mk-dialog__body</code> scrolls and contains its overscroll, and
+      CSS can do no more.
+    </p>
+    <p>
+      <strong>The modifier is bounded at the 740px reflow breakpoint.</strong>
+      Leave it on the element at every width: above 740px it does nothing and
+      the same dialog is the centred playbill again. A desktop consumer keeps
+      the playbill, exactly as the argument promises, so try the key below on
+      a phone column and on a desktop one and watch the same element take
+      both poses.
+    </p>
+    <p>
+      <strong>Sheet below, modal above &mdash; and the library enforces it.</strong>
+      You do not choose it and you do not write the breakpoint. There is one
+      escape, for one shape of app: add <code>--bill</code> beside
+      <code>--sheet</code> and set <code>--mk-dialog-bill-width</code> if your
+      app&rsquo;s own column stays phone-width on a wide screen. Then there is
+      no paper behind the overlay at 1920px either, and the sheet keeps the
+      bottom edge, bounded to the bill and centred over it. If your app has a
+      desktop layout, it does not qualify.
+    </p>
+    <p>
+      The rule below is <code>dialog.mk-dialog--sheet:not([open])</code>, not
+      the bare class, so a chassis that is a <code>&lt;div&gt;</code> &mdash; a
+      swipe-to-dismiss library owning the gesture, the scroll lock and the
+      focus trap &mdash; can wear the look without inheriting an
+      <code>[open]</code> contract only a real dialog can satisfy.
+    </p>
+    <div class="row">
+      <button class="mk-btn" type="button" id="demo-sheet-open">Raise the sheet&hellip;</button>
+    </div>
+    <dialog class="mk-dialog mk-dialog--sheet" id="demo-sheet">
+      <h2 class="mk-dialog__title">THE TAYLORS&rsquo; BOX</h2>
+      <div class="mk-dialog__body">
+        <p>
+          The box seats six, and the management has seated eight on three
+          separate Tuesdays without incident worth printing.
+        </p>
+        <p>
+          Mrs. Taylor asks that the follow spot stay off the box entirely.
+          The request is on file, underlined twice, and has been ignored
+          twice.
+        </p>
+        <p>
+          Mr. Borland will sit nearest the aisle, as he does, with the
+          extinguisher within reach and his hat in his lap.
+        </p>
+        <p>
+          Refreshments arrive at the interval. The lemonade is the lemonade;
+          no further claim is made for it on the bill.
+        </p>
+        <p>
+          Patrons are reminded that the trapdoor is directly beneath the box
+          and that Act III depends upon it entirely.
+        </p>
+        <p>
+          The house asks for quiet during the flannel number, which is
+          longer than anyone expects and shorter than Mr. Taylor believes.
+        </p>
+      </div>
+      <form method="dialog" class="mk-dialog__actions">
+        <button class="mk-btn" value="done">Lower the sheet</button>
+      </form>
+    </dialog>
+    <pre><code>&lt;dialog class="mk-dialog mk-dialog--sheet"&gt;
+  &lt;h2 class="mk-dialog__title"&gt;THE TAYLORS&amp;rsquo; BOX&lt;/h2&gt;
+  &lt;div class="mk-dialog__body"&gt;…&lt;/div&gt;
+  &lt;form method="dialog" class="mk-dialog__actions"&gt;
+    &lt;button class="mk-btn" value="done"&gt;Lower the sheet&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;
+
+sheetEl.showModal(); // the same one line</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>LAST CALL</h2>
+    <p>
+      A modal never spawns a modal. From inside a sheet that is already on
+      stage, a destructive step is a <strong>sentence in the sheet</strong>,
+      not a second stage &mdash; so the keys sit under the line that raised
+      them, in reading order. That is why
+      <code>.mk-alert__actions</code> justifies to the start while
+      <code>.mk-dialog__actions</code> justifies to the end: a playbill&rsquo;s
+      actions are dismissed, an in-flow confirm is read.
+    </p>
+    <p>
+      Four rules. The safe key comes first in the DOM. Move the focus to it
+      when the confirm appears. Mark the alert <code>role="group"</code> with
+      <code>aria-labelledby</code>, never <code>role="alert"</code> &mdash; a
+      live region announces the keys before the reader can reach them. Reveal
+      it with <code>.mk-settle-in</code>: a panel arrives, it does not drop.
+      Danger notices only.
+    </p>
+    <div class="demo-col">
+      <div class="mk-alert mk-alert--danger" role="group" aria-labelledby="demo-lastcall">
+        <span class="mk-alert__title" id="demo-lastcall">Last call</span>
+        <span>Strike the squad? Two hundred four performances of flannel come down with it.</span>
+        <div class="mk-alert__actions">
+          <button class="mk-btn mk-btn--sm" type="button">Keep it</button>
+          <button class="mk-btn mk-btn--sm mk-btn--danger" type="button">Strike it</button>
+        </div>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-alert mk-alert--danger mk-settle-in"
+     role="group" aria-labelledby="lastcall"&gt;
+  &lt;span class="mk-alert__title" id="lastcall"&gt;Last call&lt;/span&gt;
+  &lt;span&gt;Strike the squad?&lt;/span&gt;
+  &lt;div class="mk-alert__actions"&gt;
+    &lt;button class="mk-btn mk-btn--sm" type="button"&gt;Keep it&lt;/button&gt;
+    &lt;button class="mk-btn mk-btn--sm mk-btn--danger" type="button"&gt;Strike it&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
   <script is:inline>
     // Toast demo — show/replace/hide; one telegram, per policy.
     (() => {
@@ -227,6 +360,9 @@ dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
       // Dialog demo.
       const dlg = document.getElementById('demo-dialog');
       document.getElementById('demo-dialog-open').addEventListener('click', () => dlg.showModal());
+      // Bottom-sheet demo — the same one line; the placement is all that changed.
+      const sheet = document.getElementById('demo-sheet');
+      document.getElementById('demo-sheet-open').addEventListener('click', () => sheet.showModal());
     })();
   </script>
 

@@ -1,0 +1,124 @@
+@layer mk.components {
+  /*
+   * Pager — the neighbouring acts, named. "← THE PREVIOUS · No. 1 of 3 ·
+   * THE NEXT →" does not fit a 358px column, and numbering the acts is
+   * wrong anyway: nobody thinks of their Thursday group as No. 2. The
+   * arrows carry the NEIGHBOUR'S NAME, which is the only thing a reader
+   * wants to know before moving. No count, no numbering.
+   *
+   * The .mk-pager__label span is REQUIRED, not optional: .mk-btn is an
+   * inline-flex box, so a bare text node becomes an anonymous flex item
+   * and text-overflow does nothing to it. Omit the span and a long act
+   * name blows the column out sideways.
+   *
+   *   <nav class="mk-pager" aria-label="Squads">
+   *     <a class="mk-btn mk-btn--ghost mk-pager__prev" href="/raid-night"
+   *        aria-label="Previous: Raid Night">
+   *       <span class="mk-pager__label">Raid Night</span>
+   *     </a>
+   *     <span class="mk-pager__dots" aria-hidden="true">
+   *       <span class="mk-pager__dot"></span>
+   *       <span class="mk-pager__dot mk-pager__dot--current"></span>
+   *       <span class="mk-pager__dot"></span>
+   *     </span>
+   *     <a class="mk-btn mk-btn--ghost mk-pager__next" href="/tabletop"
+   *        aria-label="Next: Tabletop">
+   *       <span class="mk-pager__label">Tabletop</span>
+   *     </a>
+   *   </nav>
+   */
+  .mk-pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--mk-space-sm);
+    border-top: var(--mk-rule-hair);
+    padding-top: var(--mk-space-xs);
+  }
+
+  /*
+   * Ghost keys put back on the 44px touch floor — --ghost drops to a nav
+   * rail's height, and a thumb needs more than a nav rail. The zero
+   * min-inline-size lets a long neighbour name clip instead of pushing the
+   * dots off the column.
+   *
+   * The cap is 60%, not half. The point of this component is that the key
+   * carries the NEIGHBOUR'S NAME, so a hard half-and-half cap is the wrong
+   * trade: it clipped a long name while a seventh of the row sat empty
+   * beside a short one. At 60% the long name takes the spare width and
+   * flex-shrink settles the rest, while the short neighbour still cannot
+   * be crowded out of readability by a very long one.
+   */
+  .mk-pager__prev,
+  .mk-pager__next {
+    min-height: 44px;
+    min-inline-size: 0;
+    max-inline-size: 60%;
+    padding-block: var(--mk-space-xxs);
+  }
+
+  /*
+   * The arrows are Unicode glyphs printed by the sheet — there is no icon
+   * set in this language, and the consumer supplies only the name.
+   */
+  .mk-pager__prev::before {
+    content: "\2190";
+    flex: none;
+    margin-inline-end: var(--mk-space-xxs);
+  }
+
+  .mk-pager__next::after {
+    content: "\2192";
+    flex: none;
+    margin-inline-start: var(--mk-space-xxs);
+  }
+
+  /* A long act name clips; it never wraps and never widens the row. */
+  .mk-pager__label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*
+   * Position dots — small printed SQUARES, the current one inked solid.
+   * Square, like the badge's status dot, and for the same reason: the
+   * medallion is the only round thing in the system. They carry position
+   * and nothing else, so mark the row aria-hidden and let the neighbour
+   * names carry the meaning.
+   *
+   * The current dot answers to --current ONLY, and deliberately: there is
+   * no [aria-current] hook here. The row is aria-hidden by design, where
+   * aria-current announces nothing, and a styling hook that reads like an
+   * accessibility attribute but does no accessibility work is worse than
+   * no hook at all. Elsewhere in this package the hook IS the attribute
+   * (.mk-tabs__tab[aria-selected]); those elements are exposed and these
+   * are not.
+   */
+  .mk-pager__dots {
+    display: flex;
+    align-items: center;
+    gap: var(--mk-space-xxs);
+    flex: none;
+  }
+
+  .mk-pager__dot {
+    inline-size: var(--mk-space-xxs); /* 6px — the smallest printable mark */
+    block-size: var(--mk-space-xxs);
+    border: 1px solid var(--mk-color-rule);
+    border-radius: var(--mk-radius-control);
+    background: transparent;
+  }
+
+  .mk-pager__dot--current {
+    background: var(--mk-color-rule);
+  }
+
+  /* Reflow: the phone column gives the names every pixel it can spare. */
+  @media (max-width: 740px) {
+    .mk-pager {
+      gap: var(--mk-space-xs);
+    }
+  }
+}
