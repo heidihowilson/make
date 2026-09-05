@@ -39,7 +39,7 @@ checked-state colour — changes instantly.
 | `.mk-curtain-in` | The curtain rises (stepped bottom-up wipe) | Hero frames, section reveals — once per page |
 | `.mk-settle-in` | Rises 14px, overshoots 4px, lands | Panels, toasts, cards arriving |
 | `.mk-drop-in` | Drops from above, bounces 3px, lands | Dialogs, dropdown panels |
-| `.mk-stamp-in` | Scales 1.25→.97→1 like a rubber stamp | Badges, "SOLD OUT", alarm stubs |
+| `.mk-stamp-in` | Scales 1.25→.97→1 like a rubber stamp | Badges, the `.mk-stamp` verdict, alarm stubs |
 | `.mk-typeline` | Left-to-right stepped reveal, 22 steps | One-line typewriter text (kickers, datelines) |
 | `.mk-flicker` | Marquee bulb flicker, 3.2s loop | One announcement per page, maximum |
 | `.mk-bill-order` | Staggers children by 2 frames each | A parent whose children carry an entrance class |
@@ -48,6 +48,28 @@ Timing tokens: `--mk-frame` (83ms), `--mk-dur-beat` (250ms), `--mk-dur-enter` (4
 `--mk-dur-reveal` (660ms), easings `--mk-steps-3/5/8`. Every entrance holds its last frame
 (`both`); `.mk-flicker` is the one loop and holds nothing. All of them switch off under
 `prefers-reduced-motion`.
+
+## The one gesture — press and hold
+
+A press and hold is the one exception to "motion is an event, not a state". The
+finger is the event. The stepped fill is the report. `.mk-btn--hold` fills the
+key in three frames while a person holds the key. The fill answers to `:active`
+and to `[data-holding]`. It never answers to `:hover`. That rule keeps the
+gesture from becoming the state motion this doctrine forbids. The app owns the
+clock: set `--mk-dur-hold` on the key. Under reduced motion the fill prints at
+once and holds. The key still reports the hold.
+
+The fill is pixels, so the app also reports the hold in **text**. Pair the key
+with a visually-hidden `role="status"` line. Write to it when the hold begins
+and again when it completes — the same rule the telegram carries: announce in
+text, decorate in pixels. A long press is also a gesture an assistive
+technology may never pass through. An action that can only be held is
+therefore an action some people cannot reach. Give every hold key a second,
+plain path: a confirming dialog, or a menu item.
+
+The fill's leading edge is a printed 2px rule in the label's own ink, not a
+tonal step. The edge is the information, and a tonal step between two papers
+reads at 1.27:1. A rule is what divides in this language anyway.
 
 ## Designing NEW animations
 

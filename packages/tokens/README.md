@@ -43,11 +43,12 @@ reference semantic names; never primitives, never raw values.
 | Status | `--mk-color-danger`, `--mk-color-warning`, `--mk-color-success` |
 | Focus | `--mk-color-focus` (the ochre outline) |
 | Shadows | `--mk-shadow-sheet`, `--mk-shadow-block`, `--mk-shadow-block-accent`, `--mk-shadow-press` — the complete set; there is no elevation scale |
-| Type scale | `--mk-size-title/-name/-dept/-player/-body/-quote/-mono…`, `--mk-leading-*`, `--mk-track-*` (tracking is the loudness dial) |
+| Type scale | `--mk-size-title/-name/-dept/-player/-body/-quote/-mono/-mono-lg…`, `--mk-leading-*`, `--mk-track-*` (tracking is the loudness dial) |
 | Space | `--mk-space-hair … --mk-space-5xl` — the literal print rhythm, not a 4/8 grid |
 | Radius | `--mk-radius-control`/`-surface` (`0` by design) and `--mk-radius-medallion` (`50%` — the circle is geometry, not softness) |
 | Elevation | `--mk-layer-chrome/-overlay/-toast` |
-| Motion | `--mk-frame` (83ms — one drawing at 12fps), `--mk-dur-beat/-enter/-reveal`, `--mk-steps-3/5/8`, `--mk-dur-key` + `--mk-ease-key` |
+| Device | `--mk-safe-top/-right/-bottom/-left` (the phone's insets — zero on every other screen; non-zero only under `viewport-fit=cover`), `--mk-thumb-zone` (the bottom third, where the one hero key sits) |
+| Motion | `--mk-frame` (83ms — one drawing at 12fps), `--mk-dur-beat/-enter/-reveal`, `--mk-dur-hold` (a press-and-hold), `--mk-steps-3/5/8`, `--mk-dur-key` + `--mk-ease-key` |
 
 > Everything ships at weight 400. Loudness comes from face, size and tracking,
 > never boldness. There is no `info` colour, no blue, and no icon set — Unicode

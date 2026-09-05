@@ -48,14 +48,14 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 
 | Area | Classes |
 |---|---|
-| Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice) |
-| Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--block` / `--icon` |
-| Badges | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot` |
+| Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice; `--wire` = the status lamp slug, "· LIVE") |
+| Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--xl` (the 56px hero key) / `--block` / `--icon` / `--hold` (+ `__hint` — press and hold) / `__mark` (`--lit`) |
+| Badges & stamps | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot`; `.mk-stamp` (the rubber-stamp verdict; `--danger`; the parent positions it) |
 | Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice`, `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever) |
 | Surfaces | `.mk-card` (a PANEL: 2px ink rule; `--sunken` = quiet hairline / `--flush`), `.mk-table` (the ledger; `.mk-table-wrap`, `__num`), `.mk-divider` (printed rules: `--double` / `--double-thin` / `--thick` / `--dash` / `--accent` / `--label`), `.mk-disclosure` (programme notes; `__body`) |
 | Chrome | `.mk-appbar` (ruled nav rail — **not sticky**; `--bottom`), `.mk-shell` (`__main`) |
-| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, scrim via `::backdrop`), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger`; fixed bottom-center, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
-| Feedback | `.mk-alert` (notice from the management: `__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action`) |
+| Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, scrim via `::backdrop`), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger` / `--top`; fixed, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
+| Feedback | `.mk-alert` (notice from the management: `__title`, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action` / `--strip` = the one-line wire strip) |
 | Media | `.mk-thumb` (framed art: ink rule + mat + letterpress offset; `--square` / `--video`, `__fallback`), `.mk-skeleton` (dashed slot, no shimmer; `--text`), `.mk-figure` |
 | Prose | `.mk-prose` (Goudy long-form at 70ch: lists, typewriter code, ruled pull-quote, kbd) |
 | Motion | `.mk-iris-in`, `.mk-curtain-in`, `.mk-settle-in`, `.mk-drop-in`, `.mk-stamp-in`, `.mk-typeline`, `.mk-flicker` (the one idle loop, once per page), `.mk-bill-order` (stagger parent) |
@@ -80,7 +80,9 @@ complete inventory**; this table is the per-area summary.
   utility text; Rye and heading caps are written in the markup, never
   `text-transform`.
 - **Motion is an event.** Entrances only; nothing on scroll or hover; the only
-  loops are the typing dots, the progress hatch, and one marquee flicker.
+  loops are the typing dots, the progress hatch, and one marquee flicker. The
+  only exception is a gesture in progress: the press-and-hold fill, which
+  answers to `:active` and `[data-holding]` and never to hover.
 
 ## Recipes
 

@@ -81,6 +81,7 @@ const typeScale = [
   { var: '--mk-size-list', value: '16px', note: 'list text' },
   { var: '--mk-size-quote', value: '20px', note: 'pull-quotes' },
   { var: '--mk-size-tagline', value: '17px', note: 'italic taglines' },
+  { var: '--mk-size-mono-lg', value: '17px', note: 'the hero key' },
   { var: '--mk-size-mono', value: '13px', note: 'typewriter utility' },
   { var: '--mk-size-mono-sm', value: '12px', note: 'small typewriter' },
   { var: '--mk-size-mono-xs', value: '11px', note: 'the fine print' },
@@ -124,6 +125,16 @@ const misc = [
   { var: '--mk-layer-toast', value: '300', note: 'the telegram — above everything' },
 ];
 
+// The device edges — the phone's four insets and the thumb measure. They
+// are semantic by construction: there is no primitive beneath an env().
+const device = [
+  { var: '--mk-safe-top', value: 'env(safe-area-inset-top, 0px)', note: 'under the notch' },
+  { var: '--mk-safe-right', value: 'env(safe-area-inset-right, 0px)', note: 'the rounded corner' },
+  { var: '--mk-safe-bottom', value: 'env(safe-area-inset-bottom, 0px)', note: 'above the home indicator' },
+  { var: '--mk-safe-left', value: 'env(safe-area-inset-left, 0px)', note: 'the rounded corner' },
+  { var: '--mk-thumb-zone', value: '33svh', note: 'the bottom third — where the one hero key sits' },
+];
+
 const rules = [
   { var: '--mk-rule-double', note: '4px double — major section break' },
   { var: '--mk-rule-double-thin', note: '3px double — footer break' },
@@ -151,6 +162,7 @@ const motions = [
   { var: '--mk-dur-beat', value: '250ms', note: '3 frames — small entrances' },
   { var: '--mk-dur-enter', value: '420ms', note: '5 frames — sheet/art entrances' },
   { var: '--mk-dur-reveal', value: '660ms', note: '8 frames — iris, curtain' },
+  { var: '--mk-dur-hold', value: '660ms', note: 'a press-and-hold — the app overrides it per key' },
   { var: '--mk-steps-3', value: 'steps(3, end)', note: 'stepped timing' },
   { var: '--mk-steps-5', value: 'steps(5, end)', note: 'stepped timing' },
   { var: '--mk-steps-8', value: 'steps(8, end)', note: 'stepped timing' },
@@ -321,6 +333,38 @@ const motions = [
             <tr>
               <td><code>{t.var}</code></td>
               <td class="mk-table__num"><code>{t.value}</code></td>
+              <td>{t.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mk-card" aria-labelledby="device">
+    <h2 id="device">THE DEVICE EDGES</h2>
+    <p class="prose">
+      A phone hands the page four insets; every other screen hands it
+      nothing, so these read zero off-device and nothing moves. They go
+      non-zero only when the document asks for the whole screen —
+      <code>viewport-fit=cover</code> in the viewport meta. The thumb zone is
+      a measure, not a layout: the library ships it, the app places the one
+      hero key inside it.
+    </p>
+    <div class="mk-table-wrap">
+      <table class="mk-table">
+        <thead>
+          <tr>
+            <th>TOKEN</th>
+            <th>VALUE</th>
+            <th>MEANING</th>
+          </tr>
+        </thead>
+        <tbody>
+          {device.map((t) => (
+            <tr>
+              <td><code>{t.var}</code></td>
+              <td><code>{t.value}</code></td>
               <td>{t.note}</td>
             </tr>
           ))}

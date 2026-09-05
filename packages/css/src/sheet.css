@@ -17,8 +17,19 @@
    * paper.
    */
   .mk-stage {
+    /*
+     * The device edge only bites on the SIDES, so the inline half of the
+     * page padding is set on its own: the stage keeps its 20px margin
+     * everywhere, and on a notched phone held sideways it steps out past
+     * the rounded corner instead of printing the sheet under it. The
+     * insets read 0px on every other screen, so the desktop stage does
+     * not move by a pixel.
+     */
+    --mk-stage-pad-inline: 20px;
     min-height: 100svh;
     padding: var(--mk-page-pad);
+    padding-inline: max(var(--mk-stage-pad-inline), var(--mk-safe-left))
+      max(var(--mk-stage-pad-inline), var(--mk-safe-right));
     background: var(--mk-color-stage);
     display: flex;
     justify-content: center;
@@ -47,8 +58,11 @@
   }
 
   @media (max-width: 740px) {
+    /* Block padding only — the inline half stays with the rule above, so
+       the device edge keeps its say on a phone in landscape. */
     .mk-stage {
-      padding: 16px 10px 48px;
+      --mk-stage-pad-inline: 10px;
+      padding-block: 16px 48px;
     }
 
     .mk-sheet {
@@ -67,5 +81,28 @@
     letter-spacing: var(--mk-track-kicker);
     text-transform: uppercase;
     color: var(--mk-color-text-secondary);
+  }
+
+  /*
+   * Wire slug — the kicker cut down to a status lamp for the line itself:
+   * "· LIVE", "· RECONNECTING". The middot is the lamp and the word is the
+   * state, so the lamp is printed here and the word stays in the markup,
+   * in caps, as every kicker does. Quieter than a kicker by size and
+   * tracking, because the state of the wire is not an announcement.
+   */
+  .mk-kicker--wire {
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-nav-sm);
+    color: var(--mk-color-text-muted);
+  }
+
+  /*
+   * The lamp is printed HERE, so the markup must not carry one: write
+   * <span class="mk-kicker mk-kicker--wire">LIVE</span>, never "· LIVE",
+   * or the slug prints two. A consumer arriving from a hand-rolled slug
+   * drops the character when it adopts the class.
+   */
+  .mk-kicker--wire::before {
+    content: "· ";
   }
 }
