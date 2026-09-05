@@ -99,10 +99,10 @@
 
   /*
    * The ladder — a billing order, not a size scale. Each rung also names
-   * the rung BELOW it, so a status band can demote a cameo without knowing
-   * which rung it started on, in any class order on the element. --xs
-   * steps down to itself; it is the floor. The band rules must stay BELOW
-   * the ladder in this file: they write the same rung property at the same
+   * the rung BELOW it, so --bare can demote a cameo without knowing which
+   * rung it started on, in any class order on the element. --xs steps
+   * down to itself; it is the floor. The --bare rule must stay BELOW the
+   * ladder in this file: it writes the same rung property at the same
    * specificity, and source order is what lands the demotion.
    */
   .mk-medallion--xs {
@@ -132,9 +132,16 @@
 
   /*
    * The status band — 4px of state ink at a 7px standoff of clear paper.
-   * Both "not on yet" states also step the cameo down one rung, so the
-   * hub's hierarchy reads without a word being read: whoever is ON is
-   * biggest.
+   *
+   * THE BILLING RULE, and it runs the other way round from the obvious
+   * one: a player with ANY status is billed, and the cameo that steps
+   * down is the one with no status at all. Now, soon and later all hold
+   * their rung and all wear a band; --bare takes the rung below and
+   * prints no band. A hub reads "who is in the company" before it reads
+   * "who is on", so demoting soon and later would shrink two thirds of a
+   * mixed hub and leave the player who has said nothing standing tallest
+   * — the company inverted. (Consumer #1 caught exactly that inversion in
+   * review; the note is here so it is not re-introduced.)
    *
    * COLOUR IS NEVER THE ONLY CARRIER. Measured on the sheet, the soon band
    * is 2.43:1 and the later band 3.59:1 — so print the matching badge stub
@@ -148,14 +155,13 @@
    * THE DEMOTION WRITES THE PRIVATE RUNG, never --mk-medallion-size. The
    * size property is the CONSUMER's slot, and a modifier that wrote it
    * would beat the consumer's own value on an ancestor — a roster sized by
-   * one declaration on its container would then print the player who is
-   * NOT on larger than the player who is, which is the hierarchy inverted.
-   * Writing the rung keeps the two channels apart: the consumer's override
-   * wins for every cameo in the group, and the step-down still applies
-   * whenever no override is set.
+   * one declaration on its container would then print every cameo at the
+   * same rung and the billing would say nothing at all. Writing the rung
+   * keeps the two channels apart: the consumer's override wins for every
+   * cameo in the group, and the step-down still applies whenever no
+   * override is set.
    */
-  .mk-medallion--soon,
-  .mk-medallion--later {
+  .mk-medallion--bare {
     --mk-medallion-step: var(--mk-medallion-step-down);
   }
 
@@ -189,14 +195,22 @@
    * does NOT ship: nothing in this language glows, and a blurred lamp is a
    * screen effect a 1933 press could not strike.
    *
-   * Best at --md and up. At --xs the ring radius is 27px and sub-pixel
+   * THE BAND HUGS. No standoff: the soon/later ring stands off because it
+   * is a mark ABOUT the portrait, but the marquee is the sign the player
+   * stands inside, and a sign with a gap behind it hovers. Hugging is
+   * also what lands the marquee on the ladder — a --lg cameo inside a 7px
+   * band prints 78 + 2 × 7 = 92px, which is the --xl rung exactly, so a
+   * hub already laid out on the ladder needs no second grid for the
+   * players who are on.
+   *
+   * Best at --md and up. At --xs the ring radius is 22px and sub-pixel
    * rounding makes the lamps look ragged; nothing enforces that, so this
    * comment is the guard.
    */
   .mk-medallion--now::before {
     content: "";
     position: absolute;
-    inset: calc(-1 * (var(--mk-medallion-standoff) + var(--mk-medallion-band)));
+    inset: calc(-1 * var(--mk-medallion-band));
     border: var(--mk-medallion-band) solid var(--mk-color-ink-surface);
     border-radius: var(--mk-radius-medallion);
     pointer-events: none;
@@ -211,9 +225,13 @@
    * these are dots, not glows.
    */
   .mk-medallion--now::after {
+    /*
+     * The lamps ride the centre-line of the band, so the radius is the
+     * cameo's own radius plus half a band — no standoff term, because the
+     * band hugs. A 5px lamp on a 7px band leaves 1px of ink each side.
+     */
     --mk-medallion-lamp-r: calc(
-      var(--mk-medallion-size, var(--mk-medallion-step)) / 2 + var(--mk-medallion-standoff) +
-        var(--mk-medallion-band) / 2
+      var(--mk-medallion-size, var(--mk-medallion-step)) / 2 + var(--mk-medallion-band) / 2
     );
     content: "";
     position: absolute;
@@ -254,11 +272,16 @@
    * sockets and come back: two poses, held. That is a chase shot on twos,
    * and it is the whole trick — no second shadow list, no JS.
    *
-   * THIS IS AN IDLE LOOP, and the ration is one per page (MOTION.md). The
-   * component and the motion are rationed separately: the printed band
-   * already says NOW, so a hub with eight players who are on has eight
-   * marquees and AT MOST ONE chase. Eight chases is a slot machine. Add
-   * --chase to the one medallion the page is about, and to no other.
+   * THIS IS AN IDLE LOOP, and the ration counts KINDS, not elements
+   * (MOTION.md). A page spends its one idle loop on one kind of motion;
+   * however many elements wear it, they run off the same clock and read
+   * as one sign, because every chase on the page steps together. Eight
+   * marquees chasing in unison is a lit hub. Eight loops of DIFFERENT
+   * kinds — a chase, a flicker and something else again — is the slot
+   * machine, and that is what the ration forbids.
+   *
+   * So: chase every marquee on the hub if the marquees are the status, or
+   * chase none. Do not mix the chase with the flicker on one page.
    */
   .mk-medallion--chase::after {
     animation: mk-marquee-chase calc(var(--mk-frame) * 4) steps(1, end) infinite;

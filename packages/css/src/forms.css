@@ -227,6 +227,28 @@
   }
 
   /*
+   * The mouse gets an answer. Every key in this language lights under a
+   * pointer, and a ticket IS the tap target, so a picker of tickets was
+   * the one control on a sheet that stayed dead to a mouse. Gated on a
+   * real pointer so a touch device never paints a stuck hover after the
+   * tap, and it is the INSET stepping up to the plate tone — the same
+   * step the chosen ticket takes, one beat early. No motion: this is a
+   * fill swap, not a state animation, so the doctrine holds.
+   *
+   * A checked ticket does not answer: it is already at the plate, and a
+   * hover that changed it would say the choice was about to be undone.
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .mk-choice--ticket:hover:not(
+        :has(> .mk-radio:checked),
+        [aria-checked="true"],
+        .mk-choice--checked
+      ) {
+      background: var(--mk-color-plate);
+    }
+  }
+
+  /*
    * The performance, in the typewriter voice at the SMALL department size:
    * a ticket is a row in a list, not a heading, and the 23px cut plus a
    * 17px note overflows a 56px row. A consumer who wants the larger cut

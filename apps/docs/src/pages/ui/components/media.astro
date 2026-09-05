@@ -171,13 +171,25 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
   <section class="mk-card">
     <h2>WHO IS ON, AND WHO IS NOT</h2>
     <p>
-      One datum, printed three ways. <code>--now</code> wraps the player in a
+      One datum, printed four ways. <code>--now</code> wraps the player in a
       marquee: an ink band carrying twelve flat paper lamps. Nothing glows
       &mdash; the mock&rsquo;s blurred halos do not ship, because a 1933 press
-      could not strike one. <code>--soon</code> and <code>--later</code> print
-      a 4px state band at a 7px standoff of clear paper, and both
-      <strong>step the cameo down one rung</strong>, so whoever is on is
-      biggest without a word being read.
+      could not strike one. The marquee band <strong>hugs</strong> at 7px, so
+      a cameo prints at the next rung&rsquo;s footprint &mdash; 78 inside the
+      band is 92, which is <code>--xl</code> exactly, and a hub laid out on
+      the ladder needs no second grid. <code>--soon</code> and
+      <code>--later</code> print a 4px state band at a 7px standoff of clear
+      paper: a ring stands off because it is a mark <em>about</em> the
+      portrait, where the marquee is the sign the player stands inside.
+    </p>
+    <p>
+      <strong>The billing runs the other way round from the obvious one.</strong>
+      Any status is billing, so <code>--now</code>, <code>--soon</code> and
+      <code>--later</code> all hold their rung. The cameo that steps down is
+      <code>--bare</code>: the player who has said nothing. A hub reads
+      &ldquo;who is in the company&rdquo; before it reads &ldquo;who is
+      on&rdquo;, so demoting soon and later would shrink two thirds of a mixed
+      hub and leave the silent player standing tallest.
     </p>
     <p>
       <strong>The band is never the only carrier.</strong> Measured on the
@@ -192,13 +204,15 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
       trouble, and a player who is not ready yet is not in trouble. The
       <code>--now</code> cameos here are <strong>static</strong>, because the
       printed band already says NOW. Its two-frame chase is a separate opt-in
-      modifier that spends the page&rsquo;s one idle loop &mdash; cue it on
+      modifier, and the ration counts kinds rather than elements &mdash; chase
+      every marquee on a hub or chase none, but never mix the chase with the
+      flicker. Cue it on
       <a href={(base + 'ui/components/motion').replace(/\/+/g, '/')}>MOTION</a>.
     </p>
     <div class="row">
       <div class="cameo-cell">
-        <span class="mk-medallion mk-medallion--lg"><img src={art('portrait-seth.jpg')} alt="Seth, the operator" width="848" height="1264" loading="lazy" /></span>
-        <p class="cap">no band</p>
+        <span class="mk-medallion mk-medallion--lg mk-medallion--bare"><img src={art('portrait-seth.jpg')} alt="Seth, the operator" width="848" height="1264" loading="lazy" /></span>
+        <p class="cap">&mdash;&mdash;bare, steps down</p>
       </div>
       <div class="cameo-cell cameo-cell--banded">
         <span class="mk-medallion mk-medallion--lg mk-medallion--now"><img src={art('portrait-wilson.jpg')} alt="Wilson, ready now" width="848" height="1264" loading="lazy" /></span>
@@ -213,7 +227,9 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
         <span class="mk-badge">LATER</span>
       </div>
     </div>
-    <pre><code>&lt;span class="mk-medallion mk-medallion--lg mk-medallion--now"&gt;…&lt;/span&gt;
+    <pre><code>&lt;span class="mk-medallion mk-medallion--lg mk-medallion--bare"&gt;…&lt;/span&gt;
+
+&lt;span class="mk-medallion mk-medallion--lg mk-medallion--now"&gt;…&lt;/span&gt;
 &lt;span class="mk-badge"&gt;ON NOW&lt;/span&gt;
 
 &lt;span class="mk-medallion mk-medallion--lg mk-medallion--soon"&gt;…&lt;/span&gt;
@@ -226,10 +242,10 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
   <section class="mk-card">
     <h2>ON THE HUB</h2>
     <p>
-      Eight players, one datum each, and the hierarchy does the reading: the
-      four who are on carry the marquee at full size, and the rest step down a
-      rung behind their state band. The grid is page-local &mdash; the library
-      styles the cameo, never the grid.
+      Eight players, one datum each, and the hierarchy does the reading:
+      everyone who has answered keeps the rung and wears a band, and the two
+      who have said nothing take <code>--bare</code> and step down. The grid
+      is page-local &mdash; the library styles the cameo, never the grid.
     </p>
     <div class="hub-grid">
       <div class="cameo-cell cameo-cell--banded">
@@ -253,16 +269,16 @@ const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
         <span class="mk-badge mk-badge--sm">RANDY &middot; ON NOW</span>
       </div>
       <div class="cameo-cell cameo-cell--banded">
-        <span class="mk-medallion mk-medallion--md mk-medallion--soon"><span class="mk-medallion__initials">BT</span></span>
-        <span class="mk-badge mk-badge--sm mk-badge--warning">BRAD &middot; SOON</span>
+        <span class="mk-medallion mk-medallion--md mk-medallion--bare"><span class="mk-medallion__initials">BT</span></span>
+        <span class="mk-badge mk-badge--sm">BRAD &middot; NO WORD</span>
       </div>
       <div class="cameo-cell cameo-cell--banded">
         <span class="mk-medallion mk-medallion--md mk-medallion--now"><span class="mk-medallion__initials">MT</span></span>
         <span class="mk-badge mk-badge--sm">MARK &middot; ON NOW</span>
       </div>
       <div class="cameo-cell cameo-cell--banded">
-        <span class="mk-medallion mk-medallion--md mk-medallion--later"><span class="mk-medallion__initials">HK</span></span>
-        <span class="mk-badge mk-badge--sm">HEIDI &middot; LATER</span>
+        <span class="mk-medallion mk-medallion--md mk-medallion--bare"><span class="mk-medallion__initials">HK</span></span>
+        <span class="mk-badge mk-badge--sm">HEIDI &middot; NO WORD</span>
       </div>
     </div>
     <pre><code>/* app CSS — not shipped by the library */

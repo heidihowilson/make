@@ -42,19 +42,29 @@ checked-state colour — changes instantly.
 | `.mk-stamp-in` | Scales 1.25→.97→1 like a rubber stamp | Badges, "SOLD OUT", alarm stubs |
 | `.mk-typeline` | Left-to-right stepped reveal, 22 steps | One-line typewriter text (kickers, datelines) |
 | `.mk-flicker` | Marquee bulb flicker, 3.2s loop | One announcement per page, maximum |
-| `.mk-medallion--chase` | The marquee chase: the lamp ring snaps one socket and back, two poses | The ONE player who is on — never a whole hub |
+| `.mk-medallion--chase` | The marquee chase: the lamp ring snaps one socket and back, two poses | Every player who is on, or none — one KIND of loop per page |
 | `.mk-bill-order` | Staggers children by 2 frames each | A parent whose children carry an entrance class |
 
 Timing tokens: `--mk-frame` (83ms), `--mk-dur-beat` (250ms), `--mk-dur-enter` (420ms),
 `--mk-dur-reveal` (660ms), easings `--mk-steps-3/5/8`. Every entrance holds its last frame
 (`both`); `.mk-flicker` and `.mk-medallion--chase` are the two idle loops and hold nothing,
-and a page runs ONE of them. All of them switch off under `prefers-reduced-motion`.
+and a page runs ONE KIND of them. All of them switch off under `prefers-reduced-motion`.
 
-**The ration, and the conflict it settles.** A hub of players who are on has many marquees and
-one chase, at most. The band is the component and the chase is the motion, and the motion is
-rationed separately: the static printed band already says NOW, so the chase adds nothing a
-reader needs. Eight chases is a slot machine. Put `--chase` on the one medallion the page is
-about, and on no other.
+**The ration counts kinds, not elements.** A page spends its one idle loop on one kind of
+motion. However many elements wear that kind, they run off the same clock and step together,
+so a hub of eight chasing marquees reads as one lit sign — the way a real marquee is one sign
+with many bulbs. What the ration forbids is a page running two different loops at once: a
+chase in the hub and a flicker in the header compete like two ochres, because the eye cannot
+tell which one is the announcement.
+
+So: chase every marquee on the hub, or chase none. Never mix the chase with the flicker on one
+page. (The band is still the component and the chase still the motion — a marquee that never
+chases says NOW perfectly well, and that is the right default for a list.)
+
+*Amended 2026-09-05. The ration formerly read "the ONE player who is on — never a whole hub".
+Consumer #1's hub is eight players and the marquee IS the status, which made the old wording
+demand a deviation from every phone-first consumer. Counting kinds keeps the rule's intent —
+one announcement at a time — without counting elements.*
 
 ## Designing NEW animations
 
@@ -69,9 +79,9 @@ Checklist — a new animation belongs in the system only if all six pass:
 4. **Does it end?** Runs once, holds the last frame. Loops are reserved for the marquee
    flicker, the marquee chase, the typing dots, and the indeterminate progress hatch.
 5. **Is it short?** 250–660ms. Longer belongs in the moving pictures, not the UI.
-6. **Does it respect the ration?** One art reveal and one idle loop per page, maximum — the
-   flicker or the chase, never both. Two animated entrances in one viewport compete like two
-   ochres.
+6. **Does it respect the ration?** One art reveal and one KIND of idle loop per page, maximum
+   — the flicker or the chase, never both. Many elements may wear that one kind if they step
+   together. Two animated entrances in one viewport compete like two ochres.
 
 Character/art animation (the strips, the cartoon feed) is a different medium with its own
 pipeline — see [GENERATIVE-ART.md](./GENERATIVE-ART.md); these rules govern UI motion only.

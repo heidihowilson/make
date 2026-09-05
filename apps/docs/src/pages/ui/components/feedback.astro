@@ -191,6 +191,23 @@ dialogEl.showModal(); // the app&rsquo;s one line</code></pre>
       a phone column and on a desktop one and watch the same element take
       both poses.
     </p>
+    <p>
+      <strong>Sheet below, modal above &mdash; and the library enforces it.</strong>
+      You do not choose it and you do not write the breakpoint. There is one
+      escape, for one shape of app: add <code>--bill</code> beside
+      <code>--sheet</code> and set <code>--mk-dialog-bill-width</code> if your
+      app&rsquo;s own column stays phone-width on a wide screen. Then there is
+      no paper behind the overlay at 1920px either, and the sheet keeps the
+      bottom edge, bounded to the bill and centred over it. If your app has a
+      desktop layout, it does not qualify.
+    </p>
+    <p>
+      The rule below is <code>dialog.mk-dialog--sheet:not([open])</code>, not
+      the bare class, so a chassis that is a <code>&lt;div&gt;</code> &mdash; a
+      swipe-to-dismiss library owning the gesture, the scroll lock and the
+      focus trap &mdash; can wear the look without inheriting an
+      <code>[open]</code> contract only a real dialog can satisfy.
+    </p>
     <div class="row">
       <button class="mk-btn" type="button" id="demo-sheet-open">Raise the sheet&hellip;</button>
     </div>

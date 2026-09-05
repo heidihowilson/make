@@ -88,8 +88,18 @@
    * the language's own, so it costs no new one — because the argument is
    * made on the phone's terms. A full-width bar welded to the bottom edge
    * of a 1920px desktop is the unplaced float the argument forbids. Above
-   * 740px the same element is simply the centred playbill again, which is
-   * exactly what INTERACTION.md promises a desktop consumer.
+   * 740px the same element is simply the centred playbill again.
+   *
+   * THAT IS THE DEFAULT AND IT IS ENFORCED: sheet below, modal above, one
+   * class, no opt-out needed. See --bill at the foot of this block for the
+   * one condition that suspends it.
+   *
+   * The selector below is `dialog.mk-dialog--sheet`, not the bare class,
+   * so a consumer whose sheet chassis is a <div> (a swipe-to-dismiss
+   * library owning the gesture, the scroll lock and the focus trap) can
+   * wear the LOOK without also inheriting the [open] contract that only a
+   * real <dialog> can satisfy. A <div> never has [open], and the bare
+   * class would have hidden it forever.
    */
   @media (max-width: 740px) {
     .mk-dialog--sheet {
@@ -114,7 +124,7 @@
      * a closed — or server-rendered — sheet prints its whole contents down
      * the page. Zero JS must render correctly; this line is that promise.
      */
-    .mk-dialog--sheet:not([open]) {
+    dialog.mk-dialog--sheet:not([open]) {
       display: none;
     }
 
@@ -135,6 +145,69 @@
       border-top: var(--mk-rule-thick);
       margin-inline: auto;
       margin-block-end: var(--mk-space-xs);
+    }
+  }
+
+  /*
+   * --bill — the ONE condition that suspends "sheet below, modal above".
+   *
+   * The rule above tests the viewport, but the argument is about the
+   * GROUND: a sheet is right when there is no paper visible around the
+   * overlay. For an app whose own column stays phone-width at every
+   * window size — a bill, not a broadsheet — that is still true at
+   * 1920px, and the viewport test fires wrong for exactly the app the
+   * exception was written for. A container query cannot decide it either:
+   * a modal <dialog> is in the top layer, so its containing block is the
+   * viewport and it never sees the app's column at all.
+   *
+   * So the consumer declares it, once, instead of overriding the library
+   * per screen: add --bill beside --sheet and set --mk-dialog-bill-width
+   * to the column's measure. The sheet then keeps the bottom edge and its
+   * handle above 740px, bounded to the bill and centred over it — one
+   * layout, two grounds, which is the whole point.
+   *
+   * The side rules come BACK here. On a phone the sheet runs off both
+   * edges and only the top rule prints; a bill has paper either side, so
+   * an unruled edge would bleed into it.
+   *
+   * This is not a general opt-out. A broadsheet app that adds --bill gets
+   * the bar welded to the bottom of a wide window, which is the unplaced
+   * float the doctrine forbids. INTERACTION.md states the condition.
+   */
+  @media (min-width: 741px) {
+    .mk-dialog--sheet.mk-dialog--bill {
+      margin: auto auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--mk-space-sm);
+      inline-size: 100%;
+      max-inline-size: var(--mk-dialog-bill-width, 430px);
+      max-block-size: 88svh;
+      border-block-end-width: 0;
+      padding: var(--mk-space-xs) var(--mk-space-lg) var(--mk-space-lg);
+    }
+
+    dialog.mk-dialog--sheet.mk-dialog--bill:not([open]) {
+      display: none;
+    }
+
+    /* The same drawn handle — see the phone rule for why it is a rule. */
+    .mk-dialog--sheet.mk-dialog--bill::before {
+      content: "";
+      display: block;
+      flex: none;
+      inline-size: var(--mk-space-4xl);
+      block-size: 0;
+      border-top: var(--mk-rule-thick);
+      margin-inline: auto;
+      margin-block-end: var(--mk-space-xs);
+    }
+  }
+
+  /* A sheet rises on a bill too, at every width. */
+  @media (min-width: 741px) and (prefers-reduced-motion: no-preference) {
+    .mk-dialog--sheet.mk-dialog--bill[open] {
+      animation: mk-settle-in var(--mk-dur-enter) var(--mk-steps-5) both;
     }
   }
 

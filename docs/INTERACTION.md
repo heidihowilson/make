@@ -30,7 +30,7 @@ a review failure unless this file names the element. Two elements are named belo
 | Element | What earns the exception | What it may not do |
 |---|---|---|
 | `.mk-toast` — the telegram | It is an **event arriving**, not chrome. A telegram is a slip handed over the page, not part of the page. The consumer's timer bounds it in time, and there is only ever one | Persist, stack, carry an action, or narrate state |
-| `.mk-dialog--sheet` — the phone's bottom sheet | A phone has no visible paper behind a centred dialog. The bottom edge gives the overlay a **place** instead of a float. The argument is written in full below, and the CSS bounds it at `740px` | Appear as page furniture, stay open across a navigation, carry a second sheet, or take the bottom edge above 740px |
+| `.mk-dialog--sheet` — the phone's bottom sheet | A phone has no visible paper behind a centred dialog. The bottom edge gives the overlay a **place** instead of a float. The argument is written in full below, and the CSS bounds it at `740px` | Appear as page furniture, stay open across a navigation, carry a second sheet, or take the bottom edge above 740px — unless the app is a bill, which `--bill` states |
 
 ### The telegram toast
 
@@ -65,6 +65,45 @@ The sheet is granted its exception on the phone's terms. A desktop consumer keep
 playbill; `.mk-dialog--sheet` is the phone form of the same element, not a second component.
 The consumer leaves the class on the element at every width and the breakpoint decides, so an
 argument made on the phone's terms cannot ship a full-width bar welded to a desktop viewport.
+
+### Sheet below, modal above — the default, and the one thing that suspends it
+
+**This is the paradigm, and the library enforces it.** One class on one element. Below 740px it
+is a sheet from the footlights; above 740px it is the centred playbill. A consumer does not
+choose, does not configure it, and does not write a breakpoint. Every overlay across every
+`sethmakes` consumer therefore behaves the same way, which is the point of having a language.
+
+The rule tests the viewport. The *argument* is about the **ground** — a sheet is right when no
+paper is visible around the overlay — and for most apps the viewport is a fair proxy for the
+ground, because a wide window means a wide page.
+
+It is not a fair proxy for one shape of app: the **bill**. An app whose own column stays
+phone-width at every window size (a 430px centred measure, say) has no paper behind its
+overlay at 1920px either. The viewport test fires wrong for exactly the app the exception was
+written for. A container query cannot rescue it: a modal `<dialog>` lives in the top layer, so
+its containing block is the viewport and it never sees the app's column.
+
+So the escape is **named, declared once, and narrow**:
+
+```html
+<dialog class="mk-dialog mk-dialog--sheet mk-dialog--bill">
+```
+
+```css
+.app { --mk-dialog-bill-width: 430px; }
+```
+
+`--bill` keeps the bottom edge, the handle and the rise at every width, bounded to the bill's
+measure and centred over it. The side rules come back, because a bill has paper either side.
+
+**A consumer may take this only if its own column stays phone-width on a wide screen.** That
+is the whole condition, and it is checkable: if the app has a desktop layout, it does not
+qualify. A broadsheet app that adds `--bill` gets a bar welded to the bottom of a wide window,
+which is the unplaced float step 3 forbids — the modifier does not make that legal, it just
+stops defending against it.
+
+Everything else keeps the default. Do not add a second escape; if a third consumer needs one,
+the paradigm is wrong and this section should be rewritten rather than extended.
 
 ## A modal never spawns a modal
 

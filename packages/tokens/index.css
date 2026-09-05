@@ -174,14 +174,24 @@
   /*
    * The status band's geometry. A band is NOT a rule: rules divide, and
    * this encircles — it goes round a cameo the way a mourning band goes
-   * round a sleeve, so it stays out of the printed-rule table. The
-   * standoff is clear paper; the band must never touch the cameo's own
-   * ink ring, or the two print as one thick ring.
+   * round a sleeve, so it stays out of the printed-rule table.
+   *
+   * TWO GEOMETRIES, because the two carriers do different jobs. The
+   * soon/later RING stands off the cameo on clear paper: it is a mark
+   * ABOUT the portrait, and it must never touch the cameo's own ink ring
+   * or the two print as one thick ring. 78 + 2 × (7 + 4) = 100.
+   *
+   * The marquee BAND hugs, with no standoff at all: it is the sign the
+   * player stands inside, not a mark about them, and a sign with a gap
+   * behind it is a hovering ring. Hugging also lands the ladder on
+   * itself — a cameo on any rung prints at the NEXT rung's footprint
+   * (78 + 2 × 7 = 92, which is --xl exactly), so a hub laid out on the
+   * ladder needs no second grid for the players who are on.
    */
   --mk-medallion-ring: 4px;
   --mk-medallion-standoff: 7px;
-  --mk-medallion-band: 10px; /* the ink band the marquee lamps sit on */
-  --mk-medallion-bulb: 4px; /* one paper lamp */
+  --mk-medallion-band: 7px; /* the ink band the marquee lamps sit on */
+  --mk-medallion-bulb: 5px; /* one paper lamp, sitting ON the 7px band */
 
   /*
    * The phone's bottom inset. Zero on every surface without a home bar, so
