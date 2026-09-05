@@ -117,6 +117,16 @@ import Base from '../../../layouts/Ui.astro';
       role in WebKit, and the count and the position are what a screen
       reader needs from a feed.
     </p>
+    <p>
+      <strong>The element contract is a list of <code>&lt;li&gt;</code>.</strong>
+      <code>&lt;ol&gt;</code> is shown here because a feed has a real
+      chronology; <code>&lt;ul&gt;</code> takes the same class and renders
+      identically. A <code>&lt;dl&gt;</code> does <em>not</em> &mdash; the
+      row rules select <code>&gt; li</code>, so a definition list gets no
+      grid, no hairline and no slug column. A time and its event look like a
+      term and its definition, so this is worth saying out loud: convert the
+      markup, do not reach for the class.
+    </p>
     <ol class="mk-feed" role="list">
       <li>
         <span class="mk-feed__time">8:02 PM</span>

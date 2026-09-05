@@ -16,6 +16,11 @@
    * is not a dateline. No bullets, no dots, no timeline spine: the hairline
    * between rows is the only division this language needs, and a spine is
    * an illustration rather than a printed rule.
+   *
+   * THE ELEMENT IS A <ul> OR <ol> OF <li> — the row rules select "> li",
+   * so a <dl> gets no grid, no hairline and no slug column. A time and its
+   * event read like a term and its definition, so a consumer will reach
+   * for <dl> eventually; convert the markup rather than the class.
    */
   .mk-feed {
     list-style: none;
