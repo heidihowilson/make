@@ -321,4 +321,95 @@
   .mk-switch:disabled::before {
     background: var(--mk-color-disabled-line);
   }
+
+  /*
+   * Lever — the switch's rail with the block free to travel. A switch has
+   * an ON state and spends the ochre on it; a lever has no ON, only a
+   * position, so the rail stays ink from end to end and the ration is left
+   * unspent. Focus needs no rule of its own: the base-layer ochre outline
+   * lands on the element, and the element IS the rail.
+   *
+   * Both engines are dressed. A range styled for WebKit alone is a range
+   * that is not styled — and the two pseudo-element sets must never be
+   * comma-joined, because one unknown selector drops the whole rule in
+   * both browsers.
+   */
+  .mk-lever {
+    appearance: none;
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    background: var(--mk-color-inset);
+    border: 2px solid var(--mk-color-rule);
+    border-radius: var(--mk-radius-control);
+    cursor: pointer;
+  }
+
+  /*
+   * The rail is the element's own rule and fill, so the pseudo-tracks draw
+   * nothing — they exist only to give the block a box to sit in. 16px is
+   * the rail's inside height: 20 less the two 2px rules.
+   */
+  .mk-lever::-webkit-slider-runnable-track {
+    height: 16px;
+    background: transparent;
+    border: 0;
+  }
+
+  .mk-lever::-moz-range-track {
+    height: 16px;
+    background: transparent;
+    border: 0;
+  }
+
+  /*
+   * Firefox paints the travelled part of the rail in the OS accent unless
+   * it is told otherwise. This world has one accent and it is rationed;
+   * blank it.
+   */
+  .mk-lever::-moz-range-progress {
+    background: transparent;
+  }
+
+  /*
+   * The lever itself — the switch's 14px ink block, cut to the rail. The
+   * radius is stated, not assumed: every engine rounds a thumb by default,
+   * so square is enforced here.
+   */
+  .mk-lever::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 16px;
+    background: var(--mk-color-rule);
+    border: 0;
+    border-radius: var(--mk-radius-control);
+    cursor: pointer;
+  }
+
+  .mk-lever::-moz-range-thumb {
+    width: 14px;
+    height: 16px;
+    background: var(--mk-color-rule);
+    border: 0;
+    border-radius: var(--mk-radius-control);
+    cursor: pointer;
+  }
+
+  /* Out of service — rule to tan, fill emptied, exactly as the switch. */
+  .mk-lever:disabled {
+    border-color: var(--mk-color-disabled-line);
+    background: transparent;
+    cursor: not-allowed;
+  }
+
+  .mk-lever:disabled::-webkit-slider-thumb {
+    background: var(--mk-color-disabled-line);
+    cursor: not-allowed;
+  }
+
+  .mk-lever:disabled::-moz-range-thumb {
+    background: var(--mk-color-disabled-line);
+    cursor: not-allowed;
+  }
 }

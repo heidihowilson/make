@@ -62,6 +62,10 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   A `--warning` button, an error message, a focus ring and a lever's ON state are all
   claimants; screens get one.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
+- **The dashed rule also stands in for browser chrome.** The share sheet, the file picker
+  and the install prompt belong to the browser. Where a screen must show one, print a dashed
+  tile and name it; a box the app cannot draw is a box with nothing printed in it. Never
+  counterfeit browser chrome in ink.
 - **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
   (ghost rules, dashed slots); muted TEXT uses the darker `--mk-faded-ink` `#685d45` (≥4.5:1);
   link ink deepened to `#7a4e15`; **ochre carries lines, never small text** — its ~2.5:1 on

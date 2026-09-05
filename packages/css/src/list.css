@@ -1,0 +1,154 @@
+@layer mk.components {
+  /*
+   * One-column lists — two relatives of the ledger. They keep the ledger's
+   * 9px row rhythm and its hairline between rows, so a feed set beside a
+   * table lines up down the page instead of reading as another
+   * publication. Both are furniture, not prose: they carry the list size,
+   * not the running measure.
+   */
+
+  /*
+   * Dateline feed — the hour stamped on the left in the ledger's
+   * column-head voice, the event set on the right in prose. For the small
+   * traffic of a company: joined, left, status changed.
+   *
+   * The slug column is FIXED, not content-sized — a dateline that wanders
+   * is not a dateline. No bullets, no dots, no timeline spine: the hairline
+   * between rows is the only division this language needs, and a spine is
+   * an illustration rather than a printed rule.
+   */
+  .mk-feed {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-list);
+    color: var(--mk-color-text);
+  }
+
+  .mk-feed > li {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: baseline;
+    gap: var(--mk-space-hair) var(--mk-space-md);
+    padding-block: 9px;
+    border-bottom: var(--mk-rule-hair);
+  }
+
+  /* The last entry leaves the book open — the ledger does the same. */
+  .mk-feed > li:last-child {
+    border-bottom: 0;
+  }
+
+  .mk-feed__time {
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-back);
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .mk-feed__event {
+    margin: 0;
+    line-height: var(--mk-leading-list);
+  }
+
+  /*
+   * The walk-through — the numbered instruction list for steps the
+   * browser's own UI will not let an app draw. A real <ol> carries the
+   * order; the counter only PRINTS it, in the bill voice ("No. 1 ·") at
+   * the tracking the system already reserved for a bill number.
+   *
+   * Because the number comes from a counter, `start` and `value` do not
+   * move it: a walk-through starts at No. 1. Where a step points at a box
+   * the app cannot draw — a share sheet, a file picker, an install prompt
+   * — stand in a dashed .mk-empty tile and name it.
+   */
+  .mk-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: mk-step;
+    font-family: var(--mk-font-body);
+    font-size: var(--mk-size-list);
+    color: var(--mk-color-text);
+  }
+
+  .mk-steps > li {
+    counter-increment: mk-step;
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: baseline;
+    gap: var(--mk-space-hair) var(--mk-space-md);
+    padding-block: 9px;
+    border-bottom: var(--mk-rule-hair);
+  }
+
+  .mk-steps > li:last-child {
+    border-bottom: 0;
+  }
+
+  .mk-steps > li::before {
+    content: "No. " counter(mk-step) " ·";
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-bill-no);
+    text-transform: uppercase;
+    color: var(--mk-color-text-secondary);
+    white-space: nowrap;
+  }
+
+  /* Everything a step carries stacks in the second column, under the act. */
+  .mk-steps > li > * {
+    grid-column: 2;
+  }
+
+  /* The act — the typewriter utility voice, where caps are transformed. */
+  .mk-steps__act {
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mk-color-heading);
+    line-height: 1.45;
+  }
+
+  .mk-steps__note {
+    margin: 0;
+    line-height: var(--mk-leading-list);
+    color: var(--mk-color-text);
+  }
+
+  /*
+   * Reflow the hierarchy, don't shrink it: at phone width the slug takes
+   * its own line above the entry.
+   */
+  @media (max-width: 740px) {
+    .mk-feed > li,
+    .mk-steps > li {
+      grid-template-columns: 1fr;
+    }
+
+    /* Reset, or every child pushes an implicit second column back open. */
+    .mk-steps > li > * {
+      grid-column: 1;
+    }
+  }
+
+  /*
+   * A feed or a walk-through set inside prose is still furniture: the
+   * prose list indent does not apply to it.
+   */
+  .mk-prose .mk-feed,
+  .mk-prose .mk-steps {
+    padding-inline-start: 0;
+    font-size: var(--mk-size-list);
+  }
+
+  /* The row rhythm is the ledger's 9px, not the prose list's leading. */
+  .mk-prose .mk-feed > li,
+  .mk-prose .mk-steps > li {
+    margin-block: 0;
+  }
+}
