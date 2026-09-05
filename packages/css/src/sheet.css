@@ -96,6 +96,12 @@
     color: var(--mk-color-text-muted);
   }
 
+  /*
+   * The lamp is printed HERE, so the markup must not carry one: write
+   * <span class="mk-kicker mk-kicker--wire">LIVE</span>, never "· LIVE",
+   * or the slug prints two. A consumer arriving from a hand-rolled slug
+   * drops the character when it adopts the class.
+   */
   .mk-kicker--wire::before {
     content: "· ";
   }

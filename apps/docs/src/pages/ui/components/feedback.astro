@@ -116,6 +116,13 @@ import Base from '../../../layouts/Ui.astro';
       they type. The wire slug is the same state in miniature for a status
       bar: the middot is the lamp, the word is the state.
     </p>
+    <p>
+      <strong>The class prints the middot; your markup must not.</strong>
+      Write <code>LIVE</code>, not <code>&middot; LIVE</code> &mdash; the
+      <code>::before</code> strikes the lamp, so carrying one in the text
+      prints two. A consumer moving off a hand-rolled slug should drop the
+      character when it adopts the class.
+    </p>
     <div class="demo-col">
       <div class="mk-empty mk-empty--strip" role="status">
         <span class="mk-empty__message">NO CONNECTION &mdash; TRYING AGAIN</span>
