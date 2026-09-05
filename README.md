@@ -68,4 +68,4 @@ The why behind all of this lives in [`docs/`](docs):
 - [`GENERATIVE-ART.md`](docs/GENERATIVE-ART.md) — the prompt-side art doctrine (style block, exclusions, character tokens)
 - [`MOTION.md`](docs/MOTION.md) — shot on twos: the animation language
 - [`ARCHITECTURE.md`](docs/ARCHITECTURE.md) — CSS-first/Lit hybrid, packages, releases
-- [`CONTRAST.md`](docs/CONTRAST.md) — color/contrast reasoning (retired grayscale audit, kept as method template; sepia-pass outcomes live in DESIGN-LANGUAGE.md)
+- [`CONTRAST.md`](docs/CONTRAST.md) — color/contrast reasoning: the live Vaudeville sepia figures, plus the retired grayscale audit kept as the method template
