@@ -48,7 +48,7 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
 | Typography | Three faces, one job each, all weight 400 — loudness is face, size and **tracking** (.1em dateline → .4em proscenium), never boldness |
 | Modes | **Single.** The sheet-on-stage is the mode; a printed page has no dark variant. The `light-dark()` machinery is retired |
 | Motion | **Shot on twos**: `steps()` at ~83ms/frame; entrances overshoot once and land hard, holding the last frame. Motion is an event, never a state; nothing animates on scroll or hover. The one smooth easing is the 90ms struck-key press |
-| Iconography | **No icon set.** Unicode glyphs (`←` `→` `·`), CSS-drawn controls, and framed art from the pipeline. `@sethmakes/icons` remains for consumer apps' functional UIs, not for the language's own surfaces |
+| Iconography | **No icon set.** Unicode glyphs (`←` `→` `·`), CSS-drawn controls, and framed art from the pipeline. `@sethmakes/icons` remains for consumer apps' functional UIs, not for the language's own surfaces — and never for vendor marks (see *Consequences & constraints*) |
 | Voice | Playbill, not product: THE BOX OFFICE, a BILL, a DEPARTMENT, SOLD OUT, "No. 2 — coming soon". Never "Loading…", never emoji, always typographic punctuation |
 
 ## Consequences & constraints (accepted)
@@ -63,9 +63,26 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   claimants; screens get one.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
 - **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
-  (ghost rules, dashed slots); muted TEXT uses the darker `--mk-faded-ink` `#685d45` (≥4.5:1);
-  link ink deepened to `#7a4e15`; **ochre carries lines, never small text** — its ~2.5:1 on
+  (ghost rules, dashed slots): at 2.75:1 on the sheet it must never carry text. Muted TEXT
+  uses the darker `--mk-faded-ink` `#685d45` — 4.63:1 on the sheet, 5.02:1 on the inset.
+  Keep muted text off the `plate` fill, where it drops to 3.95:1. Link ink deepened to
+  `#7a4e15` (5.12:1 on the sheet). **Ochre carries lines, never small text** — 2.43:1 on
   paper fails everywhere. Links in running text carry a printed underline (WCAG 1.4.1).
+  The measured table lives in [CONTRAST.md](./CONTRAST.md).
+- **Vendor marks stay outside the language (settled 2026-09-05).** Ready Up
+  (`sethgho/readyup`, issue #64) asked which rule wins when "Continue with Google" meets
+  the no-icon-set rule. **The typographic key wins.** A sign-in button is an `.mk-btn` with
+  the vendor's name spelled out in the typewriter voice — CONTINUE WITH GOOGLE — and no
+  glyph. The two rulebooks cannot both be obeyed. Google requires its four-colour G,
+  unmodified, on white; Vaudeville has no white, no second colour and one rationed ochre.
+  A G in ink breaks Google's rules; a G in colour breaks ours. The language therefore takes
+  the deviation on its own side, where it costs one glyph instead of the palette.
+  `@sethmakes/icons` gets no vendor brand aliases — its `mk--*` entries name meanings, and a
+  trademark is not a meaning. **At the boundary:** a consumer whose legal review demands the
+  real mark ships the vendor's own button, unmodified, in a consumer-owned class outside the
+  `mk` namespace. Do not half-dress that button in Vaudeville. Do not route it through
+  `@sethmakes/icons`. A foreign object that reads as foreign is honest; a spoiled one only
+  looks like a mistake.
 - **Print rhythm is literal.** Values were copied from the source CSS; do not round them to a
   grid during refactors.
 - **Visual regression runs in one mode** (single-mode language), still at two viewports.
@@ -96,9 +113,20 @@ paper (the telegram toast is the one sanctioned fixed element — it is an event
   resurrect from git history if ever needed.
 - **Round 1 gestalt (2026-06-04):** boldly rounded, warm coral — too playful.
 - Dark mode / theme switching — a printed page has no dark variant.
+  - **The evening paper ramp — refused 2026-09-05.** Ready Up (`sethgho/readyup`,
+    issue #65) asked for a `--mk-paper-evening` ramp. It swaps the sheet for the same
+    sepia duotone at roughly twenty percent less luminance, under the operating
+    system's dark hint, and leaves every rule unchanged. The answer is no. A second
+    sheet is a second mode, and one fixed aesthetic is the first value of this
+    toolkit. The ramp also costs more than it claims. Drop the sheet to about
+    `#d0c4a8` and two text inks fall below AA: `--mk-faded-ink` goes 4.63:1 → 3.75:1,
+    and `--mk-link-ink` goes 5.12:1 → 4.15:1. "Every rule unchanged" is therefore not
+    available. An evening ramp re-cuts every ink and doubles the contrast audit. A
+    bright phone at 9 PM is the operating system's job. Ready Up made the same call
+    for its own screens. See [CONTRAST.md](./CONTRAST.md) for the measured pairs.
 - Soft UI: radius, blurred shadows, elevation scales, translucency (the old appbar blur is
   retired), gradients, scrims-as-protection, skeleton shimmer, smooth easing as default.
-- Modern line-icon libraries on language surfaces.
+- Modern line-icon libraries — and vendor brand marks — on language surfaces (issue #64).
 - Emoji, anywhere.
 
 ## Remaining open

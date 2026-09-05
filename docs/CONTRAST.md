@@ -1,11 +1,59 @@
 # WCAG Contrast Audit
 
-> **RETIRED 2026-08-13.** This audit covers the terminal/moss grayscale system,
-> replaced wholesale by the Vaudeville language (see DESIGN-LANGUAGE.md). It is
-> kept as the method template. The sepia pass completed 2026-08-15 — outcomes
-> recorded in DESIGN-LANGUAGE.md: faded `#8f8066` is decorative-tier only,
-> muted TEXT uses `--mk-faded-ink` `#685d45` (≥4.5:1), link ink deepened to
-> `#7a4e15`, ochre carries lines never small text.
+This document holds the contrast reasoning for `@sethmakes/tokens`. It has two
+parts. The **live Vaudeville figures** come first. The **retired terminal/moss
+audit** follows, kept as the method template.
+
+## Vaudeville — the sepia pairs (measured 2026-08-15, re-verified 2026-09-05)
+
+Single mode, one palette. Every pair is an ink on a paper; `#26211a` is the stage
+floor behind the sheet. Requirement: **4.5:1** (WCAG AA normal text) for anything
+that carries text. Rules, rings and hairlines are line-work, so they are reported
+as notes.
+
+| fg | value | bg | ratio | verdict |
+|---|---|---|---|---|
+| `--mk-color-heading` | `#2a241b` | sheet `#e6d9ba` | 10.98:1 | PASS |
+| `--mk-color-heading` | `#2a241b` | inset `#ede2c4` | 11.91:1 | PASS |
+| `--mk-color-heading` | `#2a241b` | plate `#d8c9a4` | 9.37:1 | PASS |
+| `--mk-color-text` | `#3a3128` | sheet | 9.09:1 | PASS |
+| `--mk-color-text-secondary` | `#5b4a33` | sheet | 6.07:1 | PASS |
+| `--mk-color-text-muted` | `#685d45` | sheet | 4.63:1 | PASS |
+| `--mk-color-text-muted` | `#685d45` | inset | 5.02:1 | PASS |
+| `--mk-color-text-muted` | `#685d45` | plate | 3.95:1 | note — keep muted text off the plate |
+| `--mk-color-link` | `#7a4e15` | sheet | 5.12:1 | PASS |
+| `--mk-color-link` | `#7a4e15` | inset | 5.56:1 | PASS |
+| `--mk-color-link` | `#7a4e15` | plate | 4.38:1 | note — keep links off the plate |
+| `--mk-color-danger` | `#7a2f1d` | sheet | 6.66:1 | PASS |
+| `--mk-color-text-on-ink` | `#e6d9ba` | ink surface `#2a241b` | 10.98:1 | PASS |
+| `--mk-color-text-on-ink` | `#e6d9ba` | stage `#26211a` | 11.41:1 | PASS |
+| `--mk-color-accent` (ochre) | `#c47a2e` | sheet | 2.43:1 | note — lines only, never text |
+| `--mk-color-rule-ghost` (faded) | `#8f8066` | sheet | 2.75:1 | note — line-work only |
+| `--mk-color-rule-hair` (tan) | `#b3a37e` | sheet | 1.77:1 | note — hairline rules only |
+
+### Notes
+
+- **Raw `--mk-faded` `#8f8066` is 2.75:1 on the sheet. It must not carry text.** It
+  is line-work: ghost rules and dashed "nothing printed here yet" slots. Muted text
+  uses `--mk-faded-ink` instead, which is the darker cut from the sepia pass. This
+  is the figure recorded against Ready Up (`sethgho/readyup`, issue #65).
+- `--mk-color-text-muted` clears AA on the sheet and the inset, but not on the
+  `plate` fill (3.95:1). The plate is a pressed or active fill; it takes full ink.
+  `--mk-color-link` behaves the same way (4.38:1 on the plate).
+- Ochre carries rules, rings and marks. At 2.43:1 it never carries small text.
+- **The evening paper ramp is refused** (issue #65 — see
+  [DESIGN-LANGUAGE.md](./DESIGN-LANGUAGE.md), *Explicitly rejected*). Ink on paper
+  holds at a darker ramp, but muted ink and link ink do not. At roughly twenty
+  percent less luminance the sheet reads about `#d0c4a8`. There `--mk-faded-ink`
+  falls to 3.75:1 and `--mk-link-ink` falls to 4.15:1. A second ramp is a second
+  audit.
+
+## Retired: the terminal/moss audit (2026-08-13)
+
+> **RETIRED 2026-08-13.** Everything below covers the terminal/moss grayscale
+> system, replaced wholesale by the Vaudeville language (see DESIGN-LANGUAGE.md).
+> It is kept as the method template. `scripts/contrast-audit.mjs` and the
+> `light-dark()` machinery it resolves no longer describe the shipped tokens.
 
 Concrete WCAG 2.1 contrast audit of the `@sethmakes/tokens` semantic color
 pairs, both light and dark modes. Closes the "concrete WCAG contrast audit of
