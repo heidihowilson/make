@@ -33,7 +33,7 @@
     color: var(--mk-color-heading);
     font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
-    letter-spacing: 0.12em;
+    letter-spacing: var(--mk-track-nav-sm);
     line-height: var(--mk-leading-tight);
   }
 

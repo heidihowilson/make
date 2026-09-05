@@ -113,8 +113,11 @@ import Base from '../../../layouts/Ui.astro';
       divides the rows. Use it for joined, left, and status changed. The
       slug column is fixed, so every hour lines up; at phone width it takes
       its own line. No dots and no spine — the hairline is the division.
+      Carry <code>role="list"</code>: a list with no marker loses its list
+      role in WebKit, and the count and the position are what a screen
+      reader needs from a feed.
     </p>
-    <ol class="mk-feed">
+    <ol class="mk-feed" role="list">
       <li>
         <span class="mk-feed__time">8:02 PM</span>
         <p class="mk-feed__event">Mr. Taylor joined the company.</p>
@@ -132,7 +135,7 @@ import Base from '../../../layouts/Ui.astro';
         <p class="mk-feed__event">The house went to SOLD OUT.</p>
       </li>
     </ol>
-    <pre><code>&lt;ol class="mk-feed"&gt;
+    <pre><code>&lt;ol class="mk-feed" role="list"&gt;
   &lt;li&gt;
     &lt;span class="mk-feed__time"&gt;8:02 PM&lt;/span&gt;
     &lt;p class="mk-feed__event"&gt;Mr. Taylor joined the company.&lt;/p&gt;

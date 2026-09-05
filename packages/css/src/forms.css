@@ -333,6 +333,15 @@
    * that is not styled — and the two pseudo-element sets must never be
    * comma-joined, because one unknown selector drops the whole rule in
    * both browsers.
+   *
+   * THE ONE STATED EXCEPTION TO THE 44px TARGET, alongside .mk-btn--xs.
+   * The rail is 20px, the switch's height, because the lever IS the
+   * switch's rail and the two must read as one object. The rail is also
+   * the element, which is what lets the base-layer ochre outline land on
+   * it; move the rail onto the engines' own track pseudo-elements to win
+   * a 44px band and the focus ring moves with it, onto a pseudo-element
+   * that cannot be checked in WebKit. A lost focus ring costs more than a
+   * short drag target. Pointer-dense UIs only; give a lever room.
    */
   .mk-lever {
     appearance: none;
@@ -373,14 +382,22 @@
   }
 
   /*
-   * The lever itself — the switch's 14px ink block, cut to the rail. The
-   * radius is stated, not assumed: every engine rounds a thumb by default,
-   * so square is enforced here.
+   * The lever itself — the switch's block, the same 14x12, TRAVELLING in
+   * the rail. 12 and not 16: a block cut to the full 16px interior meets
+   * both rules and prints as one solid bar, which is a filled rail, not a
+   * lever. The 2px of rail above and below is what makes it a block. The
+   * radius is stated, not assumed: every engine rounds a thumb by
+   * default, so square is enforced here.
+   *
+   * WebKit hangs the thumb from the top of the track and needs the 2px
+   * told to it; Firefox centres a short thumb in the track by itself, so
+   * giving it the same margin would push it 2px low.
    */
   .mk-lever::-webkit-slider-thumb {
     appearance: none;
     width: 14px;
-    height: 16px;
+    height: 12px;
+    margin-top: 2px;
     background: var(--mk-color-rule);
     border: 0;
     border-radius: var(--mk-radius-control);
@@ -389,7 +406,7 @@
 
   .mk-lever::-moz-range-thumb {
     width: 14px;
-    height: 16px;
+    height: 12px;
     background: var(--mk-color-rule);
     border: 0;
     border-radius: var(--mk-radius-control);

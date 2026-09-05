@@ -51,7 +51,7 @@
     color: var(--mk-color-heading);
     font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
-    letter-spacing: 0.12em;
+    letter-spacing: var(--mk-track-nav-sm);
     line-height: var(--mk-leading-tight);
   }
 
@@ -61,9 +61,14 @@
     letter-spacing: 0.06em;
   }
 
-  /* Hover is not information: the plate arrives instantly, and no ochre. */
+  /*
+   * Hover is not information: the plate arrives instantly, and no ochre.
+   * It is the SHEET tone, the same plate every other control turns over to
+   * — the inset tone is what a panel is already printed on, so a slot that
+   * hovered to inset would hover to nothing inside a .mk-card.
+   */
   .mk-dropslot:hover {
-    background: var(--mk-color-inset);
+    background: var(--mk-color-sheet);
   }
 
   /*
@@ -89,6 +94,15 @@
   }
 
   /*
+   * The input covers the whole tile, so IT is what the pointer lands on:
+   * the tile's cursor never gets a hit. A closed slot must not invite the
+   * click it cannot honour, so the cover says no as well.
+   */
+  .mk-dropslot__input:disabled {
+    cursor: not-allowed;
+  }
+
+  /*
    * Input group — an invitation is ONE object: the address and the keys
    * that act on it. So there is no gap between them; a gap would make it
    * three objects. The field gives up its right rule and the key's own 2px
@@ -103,7 +117,13 @@
     width: 100%;
   }
 
-  .mk-input-group > .mk-input {
+  /*
+   * A textarea is not a field a key sits beside — a key is one line high
+   * and a textarea is many — so the group takes the two one-line fields
+   * and says so here rather than leaving it to be found.
+   */
+  .mk-input-group > .mk-input,
+  .mk-input-group > .mk-select {
     flex: 1 1 auto;
     min-width: 0;
     border-inline-end: 0;
@@ -126,6 +146,20 @@
   /* Two plates butted together share one rule — they overprint, not double. */
   .mk-input-group__key + .mk-input-group__key {
     margin-inline-start: -2px;
+  }
+
+  /*
+   * The field gave its end rule away, so the ochre has to be spent on the
+   * edge that replaced it: the FIRST key's leading rule is the field's
+   * fourth side, and the focus vocabulary is "the rule turns ochre" all
+   * the way around, not on three sides. Only the first key — the rule
+   * between two keys is key-on-key and stays ink.
+   */
+  .mk-input-group:has(> .mk-input:focus) > .mk-input + .mk-input-group__key,
+  .mk-input-group:has(> .mk-select:focus) > .mk-select + .mk-input-group__key,
+  .mk-field--error .mk-input-group > .mk-input + .mk-input-group__key,
+  .mk-field--error .mk-input-group > .mk-select + .mk-input-group__key {
+    border-inline-start-color: var(--mk-color-accent);
   }
 
   /*
@@ -157,9 +191,17 @@
     width: 100%;
   }
 
-  /* Pair with .mk-thumb .mk-thumb--square — this adds the crop, not a frame. */
+  /*
+   * Pair with .mk-thumb .mk-thumb--square — this adds the crop, not a
+   * frame. The clip is taken at the CONTENT edge, not the padding edge:
+   * the 6px newsprint mat is part of the frame, and `overflow: hidden`
+   * would let the art paint straight over it the moment the app's zoom
+   * scales the picture — which is the one thing a crop bench is for. Art
+   * is always framed, so the mat survives the crop.
+   */
   .mk-crop__window {
-    overflow: hidden;
+    overflow: clip;
+    overflow-clip-margin: content-box;
     user-select: none;
     cursor: move;
   }

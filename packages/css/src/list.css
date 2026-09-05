@@ -58,7 +58,10 @@
    * The walk-through — the numbered instruction list for steps the
    * browser's own UI will not let an app draw. A real <ol> carries the
    * order; the counter only PRINTS it, in the bill voice ("No. 1 ·") at
-   * the tracking the system already reserved for a bill number.
+   * the tracking the system already reserved for a bill number. The caps
+   * in "No." are WRITTEN, so nothing transforms them — transformed caps
+   * are the typewriter utility voice, which is the act's job below, not
+   * the bill number's.
    *
    * Because the number comes from a counter, `start` and `value` do not
    * move it: a walk-through starts at No. 1. Where a step points at a box
@@ -94,7 +97,6 @@
     font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-mono-xs);
     letter-spacing: var(--mk-track-bill-no);
-    text-transform: uppercase;
     color: var(--mk-color-text-secondary);
     white-space: nowrap;
   }
