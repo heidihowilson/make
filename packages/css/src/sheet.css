@@ -17,8 +17,19 @@
    * paper.
    */
   .mk-stage {
+    /*
+     * The device edge only bites on the SIDES, so the inline half of the
+     * page padding is set on its own: the stage keeps its 20px margin
+     * everywhere, and on a notched phone held sideways it steps out past
+     * the rounded corner instead of printing the sheet under it. The
+     * insets read 0px on every other screen, so the desktop stage does
+     * not move by a pixel.
+     */
+    --mk-stage-pad-inline: 20px;
     min-height: 100svh;
     padding: var(--mk-page-pad);
+    padding-inline: max(var(--mk-stage-pad-inline), var(--mk-safe-left))
+      max(var(--mk-stage-pad-inline), var(--mk-safe-right));
     background: var(--mk-color-stage);
     display: flex;
     justify-content: center;
@@ -47,8 +58,11 @@
   }
 
   @media (max-width: 740px) {
+    /* Block padding only — the inline half stays with the rule above, so
+       the device edge keeps its say on a phone in landscape. */
     .mk-stage {
-      padding: 16px 10px 48px;
+      --mk-stage-pad-inline: 10px;
+      padding-block: 16px 48px;
     }
 
     .mk-sheet {

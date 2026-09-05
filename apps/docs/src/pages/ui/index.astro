@@ -199,11 +199,15 @@ const components = [
     <p class="prose">
       The rail pads itself above the home indicator —
       <code>--mk-safe-bottom</code>, which is zero on every screen that is
-      not a phone. The top rail does not do the same: the language&rsquo;s
-      bars sit in flow and may appear anywhere in a document, so padding one
-      for a notch would be wrong. If you really do pin a bar to the top edge
-      of the device, pad it yourself with <code>--mk-safe-top</code>. All
-      four insets read zero until the document asks for the whole screen
+      not a phone. It does that because <code>.mk-shell</code> promises the
+      rail is the last thing in the document, so the rail&rsquo;s own edge
+      is the device&rsquo;s edge. Put a <code>--bottom</code> rail anywhere
+      else — inside a sheet, above a footer — and set
+      <code>padding-bottom</code> back to <code>var(--mk-space-sm)</code>:
+      the inset buys dead space there. Nothing makes the same promise about
+      the top rail, so the top rail carries no inset. Pad it yourself with
+      <code>--mk-safe-top</code> when you pin one to the top edge. All four
+      insets read zero until the document asks for the whole screen
       (<code>viewport-fit=cover</code> in the viewport meta).
     </p>
     <pre><code>&lt;nav class="mk-appbar mk-appbar--bottom" aria-label="Primary"&gt;

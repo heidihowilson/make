@@ -59,6 +59,18 @@ gesture from becoming the state motion this doctrine forbids. The app owns the
 clock: set `--mk-dur-hold` on the key. Under reduced motion the fill prints at
 once and holds. The key still reports the hold.
 
+The fill is pixels, so the app also reports the hold in **text**. Pair the key
+with a visually-hidden `role="status"` line. Write to it when the hold begins
+and again when it completes — the same rule the telegram carries: announce in
+text, decorate in pixels. A long press is also a gesture an assistive
+technology may never pass through. An action that can only be held is
+therefore an action some people cannot reach. Give every hold key a second,
+plain path: a confirming dialog, or a menu item.
+
+The fill's leading edge is a printed 2px rule in the label's own ink, not a
+tonal step. The edge is the information, and a tonal step between two papers
+reads at 1.27:1. A rule is what divides in this language anyway.
+
 ## Designing NEW animations
 
 Checklist — a new animation belongs in the system only if all six pass:

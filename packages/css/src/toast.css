@@ -14,7 +14,11 @@
   .mk-toast {
     position: fixed;
     left: 50%;
-    bottom: max(28px, var(--mk-safe-bottom));
+    /* The inset is the ORIGIN, the 28px is the gap. max() would hand the
+       slip a 34px home indicator and call it clearance, landing the slip's
+       own rule on the indicator; add instead, and the gap is the same gap
+       on every screen. */
+    bottom: calc(var(--mk-safe-bottom) + 28px);
     /* Centred on the independent translate property so an entrance that
        animates transform — the house drop, below — composes with the
        centring instead of throwing the slip off the middle of the stage. */
@@ -58,7 +62,7 @@
    * it lands.
    */
   .mk-toast--top {
-    top: max(28px, var(--mk-safe-top));
+    top: calc(var(--mk-safe-top) + 28px);
     bottom: auto;
   }
 

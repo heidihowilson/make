@@ -69,19 +69,51 @@ import Base from '../../../layouts/Ui.astro';
       <code>[data-holding]</code> from your own touch handler, which is also
       how you work around iOS&rsquo;s shy <code>:active</code>.
       <code>.mk-btn__hint</code> sets the second line, quieter by size and
-      tracking rather than by a wash.
+      tracking rather than by a wash. The hint sits inside the key, so it
+      joins the key&rsquo;s accessible name: the second key below reads as
+      one label, &ldquo;READY UP HOLD FOR THE FULL BILL&rdquo;. Keep it to a
+      few words; never put a sentence there.
+    </p>
+    <p>
+      The fill is pixels, so announce the hold in text as well — the rule
+      the telegram already carries. Pair the key with a visually-hidden
+      <code>role="status"</code> line, and write to it twice: once when the
+      hold begins, once when it completes. A long press is also a gesture
+      an assistive technology may never pass through, so an action that can
+      only be held is an action some people cannot reach. Give every hold
+      key a second, plain path — a confirming dialog, a menu item.
     </p>
     <div class="row" style="align-items: center;">
       <button class="mk-btn mk-btn--primary mk-btn--xl mk-btn--hold" type="button">
         Ready up
         <span class="mk-btn__hint">hold for the full bill</span>
       </button>
-      <button class="mk-btn mk-btn--hold" type="button" data-holding style="--mk-dur-hold: 0ms;">
+      <button
+        class="mk-btn mk-btn--hold"
+        type="button"
+        data-holding
+        style="animation: none; background-size: 38% 100%;"
+      >
         Held
-        <span class="mk-btn__hint">the fill, at rest</span>
+        <span class="mk-btn__hint">the fill, mid-hold</span>
+      </button>
+      <button
+        class="mk-btn mk-btn--danger mk-btn--hold"
+        type="button"
+        data-holding
+        style="animation: none; background-size: 62% 100%;"
+      >
+        Strike the set
+        <span class="mk-btn__hint">hold to strike</span>
       </button>
     </div>
-    <p class="note">— the second key is frozen at <code>--mk-dur-hold: 0ms</code>, so this page still loads at rest</p>
+    <p class="note">
+      — the last two keys are frozen with <code>animation: none</code>, so the
+      page loads mid-hold. The leading edge is a printed 2px rule in the
+      label&rsquo;s own ink, not a tonal step: the fill is the whole report,
+      and paper on paper reads 1.27:1. Each plate fills with the ink its own
+      label can be read on — the STOP-red key fills with ink, never with paper
+    </p>
     <pre><code>&lt;button class="mk-btn mk-btn--primary mk-btn--xl mk-btn--hold" type="button"&gt;
   Ready up
   &lt;span class="mk-btn__hint"&gt;hold for the full bill&lt;/span&gt;
@@ -156,8 +188,13 @@ import Base from '../../../layouts/Ui.astro';
       line, so nobody nudges a dot with a magic margin. Left empty the slot
       prints the dot itself — square, because the only round things in the
       system are the medallion and the radio. <code>--lit</code> turns the
-      bulb on in ochre, which spends the view&rsquo;s one accent spot; on the
-      ochre plate the ration is already gone, so leave that mark in ink.
+      bulb on in ochre, and it is an ink-plate treatment:
+      <code>.mk-btn--primary</code> only. Ochre clears the bar on ink
+      (4.52:1) and on nothing else — a lit mark on a paper plate reads
+      2.08&ndash;2.64:1, and the house rule is that ochre carries lines,
+      never small marks. On a paper key say &ldquo;on&rdquo; with ink shape
+      — a filled mark against a hollow one. A lit mark also spends the
+      view&rsquo;s one accent spot.
     </p>
     <div class="row" style="align-items: center;">
       <button class="mk-btn" type="button">
@@ -169,7 +206,7 @@ import Base from '../../../layouts/Ui.astro';
         <span class="mk-btn__mark mk-btn__mark--lit" aria-hidden="true"></span>
       </button>
       <button class="mk-btn" type="button">
-        <span class="mk-btn__mark" aria-hidden="true">&#10035;</span>
+        <span class="mk-btn__mark" aria-hidden="true">&#10034;</span>
         Struck
       </button>
     </div>
