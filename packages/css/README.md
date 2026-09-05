@@ -54,8 +54,8 @@ Checked state on choices answers to `:checked`, `[aria-checked="true"]`, or the
 | Page | `.mk-stage` + `.mk-sheet` (the sheet on the stage floor — once per page), `.mk-kicker` (the typewriter announcement voice; `--wire` = the status lamp slug, "· LIVE" — the class prints the middot) |
 | Buttons | `.mk-btn` (struck key) + `--primary` (solid ink) / `--ghost` (nav link) / `--danger` / `--warning` (the ochre plate — spends the view's accent ration) / `--active` (held down) / `--sm` / `--xs` / `--lg` / `--xl` (the 56px hero key) / `--block` / `--icon` / `--hold` (+ `__hint` — press and hold) / `__mark` (`--lit`) |
 | Badges & stamps | `.mk-badge` (ticket stub) + `--accent` / `--success` (solid ink) / `--warning` / `--danger` / `--sm` / `--dot`; `.mk-stamp` (the rubber-stamp verdict; `--danger`; the parent positions it) |
-| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice` (+ `--ticket` with `__title` / `__note` — one large ruled option, the hidden radio makes the whole row the choice), `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever) |
-| Surfaces | `.mk-card` (a PANEL: 2px ink rule; `--sunken` = quiet hairline / `--flush`), `.mk-table` (the ledger; `.mk-table-wrap`, `__num`), `.mk-divider` (printed rules: `--double` / `--double-thin` / `--thick` / `--dash` / `--accent` / `--label`), `.mk-disclosure` (programme notes; `__body`) |
+| Forms | `.mk-field` (`> label`, `__help`, `__error`, `--error`), `.mk-input`, `.mk-select`, `.mk-textarea`, `.mk-fieldset`, `.mk-choice` (+ `--ticket` with `__title` / `__note` — one large ruled option, the hidden radio makes the whole row the choice), `.mk-checkbox` (stamped X), `.mk-radio` (the one round control), `.mk-switch` (stage lever), `.mk-lever` (the same rail as a styled `range`; a 20px rail — the one stated exception to the 44px target besides `.mk-btn--xs`), `.mk-dropslot` (`__input` / `__title` / `__note` — the dashed slot for materials), `.mk-input-group` (`__key` — keys struck flush on the field's or the select's right rule; a textarea is out of scope), `.mk-crop` (`__window` / `__hint` — the square crop bench) |
+| Surfaces | `.mk-card` (a PANEL: 2px ink rule; `--sunken` = quiet hairline / `--flush`), `.mk-table` (the ledger; `.mk-table-wrap`, `__num`), `.mk-feed` (`__time` / `__event` — the dateline feed; a `ul` or `ol` of `li`, never a `dl`; carry `role="list"`, because a markerless list loses its list role in WebKit), `.mk-steps` (`__act` / `__note` — the numbered walk-through), `.mk-divider` (printed rules: `--double` / `--double-thin` / `--thick` / `--dash` / `--accent` / `--label`), `.mk-disclosure` (programme notes; `__body`) |
 | Chrome | `.mk-appbar` (ruled nav rail — **not sticky**; `--bottom`), `.mk-shell` (`__main`), `.mk-pager` (the neighbouring acts by name: `__prev` / `__next` / `__label` / `__dots` / `__dot` / `--current` — no count, no numbering) |
 | Overlays | `.mk-dialog` (native `<dialog>` playbill: `__title`, `__actions`, `__body`, scrim via `::backdrop`; `--sheet` is the phone's bottom sheet — sheet below 740px, centred playbill above, with `--bill` the one escape for a phone-width column), `.mk-toast` (telegram slip: `--success` / `--warning` / `--danger` / `--top`; fixed, one at a time), `.mk-tabs` (departments on a rule; `__tab`; selected via `aria-selected` / `aria-current` / `--active`) |
 | Feedback | `.mk-alert` (notice from the management: `__title`, `__actions` — the in-flow confirm, `--info` / `--success` / `--warning` / `--danger`), `.mk-spinner` (typing dots — there are no spinners; `--sm` / `--md`), `.mk-progress` (ledger bar; `--sm`, `:indeterminate` hatch-march), `.mk-empty` (the dashed tile: `__title` / `__message` / `__action` / `--strip` = the one-line wire strip) |
@@ -171,6 +171,14 @@ waiting vocabulary is already here — no build step:
 and the datalist dropdown are **browser chrome — un-styleable cross-browser by
 spec** — so there is no `.mk-stepper` or `.mk-combobox`. A richer styled combobox
 would be a future `@sethmakes/components` element, not a CSS class.
+
+Some boxes belong to the browser, not to the app: the share sheet, the OS file
+picker, the install prompt. Where a walk-through must show one, stand in a
+`.mk-empty` dashed tile and name it — the dashed rule already means "nothing is
+printed here yet", and a box the app cannot draw is nothing printed here. Do not
+counterfeit browser chrome in ink. See the
+[dashed tile](https://design.sethgholson.com/ui/components/feedback) on the
+feedback page.
 
 ## SSR
 

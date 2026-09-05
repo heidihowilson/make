@@ -1,5 +1,10 @@
 ---
 import Base from '../../../layouts/Ui.astro';
+
+// Demo art comes from the sethmakes-art pipeline (tools/art) — the cast
+// registry rendered through the locked style block. Never stock photos.
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const art = (file: string) => (base + 'art/' + file).replace(/\/+/g, '/');
 ---
 
 <Base title="Forms">
@@ -9,6 +14,8 @@ import Base from '../../../layouts/Ui.astro';
     bottom rule is 2px ink — the line you type on. Labels speak in the
     typewriter voice, placeholders in Goudy italic. Checkboxes stamp an ink
     X, the radio is the one round control, and the switch is a stage lever.
+    Beyond the controls: a dashed slot for materials, keys struck onto a
+    field&rsquo;s edge, and the crop bench.
   </p>
 
   <section class="mk-card">
@@ -191,6 +198,32 @@ import Base from '../../../layouts/Ui.astro';
   </section>
 
   <section class="mk-card">
+    <h2>THE LEVER</h2>
+    <p>
+      The switch&rsquo;s rail with the block free to travel. A switch has an
+      ON state and spends the ochre on it; a lever has only a position, so
+      the rail stays ink and the ration is left unspent. Both the WebKit and
+      the Firefox pseudo-elements are dressed — a range styled for one
+      engine is a range that is not styled.
+    </p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-house">House lights</label>
+        <input class="mk-lever" id="d-house" type="range" min="0" max="100" value="60" />
+      </div>
+      <div class="mk-field">
+        <label for="d-rope">Out of service</label>
+        <input class="mk-lever" id="d-rope" type="range" min="0" max="100" value="25" disabled />
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-field"&gt;
+  &lt;label for="house"&gt;House lights&lt;/label&gt;
+  &lt;input class="mk-lever" id="house" type="range"
+         min="0" max="100" value="60" /&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
     <h2>ERROR STATE</h2>
     <p>
       The rule turns ochre all the way around and the message speaks in
@@ -244,6 +277,115 @@ import Base from '../../../layouts/Ui.astro';
     <pre><code>&lt;input class="mk-input" value="Closed for the season" disabled /&gt;
 &lt;input class="mk-checkbox" type="checkbox" disabled /&gt;
 &lt;input class="mk-switch" type="checkbox" disabled /&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>SUBMIT YOUR MATERIALS</h2>
+    <p>
+      The dashed rule already means nothing is printed here yet, so a slot
+      awaiting a photograph is drawn with the same rule — there is no second
+      dashed idiom. The real file input lies over the whole tile, invisible
+      but never hidden, so the picker opens with no script and the keyboard
+      still reaches it. When the photograph arrives, swap the slot for a
+      <code>.mk-thumb</code> or the crop bench below. Drag and drop is the
+      app&rsquo;s; the class ships the slot.
+    </p>
+    <div class="field-demo">
+      <label class="mk-dropslot">
+        <input class="mk-dropslot__input" type="file" accept="image/*" />
+        <span class="mk-dropslot__title">SUBMIT YOUR MATERIALS</span>
+        <span class="mk-dropslot__note">One photograph · JPG or PNG</span>
+      </label>
+      <label class="mk-dropslot">
+        <input class="mk-dropslot__input" type="file" accept="image/*" disabled />
+        <span class="mk-dropslot__title">THE DARKROOM IS CLOSED</span>
+        <span class="mk-dropslot__note">Prints resume Thursday</span>
+      </label>
+    </div>
+    <pre><code>&lt;label class="mk-dropslot"&gt;
+  &lt;input class="mk-dropslot__input" type="file" accept="image/*" /&gt;
+  &lt;span class="mk-dropslot__title"&gt;SUBMIT YOUR MATERIALS&lt;/span&gt;
+  &lt;span class="mk-dropslot__note"&gt;One photograph · JPG or PNG&lt;/span&gt;
+&lt;/label&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>KEYS ON THE FIELD</h2>
+    <p>
+      An invitation is one object — the address and the keys that act on it
+      — so the keys sit flush on the field&rsquo;s right rule with no gap.
+      The key drops its letterpress offset, because there is nothing for it
+      to sit above, and presses to the plate tone instead of moving. Two
+      keys fit; both keep the 44px target, and at phone width the tracking
+      tightens rather than the target. Keys sit on the right; there is no
+      leading slot.
+    </p>
+    <div class="field-demo">
+      <div class="mk-field">
+        <label for="d-invite">Invitation</label>
+        <div class="mk-input-group">
+          <input class="mk-input" id="d-invite" type="text" readonly value="follies.show/box/8FQ2" />
+          <button class="mk-btn mk-input-group__key" type="button">Copy</button>
+        </div>
+      </div>
+      <div class="mk-field">
+        <label for="d-invite-2">Invitation · two keys</label>
+        <div class="mk-input-group">
+          <input class="mk-input" id="d-invite-2" type="text" readonly value="follies.show/box/8FQ2" />
+          <button class="mk-btn mk-input-group__key" type="button">Copy</button>
+          <button class="mk-btn mk-input-group__key" type="button">Share</button>
+        </div>
+      </div>
+    </div>
+    <p>
+      <code>readonly</code> is not <code>disabled</code> — a copyable
+      address keeps its solid rule.
+    </p>
+    <pre><code>&lt;div class="mk-input-group"&gt;
+  &lt;input class="mk-input" id="invite" type="text" readonly
+         value="follies.show/box/8FQ2" /&gt;
+  &lt;button class="mk-btn mk-input-group__key" type="button"&gt;Copy&lt;/button&gt;
+  &lt;button class="mk-btn mk-input-group__key" type="button"&gt;Share&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE CROP BENCH</h2>
+    <p>
+      Art is always framed, so the window is a square <code>.mk-thumb</code>
+      that clips. The MOVE · PINCH hint is set in type, because there is no
+      icon set. The lever is the zoom. The pinch and pan engine stays in the
+      app — set <code>touch-action: none</code> on the window when you wire
+      it; the library does not, or a page with no engine could not be
+      scrolled.
+    </p>
+    <div class="crop-demo">
+      <div class="mk-crop">
+        <div class="mk-thumb mk-thumb--square mk-crop__window">
+          <img
+            src={art('portrait-cadbury.jpg')}
+            alt="Cadbury the bookkeeper, framed for the programme"
+            width="848" height="1264"
+          />
+        </div>
+        <p class="mk-crop__hint">MOVE · PINCH</p>
+        <div class="mk-field">
+          <label for="d-zoom">Zoom</label>
+          <input class="mk-lever" id="d-zoom" type="range" min="100" max="300" value="140" />
+        </div>
+      </div>
+    </div>
+    <pre><code>&lt;div class="mk-crop"&gt;
+  &lt;div class="mk-thumb mk-thumb--square mk-crop__window"&gt;
+    &lt;img src="/art/portrait-cadbury.jpg" alt="Cadbury the bookkeeper" /&gt;
+  &lt;/div&gt;
+  &lt;p class="mk-crop__hint"&gt;MOVE · PINCH&lt;/p&gt;
+  &lt;div class="mk-field"&gt;
+    &lt;label for="zoom"&gt;Zoom&lt;/label&gt;
+    &lt;input class="mk-lever" id="zoom" type="range"
+           min="100" max="300" value="140" /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
   </section>
 
   <section class="mk-card">
@@ -324,6 +466,10 @@ import Base from '../../../layouts/Ui.astro';
       flex-direction: column;
       gap: var(--mk-space-lg);
       max-width: 24rem;
+    }
+
+    .crop-demo {
+      max-width: 20rem;
     }
 
     .form-actions {

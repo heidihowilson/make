@@ -6,8 +6,9 @@ import Base from '../../../layouts/Ui.astro';
   <h1>Surfaces</h1>
   <p>
     Structure is printed, not floated: panels are 2px ink rules, the table is
-    the ledger, dividers are rules with fixed meanings, disclosures are
-    programme notes, and tabs are departments on a rule.
+    the ledger and two one-column lists are its relatives, dividers are rules
+    with fixed meanings, disclosures are programme notes, and tabs are
+    departments on a rule.
   </p>
 
   <section class="mk-card">
@@ -139,6 +140,91 @@ import Base from '../../../layouts/Ui.astro';
     &lt;/tr&gt;&lt;/tfoot&gt;
   &lt;/table&gt;
 &lt;/div&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE DATELINE FEED</h2>
+    <p>
+      The ledger&rsquo;s one-column relative. The hour is stamped left in the
+      column-head voice, the event is set right in prose, and a hairline
+      divides the rows. Use it for joined, left, and status changed. The
+      slug column is fixed, so every hour lines up; at phone width it takes
+      its own line. No dots and no spine — the hairline is the division.
+      Carry <code>role="list"</code>: a list with no marker loses its list
+      role in WebKit, and the count and the position are what a screen
+      reader needs from a feed.
+    </p>
+    <p>
+      <strong>The element contract is a list of <code>&lt;li&gt;</code>.</strong>
+      <code>&lt;ol&gt;</code> is shown here because a feed has a real
+      chronology; <code>&lt;ul&gt;</code> takes the same class and renders
+      identically. A <code>&lt;dl&gt;</code> does <em>not</em> &mdash; the
+      row rules select <code>&gt; li</code>, so a definition list gets no
+      grid, no hairline and no slug column. A time and its event look like a
+      term and its definition, so this is worth saying out loud: convert the
+      markup, do not reach for the class.
+    </p>
+    <ol class="mk-feed" role="list">
+      <li>
+        <span class="mk-feed__time">8:02 PM</span>
+        <p class="mk-feed__event">Mr. Taylor joined the company.</p>
+      </li>
+      <li>
+        <span class="mk-feed__time">8:14 PM</span>
+        <p class="mk-feed__event">Mr. Borland took the flannel wardrobe off the bill.</p>
+      </li>
+      <li>
+        <span class="mk-feed__time">8:31 PM</span>
+        <p class="mk-feed__event">Mr. Wilson left, over the fence, as is his custom.</p>
+      </li>
+      <li>
+        <span class="mk-feed__time">9:00 PM</span>
+        <p class="mk-feed__event">The house went to SOLD OUT.</p>
+      </li>
+    </ol>
+    <pre><code>&lt;ol class="mk-feed" role="list"&gt;
+  &lt;li&gt;
+    &lt;span class="mk-feed__time"&gt;8:02 PM&lt;/span&gt;
+    &lt;p class="mk-feed__event"&gt;Mr. Taylor joined the company.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+  </section>
+
+  <section class="mk-card">
+    <h2>THE WALK-THROUGH</h2>
+    <p>
+      A numbered instruction list for the steps the browser&rsquo;s own UI
+      will not let you draw. It is a real <code>&lt;ol&gt;</code>, so the
+      order is semantics; the counter only prints it in the bill voice,
+      &ldquo;No. 1 ·&rdquo;. The number comes from a CSS counter, so
+      <code>start</code> and <code>value</code> do not move it — a
+      walk-through starts at No. 1. Where a step points at a box the app
+      cannot draw, stand in a <code>.mk-empty</code> dashed tile (see
+      FEEDBACK).
+    </p>
+    <ol class="mk-steps">
+      <li>
+        <span class="mk-steps__act">Tap Share</span>
+        <p class="mk-steps__note">
+          The button at the foot of the browser — the one the management
+          cannot draw for you.
+        </p>
+      </li>
+      <li>
+        <span class="mk-steps__act">Choose Add to Home Screen</span>
+        <p class="mk-steps__note">Scroll the sheet; it sits below the printing options.</p>
+      </li>
+      <li>
+        <span class="mk-steps__act">Confirm</span>
+        <p class="mk-steps__note">The bill takes its place among your other acts.</p>
+      </li>
+    </ol>
+    <pre><code>&lt;ol class="mk-steps"&gt;
+  &lt;li&gt;
+    &lt;span class="mk-steps__act"&gt;Tap Share&lt;/span&gt;
+    &lt;p class="mk-steps__note"&gt;The button at the foot of the browser.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
   </section>
 
   <section class="mk-card">

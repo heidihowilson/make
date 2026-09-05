@@ -4,6 +4,13 @@
    * meaning "nothing is printed here yet". No grey block, no illustration;
    * the dashed line IS the vocabulary for absence. Speak in character:
    * "No. 2 — coming soon", never "No results found".
+   *
+   * The same tile stands in for BROWSER-OWNED UI. The share sheet, the OS
+   * file picker and the install prompt belong to the browser, not to the
+   * app. Where a walk-through must show one, print a dashed tile and name
+   * it: a box the app cannot draw is a box with nothing printed in it.
+   * Never counterfeit browser chrome in ink. This needs no class of its
+   * own — it is .mk-empty, used honestly.
    */
   .mk-empty {
     display: flex;
@@ -26,7 +33,7 @@
     color: var(--mk-color-heading);
     font-family: var(--mk-font-typewriter);
     font-size: var(--mk-size-dept-sm);
-    letter-spacing: 0.12em;
+    letter-spacing: var(--mk-track-nav-sm);
     line-height: var(--mk-leading-tight);
   }
 

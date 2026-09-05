@@ -1,0 +1,229 @@
+@layer mk.components {
+  /*
+   * Form composites — what you BUILD out of the controls. forms.css holds
+   * the slots, the choices and the levers; this file holds the slot you
+   * submit a photograph to, a field with keys struck onto its edge, and the
+   * bench you crop a portrait on. Kept apart so a consumer hunting for "a
+   * slot for a photograph" is not reading past the checkbox.
+   *
+   * All three ship the LOOK. Drag-and-drop and the pinch/pan engine belong
+   * to the app; nothing here waits on a script.
+   */
+
+  /*
+   * Drop slot — the dashed rule already means "nothing is printed here
+   * yet" (the empty tile, the skeleton, a disabled field's bottom rule). A
+   * slot awaiting a photograph IS that, so it borrows the meaning: there is
+   * no second dashed idiom in this language.
+   *
+   * The real file input lies over the whole tile — invisible, never hidden
+   * — so the picker opens with no script and the keyboard still reaches it.
+   */
+  .mk-dropslot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mk-space-xxs);
+    border: var(--mk-rule-dash);
+    padding: var(--mk-space-xl) var(--mk-space-lg);
+    background: transparent;
+    color: var(--mk-color-text-muted);
+    text-align: center;
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono);
+    letter-spacing: var(--mk-track-mono);
+    cursor: pointer;
+  }
+
+  .mk-dropslot__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* The lead line — the same department voice the empty tile speaks in. */
+  .mk-dropslot__title {
+    color: var(--mk-color-heading);
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-dept-sm);
+    letter-spacing: var(--mk-track-nav-sm);
+    line-height: var(--mk-leading-tight);
+  }
+
+  /* The terms of the slot — a short slug, never a sentence that matters. */
+  .mk-dropslot__note {
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: 0.06em;
+  }
+
+  /*
+   * Hover is not information: the plate arrives instantly, and no ochre.
+   * It is the SHEET tone, the same plate every other control turns over to
+   * — the inset tone is what a panel is already printed on, so a slot that
+   * hovered to inset would hover to nothing inside a .mk-card.
+   */
+  .mk-dropslot:hover {
+    background: var(--mk-color-sheet);
+  }
+
+  /*
+   * An element at zero opacity cannot paint its own ring, so the tile wears
+   * the input's focus for it.
+   */
+  .mk-dropslot:has(> .mk-dropslot__input:focus-visible) {
+    outline: 2px solid var(--mk-color-focus);
+    outline-offset: 3px;
+  }
+
+  /* Closed for the season — tan rule, emptied fill, no opacity wash. */
+  .mk-dropslot:has(> .mk-dropslot__input:disabled) {
+    border-color: var(--mk-color-disabled-line);
+    color: var(--mk-color-disabled-text);
+    background: transparent;
+    cursor: not-allowed;
+  }
+
+  /* The lead line goes with it — the whole tile fades, or none of it does. */
+  .mk-dropslot:has(> .mk-dropslot__input:disabled) .mk-dropslot__title {
+    color: var(--mk-color-disabled-text);
+  }
+
+  /*
+   * The input covers the whole tile, so IT is what the pointer lands on:
+   * the tile's cursor never gets a hit. A closed slot must not invite the
+   * click it cannot honour, so the cover says no as well.
+   */
+  .mk-dropslot__input:disabled {
+    cursor: not-allowed;
+  }
+
+  /*
+   * Input group — an invitation is ONE object: the address and the keys
+   * that act on it. So there is no gap between them; a gap would make it
+   * three objects. The field gives up its right rule and the key's own 2px
+   * ink becomes the shared edge.
+   *
+   * When the photograph arrives the app swaps the slot above for a
+   * .mk-thumb or the crop bench below; no filled state ships here.
+   */
+  .mk-input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  /*
+   * A textarea is not a field a key sits beside — a key is one line high
+   * and a textarea is many — so the group takes the two one-line fields
+   * and says so here rather than leaving it to be found.
+   */
+  .mk-input-group > .mk-input,
+  .mk-input-group > .mk-select {
+    flex: 1 1 auto;
+    min-width: 0;
+    border-inline-end: 0;
+  }
+
+  /*
+   * The key is set INTO the rule, so it loses the letterpress offset —
+   * there is nothing for it to sit above. In a dense row the field shrinks
+   * and the key never does: 44px is the floor, not a preference. Keys sit
+   * on the right; nothing has asked for a leading slot.
+   */
+  .mk-input-group__key {
+    flex: none;
+    min-height: 44px;
+    padding-inline: var(--mk-space-sm);
+    letter-spacing: var(--mk-track-nav-sm);
+    box-shadow: none;
+  }
+
+  /* Two plates butted together share one rule — they overprint, not double. */
+  .mk-input-group__key + .mk-input-group__key {
+    margin-inline-start: -2px;
+  }
+
+  /*
+   * The field gave its end rule away, so the ochre has to be spent on the
+   * edge that replaced it: the FIRST key's leading rule is the field's
+   * fourth side, and the focus vocabulary is "the rule turns ochre" all
+   * the way around, not on three sides. Only the first key — the rule
+   * between two keys is key-on-key and stays ink.
+   */
+  .mk-input-group:has(> .mk-input:focus) > .mk-input + .mk-input-group__key,
+  .mk-input-group:has(> .mk-select:focus) > .mk-select + .mk-input-group__key,
+  .mk-field--error .mk-input-group > .mk-input + .mk-input-group__key,
+  .mk-field--error .mk-input-group > .mk-select + .mk-input-group__key {
+    border-inline-start-color: var(--mk-color-accent);
+  }
+
+  /*
+   * Pressed in place: the plate tone, not the 2px shift. A key that moves
+   * inside a rule breaks the rule. This REMOVES the one smooth transition
+   * rather than adding one — nothing here animates.
+   */
+  .mk-input-group__key:active {
+    transform: none;
+    box-shadow: none;
+    background: var(--mk-color-plate);
+  }
+
+  /*
+   * Crop bench — art is always framed, and a crop is no exception: the
+   * window is a square .mk-thumb that adds only the clip. The MOVE · PINCH
+   * hint is set in type because there is no icon set — the instruction is
+   * printed, like a card in a shop window. The zoom is a plain .mk-lever.
+   *
+   * touch-action is deliberately NOT set. The pinch and pan engine is the
+   * app's, and a library that kills page scrolling on a page with no engine
+   * is a library that broke scrolling. Set `touch-action: none` on the
+   * window when you wire the engine.
+   */
+  .mk-crop {
+    display: flex;
+    flex-direction: column;
+    gap: var(--mk-space-xs);
+    width: 100%;
+  }
+
+  /*
+   * Pair with .mk-thumb .mk-thumb--square — this adds the crop, not a
+   * frame. The clip is taken at the CONTENT edge, not the padding edge:
+   * the 6px newsprint mat is part of the frame, and `overflow: hidden`
+   * would let the art paint straight over it the moment the app's zoom
+   * scales the picture — which is the one thing a crop bench is for. Art
+   * is always framed, so the mat survives the crop.
+   */
+  .mk-crop__window {
+    overflow: clip;
+    overflow-clip-margin: content-box;
+    user-select: none;
+    cursor: move;
+  }
+
+  .mk-crop__hint {
+    margin: 0;
+    text-align: center;
+    font-family: var(--mk-font-typewriter);
+    font-size: var(--mk-size-mono-xs);
+    letter-spacing: var(--mk-track-mono);
+    text-transform: uppercase;
+    color: var(--mk-color-text-muted);
+  }
+
+  /*
+   * Reflow the hierarchy, don't shrink it: at phone width the tracking
+   * tightens so two keys keep both their words, and the 44px target holds.
+   */
+  @media (max-width: 740px) {
+    .mk-input-group__key {
+      padding-inline: var(--mk-space-xs);
+      letter-spacing: var(--mk-track-dept);
+    }
+  }
+}

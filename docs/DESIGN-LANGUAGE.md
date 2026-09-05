@@ -62,6 +62,10 @@ overlay entering, a telegram arriving), never a state. If a treatment could not 
   A `--warning` button, an error message, a focus ring and a lever's ON state are all
   claimants; screens get one. The one relaxation is the status-ink amendment below.
 - **Rules replace borders-as-taste.** Pick the rule for the meaning of the break, not the look.
+- **The dashed rule also stands in for browser chrome.** The share sheet, the file picker
+  and the install prompt belong to the browser. Where a screen must show one, print a dashed
+  tile and name it; a box the app cannot draw is a box with nothing printed in it. Never
+  counterfeit browser chrome in ink.
 - **Contrast care (sepia pass done 2026-08-15).** Faded `#8f8066` is decorative-tier only
   (ghost rules, dashed slots): at 2.75:1 on the sheet it must never carry ACTIVE text. The
   disabled state is the one exception, and WCAG 1.4.3 exempts it as an inactive component.
